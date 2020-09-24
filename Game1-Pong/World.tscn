@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World.gd" type="Script" id=3]
+[ext_resource path="res://Goal.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 160, 10 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+margin_right = 320.0
+margin_bottom = 180.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MiddleLine" type="ColorRect" parent="."]
+margin_left = 159.0
+margin_top = 2.0
+margin_right = 161.0
+margin_bottom = 177.0
+color = Color( 1, 1, 1, 0.498039 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BallSpawn" type="Position2D" parent="."]
+visible = false
+position = Vector2( 160, 96 )
+
+[node name="Player2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 12, 96 )
+player_index = 2
+
+[node name="Player1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 308, 96 )
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 160, -8 )
+collision_layer = 4
+collision_mask = 10
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
+shape = SubResource( 1 )
+
+[node name="Wall2" type="StaticBody2D" parent="Walls"]
+position = Vector2( 160, 188 )
+collision_layer = 4
+collision_mask = 10
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
+shape = SubResource( 1 )
+
+[node name="Ball" parent="." instance=ExtResource( 2 )]
+position = Vector2( 160, 96 )
+
+[node name="Goals" type="Node2D" parent="."]
+
+[node name="Goal1" parent="Goals" instance=ExtResource( 4 )]
+position = Vector2( 332, 96 )
+player_goal = 2
+
+[node name="Goal2" parent="Goals" instance=ExtResource( 4 )]
+position = Vector2( -12, 96 )
+
+[node name="LabelP2" type="Label" parent="."]
+margin_left = 143.0
+margin_top = 12.0
+margin_right = 157.0
+margin_bottom = 43.0
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelP1" type="Label" parent="."]
+margin_left = 169.0
+margin_top = 12.0
+margin_right = 183.0
+margin_bottom = 43.0
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
