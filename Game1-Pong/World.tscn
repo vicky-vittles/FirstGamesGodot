@@ -42,7 +42,9 @@ position = Vector2( 308, 96 )
 
 [node name="Walls" type="Node2D" parent="."]
 
-[node name="Wall" type="StaticBody2D" parent="Walls"]
+[node name="Wall" type="StaticBody2D" parent="Walls" groups=[
+"walls",
+]]
 position = Vector2( 160, -8 )
 collision_layer = 4
 collision_mask = 10
@@ -53,7 +55,9 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
 shape = SubResource( 1 )
 
-[node name="Wall2" type="StaticBody2D" parent="Walls"]
+[node name="Wall2" type="StaticBody2D" parent="Walls" groups=[
+"walls",
+]]
 position = Vector2( 160, 188 )
 collision_layer = 4
 collision_mask = 10
@@ -69,11 +73,15 @@ position = Vector2( 160, 96 )
 
 [node name="Goals" type="Node2D" parent="."]
 
-[node name="Goal1" parent="Goals" instance=ExtResource( 4 )]
+[node name="Goal1" parent="Goals" groups=[
+"goals",
+] instance=ExtResource( 4 )]
 position = Vector2( 332, 96 )
 player_goal = 2
 
-[node name="Goal2" parent="Goals" instance=ExtResource( 4 )]
+[node name="Goal2" parent="Goals" groups=[
+"goals",
+] instance=ExtResource( 4 )]
 position = Vector2( -12, 96 )
 
 [node name="LabelP2" type="Label" parent="."]
