@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Entities/Asteroids/Asteroid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Asteroids/asteroid-4.png" type="Texture" id=2]
+
+[node name="LargeAsteroid" instance=ExtResource( 1 )]
+scale = Vector2( 2.5, 2.5 )
+SPEED = 160
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+visible = false
+polygon = PoolVector2Array( -6, -16, 0, -15, 8, -10, 20, -2, 21, 8, 10, 17, 1, 13, -1, 9, -4, 14, -11, 16, -17, 11, -20, 4, -22, -2, -12, -13 )
+
+[node name="CollisionPolygon2D" parent="Hurtbox" index="0"]
+visible = false
+polygon = PoolVector2Array( -6, -16, 0, -14.8, 20, -2, 20.8, 8, 10, 16.8, 1.2, 12.8, -0.8, 9.2, -4, 14, -10.8, 16, -17.2, 10.8, -22, -2, -12, -13.2 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+position = Vector2( -8.9407e-08, 0.500001 )
+scale = Vector2( 2.2, 1.65 )

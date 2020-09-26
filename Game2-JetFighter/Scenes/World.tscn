@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/World.gd" type="Script" id=2]
+[ext_resource path="res://Assets/m5x7.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+font_data = ExtResource( 3 )
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1280, 0, 0, 0, 0, 0, 1280, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="StartCountdownLabel" type="Label" parent="."]
+margin_left = 608.0
+margin_top = 304.0
+margin_right = 685.0
+margin_bottom = 467.0
+custom_fonts/font = SubResource( 2 )
+text = "3...
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1024, 384 )
+player_index = 1
+
+[node name="Player2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 256, 384 )
+player_index = 2
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Asteroids" type="Node2D" parent="."]
+
+[node name="AsteroidSpawn" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="AsteroidSpawnLocation" type="PathFollow2D" parent="AsteroidSpawn"]
+
+[node name="GameStartTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="AsteroidSpawnTimer" type="Timer" parent="."]
+[connection signal="timeout" from="GameStartTimer" to="." method="_on_GameStartTimer_timeout"]
+[connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_AsteroidSpawnTimer_timeout"]
