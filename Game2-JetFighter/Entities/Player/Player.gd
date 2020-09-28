@@ -1,5 +1,12 @@
 extends KinematicBody2D
 
+class_name Player
+
+signal update_health(player_index, new_amount)
+signal player_died(player_index)
+signal screen_exited(player_index)
+signal screen_entered(player_index)
+
 const SCREEN_WIDTH = 1280
 const SCREEN_WIDTH_PERCENTAGE = 0.3
 const SPEED = SCREEN_WIDTH * SCREEN_WIDTH_PERCENTAGE
@@ -16,6 +23,7 @@ var direction = Vector2(0, -1)
 
 func _ready():
 	$"..".connect("game_started", self, "_on_World_game_started")
+	$"..".connect("game_won", self, "_on_World_game_won")
 	$Health.connect("update_health", self, "_on_Health_update_health")
 	$Health.connect("died", self, "_on_Health_died")
 	
@@ -52,6 +60,8 @@ func _physics_process(delta):
 		rotation = direction.angle() + PI/2
 		
 		if Input.is_action_just_pressed("shoot_" + str(player_index)):
+			$LaserShootSFX.play_random()
+			
 			var bullet = BULLET.instance()
 			bullet.position = $BulletSpawn.global_position
 			bullet.shoot(player_index, direction)
@@ -83,12 +93,12 @@ func _physics_process(delta):
 func _on_Hurtbox_area_entered(area):
 	if (area.is_in_group("bullet") or area.is_in_group("asteroid")) and current_state != STATES.DEAD:
 		$Health.take_damage(5)
+		$HurtSFX.play_random()
 		$DamageAnimations.play("take_damage")
 
 
 func _on_Health_update_health(new_amount):
-	#emitir outro sinal, para que HUD faça update
-	pass
+	emit_signal("update_health", player_index, new_amount)
 
 
 func _on_Health_died():
@@ -97,6 +107,8 @@ func _on_Health_died():
 	$Hurtbox/CollisionPolygon2D.set_deferred("disabled", true)
 	$DeadTimer.start()
 	$Particles2D.emitting = true
+	
+	emit_signal("player_died", player_index)
 
 
 func _on_DeadTimer_timeout():
@@ -106,4 +118,18 @@ func _on_DeadTimer_timeout():
 
 func _on_World_game_started():
 	current_state = STATES.FLY
-	pass
+
+
+func _on_World_game_won(player_victory):
+	if player_index == player_victory:
+		current_state = STATES.SPAWN
+		$CollisionPolygon2D.set_deferred("disabled", true)
+		$Hurtbox/CollisionPolygon2D.set_deferred("disabled", true)
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	emit_signal("screen_exited", player_index)
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	emit_signal("screen_entered", player_index)

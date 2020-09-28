@@ -1,11 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Entities/Player/Health.gd" type="Script" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Entities/Player/player-spaceship-damage.png" type="Texture" id=3]
 [ext_resource path="res://Entities/Player/explosion-1.png" type="Texture" id=4]
+[ext_resource path="res://Systems/RandomSFXPlayer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Laser_Shoot2.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Laser_Shoot4.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Hit_Hurt3.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Hit_Hurt.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Hit_Hurt4.wav" type="AudioStream" id=10]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "go_to_idle"
 length = 0.25
 step = 0.05
@@ -34,8 +40,7 @@ tracks/1/keys = {
 "values": [ 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "turn"
+[sub_resource type="Animation" id=2]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -63,7 +68,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 resource_name = "died"
 length = 2.1
 step = 0.05
@@ -92,7 +97,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "take_damage"
 length = 0.2
 step = 0.05
@@ -109,13 +114,13 @@ tracks/0/keys = {
 "values": [ false, true, false ]
 }
 
-[sub_resource type="CanvasItemMaterial" id=4]
+[sub_resource type="CanvasItemMaterial" id=5]
 particles_animation = true
 particles_anim_h_frames = 10
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 20.0
 flag_disable_z = true
@@ -155,12 +160,12 @@ collision_mask = 12
 polygon = PoolVector2Array( -19, -4, -10, -7, 0, -30, 10, -7, 18, -4, 18, 17, -19, 17 )
 
 [node name="MovementAnimations" type="AnimationPlayer" parent="."]
-anims/go_to_idle = SubResource( 2 )
-anims/turn = SubResource( 1 )
+anims/go_to_idle = SubResource( 1 )
+anims/turn = SubResource( 2 )
 
 [node name="DamageAnimations" type="AnimationPlayer" parent="."]
-anims/died = SubResource( 8 )
-anims/take_damage = SubResource( 7 )
+anims/died = SubResource( 3 )
+anims/take_damage = SubResource( 4 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
@@ -172,18 +177,26 @@ position = Vector2( 0, -43 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 1 )
-health = 15
 
 [node name="Particles2D" type="Particles2D" parent="."]
-material = SubResource( 4 )
+material = SubResource( 5 )
 emitting = false
 amount = 5
 lifetime = 0.5
-process_material = SubResource( 5 )
+process_material = SubResource( 6 )
 texture = ExtResource( 4 )
 
 [node name="DeadTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="LaserShootSFX" parent="." instance=ExtResource( 5 )]
+audio_files = [ ExtResource( 6 ), ExtResource( 7 ) ]
+
+[node name="HurtSFX" parent="." instance=ExtResource( 5 )]
+pitch_scale = 1.25
+audio_files = [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ) ]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
