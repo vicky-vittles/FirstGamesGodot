@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Juhani Junkala [Chiptune Adventures] 2. Stage2.wav" type="AudioStream" id=1]
+[ext_resource path="res://Screens/Level.gd" type="Script" id=3]
+[ext_resource path="res://Systems/HealthBar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=9]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Assets/m5x7.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = SubResource( 1 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Background" type="TileMap" parent="." groups=[
+"scenario",
+]]
+cell_size = Vector2( 32, 32 )
+collision_layer = 8
+collision_mask = 6
+format = 1
+
+[node name="Foreground" type="TileMap" parent="."]
+cell_size = Vector2( 32, 32 )
+format = 1
+
+[node name="Details" type="TileMap" parent="."]
+z_index = 1
+cell_size = Vector2( 1, 1 )
+format = 1
+
+[node name="Platforms" type="TileMap" parent="." groups=[
+"scenario",
+]]
+cell_size = Vector2( 32, 32 )
+collision_layer = 8
+collision_mask = 6
+format = 1
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -2.0
+
+[node name="Player1" parent="." instance=ExtResource( 9 )]
+position = Vector2( 96, 448 )
+
+[node name="Player2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 896, 448 )
+player_index = 2
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Bombs" type="Node2D" parent="."]
+
+[node name="Explosions" type="Node2D" parent="."]
+
+[node name="VictoryLabel" type="Label" parent="."]
+visible = false
+margin_left = 248.0
+margin_top = 232.0
+margin_right = 778.0
+margin_bottom = 317.0
+custom_fonts/font = SubResource( 2 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar1" parent="." instance=ExtResource( 8 )]
+
+[node name="HealthBar2" parent="." instance=ExtResource( 8 )]
+margin_left = 932.0
+margin_right = 972.0

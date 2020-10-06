@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/table-thwack-2.wav-b9b97a291bfa85f4d82a27dd9de3f953.sample"
+
+[deps]
+
+source_file="res://Entities/Props/table-thwack-2.wav"
+dest_files=[ "res://.import/table-thwack-2.wav-b9b97a291bfa85f4d82a27dd9de3f953.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

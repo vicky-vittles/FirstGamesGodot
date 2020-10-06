@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/small-thwack-02.wav-538a839ba0230d4d9b56421e0437a82e.sample"
+
+[deps]
+
+source_file="res://Entities/Props/small-thwack-02.wav"
+dest_files=[ "res://.import/small-thwack-02.wav-538a839ba0230d4d9b56421e0437a82e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

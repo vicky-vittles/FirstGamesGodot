@@ -1,0 +1,146 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://Entities/Bomb/bomb-off.png" type="Texture" id=1]
+[ext_resource path="res://Entities/Bomb/bomb-on.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Bomb/bomb-explosion.png" type="Texture" id=3]
+[ext_resource path="res://Entities/Bomb/empty.png" type="Texture" id=4]
+[ext_resource path="res://Entities/Bomb/Bomb.gd" type="Script" id=5]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.12
+bounce = 0.3
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 176, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 352, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 528, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 704, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 880, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 1056, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 1232, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 1408, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 1584, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 176, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 352, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 528, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 704, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 880, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 1056, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 1232, 0, 176, 160 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 1408, 0, 176, 160 )
+
+[sub_resource type="SpriteFrames" id=21]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "on",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "off",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "explosion",
+"speed": 20.0
+} ]
+
+[sub_resource type="CircleShape2D" id=22]
+radius = 14.5294
+
+[sub_resource type="CircleShape2D" id=23]
+radius = 14.7444
+
+[node name="Bomb" type="RigidBody2D" groups=[
+"bomb",
+]]
+z_index = 2
+collision_layer = 4
+collision_mask = 12
+physics_material_override = SubResource( 1 )
+linear_damp = 0.0
+script = ExtResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 21 )
+animation = "on"
+frame = 8
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 22 )
+
+[node name="Hurtbox" type="Area2D" parent="." groups=[
+"bomb",
+]]
+collision_layer = 4
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource( 23 )
+
+[node name="FuseTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+autostart = true
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="timeout" from="FuseTimer" to="." method="_on_FuseTimer_timeout"]
