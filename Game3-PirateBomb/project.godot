@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Game3-PirateBomb"
-run/main_scene="res://Screens/Game.tscn"
+run/main_scene="res://Screens/Main.tscn"
 config/icon="res://icon.png"
 
 [display]

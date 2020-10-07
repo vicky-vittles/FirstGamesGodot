@@ -5,7 +5,7 @@ var alive_players = [1, 2]
 
 
 func _ready():
-	#$Music.play()
+	$Music.play()
 	
 	$Player1/Health.connect("update_health", self, "_on_Player_update_health")
 	$Player2/Health.connect("update_health", self, "_on_Player_update_health")
