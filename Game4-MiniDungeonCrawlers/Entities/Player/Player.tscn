@@ -1,17 +1,18 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Systems/StateMachine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/Player/Idle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Player/Run.tscn" type="PackedScene" id=4]
-[ext_resource path="res://icon.png" type="Texture" id=5]
+[ext_resource path="res://Entities/Weapons/DaggerAim.tscn" type="PackedScene" id=5]
 [ext_resource path="res://dummy.png" type="Texture" id=6]
 [ext_resource path="res://Entities/Player/Hurt.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Systems/Hurtbox.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 4 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5, 6 )
 
 [sub_resource type="Animation" id=3]
@@ -75,45 +76,42 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7, 4 ]
 }
 
-[node name="Player" type="KinematicBody2D"]
-position = Vector2( -1, -10 )
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
+position = Vector2( 0, -10 )
+z_index = 1
 collision_layer = 2
-collision_mask = 4
+collision_mask = 4100
 script = ExtResource( 1 )
-character = 3
+
+[node name="EquippedWeapon" type="Node2D" parent="."]
+
+[node name="DaggerAim" parent="EquippedWeapon" instance=ExtResource( 5 )]
+player_path = NodePath("../..")
 
 [node name="Sprite" type="Sprite" parent="."]
 hframes = 9
+frame = 8
 
 [node name="Dummy" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 6 )
 
-[node name="Aim" type="Sprite" parent="."]
-position = Vector2( 31, 0 )
-scale = Vector2( 0.125, 0.125 )
-texture = ExtResource( 5 )
-
 [node name="AimCenter" type="Position2D" parent="."]
 position = Vector2( 1, 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 1, 9 )
 shape = SubResource( 1 )
 
-[node name="Hurtbox" type="Area2D" parent="." groups=[
+[node name="Hurtbox" parent="." groups=[
 "player_hurtbox",
-]]
-visible = false
-position = Vector2( 1, 7 )
-collision_layer = 1024
-collision_mask = 2048
-__meta__ = {
-"_edit_group_": true
-}
+] instance=ExtResource( 8 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource( 2 )
+shape = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/hit = SubResource( 3 )
@@ -130,3 +128,4 @@ fsm_path = NodePath("..")
 fsm_path = NodePath("..")
 
 [node name="Hurt" parent="StateMachine" instance=ExtResource( 7 )]
+fsm_path = NodePath("..")

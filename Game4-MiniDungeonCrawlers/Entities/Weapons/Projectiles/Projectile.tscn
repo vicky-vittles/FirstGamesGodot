@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Entities/Weapons/Projectiles/Projectile.gd" type="Script" id=2]
+
+[node name="Projectile" type="Area2D"]
+collision_layer = 2048
+collision_mask = 1024
+script = ExtResource( 2 )
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+[connection signal="timeout" from="LifeTimer" to="." method="_on_LifeTimer_timeout"]

@@ -1,7 +1,7 @@
 extends State
 
 func enter():
-	print("entrou em Hurt")
+	fsm.actor.get_node("AnimationPlayer").play("hit")
 
 func exit():
 	print("saiu de Hurt")

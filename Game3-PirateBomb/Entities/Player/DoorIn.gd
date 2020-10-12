@@ -6,6 +6,7 @@ var door_pos
 var door_animation_finished = false
 
 func _ready():
+	$"../../Hurtbox".connect("area_entered", self, "_on_Hurtbox_area_entered")
 	$"../../AnimatedSprite".connect("animation_finished", self, "_on_AnimatedSprite_animation_finished")
 
 func enter():
@@ -65,3 +66,18 @@ func _on_AnimatedSprite_animation_finished():
 		fsm.actor.door.connected_door.enter()
 		fsm.actor.door.close()
 		$"../DoorOut".door_to_exit = fsm.actor.door.connected_door
+
+
+func _on_Hurtbox_area_entered(area):
+	if area.is_in_group("explosion") and fsm.current_state == self:
+		var explosion = (area as Explosion)
+		var hit_direction = (fsm.actor.global_position - explosion.global_position).normalized()
+		
+		$"../../Health".update_health(-area.hit.amount)
+		
+		if $"../../Health".health > 0:
+			$"../Hurt".set_direction(hit_direction)
+			fsm.change_state($"../Hurt")
+		else:
+			$"../DeadHit".set_direction(hit_direction)
+			fsm.change_state($"../DeadHit")

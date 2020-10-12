@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Entities/Weapons/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Systems/StateMachine.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Entities/Weapons/Sheathed.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Entities/Weapons/Ready.tscn" type="PackedScene" id=5]
+
+[node name="Weapon" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="StateMachine" parent="." instance=ExtResource( 3 )]
+actor_path = NodePath("..")
+
+[node name="Sheathed" parent="StateMachine" instance=ExtResource( 4 )]
+fsm_path = NodePath("..")
+
+[node name="Ready" parent="StateMachine" instance=ExtResource( 5 )]
+fsm_path = NodePath("..")

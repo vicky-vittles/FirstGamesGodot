@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Entities/Weapons/Weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Weapons/SlashAttack.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Weapons/sword-1.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 7 )
+
+[node name="Sword" groups=[
+"player_attack",
+] instance=ExtResource( 1 )]
+reach = 23
+angular_reach = 110
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="StateMachine" parent="." index="2"]
+actor_path = NodePath("../../Sword")
+
+[node name="Sheathed" parent="StateMachine" index="0"]
+fsm_path = NodePath("../../../Sword/StateMachine")
+
+[node name="Ready" parent="StateMachine" index="1"]
+fsm_path = NodePath("../../../Sword/StateMachine")
+
+[node name="Attack" parent="StateMachine" index="2" instance=ExtResource( 2 )]
+fsm_path = NodePath("..")

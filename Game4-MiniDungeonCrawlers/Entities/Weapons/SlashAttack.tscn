@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Systems/State.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Weapons/SlashAttack.gd" type="Script" id=2]
+
+[node name="Attack" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="." index="0"]
+
+[node name="AttackTimer" type="Timer" parent="." index="1"]
+wait_time = 0.3
+one_shot = true
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

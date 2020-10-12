@@ -7,6 +7,9 @@ onready var actor = get_node(actor_path)
 var current_state : Object
 
 func _ready():
+	actor.connect("ready", self, "_on_Actor_ready")
+
+func _on_Actor_ready():
 	current_state = get_child(0)
 	current_state.enter()
 

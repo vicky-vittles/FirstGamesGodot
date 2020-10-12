@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+class_name Player
+
 enum CHARACTERS {KNIGHT = 0, WIZARD = 1, RANGER = 2, BARBARIAN = 3}
 const character_names = ["knight", "wizzard", "elf", "lizard"]
 const folder_names = ["Knight", "Wizard", "Ranger", "Barbarian"]
@@ -16,6 +18,7 @@ onready var SPEED = TILE_SIZE * HORIZONTAL_DISTANCE_IN_ONE_SECOND
 export (int) var player_index = 1
 
 var velocity = Vector2()
+var last_direction = Vector2()
 var look_direction = Vector2()
 
 
@@ -34,10 +37,14 @@ func _ready():
 
 
 func _physics_process(delta):
-	
-	if look_direction == Vector2.ZERO:
-		$Aim.hide()
-	else:
-		$Aim.show()
-	
-	$Aim.global_position = $AimCenter.global_position + look_direction * 32
+	pass
+
+func turn_around(direction):
+	if direction == 1:
+		$Sprite.flip_h = false
+		$Hurtbox.position.x = abs($Hurtbox.position.x)
+		$CollisionShape2D.position.x = abs($CollisionShape2D.position.x)
+	elif direction == -1:
+		$Sprite.flip_h = true
+		$Hurtbox.position.x = -1 * abs($Hurtbox.position.x)
+		$CollisionShape2D.position.x = -1 * abs($CollisionShape2D.position.x)
