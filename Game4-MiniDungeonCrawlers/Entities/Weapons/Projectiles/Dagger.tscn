@@ -4,7 +4,7 @@
 [ext_resource path="res://Entities/Weapons/Projectiles/dagger-1.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3, 5 )
+extents = Vector2( 4, 5 )
 
 [node name="Dagger" groups=[
 "player_attack",
@@ -16,6 +16,3 @@ texture = ExtResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 position = Vector2( 0, -2 )
 shape = SubResource( 1 )
-
-[node name="LifeTimer" parent="." index="2"]
-wait_time = 0.75

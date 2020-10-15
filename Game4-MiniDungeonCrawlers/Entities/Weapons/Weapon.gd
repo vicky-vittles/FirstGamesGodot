@@ -5,6 +5,8 @@ class_name Weapon
 export (NodePath) var player_path
 onready var player = get_node(player_path)
 
+export (int) var damage = 1
+
 export (int) var reach = 20
 export (int) var angular_reach = 45
 

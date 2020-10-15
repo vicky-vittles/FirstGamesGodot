@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/imp.png-5acfcbd080ee3b307f1fb9cad121e5fa.stex"
+path="res://.import/silver_key.png-08baa04ef616b4246b5150ef6b1ccfc1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/imp.png"
-dest_files=[ "res://.import/imp.png-5acfcbd080ee3b307f1fb9cad121e5fa.stex" ]
+source_file="res://Levels/silver_key.png"
+dest_files=[ "res://.import/silver_key.png-08baa04ef616b4246b5150ef6b1ccfc1.stex" ]
 
 [params]
 
