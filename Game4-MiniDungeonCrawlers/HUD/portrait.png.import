@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/orc-warrior.png-4325ea8b859d72d81f3d77ed12c32496.stex"
+path="res://.import/portrait.png-7ff47e0d82b8aff94fce11d71c0d778c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/orc-warrior.png"
-dest_files=[ "res://.import/orc-warrior.png-4325ea8b859d72d81f3d77ed12c32496.stex" ]
+source_file="res://HUD/portrait.png"
+dest_files=[ "res://.import/portrait.png-7ff47e0d82b8aff94fce11d71c0d778c.stex" ]
 
 [params]
 

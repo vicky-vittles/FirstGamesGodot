@@ -1,6 +1,9 @@
 extends Area2D
 
+class_name Spike
+
 export (float) var offset_time
+var is_enabled = true
 
 func _ready():
 	$OffsetTimer.wait_time = offset_time
@@ -17,9 +20,16 @@ func _on_TimerToOff_timeout():
 	$TimerToOn.start()
 
 func _on_TimerToOn_timeout():
-	disable_shapes(false)
-	$AnimationPlayer.play("turn_on")
-	$TimerToOff.start()
+	if is_enabled:
+		disable_shapes(false)
+		$AnimationPlayer.play("turn_on")
+		$TimerToOff.start()
 
 func _on_OffsetTimer_timeout():
 	$TimerToOn.start()
+
+func disable():
+	is_enabled = false
+	_on_TimerToOff_timeout()
+	$TimerToOn.stop()
+	$TimerToOff.stop()

@@ -1,7 +1,5 @@
 extends State
 
-var marked_player
-
 func _ready():
 	$"../../Hurtbox".connect("area_entered", self, "_on_Hurtbox_area_entered")
 
@@ -13,15 +11,15 @@ func exit():
 
 func physics_process(delta):
 	
-	if $"../../PlayerDetector".marked_player == null:
-		fsm.change_state($"../BasicEnemyIdle")
+	if fsm.actor.nearest_player == null:
+		fsm.change_state($"../Idle")
 	
 	else:
 		fsm.actor.get_node("AnimationPlayer").play("run")
 		
-		var marked_player_pos = $"../../PlayerDetector".marked_player.global_position
+		var nearest_player_pos = fsm.actor.nearest_player.global_position
 		
-		var direction_to_player = (marked_player_pos - fsm.actor.global_position).normalized()
+		var direction_to_player = (nearest_player_pos - fsm.actor.global_position).normalized()
 		
 		fsm.actor.turn_around(sign(direction_to_player.x))
 		
@@ -38,4 +36,4 @@ func _on_Hurtbox_area_entered(area):
 			enemy_pos = (area as Projectile).global_position
 		
 		fsm.actor.hit_direction = (fsm.actor.global_position - enemy_pos).normalized()
-		fsm.change_state($"../KnockbackHurt")
+		fsm.change_state($"../Hurt")

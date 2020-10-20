@@ -1,9 +1,11 @@
 extends Area2D
 
-func _ready():
-	pass
+class_name Collectible
 
-func _on_Collectible_area_entered(area):
-	if area.is_in_group("player_hurtbox"):
-		get_parent().remove_child(self)
-		queue_free()
+func disable():
+	$Sprite.visible = false
+	$CollisionShape2D.set_deferred("disabled", true)
+
+func enable():
+	$Sprite.visible = true
+	$CollisionShape2D.set_deferred("disabled", false)

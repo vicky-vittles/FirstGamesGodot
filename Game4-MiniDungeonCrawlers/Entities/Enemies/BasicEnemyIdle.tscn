@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Entities/Enemies/BasicEnemyIdle.gd" type="Script" id=2]
 
-[node name="BasicEnemyIdle" type="Node"]
+[node name="Idle" type="Node"]
 script = ExtResource( 2 )
 
 [node name="AITimer" type="Timer" parent="."]

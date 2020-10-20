@@ -4,7 +4,7 @@
 [ext_resource path="res://Entities/Enemies/Goblin/goblin.png" type="Texture" id=2]
 [ext_resource path="res://Entities/Enemies/BasicEnemyIdle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Enemies/BasicEnemyRun.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Entities/Enemies/KnockbackHurt.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Entities/Enemies/StunHurt.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"
@@ -57,7 +57,6 @@ extents = Vector2( 6, 5 )
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
 hframes = 8
-frame = 3
 
 [node name="AnimationPlayer" parent="." index="1"]
 anims/idle = SubResource( 1 )
@@ -88,11 +87,11 @@ max_health = 4
 [node name="StateMachine" parent="." index="7"]
 actor_path = NodePath("..")
 
-[node name="BasicEnemyIdle" parent="StateMachine" index="0" instance=ExtResource( 3 )]
+[node name="Idle" parent="StateMachine" index="0" instance=ExtResource( 3 )]
 fsm_path = NodePath("..")
 
-[node name="BasicEnemyRun" parent="StateMachine" index="1" instance=ExtResource( 4 )]
+[node name="Run" parent="StateMachine" index="1" instance=ExtResource( 4 )]
 fsm_path = NodePath("..")
 
-[node name="KnockbackHurt" parent="StateMachine" index="2" instance=ExtResource( 5 )]
+[node name="Hurt" parent="StateMachine" index="2" instance=ExtResource( 5 )]
 fsm_path = NodePath("..")

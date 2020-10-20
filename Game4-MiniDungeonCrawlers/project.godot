@@ -10,6 +10,21 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Area2D",
+"class": "Collectible",
+"language": "GDScript",
+"path": "res://Levels/Collectible.gd"
+}, {
+"base": "StaticBody2D",
+"class": "Door",
+"language": "GDScript",
+"path": "res://Levels/Door.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Entities/Enemies/Enemy.gd"
+}, {
+"base": "Area2D",
 "class": "Hitbox",
 "language": "GDScript",
 "path": "res://Systems/Hitbox.gd"
@@ -23,6 +38,11 @@ _global_script_classes=[ {
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://Entities/Weapons/Projectiles/Projectile.gd"
+}, {
+"base": "Area2D",
+"class": "Spike",
+"language": "GDScript",
+"path": "res://Levels/Spike.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -40,9 +60,13 @@ _global_script_classes=[ {
 "path": "res://Entities/Weapons/Weapon.gd"
 } ]
 _global_script_class_icons={
+"Collectible": "",
+"Door": "",
+"Enemy": "",
 "Hitbox": "",
 "Player": "",
 "Projectile": "",
+"Spike": "",
 "State": "",
 "StateMachine": "",
 "Weapon": ""

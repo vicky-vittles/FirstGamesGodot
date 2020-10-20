@@ -13,8 +13,8 @@ func exit():
 
 func physics_process(delta):
 	
-	if $"../../PlayerDetector".marked_player != null:
-		fsm.change_state($"../BasicEnemyRun")
+	if fsm.actor.nearest_player != null:
+		fsm.change_state($"../Run")
 		
 	else:
 		if wander_direction == 0:
@@ -46,4 +46,4 @@ func _on_Hurtbox_area_entered(area):
 			enemy_pos = (area as Projectile).global_position
 		
 		fsm.actor.hit_direction = (fsm.actor.global_position - enemy_pos).normalized()
-		fsm.change_state($"../KnockbackHurt")
+		fsm.change_state($"../Hurt")

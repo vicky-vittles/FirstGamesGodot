@@ -5,7 +5,7 @@ export (PackedScene) var PROJECTILE
 func enter():
 	$CooldownTimer.start()
 	
-	var aim_center_pos = fsm.actor.player.get_node("AimCenter").global_position
+	var aim_center_pos = fsm.actor.user.get_node("AimCenter").global_position
 	
 	var proj = PROJECTILE.instance()
 	proj.direction = fsm.actor.direction
