@@ -11,6 +11,8 @@ func exit():
 
 func physics_process(delta):
 	
+	fsm.actor.poll_input()
+	
 	if fsm.actor.nearest_player == null:
 		fsm.change_state($"../Idle")
 	
@@ -27,13 +29,13 @@ func physics_process(delta):
 
 func _on_Hurtbox_area_entered(area):
 	if area.is_in_group("player_attack") and fsm.current_state == self:
-		var enemy_pos
+		var hit_direction = Vector2()
 		
 		if (area is Weapon):
-			enemy_pos = (area as Weapon).global_position
+			hit_direction = (area as Weapon).direction
 		
 		elif (area is Projectile):
-			enemy_pos = (area as Projectile).global_position
+			hit_direction = (area as Projectile).direction
 		
-		fsm.actor.hit_direction = (fsm.actor.global_position - enemy_pos).normalized()
+		fsm.actor.hit_direction = hit_direction.normalized()
 		fsm.change_state($"../Hurt")

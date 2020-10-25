@@ -257,14 +257,16 @@ extents = Vector2( 4, 7 )
 [node name="Iceball" groups=[
 "player_attack",
 ] instance=ExtResource( 2 )]
-projectile_distance = 150
+projectile_distance = 300
+damage = 2
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
+position = Vector2( 0, 2 )
 frames = SubResource( 61 )
-frame = 42
+frame = 45
 playing = true
 flip_v = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 position = Vector2( 0, -2 )
 shape = SubResource( 62 )

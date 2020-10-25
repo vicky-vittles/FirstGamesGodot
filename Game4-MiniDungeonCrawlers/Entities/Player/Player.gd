@@ -15,6 +15,8 @@ const TILE_SIZE = 16
 export (int) var HORIZONTAL_DISTANCE_IN_ONE_SECOND = 6
 onready var SPEED = TILE_SIZE * HORIZONTAL_DISTANCE_IN_ONE_SECOND
 
+onready var camera = $"../../MultiTargetCamera"
+
 var near_door
 export (int) var player_index = 1
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/orc-shaman.png-66d74d166135d0f41dfa6d405828fac7.stex"
+path="res://.import/orc-shaman.png-4bc1a99f82279c6fc62ea9db772a2efe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/orc-shaman.png"
-dest_files=[ "res://.import/orc-shaman.png-66d74d166135d0f41dfa6d405828fac7.stex" ]
+source_file="res://Entities/Enemies/OrcShaman/orc-shaman.png"
+dest_files=[ "res://.import/orc-shaman.png-4bc1a99f82279c6fc62ea9db772a2efe.stex" ]
 
 [params]
 

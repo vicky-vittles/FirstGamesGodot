@@ -58,7 +58,9 @@ extents = Vector2( 8, 8 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 8, 8 )
 
-[node name="Spike" type="Area2D"]
+[node name="Spike" type="Area2D" groups=[
+"spike",
+]]
 collision_layer = 16
 collision_mask = 10
 script = ExtResource( 2 )
@@ -90,10 +92,11 @@ wait_time = 0.001
 one_shot = true
 
 [node name="TimerToOn" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 one_shot = true
 
 [node name="TimerToOff" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 [connection signal="timeout" from="OffsetTimer" to="." method="_on_OffsetTimer_timeout"]
 [connection signal="timeout" from="TimerToOn" to="." method="_on_TimerToOn_timeout"]

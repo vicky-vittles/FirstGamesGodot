@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/necromancer.png-e4c64785349b63495842a6aa35045c19.stex"
+path="res://.import/necromancer.png-4630806aabe3feb4d998260ea61c8baf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/necromancer.png"
-dest_files=[ "res://.import/necromancer.png-e4c64785349b63495842a6aa35045c19.stex" ]
+source_file="res://Entities/Enemies/Necromancer/necromancer.png"
+dest_files=[ "res://.import/necromancer.png-4630806aabe3feb4d998260ea61c8baf.stex" ]
 
 [params]
 

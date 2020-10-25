@@ -1,15 +1,17 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Entities/Weapons/Weapon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Entities/Weapons/staff-1.png" type="Texture" id=2]
 [ext_resource path="res://Entities/Weapons/Projectiles/Iceball.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Weapons/ProjectileAttack.tscn" type="PackedScene" id=4]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/staff-2.png-2c3a2cc9e2a46b820c62abbf20bdf9f4.stex"
 
 [node name="Staff" instance=ExtResource( 1 )]
 reach = 26
 
 [node name="Sprite" parent="." index="0"]
-texture = ExtResource( 2 )
+texture = SubResource( 1 )
 
 [node name="StateMachine" parent="." index="1"]
 actor_path = NodePath("../../Staff")

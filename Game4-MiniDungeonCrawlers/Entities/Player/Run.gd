@@ -38,12 +38,15 @@ func physics_process(delta):
 		player.get_node("AnimationPlayer").play("run")
 	
 	player.velocity = direction * player.SPEED
-	
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
+	
+	#var camera_pos = player.camera.get_camera_screen_center()
+	#player.global_position.x = clamp(player.global_position.x, camera_pos.x-256, camera_pos.x+256)
+	#player.global_position.y = clamp(player.global_position.y, camera_pos.y-90, camera_pos.y+90)
 
 
 func _on_Hurtbox_area_entered(area):
 	
-	if area.is_in_group("enemy_attack") and fsm.current_state == self:
+	if (area.is_in_group("spike") or area.is_in_group("enemy_attack")) and fsm.current_state == self:
 		player.get_node("Health").update_health(-area.damage)
 		fsm.change_state($"../Hurt")

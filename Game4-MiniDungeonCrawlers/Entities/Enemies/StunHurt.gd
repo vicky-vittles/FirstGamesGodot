@@ -6,6 +6,7 @@ func _ready():
 	$StunTimer.wait_time = stun_time
 
 func enter():
+	fsm.actor.get_node("AnimationPlayer").play("hurt")
 	$StunTimer.start()
 	fsm.actor.velocity = Vector2(0, 0)
 

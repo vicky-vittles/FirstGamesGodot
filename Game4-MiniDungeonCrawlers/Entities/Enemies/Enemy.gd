@@ -8,6 +8,7 @@ onready var SPEED = TILE_SIZE * HORIZONTAL_DISTANCE_IN_ONE_SECOND
 
 var nearest_player
 export (int) var player_detection_radius = 200
+export (int) var attack_detection_radius = 75
 
 var hit_direction = Vector2()
 var velocity = Vector2()
@@ -26,7 +27,10 @@ func poll_input():
 	nearest_player = get_nearest_player()
 	
 	if nearest_player != null:
+		var dist_to_p = global_position.distance_to(nearest_player.global_position)
+		
 		look_direction = (nearest_player.global_position - global_position).normalized()
+		is_attacking = true if dist_to_p <= attack_detection_radius else false
 
 
 func get_nearest_player():
@@ -67,5 +71,4 @@ func _on_Hurtbox_area_entered(area):
 
 
 func _on_Health_die():
-	get_parent().remove_child(self)
 	queue_free()

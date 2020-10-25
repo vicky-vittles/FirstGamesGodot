@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Entities/Weapons/Weapon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Entities/Weapons/spear.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Weapons/Player Weapons/spear.png" type="Texture" id=2]
 [ext_resource path="res://Entities/Weapons/ThrustAttack.tscn" type="PackedScene" id=3]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 5 )

@@ -18,18 +18,24 @@ func exit():
 
 func physics_process(delta):
 	
+	var user = fsm.actor.user
+	
 	if not is_attack_finished:
 		fsm.actor.global_position += velocity * delta
 	
 	else:
-		var user = fsm.actor.user
 		user.poll_input()
 		
 		if user.is_attacking:
 			var aim_center_position = user.get_node("AimCenter").global_position
+			fsm.actor.direction = user.look_direction
+			
 			var pos_in_circle = fsm.actor.direction * fsm.actor.reach
-		
+			
 			fsm.actor.global_position = aim_center_position + pos_in_circle
+			fsm.actor.look_at(aim_center_position)
+			fsm.actor.rotate(-PI/2)
+		
 			fsm.change_state($"../Attack")
 		
 		else:

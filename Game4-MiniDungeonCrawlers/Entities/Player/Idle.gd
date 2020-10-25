@@ -41,6 +41,7 @@ func physics_process(delta):
 
 
 func _on_Hurtbox_area_entered(area):
-	if area.is_in_group("enemy_attack") and fsm.current_state == self:
+	
+	if (area.is_in_group("spike") or area.is_in_group("enemy_attack")) and fsm.current_state == self:
 		fsm.actor.get_node("Health").update_health(-area.damage)
 		fsm.change_state($"../Hurt")

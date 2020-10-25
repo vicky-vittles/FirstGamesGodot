@@ -21,9 +21,6 @@ func physics_process(delta):
 		if direction != Vector2.ZERO:
 			fsm.actor.direction = Vector2(sign(direction.x), sign(direction.y))
 		
-		if user.is_attacking:
-			fsm.change_state($"../Attack")
-		
 		if direction.x > 0:
 			fsm.actor.rotation = -130
 		elif direction.x < 0:

@@ -2,9 +2,8 @@ extends Area2D
 
 class_name Weapon
 
-export (NodePath) var player_path
-onready var player = get_node(player_path)
-onready var user = get_node(player_path)
+export (NodePath) var user_path
+onready var user = get_node(user_path)
 
 export (int) var damage = 1
 
@@ -19,10 +18,11 @@ var direction = Vector2(1, 0)
 
 
 func _ready():
-	$CollisionShape2D.set_deferred("disabled", true)
+	if has_node("CollisionShape2D"):
+		$CollisionShape2D.set_deferred("disabled", true)
 
 func _physics_process(delta):
-	print($StateMachine.current_state.name)
+	pass
 
 func turn_around(direction):
 	if direction == 1:

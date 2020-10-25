@@ -6,9 +6,10 @@
 script = ExtResource( 2 )
 
 [node name="AITimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 
 [node name="WalkTimer" type="Timer" parent="."]
+wait_time = 0.6
 one_shot = true
 [connection signal="timeout" from="AITimer" to="." method="_on_AITimer_timeout"]
 [connection signal="timeout" from="WalkTimer" to="." method="_on_WalkTimer_timeout"]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/staff-1.png-aff2ebc0ee1aeea9dcf3061f21a404c0.stex"
+path="res://.import/staff-2.png-fbe3272971ed1ec13c2e498bf037880b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Weapons/staff-1.png"
-dest_files=[ "res://.import/staff-1.png-aff2ebc0ee1aeea9dcf3061f21a404c0.stex" ]
+source_file="res://Entities/Weapons/Player Weapons/staff-2.png"
+dest_files=[ "res://.import/staff-2.png-fbe3272971ed1ec13c2e498bf037880b.stex" ]
 
 [params]
 

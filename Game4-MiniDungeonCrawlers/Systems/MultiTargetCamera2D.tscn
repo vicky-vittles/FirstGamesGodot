@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Levels/Test Level/CameraController.gd" type="Script" id=1]
+[ext_resource path="res://Systems/MultiTargetCamera.gd" type="Script" id=1]
 
 [node name="MultiTargetCamera" type="Camera2D"]
 current = true
@@ -9,3 +9,6 @@ limit_top = -288
 limit_right = 1024
 limit_bottom = 288
 script = ExtResource( 1 )
+zoom_speed = 1.0
+max_zoom = 1.5
+margin = Vector2( 50, 150 )

@@ -2,6 +2,8 @@ extends Area2D
 
 class_name Spike
 
+export (int) var damage = 1
+
 export (float) var offset_time
 var is_enabled = true
 

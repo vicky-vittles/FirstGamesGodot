@@ -1,9 +1,10 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Entities/Weapons/aim.png" type="Texture" id=1]
+[ext_resource path="res://Entities/Weapons/Player Weapons/aim.png" type="Texture" id=1]
 [ext_resource path="res://Entities/Weapons/Weapon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/Weapons/ProjectileAttack.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Weapons/Projectiles/Dagger.tscn" type="PackedScene" id=4]
+
 
 [node name="DaggerAim" instance=ExtResource( 2 )]
 
