@@ -65,7 +65,8 @@ extents = Vector2( 4, 4 )
 
 [node name="Imp" instance=ExtResource( 1 )]
 HORIZONTAL_DISTANCE_IN_ONE_SECOND = 8
-player_detection_radius = 125
+player_detection_radius = 96
+attack_detection_radius = 96
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

@@ -92,11 +92,10 @@ wait_time = 0.001
 one_shot = true
 
 [node name="TimerToOn" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 
 [node name="TimerToOff" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 1.5
 one_shot = true
 [connection signal="timeout" from="OffsetTimer" to="." method="_on_OffsetTimer_timeout"]
 [connection signal="timeout" from="TimerToOn" to="." method="_on_TimerToOn_timeout"]

@@ -61,6 +61,7 @@ extents = Vector2( 5, 8 )
 
 [node name="OrcWarrior" instance=ExtResource( 1 )]
 HORIZONTAL_DISTANCE_IN_ONE_SECOND = 4
+player_detection_radius = 128
 attack_detection_radius = 35
 
 [node name="EquippedWeapon" type="Node2D" parent="." index="0"]

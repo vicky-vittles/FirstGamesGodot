@@ -62,7 +62,8 @@ extents = Vector2( 5, 4 )
 extents = Vector2( 5, 6 )
 
 [node name="Skeleton" instance=ExtResource( 1 )]
-player_detection_radius = 350
+player_detection_radius = 192
+attack_detection_radius = 192
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

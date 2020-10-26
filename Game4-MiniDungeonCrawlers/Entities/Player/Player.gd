@@ -91,7 +91,7 @@ func _on_Hurtbox_area_entered(area):
 			has_been_collected = true
 		
 		elif area.is_in_group("life_potion") and $Health.health < $Health.max_health:
-			$Health.update_health(1)
+			$Health.update_health(2)
 			has_been_collected = true
 		
 		if has_been_collected:
