@@ -1,26 +1,30 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Levels/DungeonTileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Levels/Components/DungeonTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Systems/MultiTargetCamera2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/Level1/Level1.gd" type="Script" id=4]
-[ext_resource path="res://Levels/Door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Levels/Components/Door.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/Enemies/Goblin/Goblin.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Levels/SilverKey.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Levels/LifePotion.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Levels/Components/SilverKey.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Levels/Components/LifePotion.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Entities/Enemies/Skeleton/Skeleton.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Levels/Coin.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Levels/Spike.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Levels/SpikeGroup.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Levels/BlueButton.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Levels/RedButton.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Levels/ButtonPair.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Levels/Components/Coin.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Levels/Components/Spike.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Levels/Components/SpikeGroup.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Levels/Components/BlueButton.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Levels/Components/RedButton.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Levels/Components/ButtonPair.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Assets/Music/05-Level1.wav" type="AudioStream" id=16]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
 
 [node name="Background" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -47,8 +51,7 @@ __meta__ = {
 [node name="MultiTargetCamera" parent="." instance=ExtResource( 3 )]
 visible = false
 limit_top = -576
-limit_bottom = 576
-margin = Vector2( 50, 150 )
+zoom_speed = 0.1
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -62,13 +65,16 @@ position = Vector2( 24, -128 )
 position = Vector2( 488, -152 )
 
 [node name="Goblin4" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 456, 200 )
+position = Vector2( 400, 160 )
+
+[node name="Goblin7" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 496, 192 )
 
 [node name="Goblin5" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 424, 116 )
+position = Vector2( 400, 80 )
 
 [node name="Goblin6" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 488, 116 )
+position = Vector2( 496, 116 )
 
 [node name="Skeleton" parent="Enemies" instance=ExtResource( 9 )]
 position = Vector2( 408, -48 )
@@ -77,7 +83,7 @@ position = Vector2( 408, -48 )
 position = Vector2( 456, -8 )
 
 [node name="Skeleton5" parent="Enemies" instance=ExtResource( 9 )]
-position = Vector2( 488, 264 )
+position = Vector2( 448, 220 )
 
 [node name="Skeleton2" parent="Enemies" instance=ExtResource( 9 )]
 position = Vector2( 280, -196 )
@@ -100,58 +106,62 @@ position = Vector2( 88, -104 )
 position = Vector2( 136, -104 )
 
 [node name="SpikeGroup" parent="Elements" instance=ExtResource( 12 )]
+position = Vector2( 104, 8 )
+spike_path = NodePath("Spike")
 
 [node name="Spike" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 120, 8 )
+position = Vector2( 16, 0 )
 
 [node name="Spike2" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 120, -8 )
+position = Vector2( 16, -16 )
 
 [node name="Spike3" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 120, -24 )
+position = Vector2( 16, -32 )
 
 [node name="Spike4" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 120, -40 )
+position = Vector2( 16, -48 )
 
 [node name="Spike5" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 104, 8 )
 
 [node name="Spike6" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 104, -8 )
+position = Vector2( 0, -16 )
 
 [node name="Spike7" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 104, -24 )
+position = Vector2( 0, -32 )
 
 [node name="Spike8" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 104, -40 )
+position = Vector2( 0, -48 )
 
 [node name="Spike9" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 104, -56 )
+position = Vector2( 0, -64 )
 
 [node name="Spike10" parent="Elements/SpikeGroup" instance=ExtResource( 11 )]
-position = Vector2( 120, -56 )
+position = Vector2( 16, -64 )
 
 [node name="SpikeGroup2" parent="Elements" instance=ExtResource( 12 )]
+position = Vector2( 248, -232 )
+spike_path = NodePath("Spike")
 
 [node name="Spike" parent="Elements/SpikeGroup2" instance=ExtResource( 11 )]
-position = Vector2( 248, -232 )
 
 [node name="Spike2" parent="Elements/SpikeGroup2" instance=ExtResource( 11 )]
-position = Vector2( 264, -232 )
+position = Vector2( 16, 0 )
 
 [node name="SpikeGroup3" parent="Elements" instance=ExtResource( 12 )]
+position = Vector2( 496, -432 )
+spike_path = NodePath("Spike")
 
 [node name="Spike" parent="Elements/SpikeGroup3" instance=ExtResource( 11 )]
-position = Vector2( 472, -408 )
+position = Vector2( -24, 24 )
 
 [node name="Spike2" parent="Elements/SpikeGroup3" instance=ExtResource( 11 )]
-position = Vector2( 504, -456 )
+position = Vector2( 8, -24 )
 
 [node name="Spike3" parent="Elements/SpikeGroup3" instance=ExtResource( 11 )]
-position = Vector2( 520, -456 )
+position = Vector2( 24, -24 )
 
 [node name="Spike4" parent="Elements/SpikeGroup3" instance=ExtResource( 11 )]
-position = Vector2( 488, -408 )
+position = Vector2( -8, 24 )
 
 [node name="Keys" type="Node" parent="."]
 
@@ -293,3 +303,5 @@ position = Vector2( 24, 200 )
 position = Vector2( 72, 200 )
 character = 1
 player_index = 2
+
+[node name="Projectiles" type="Node" parent="."]

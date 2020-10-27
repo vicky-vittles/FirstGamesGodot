@@ -33,3 +33,6 @@ func _on_LifeTimer_timeout():
 func _on_Projectile_area_entered(area):
 	if area.is_in_group("enemy_hurtbox") or area.is_in_group("chest"):
 		delete()
+
+func _on_Projectile_body_entered(body):
+	delete()

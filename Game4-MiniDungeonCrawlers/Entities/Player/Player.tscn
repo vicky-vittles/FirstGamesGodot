@@ -1,15 +1,16 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Systems/StateMachine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/Player/Idle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Player/Run.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Entities/Weapons/Player Weapons/PlayerSword.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Entities/Weapons/Player Weapons/DaggerAim.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/dummy.png" type="Texture" id=6]
 [ext_resource path="res://Entities/Player/Hurt.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Systems/Hurtbox.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Systems/HealthPlayer.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Systems/Inventory.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/SFX/player-hurt.ogg" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 2 )
@@ -88,7 +89,7 @@ script = ExtResource( 1 )
 
 [node name="EquippedWeapon" type="Node2D" parent="."]
 
-[node name="Sword" parent="EquippedWeapon" instance=ExtResource( 5 )]
+[node name="DaggerAim" parent="EquippedWeapon" instance=ExtResource( 5 )]
 user_path = NodePath("../..")
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -137,6 +138,9 @@ fsm_path = NodePath("..")
 
 [node name="Hurt" parent="StateMachine" instance=ExtResource( 7 )]
 fsm_path = NodePath("..")
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="area_exited" from="Hurtbox" to="." method="_on_Hurtbox_area_exited"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Entities/Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Enemies/OrcWarrior/orc-warrior.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Entities/Enemies/BasicEnemyRun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Entities/Enemies/KnockbackHurt.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/Weapons/Enemy Weapons/EnemySword.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/SFX/monster-grunt.wav" type="AudioStream" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "hurt"
@@ -109,3 +110,9 @@ fsm_path = NodePath("..")
 
 [node name="Hurt" parent="StateMachine" index="2" instance=ExtResource( 5 )]
 fsm_path = NodePath("..")
+
+[node name="Grunt" parent="." index="9"]
+stream = ExtResource( 7 )
+
+[node name="Die" parent="." index="10"]
+stream = ExtResource( 7 )

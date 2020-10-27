@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Collectible",
 "language": "GDScript",
-"path": "res://Levels/Collectible.gd"
+"path": "res://Levels/Components/Collectible.gd"
 }, {
 "base": "StaticBody2D",
 "class": "Door",
 "language": "GDScript",
-"path": "res://Levels/Door.gd"
+"path": "res://Levels/Components/Door.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Enemy",
@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Spike",
 "language": "GDScript",
-"path": "res://Levels/Spike.gd"
+"path": "res://Levels/Components/Spike.gd"
 }, {
 "base": "Node",
 "class": "State",

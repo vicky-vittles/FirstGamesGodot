@@ -27,8 +27,12 @@ var is_attacking = false
 var velocity = Vector2()
 var last_direction = Vector2()
 
+onready var anim_health = $Health.max_health
+
 
 func _ready():
+	$Health.connect("update_health", self, "_on_Health_update_health")
+	
 	var char_name = character_names[character]
 	var folder_name = folder_names[character]
 	var gender_name = gender_names[gender]
@@ -96,13 +100,16 @@ func _on_Hurtbox_area_entered(area):
 		
 		if has_been_collected:
 			var collectible = (area as Collectible)
-			collectible.get_parent().remove_child(collectible)
-			collectible.queue_free()
+			collectible.collect()
 
 func _on_InvincibilityTimer_timeout():
 	$Hurtbox/CollisionShape2D.set_deferred("disabled", false)
 
 func _on_Hurtbox_area_exited(area):
-	
 	if area.is_in_group("door"):
 		near_door = null
+
+func _on_Health_update_health(player_index, new_amount):
+	if new_amount < anim_health:
+		$Hurt.play()
+	anim_health = new_amount

@@ -18,3 +18,5 @@ fsm_path = NodePath("..")
 
 [node name="Ready" parent="StateMachine" instance=ExtResource( 5 )]
 fsm_path = NodePath("..")
+
+[node name="Attack" type="AudioStreamPlayer" parent="."]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sword-swish.wav-6e75f1a8aaf1fafc0dd1d8d4ae87584c.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/sword-swish.wav"
+dest_files=[ "res://.import/sword-swish.wav-6e75f1a8aaf1fafc0dd1d8d4ae87584c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

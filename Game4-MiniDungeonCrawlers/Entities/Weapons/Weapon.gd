@@ -24,6 +24,12 @@ func _ready():
 func _physics_process(delta):
 	pass
 
+func disable():
+	$Sprite.visible = false
+	
+	if has_node("CollisionShape2D"):
+		$CollisionShape2D.set_deferred("disabled", true)
+
 func turn_around(direction):
 	if direction == 1:
 		$Sprite.flip_h = false

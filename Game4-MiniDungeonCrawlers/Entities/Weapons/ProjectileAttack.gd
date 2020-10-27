@@ -4,6 +4,7 @@ export (PackedScene) var PROJECTILE
 
 func enter():
 	$CooldownTimer.start()
+	fsm.actor.get_node("Attack").play()
 	
 	var aim_center_pos = fsm.actor.user.get_node("AimCenter").global_position
 	
@@ -13,7 +14,7 @@ func enter():
 	proj.look_at(aim_center_pos)
 	proj.rotate(-PI/2)
 	
-	add_child(proj)
+	fsm.actor.user.get_node("../../Projectiles").add_child(proj)
 
 func exit():
 	pass

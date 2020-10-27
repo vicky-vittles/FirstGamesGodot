@@ -4,6 +4,8 @@ export (Array, PackedScene) var random_enemies
 
 func spawn_random_enemy():
 	
+	fsm.actor.get_node("Attack").play()
+	
 	var n = random_enemies.size()
 	
 	randomize()

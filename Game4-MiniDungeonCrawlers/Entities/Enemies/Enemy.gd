@@ -20,7 +20,25 @@ var is_attacking = false
 
 func _ready():
 	$Hurtbox.connect("area_entered", self, "_on_Hurtbox_area_entered")
+	$Health.connect("update_health", self, "_on_Health_update_health")
 	$Health.connect("die", self, "_on_Health_die")
+
+
+func disable():
+	$Sprite.visible = false
+	$CollisionShape2D.set_deferred("disabled", true)
+	
+	for i in $Hitbox.get_child_count():
+		$Hitbox.get_child(i).set_deferred("disabled", true)
+	
+	for i in $Hurtbox.get_child_count():
+		$Hurtbox.get_child(i).set_deferred("disabled", true)
+	
+	$StateMachine.disable()
+	
+	if has_node("EquippedWeapon"):
+		if $EquippedWeapon.get_child_count() > 0:
+			$EquippedWeapon.get_child(0).disable()
 
 
 func poll_input():
@@ -70,5 +88,16 @@ func _on_Hurtbox_area_entered(area):
 		$Health.update_health(-area.damage)
 
 
+func _on_Health_update_health(new_amount):
+	if new_amount > 0:
+		$Grunt.play()
+
+
 func _on_Health_die():
+	disable()
+	$DeathTimer.start()
+	$Die.play()
+
+
+func _on_DeathTimer_timeout():
 	queue_free()

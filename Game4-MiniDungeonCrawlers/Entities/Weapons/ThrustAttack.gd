@@ -5,6 +5,7 @@ var is_attack_finished
 
 func enter():
 	fsm.actor.get_node("CollisionShape2D").set_deferred("disabled", false)
+	fsm.actor.get_node("Attack").play()
 	
 	$DurationTimer.wait_time = fsm.actor.attack_duration
 	$CooldownTimer.wait_time = fsm.actor.attack_duration

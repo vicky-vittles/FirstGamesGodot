@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Levels/Components/potions.png" type="Texture" id=1]
+[ext_resource path="res://Levels/Components/Collectible.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/SFX/bottle.wav" type="AudioStream" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[node name="LifePotion" groups=[
+"life_potion",
+] instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 4
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Collected" parent="." index="3"]
+stream = ExtResource( 3 )

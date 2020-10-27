@@ -1,6 +1,8 @@
 extends Node2D
 
 func _ready():
+	$Music.play()
+	
 	$MultiTargetCamera.add_target($Players/Player1)
 	$MultiTargetCamera.add_target($Players/Player2)
 	
