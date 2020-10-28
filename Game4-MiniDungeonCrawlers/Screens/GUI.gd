@@ -9,6 +9,11 @@ func _ready():
 		player.get_node("Inventory").connect("update_coins", self, "_on_Player_update_coins")
 
 
+func set_player_portrait(player_index, texture):
+	var sprite = get_node("Background/Player" + str(player_index) + "/Face")
+	sprite.texture = texture
+
+
 func _on_Player_update_health(player_index, new_amount):
 	var player = get_node("Background/Player" + str(player_index))
 	

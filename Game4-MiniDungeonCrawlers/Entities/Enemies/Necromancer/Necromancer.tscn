@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Entities/Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Enemies/Necromancer/necromancer.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Entities/Enemies/KnockbackHurt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Entities/Enemies/BasicEnemyRun.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/Weapons/Enemy Weapons/StrongSpawner.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Entities/Weapons/Weapon.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "hurt"
@@ -70,7 +69,6 @@ attack_detection_radius = 450
 [node name="EquippedWeapon" type="Node2D" parent="." index="0"]
 
 [node name="StrongSpawner" parent="EquippedWeapon" index="0" instance=ExtResource( 6 )]
-script = ExtResource( 7 )
 user_path = NodePath("../..")
 
 [node name="AimCenter" type="Position2D" parent="." index="1"]
@@ -116,3 +114,6 @@ fsm_path = NodePath("..")
 
 [node name="Hurt" parent="StateMachine" index="2" instance=ExtResource( 4 )]
 fsm_path = NodePath("..")
+
+[node name="Grunt" parent="." index="9"]
+volume_db = -6.0

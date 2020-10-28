@@ -9,6 +9,7 @@ export (CHARACTERS) var character
 
 enum GENDER {MALE = 0, FEMALE = 1}
 const gender_names = ["m", "f"]
+const gender_names_caps = ["Male", "Female"]
 export (GENDER) var gender
 
 const TILE_SIZE = 16
@@ -19,6 +20,8 @@ onready var camera = $"../../MultiTargetCamera"
 
 var near_door
 export (int) var player_index = 1
+
+var can_poll_input = false
 
 var walk_direction = Vector2()
 var look_direction = Vector2()
@@ -32,6 +35,10 @@ onready var anim_health = $Health.max_health
 
 func _ready():
 	$Health.connect("update_health", self, "_on_Health_update_health")
+	set_sprite()
+
+
+func set_sprite():
 	
 	var char_name = character_names[character]
 	var folder_name = folder_names[character]
@@ -48,16 +55,17 @@ func _ready():
 
 func poll_input():
 	
-	var p_index = str(player_index)
-	
-	var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
-	var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
-	var horizontal_look = Input.get_action_strength("r_right_" + p_index) - Input.get_action_strength("r_left_" + p_index)
-	var vertical_look = Input.get_action_strength("r_down_" + p_index) - Input.get_action_strength("r_up_" + p_index)
-	is_attacking = Input.is_action_pressed("attack_" + p_index)
-	
-	walk_direction = Vector2(horizontal, vertical).normalized()
-	look_direction = Vector2(horizontal_look, vertical_look).normalized()
+	if can_poll_input:
+		var p_index = str(player_index)
+		
+		var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
+		var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
+		var horizontal_look = Input.get_action_strength("r_right_" + p_index) - Input.get_action_strength("r_left_" + p_index)
+		var vertical_look = Input.get_action_strength("r_down_" + p_index) - Input.get_action_strength("r_up_" + p_index)
+		is_attacking = Input.is_action_pressed("attack_" + p_index)
+		
+		walk_direction = Vector2(horizontal, vertical).normalized()
+		look_direction = Vector2(horizontal_look, vertical_look).normalized()
 
 
 func _physics_process(delta):

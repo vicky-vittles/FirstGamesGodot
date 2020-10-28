@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Levels/Components/DungeonTileset.tres" type="TileSet" id=1]
-[ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Systems/MultiTargetCamera2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/Level1/Level1.gd" type="Script" id=4]
 [ext_resource path="res://Levels/Components/Door.tscn" type="PackedScene" id=5]
@@ -25,6 +24,7 @@ __meta__ = {
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
+volume_db = -6.0
 
 [node name="Background" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -296,12 +296,10 @@ position = Vector2( 488, -200 )
 
 [node name="Players" type="Node" parent="."]
 
-[node name="Player1" parent="Players" instance=ExtResource( 2 )]
+[node name="Player1Pos" type="Position2D" parent="Players"]
 position = Vector2( 24, 200 )
 
-[node name="Player2" parent="Players" instance=ExtResource( 2 )]
+[node name="Player2Pos" type="Position2D" parent="Players"]
 position = Vector2( 72, 200 )
-character = 1
-player_index = 2
 
 [node name="Projectiles" type="Node" parent="."]

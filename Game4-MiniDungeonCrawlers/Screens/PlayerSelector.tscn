@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+font_path = "res://Assets/m5x7.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = SubResource( 1 )
+
+[node name="Player" type="VBoxContainer"]
+margin_right = 79.0
+margin_bottom = 288.0
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Status" type="Label" parent="."]
+margin_top = 84.0
+margin_right = 79.0
+margin_bottom = 103.0
+custom_fonts/font = SubResource( 2 )
+text = "Jogador 1"
+align = 1
+valign = 1
+
+[node name="Control" type="MarginContainer" parent="."]
+margin_left = 39.0
+margin_top = 153.0
+margin_right = 39.0
+margin_bottom = 153.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite" type="Sprite" parent="Control"]
+hframes = 8
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+margin_top = 203.0
+margin_right = 79.0
+margin_bottom = 203.0
+alignment = 1
+
+[node name="Left" type="TextureButton" parent="Buttons"]
+margin_left = 37.0
+margin_right = 37.0
+
+[node name="Right" type="TextureButton" parent="Buttons"]
+margin_left = 41.0
+margin_right = 41.0
