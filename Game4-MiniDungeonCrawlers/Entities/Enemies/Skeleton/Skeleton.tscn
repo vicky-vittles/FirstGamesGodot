@@ -1,15 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Entities/Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Enemies/Skeleton/skeleton.png" type="Texture" id=2]
 [ext_resource path="res://Entities/Enemies/BasicEnemyIdle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Enemies/BasicEnemyRun.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Entities/Enemies/StunHurt.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Entities/Enemies/KnockbackHurt.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/SFX/skeleton-grunt.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
-resource_name = "hurt"
-length = 0.5
+resource_name = "die"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -17,13 +16,28 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -39,7 +53,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 step = 0.125
@@ -56,15 +70,15 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5, 4 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5, 6 )
 
 [node name="Skeleton" instance=ExtResource( 1 )]
-player_detection_radius = 192
-attack_detection_radius = 192
+player_detection_radius = 128
+attack_detection_radius = 128
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
@@ -72,25 +86,26 @@ hframes = 8
 frame = 7
 
 [node name="AnimationPlayer" parent="." index="1"]
-anims/hurt = SubResource( 1 )
-anims/idle = SubResource( 2 )
-anims/run = SubResource( 3 )
+anims/die = SubResource( 1 )
+anims/hurt = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/run = SubResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2( 0, 4 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Hitbox" parent="." index="3"]
 position = Vector2( 0, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="Hurtbox" parent="." index="4"]
 position = Vector2( 0, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="StateMachine" parent="." index="6"]
 actor_path = NodePath("..")

@@ -7,3 +7,4 @@ func _ready():
 	$MultiTargetCamera.add_target($Players/Player2)
 	
 	$Elements/ButtonPair.connect("activate", $Elements/SpikeGroup, "disable")
+	$Elements/ButtonPair2.connect("activate", $Elements/SpikeGroup4, "disable")

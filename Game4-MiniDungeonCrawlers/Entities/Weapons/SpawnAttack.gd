@@ -25,4 +25,5 @@ func physics_process(delta):
 	pass
 
 func _on_CooldownTimer_timeout():
-	spawn_random_enemy()
+	if fsm.current_state == $"../Attack":
+		spawn_random_enemy()

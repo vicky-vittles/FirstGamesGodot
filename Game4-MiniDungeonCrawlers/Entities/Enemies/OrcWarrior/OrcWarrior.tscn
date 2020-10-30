@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Entities/Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Enemies/OrcWarrior/orc-warrior.png" type="Texture" id=2]
@@ -9,7 +9,21 @@
 [ext_resource path="res://Assets/SFX/monster-grunt.wav" type="AudioStream" id=7]
 
 [sub_resource type="Animation" id=1]
-resource_name = "hurt"
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -24,7 +38,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -39,7 +53,7 @@ tracks/0/keys = {
 "values": [ 0, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -54,15 +68,15 @@ tracks/0/keys = {
 "values": [ 4, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5, 3 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5, 8 )
 
 [node name="OrcWarrior" instance=ExtResource( 1 )]
 HORIZONTAL_DISTANCE_IN_ONE_SECOND = 4
-player_detection_radius = 128
+player_detection_radius = 80
 attack_detection_radius = 35
 
 [node name="EquippedWeapon" type="Node2D" parent="." index="0"]
@@ -79,13 +93,14 @@ hframes = 8
 frame = 3
 
 [node name="AnimationPlayer" parent="." index="3"]
-anims/hurt = SubResource( 1 )
-anims/idle = SubResource( 2 )
-anims/run = SubResource( 3 )
+anims/die = SubResource( 1 )
+anims/hurt = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/run = SubResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="4"]
 position = Vector2( 1, 13 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Hitbox" parent="." index="5"]
 position = Vector2( 1, 8 )
@@ -94,7 +109,7 @@ position = Vector2( 1, 8 )
 position = Vector2( 1, 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="Health" parent="." index="7"]
 max_health = 5

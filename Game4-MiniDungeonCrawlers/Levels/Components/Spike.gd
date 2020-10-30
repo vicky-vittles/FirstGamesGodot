@@ -2,15 +2,22 @@ extends Area2D
 
 class_name Spike
 
+enum MODE {ALTERNATING, ALWAYS_ON}
+export (MODE) var mode
+
 export (int) var damage = 1
 
 export (float) var offset_time
 var is_enabled = true
 
 func _ready():
-	$OffsetTimer.wait_time = offset_time
-	$OffsetTimer.start()
 	disable_shapes(true)
+	
+	if mode == MODE.ALTERNATING:
+		$OffsetTimer.wait_time = offset_time
+		$OffsetTimer.start()
+	else:
+		_on_TimerToOn_timeout()
 
 func disable_shapes(mode):
 	$CollisionShape2D.set_deferred("disabled", mode)
@@ -25,7 +32,9 @@ func _on_TimerToOn_timeout():
 	if is_enabled:
 		disable_shapes(false)
 		$AnimationPlayer.play("turn_on")
-		$TimerToOff.start()
+		
+		if mode == MODE.ALTERNATING:
+			$TimerToOff.start()
 
 func _on_OffsetTimer_timeout():
 	$TimerToOn.start()

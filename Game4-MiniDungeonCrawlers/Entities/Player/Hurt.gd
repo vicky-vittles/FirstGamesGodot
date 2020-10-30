@@ -1,6 +1,9 @@
 extends State
 
+const KNOCKBACK_DISTANCE = 70
+
 var duration_timeout
+var knockback_direction
 
 func enter():
 	duration_timeout = false
@@ -15,8 +18,11 @@ func exit():
 
 func physics_process(delta):
 	
-	var p_index = str(fsm.actor.player_index)
+	if knockback_direction != Vector2.ZERO:
+		fsm.actor.velocity = fsm.actor.move_and_slide(knockback_direction * KNOCKBACK_DISTANCE)
 	
+	var p_index = str(fsm.actor.player_index)
+		
 	var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
 	var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
 	

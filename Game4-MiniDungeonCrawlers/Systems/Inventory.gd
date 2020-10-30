@@ -5,6 +5,7 @@ signal update_coins(player_index, new_amount)
 
 const MAX_SILVER_KEYS = 3
 const MAX_GOLD_KEYS = 1
+const MAX_COINS = 999
 
 var silver_keys = 0
 var gold_keys = 0
@@ -24,6 +25,6 @@ func update_gold_keys(amount):
 
 
 func update_coins(amount):
-	coins = coins + amount
+	coins = clamp(coins + amount, 0, MAX_COINS)
 	
 	emit_signal("update_coins", $"..".player_index, coins)

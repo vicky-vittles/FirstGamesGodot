@@ -46,13 +46,23 @@ func _on_Player_update_coins(player_index, new_amount):
 	
 	var coins = str(new_amount)
 	
+	var hundreds
 	var tens
 	var ones
+	
 	if new_amount < 10:
+		hundreds = 0
 		tens = 0
 		ones = int(coins[0])
+		
 	elif new_amount < 100:
+		hundreds = 0
 		tens = int(coins[0])
 		ones = int(coins[1])
+		
+	elif new_amount < 1000:
+		hundreds = int(coins[0])
+		tens = int(coins[1])
+		ones = int(coins[2])
 	
-	player.get_node("CoinLabel").text = str(tens) + str(ones)
+	player.get_node("CoinLabel").text = str(hundreds) + str(tens) + str(ones)

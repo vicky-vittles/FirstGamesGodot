@@ -12,5 +12,7 @@ func update_health(amount):
 	
 	if health == 0:
 		emit_signal("die", $"..".player_index)
+		
+		health = max_health
 	
 	emit_signal("update_health", $"..".player_index, health)

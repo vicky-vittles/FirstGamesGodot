@@ -49,4 +49,14 @@ func _on_Hurtbox_area_entered(area):
 	
 	if (area.is_in_group("spike") or area.is_in_group("enemy_attack")) and fsm.current_state == self:
 		player.get_node("Health").update_health(-area.damage)
+		
+		$"../Hurt".knockback_direction = Vector2.ZERO
+		if (area is Spike):
+			var spike = area as Spike
+			var hit_direction = (fsm.actor.global_position - spike.global_position).normalized()
+			hit_direction.x = sign(hit_direction.x) if abs(hit_direction.x) > 0.75 else 0
+			hit_direction.y = sign(hit_direction.y) if abs(hit_direction.y) > 0.75 else 0
+			
+			$"../Hurt".knockback_direction = hit_direction
+		
 		fsm.change_state($"../Hurt")

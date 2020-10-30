@@ -25,7 +25,7 @@ func _ready():
 
 
 func disable():
-	$Sprite.visible = false
+	#$Sprite.visible = false
 	$CollisionShape2D.set_deferred("disabled", true)
 	
 	for i in $Hitbox.get_child_count():
@@ -95,6 +95,7 @@ func _on_Health_update_health(new_amount):
 
 func _on_Health_die():
 	disable()
+	$AnimationPlayer.play("die")
 	$DeathTimer.start()
 	$Die.play()
 
