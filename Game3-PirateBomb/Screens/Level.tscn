@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Juhani Junkala [Chiptune Adventures] 2. Stage2.wav" type="AudioStream" id=1]
 [ext_resource path="res://Systems/ScreenShake.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Screens/Level.gd" type="Script" id=3]
 [ext_resource path="res://Screens/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://Systems/SlowTime.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Systems/HealthBar.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=9]
 
@@ -114,8 +115,11 @@ __meta__ = {
 }
 
 [node name="HealthBar1" parent="." instance=ExtResource( 8 )]
-visible = false
 
 [node name="HealthBar2" parent="." instance=ExtResource( 8 )]
 margin_left = 932.0
 margin_right = 972.0
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="SlowTime" parent="Effects" instance=ExtResource( 5 )]

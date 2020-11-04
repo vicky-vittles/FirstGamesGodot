@@ -27,6 +27,7 @@ func _physics_process(delta):
 
 func _on_Player_update_health(player_index, new_amount):
 	var health_bar = get_node("HealthBar" + str(player_index))
+	$Effects/SlowTime.start(0.2, 0.6)
 	
 	if new_amount == 2:
 		health_bar.get_node("Heart3").hide()
@@ -52,6 +53,8 @@ func _on_Player_died(player_index):
 	
 	if winner != 0:
 		$Music.stop()
+		$Effects/SlowTime.start(0.6, 0.9)
+		
 		match_is_over = true
 		$VictoryLabel.show()
 		if winner == 1:
