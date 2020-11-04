@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 class_name Player
 
+signal bomb_exploded(player_index)
+
 const ONE_FRAME = 0.0166
 const TILE_SIZE = 32
 const PLAYER_HEIGHT = 50
@@ -114,3 +116,4 @@ func _on_BombCooldownTimer_timeout():
 
 func _on_Bomb_explosion():
 	bombs_left = bombs_left + 1
+	emit_signal("bomb_exploded", player_index)

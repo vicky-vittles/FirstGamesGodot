@@ -445,72 +445,72 @@ atlas = ExtResource( 33 )
 region = Rect2( 870, 0, 58, 58 )
 
 [sub_resource type="AtlasTexture" id=102]
-atlas = ExtResource( 18 )
-region = Rect2( 58, 0, 58, 58 )
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 58, 58 )
 
 [sub_resource type="AtlasTexture" id=103]
-atlas = ExtResource( 18 )
-region = Rect2( 116, 0, 58, 58 )
+atlas = ExtResource( 3 )
+region = Rect2( 58, 0, 58, 58 )
 
 [sub_resource type="AtlasTexture" id=104]
-atlas = ExtResource( 18 )
-region = Rect2( 174, 0, 58, 58 )
+atlas = ExtResource( 3 )
+region = Rect2( 116, 0, 58, 58 )
 
 [sub_resource type="AtlasTexture" id=105]
-atlas = ExtResource( 18 )
-region = Rect2( 232, 0, 58, 58 )
+atlas = ExtResource( 3 )
+region = Rect2( 174, 0, 58, 58 )
 
 [sub_resource type="AtlasTexture" id=106]
-atlas = ExtResource( 18 )
-region = Rect2( 290, 0, 58, 58 )
+atlas = ExtResource( 3 )
+region = Rect2( 232, 0, 58, 58 )
 
 [sub_resource type="AtlasTexture" id=107]
 atlas = ExtResource( 18 )
-region = Rect2( 348, 0, 58, 58 )
-
-[sub_resource type="AtlasTexture" id=108]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 0, 58, 58 )
-
-[sub_resource type="AtlasTexture" id=109]
-atlas = ExtResource( 15 )
 region = Rect2( 58, 0, 58, 58 )
 
-[sub_resource type="AtlasTexture" id=110]
-atlas = ExtResource( 15 )
+[sub_resource type="AtlasTexture" id=108]
+atlas = ExtResource( 18 )
 region = Rect2( 116, 0, 58, 58 )
 
-[sub_resource type="AtlasTexture" id=111]
-atlas = ExtResource( 15 )
+[sub_resource type="AtlasTexture" id=109]
+atlas = ExtResource( 18 )
 region = Rect2( 174, 0, 58, 58 )
 
-[sub_resource type="AtlasTexture" id=112]
-atlas = ExtResource( 15 )
+[sub_resource type="AtlasTexture" id=110]
+atlas = ExtResource( 18 )
 region = Rect2( 232, 0, 58, 58 )
+
+[sub_resource type="AtlasTexture" id=111]
+atlas = ExtResource( 18 )
+region = Rect2( 290, 0, 58, 58 )
+
+[sub_resource type="AtlasTexture" id=112]
+atlas = ExtResource( 18 )
+region = Rect2( 348, 0, 58, 58 )
 
 [sub_resource type="AtlasTexture" id=113]
 atlas = ExtResource( 15 )
-region = Rect2( 290, 0, 58, 58 )
-
-[sub_resource type="AtlasTexture" id=114]
-atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 58, 58 )
 
-[sub_resource type="AtlasTexture" id=115]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=114]
+atlas = ExtResource( 15 )
 region = Rect2( 58, 0, 58, 58 )
 
-[sub_resource type="AtlasTexture" id=116]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=115]
+atlas = ExtResource( 15 )
 region = Rect2( 116, 0, 58, 58 )
 
-[sub_resource type="AtlasTexture" id=117]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=116]
+atlas = ExtResource( 15 )
 region = Rect2( 174, 0, 58, 58 )
 
-[sub_resource type="AtlasTexture" id=118]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=117]
+atlas = ExtResource( 15 )
 region = Rect2( 232, 0, 58, 58 )
+
+[sub_resource type="AtlasTexture" id=118]
+atlas = ExtResource( 15 )
+region = Rect2( 290, 0, 58, 58 )
 
 [sub_resource type="SpriteFrames" id=119]
 animations = [ {
@@ -554,19 +554,19 @@ animations = [ {
 "name": "door_out",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ) ],
+"frames": [ SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ) ],
+"loop": false,
+"name": "jump",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ) ],
 "loop": false,
 "name": "attack",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ) ],
+"frames": [ SubResource( 113 ), SubResource( 114 ), SubResource( 115 ), SubResource( 116 ), SubResource( 117 ), SubResource( 118 ) ],
 "loop": false,
 "name": "dead_hit",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 114 ), SubResource( 115 ), SubResource( 116 ), SubResource( 117 ), SubResource( 118 ) ],
-"loop": false,
-"name": "jump",
 "speed": 20.0
 } ]
 

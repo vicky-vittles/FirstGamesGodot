@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/health-bar-bg.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Assets/DynamicFight_1.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Assets/DeepSpaceA.ogg" type="AudioStream" id=9]
 [ext_resource path="res://Assets/arrow.png" type="Texture" id=10]
+[ext_resource path="res://Systems/ScreenShake.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Camera2D.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 75
@@ -54,8 +56,20 @@ _data = {
 script = ExtResource( 6 )
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( 976, 464 )
+position = Vector2( 752, 464 )
 texture = ExtResource( 7 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 640, 360 )
+current = true
+limit_left = -100
+limit_top = -100
+limit_right = 1380
+limit_bottom = 820
+editor_draw_limits = true
+script = ExtResource( 12 )
+
+[node name="ScreenShake" parent="Camera2D" instance=ExtResource( 11 )]
 
 [node name="Player1" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1024, 384 )

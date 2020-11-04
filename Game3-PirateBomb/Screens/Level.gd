@@ -1,5 +1,7 @@
 extends Node2D
 
+signal bomb_exploded()
+
 var match_is_over = false
 var alive_players = [1, 2]
 
@@ -12,6 +14,9 @@ func _ready():
 	
 	$Player1/Health.connect("died", self, "_on_Player_died")
 	$Player2/Health.connect("died", self, "_on_Player_died")
+	
+	$Player1.connect("bomb_exploded", self, "_on_Player_bomb_exploded")
+	$Player2.connect("bomb_exploded", self, "_on_Player_bomb_exploded")
 
 
 func _physics_process(delta):
@@ -53,3 +58,7 @@ func _on_Player_died(player_index):
 			$VictoryLabel.text = "Jogador 1 venceu! \n Pressione Start para recomeçar"
 		elif winner == 2:
 			$VictoryLabel.text = "Jogador 2 venceu! \n Pressione Start para recomeçar"
+
+
+func _on_Player_bomb_exploded(player_index):
+	emit_signal("bomb_exploded")

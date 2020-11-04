@@ -2,6 +2,7 @@ extends Node2D
 
 signal game_started()
 signal game_won(player_victory)
+signal player_took_damage()
 
 enum GAME_STATE {START, PLAYING, END}
 var current_state = GAME_STATE.START
@@ -65,11 +66,15 @@ func _on_Player_update_health(player_index, new_amount):
 		if not $HUD/HealthBar1/Tween1.is_active():
 			$HUD/HealthBar1/Tween1.start()
 		$HUD/HealthBar1/AnimationPlayer.play("took_damage")
+		
+		emit_signal("player_took_damage")
 	elif player_index == 2:
 		$HUD/HealthBar2/Tween2.interpolate_property(self, "animated_health_p2", animated_health_p2, new_amount, 0.1)
 		if not $HUD/HealthBar2/Tween2.is_active():
 			$HUD/HealthBar2/Tween2.start()
 		$HUD/HealthBar2/AnimationPlayer.play("took_damage")
+		
+		emit_signal("player_took_damage")
 
 
 func _on_Player_player_died(player_index):
