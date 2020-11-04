@@ -2087,9 +2087,9 @@ position = Vector2( 936, -104 )
 [node name="Players" type="Node" parent="."]
 
 [node name="Player1Pos" type="Position2D" parent="Players"]
-position = Vector2( 1002, -726 )
+position = Vector2( 26, 202 )
 
 [node name="Player2Pos" type="Position2D" parent="Players"]
-position = Vector2( 1050, -726 )
+position = Vector2( 74, 202 )
 
 [node name="Projectiles" type="Node" parent="."]
