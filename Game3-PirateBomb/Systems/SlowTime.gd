@@ -7,6 +7,9 @@ var time_start
 var duration_ms
 var start_value
 
+func _ready():
+	Engine.time_scale = 1
+
 func start(duration = 0.4, strength = 0.9):
 	time_start = OS.get_ticks_msec()
 	duration_ms = duration * 1000
