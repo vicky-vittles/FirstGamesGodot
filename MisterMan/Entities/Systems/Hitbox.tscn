@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/Hit.tres" type="Resource" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Area2D
+
+signal hit_landed(area)
+
+export (Resource) var hit
+
+
+func disable_shapes():
+	for i in get_child_count():
+		var child = get_child(i)
+		if child is CollisionShape2D:
+			child.set_deferred(\"disabled\", true)
+
+
+func _on_area_entered(area):
+	if not area.is_in_group(hit.team):
+		emit_signal(\"hit_landed\", area)
+"
+
+[node name="Hitbox" type="Area2D"]
+collision_mask = 2
+script = SubResource( 1 )
+hit = ExtResource( 2 )
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

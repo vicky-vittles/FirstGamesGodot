@@ -1,0 +1,243 @@
+[gd_scene load_steps=36 format=2]
+
+[ext_resource path="res://Assets/Hero/idle-02.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Hero/idle-01.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Hero/idle-00.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Hero/idle-03.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Hero/run-01.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Hero/run-02.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Hero/run-00.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Hero/jump-00.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Hero/fall-00.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Hero/hurt-00.png" type="Texture" id=10]
+[ext_resource path="res://Entities/Systems/Hurtbox.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Hero/attack-03.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Hero/attack-02.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Hero/attack-01.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Hero/attack-00.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Hero/kick-01.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Hero/kick-00.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Hero/kick-02.png" type="Texture" id=18]
+[ext_resource path="res://Entities/Systems/Hitbox.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Entities/Hero/Player.gd" type="Script" id=20]
+[ext_resource path="res://Resources/Hit.gd" type="Script" id=21]
+[ext_resource path="res://Assets/16-bit-jump.wav" type="AudioStream" id=22]
+[ext_resource path="res://Assets/16-bit-hurt.wav" type="AudioStream" id=23]
+[ext_resource path="res://Assets/lifebar_fill.png" type="Texture" id=24]
+[ext_resource path="res://Assets/lifebar_bg.png" type="Texture" id=25]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 9.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": false,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "attack",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": false,
+"name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": false,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 16 ), ExtResource( 18 ) ],
+"loop": false,
+"name": "kick",
+"speed": 8.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 4, 6 )
+
+[sub_resource type="Resource" id=3]
+resource_local_to_scene = true
+script = ExtResource( 21 )
+damage = 1
+team = "player_brick"
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3, 1 )
+
+[sub_resource type="Resource" id=5]
+resource_local_to_scene = true
+script = ExtResource( 21 )
+damage = 1
+team = "player_stomp"
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 3, 2 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 3, 5 )
+
+[sub_resource type="Animation" id=8]
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0510849, 0.1, 0.151085, 0.2, 0.251085, 0.3, 0.351085, 0.4, 0.451085, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFontData" id=9]
+font_path = "res://Assets/at01.ttf"
+
+[sub_resource type="DynamicFont" id=10]
+size = 10
+font_data = SubResource( 9 )
+
+[node name="Player" type="KinematicBody2D"]
+z_index = 1
+collision_layer = 4
+collision_mask = 120
+script = ExtResource( 20 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "walk"
+frame = 1
+playing = true
+
+[node name="PhysicsShape" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 2 )
+
+[node name="AttackSpawn" type="Position2D" parent="."]
+position = Vector2( 8, 0 )
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="RunSmearTimer" type="Timer" parent="Timers"]
+wait_time = 0.15
+one_shot = true
+
+[node name="CoyoteJumpTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpPressTimer" type="Timer" parent="Timers"]
+wait_time = 0.08
+one_shot = true
+
+[node name="AttackPressTimer" type="Timer" parent="Timers"]
+
+[node name="JumpWalkHangTimer" type="Timer" parent="Timers"]
+wait_time = 0.05
+one_shot = true
+
+[node name="JumpRunHangTimer" type="Timer" parent="Timers"]
+wait_time = 0.016
+one_shot = true
+
+[node name="KnockbackTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[node name="IFramesTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 2560
+limit_bottom = 180
+smoothing_enabled = true
+smoothing_speed = 3.0
+
+[node name="BrickHitbox" parent="." instance=ExtResource( 19 )]
+hit = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BrickHitbox"]
+position = Vector2( 0, -5 )
+shape = SubResource( 4 )
+
+[node name="StompHitbox" parent="." instance=ExtResource( 19 )]
+visible = false
+hit = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompHitbox"]
+position = Vector2( 0, 7 )
+shape = SubResource( 6 )
+
+[node name="Hurtbox" parent="." groups=[
+"player",
+] instance=ExtResource( 11 )]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource( 7 )
+
+[node name="AnimationEffects" type="AnimationPlayer" parent="."]
+anims/iframes_invincible = SubResource( 8 )
+
+[node name="JumpSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+
+[node name="PunchSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -28.0
+margin_top = -24.0
+margin_right = 29.0
+margin_bottom = -10.0
+custom_fonts/font = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+visible = false
+margin_left = -52.0
+margin_top = -40.0
+margin_right = 47.0
+margin_bottom = -26.0
+texture_under = ExtResource( 25 )
+texture_progress = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="timeout" from="Timers/RunSmearTimer" to="." method="_on_RunSmearTimer_timeout"]
+[connection signal="timeout" from="Timers/JumpWalkHangTimer" to="." method="_on_JumpWalkHangTimer_timeout"]
+[connection signal="timeout" from="Timers/JumpRunHangTimer" to="." method="_on_JumpRunHangTimer_timeout"]
+[connection signal="timeout" from="Timers/KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
+[connection signal="timeout" from="Timers/IFramesTimer" to="." method="_on_IFramesTimer_timeout"]
+[connection signal="timeout" from="Timers/DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="hit_landed" from="BrickHitbox" to="." method="_on_BrickHitbox_hit_landed"]
