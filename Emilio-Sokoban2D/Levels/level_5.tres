@@ -1,0 +1,19 @@
+{
+  "width": 22,
+  "height": 13,
+  "level": "
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,W,W,W,W,W,W,W,W,
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,W,E,E,S,S,S,S,W,
+E,E,E,W,W,W,W,W,W,W,W,W,W,W,W,E,E,S,S,S,S,W,
+E,E,E,W,E,E,E,E,E,E,E,B,E,B,E,E,E,S,S,S,S,W,
+E,E,E,W,E,B,B,B,E,B,E,E,B,E,W,E,E,S,S,S,S,W,
+E,E,E,W,E,E,B,E,E,E,E,E,B,E,W,E,E,S,S,S,S,W,
+E,E,E,W,E,B,B,E,W,B,E,B,E,B,W,W,W,W,W,W,W,W,
+W,W,W,W,E,E,B,E,W,E,E,E,E,E,W,E,E,E,E,E,E,E,
+W,E,E,E,W,E,W,W,W,W,W,W,W,W,W,E,E,E,E,E,E,E,
+W,E,E,E,E,B,E,E,W,W,E,E,E,E,E,E,E,E,E,E,E,E,
+W,E,B,B,W,B,B,E,P,W,E,E,E,E,E,E,E,E,E,E,E,E,
+W,E,E,E,W,E,E,E,W,W,E,E,E,E,E,E,E,E,E,E,E,E,
+W,W,W,W,W,W,W,W,W,E,E,E,E,E,E,E,E,E,E,E,E,E,
+"
+}

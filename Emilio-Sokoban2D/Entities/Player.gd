@@ -5,9 +5,16 @@ const EASE = Tween.EASE_IN_OUT
 
 onready var ray = $RayCast2D
 onready var tween = $Tween
+onready var step_sfx = $Step
+onready var mouse_click_sfx = $MouseClick
 
 var steps = 0
 var direction = Vector2()
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT:
+			mouse_click_sfx.play()
 
 func _process(delta):
 	if not tween.is_active():
@@ -27,11 +34,14 @@ func move(direction):
 		tween.interpolate_property(self, "position", position, position + end_position, 0.1, TRANS, EASE)
 		
 		if not ray.is_colliding():
-			tween.start()
-			steps += 1
+			step()
 		else:
 			var collider = ray.get_collider()
 			if collider.is_in_group("boxes"):
 				if collider.move(direction):
-					tween.start()
-					steps += 1
+					step()
+
+func step():
+	tween.start()
+	step_sfx.play()
+	steps += 1

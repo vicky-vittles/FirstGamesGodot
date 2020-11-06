@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/box_click_on_spot.wav-6e8dc175143513cb92a09a0c06812262.sample"
+
+[deps]
+
+source_file="res://Assets/box_click_on_spot.wav"
+dest_files=[ "res://.import/box_click_on_spot.wav-6e8dc175143513cb92a09a0c06812262.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
