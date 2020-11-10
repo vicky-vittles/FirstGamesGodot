@@ -1,0 +1,103 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Camera.gd" type="Script" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://tex_Water.jpg" type="Texture" id=3]
+[ext_resource path="res://World.gd" type="Script" id=4]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 1, 0.654902, 0, 1 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 3, 2, 3 )
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 3 )
+roughness = 0.04
+
+[node name="World" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.952768, 0.303701, 0, -0.303701, 0.952768, 0, 15.4598, 0.836088 )
+use_collision = true
+width = 6.0
+height = 0.5
+depth = 16.0
+material = SubResource( 4 )
+
+[node name="CSGBox2" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.913474, -0.406896, 0, 0.406896, 0.913474, 7.45402, 11.3445, -2.38915 )
+use_collision = true
+width = 6.0
+height = 0.5
+depth = 16.0
+material = SubResource( 4 )
+
+[node name="CSGBox3" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.922605, 0.385745, 0, -0.385745, 0.922605, 14.6431, 6.29664, -0.739079 )
+use_collision = true
+width = 6.0
+height = 0.5
+depth = 16.0
+material = SubResource( 4 )
+
+[node name="Goal" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6431, 0.296642, -13.8688 )
+use_collision = true
+width = 8.0
+height = 4.0
+depth = 8.0
+
+[node name="CSGSphere" type="CSGSphere" parent="Goal"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7079, 0 )
+operation = 2
+radius = 3.66363
+
+[node name="GoalTrigger" type="Area" parent="Goal"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Goal/GoalTrigger"]
+shape = SubResource( 5 )
+
+[node name="Player" type="RigidBody" parent="." groups=[
+"player",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.7066, 4.94625 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.781368, 0.624071, 0, -0.624071, 0.781368, 0.012815, 26.0818, 14.8995 )
+script = ExtResource( 1 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.984251, 0.176775, 0, -0.176775, 0.984251, 8.35997, 22.8084, 19.4479 )
+shadow_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VictoryLabel" type="Label" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -29.6091
+margin_top = -82.7264
+margin_right = 31.3909
+margin_bottom = -68.7264
+text = "You won!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="Goal/GoalTrigger" to="." method="_on_GoalTrigger_body_entered"]
