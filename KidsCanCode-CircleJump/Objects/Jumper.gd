@@ -3,6 +3,9 @@ extends Area2D
 signal captured(area)
 signal die()
 
+onready var sprite = $Sprite
+onready var jump = $Jump
+onready var capture = $Capture
 onready var trail = $Trail/Points
 
 var velocity = Vector2(100, 0)
@@ -11,9 +14,18 @@ var target = null
 var trail_length : int = 25
 var is_alive : bool = true
 
-func  _unhandled_input(event):
-	if target and event is InputEventScreenTouch and event.pressed:
+func _ready():
+	sprite.material.set_shader_param("color", Settings.theme["player_body"])
+	var trail_color = Settings.theme["player_trail"]
+	trail.gradient.set_color(1, trail_color)
+	trail_color.a = 0
+	trail.gradient.set_color(0, trail_color)
+
+
+func _process(delta):
+	if Input.is_action_just_pressed("jump"):
 		jump()
+
 
 func _physics_process(delta):
 	
@@ -27,6 +39,8 @@ func _physics_process(delta):
 		position += velocity * delta
 
 func jump():
+	if Settings.enable_sound:
+		jump.play()
 	target.implode()
 	target = null
 	velocity = transform.x * jump_speed
@@ -35,6 +49,9 @@ func _on_Jumper_area_entered(area):
 	target = area
 	velocity = Vector2.ZERO
 	emit_signal("captured", area)
+	
+	if Settings.enable_sound:
+		capture.play()
 
 func die():
 	target = null

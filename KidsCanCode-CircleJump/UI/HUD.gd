@@ -1,14 +1,22 @@
 extends CanvasLayer
 
+onready var message = $Message
+onready var animation_player = $AnimationPlayer
+onready var score_box = $ScoreBox
+onready var score = $ScoreBox/HBoxContainer/Score
+
+func _ready():
+	message.rect_pivot_offset = message.rect_size / 2
+
 func show_message(text):
-	$Message.text = text
-	$AnimationPlayer.play("show_message")
+	message.text = text
+	animation_player.play("show_message")
 
 func hide():
-	$ScoreBox.hide()
+	score_box.hide()
 
 func show():
-	$ScoreBox.show()
+	score_box.show()
 
 func update_score(new_score):
-	$ScoreBox/HBoxContainer/Score.text = str(new_score)
+	score.text = str(new_score)
