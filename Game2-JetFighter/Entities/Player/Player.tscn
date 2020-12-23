@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Entities/Player/Health.gd" type="Script" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
@@ -10,6 +10,28 @@
 [ext_resource path="res://Assets/Hit_Hurt3.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Hit_Hurt.wav" type="AudioStream" id=9]
 [ext_resource path="res://Assets/Hit_Hurt4.wav" type="AudioStream" id=10]
+[ext_resource path="res://Systems/StateMachine.gd" type="Script" id=11]
+[ext_resource path="res://Entities/Player/States/PlayerSpawn.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Entities/Player/States/PlayerDead.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Entities/Player/States/PlayerHidden.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Entities/Player/States/PlayerFly.tscn" type="PackedScene" id=15]
+
+[sub_resource type="CanvasItemMaterial" id=5]
+particles_animation = true
+particles_anim_h_frames = 10
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 20.0
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.5
+scale_random = 1.0
+anim_speed = 1.5
 
 [sub_resource type="Animation" id=1]
 resource_name = "go_to_idle"
@@ -114,23 +136,6 @@ tracks/0/keys = {
 "values": [ false, true, false ]
 }
 
-[sub_resource type="CanvasItemMaterial" id=5]
-particles_animation = true
-particles_anim_h_frames = 10
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="ParticlesMaterial" id=6]
-emission_shape = 1
-emission_sphere_radius = 20.0
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 0.5
-scale_random = 1.0
-anim_speed = 1.5
-
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
 ]]
@@ -138,22 +143,61 @@ collision_layer = 2
 collision_mask = 8
 script = ExtResource( 2 )
 
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 11 )
+actor_path = NodePath("..")
+
+[node name="Spawn" parent="StateMachine" instance=ExtResource( 12 )]
+fsm_path = NodePath("..")
+
+[node name="Fly" parent="StateMachine" instance=ExtResource( 15 )]
+fsm_path = NodePath("..")
+
+[node name="Dead" parent="StateMachine" instance=ExtResource( 13 )]
+fsm_path = NodePath("..")
+
+[node name="Hidden" parent="StateMachine" instance=ExtResource( 14 )]
+fsm_path = NodePath("..")
+
 [node name="Sprite" type="Sprite" parent="."]
 hframes = 3
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="WhiteSprite" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 3 )
 hframes = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Particles2D" type="Particles2D" parent="."]
+material = SubResource( 5 )
+emitting = false
+amount = 5
+lifetime = 0.5
+process_material = SubResource( 6 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -19, -4, -10, -7, 0, -30, 10, -7, 18, -4, 18, 17, -19, 17 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Hurtbox" type="Area2D" parent="." groups=[
 "player",
 ]]
 collision_layer = 2
 collision_mask = 12
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtbox"]
 polygon = PoolVector2Array( -19, -4, -10, -7, 0, -30, 10, -7, 18, -4, 18, 17, -19, 17 )
@@ -170,6 +214,9 @@ anims/take_damage = SubResource( 4 )
 visible = false
 position = Vector2( -0.499999, -6 )
 scale = Vector2( 1.85, 2.3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="BulletSpawn" type="Position2D" parent="."]
 position = Vector2( 0, -43 )
@@ -177,25 +224,15 @@ position = Vector2( 0, -43 )
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 1 )
 
-[node name="Particles2D" type="Particles2D" parent="."]
-material = SubResource( 5 )
-emitting = false
-amount = 5
-lifetime = 0.5
-process_material = SubResource( 6 )
-texture = ExtResource( 4 )
-
-[node name="DeadTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [node name="LaserShootSFX" parent="." instance=ExtResource( 5 )]
 audio_files = [ ExtResource( 6 ), ExtResource( 7 ) ]
 
 [node name="HurtSFX" parent="." instance=ExtResource( 5 )]
 pitch_scale = 1.25
 audio_files = [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ) ]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="game_started" from="." to="StateMachine/Spawn" method="_on_Player_game_started"]
+[connection signal="game_won" from="." to="StateMachine/Fly" method="_on_Player_game_won"]
+[connection signal="area_entered" from="Hurtbox" to="StateMachine/Fly" method="_on_Hurtbox_area_entered"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
-[connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
+[connection signal="died" from="Health" to="StateMachine/Fly" method="_on_Health_died"]

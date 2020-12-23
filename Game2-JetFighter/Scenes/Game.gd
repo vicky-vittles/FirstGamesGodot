@@ -23,6 +23,7 @@ func _ready():
 	$Player1.connect("screen_entered", self, "_on_Player_screen_entered")
 	$Player2.connect("screen_entered", self, "_on_Player_screen_entered")
 
+
 func _process(delta):
 	$HUD/StartCountdownLabel.text = str(ceil($GameStartTimer.time_left)) + "..."
 	$HUD/HealthBar1/HealthValue1.value = animated_health_p1
@@ -34,6 +35,7 @@ func _process(delta):
 	if current_state == GAME_STATE.END:
 		if Input.is_action_just_pressed("reload"):
 			get_tree().reload_current_scene()
+
 
 func _on_AsteroidSpawnTimer_timeout():
 	randomize()
