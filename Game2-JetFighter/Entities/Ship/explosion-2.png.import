@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player-spaceship-1.png-aec44440a1dbfef81d6578567ad2f05a.stex"
+path="res://.import/explosion-2.png-a8c348f17b669c961d2938db0bbcebeb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/player-spaceship-1.png"
-dest_files=[ "res://.import/player-spaceship-1.png-aec44440a1dbfef81d6578567ad2f05a.stex" ]
+source_file="res://Entities/Ship/explosion-2.png"
+dest_files=[ "res://.import/explosion-2.png-a8c348f17b669c961d2938db0bbcebeb.stex" ]
 
 [params]
 

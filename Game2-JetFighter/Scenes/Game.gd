@@ -24,7 +24,7 @@ func _ready():
 	$Player2.connect("screen_entered", self, "_on_Player_screen_entered")
 
 
-func _process(delta):
+func _process(_delta):
 	$HUD/StartCountdownLabel.text = str(ceil($GameStartTimer.time_left)) + "..."
 	$HUD/HealthBar1/HealthValue1.value = animated_health_p1
 	$HUD/HealthBar2/HealthValue2.value = animated_health_p2
@@ -34,7 +34,7 @@ func _process(delta):
 	
 	if current_state == GAME_STATE.END:
 		if Input.is_action_just_pressed("reload"):
-			get_tree().reload_current_scene()
+			var _reloaded_succesfully = get_tree().reload_current_scene()
 
 
 func _on_AsteroidSpawnTimer_timeout():
@@ -94,13 +94,13 @@ func _on_Player_player_died(player_index):
 
 func _on_Player_screen_exited(player_index):
 	if player_index == 1:
-		$Arrow1.global_position.x = clamp($Player1.global_position.x, 100, 1180)
-		$Arrow1.global_position.y = clamp($Player1.global_position.y, 50, 670)
+		#$Arrow1.global_position.x = clamp($Player1.global_position.x, 100, 1180)
+		#$Arrow1.global_position.y = clamp($Player1.global_position.y, 50, 670)
 		$Arrow1.hide()
 		
 	elif player_index == 2:
-		$Arrow2.global_position.x = clamp($Player2.global_position.x, 100, 1180)
-		$Arrow2.global_position.y = clamp($Player2.global_position.y, 50, 670)
+		#$Arrow2.global_position.x = clamp($Player2.global_position.x, 100, 1180)
+		#$Arrow2.global_position.y = clamp($Player2.global_position.y, 50, 670)
 		$Arrow2.hide()
 
 

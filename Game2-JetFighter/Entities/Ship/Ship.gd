@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-class_name Player
+class_name Ship
 
 signal game_won(player_index)
 signal game_started()
@@ -13,9 +13,6 @@ const SCREEN_WIDTH = 1280
 const SCREEN_WIDTH_PERCENTAGE = 0.3
 const SPEED = SCREEN_WIDTH * SCREEN_WIDTH_PERCENTAGE
 const ROTATION_SPEED = PI
-
-enum STATES {SPAWN, FLY, DEAD, HIDDEN}
-var current_state = STATES.SPAWN
 
 onready var movement_animations = $MovementAnimations
 onready var damage_animations = $DamageAnimations
@@ -42,14 +39,14 @@ var direction = Vector2(0, -1)
 
 
 func _ready():
-	$"..".connect("game_started", self, "_on_World_game_started")
-	$"..".connect("game_won", self, "_on_World_game_won")
+	#$"..".connect("game_started", self, "_on_World_game_started")
+	#$"..".connect("game_won", self, "_on_World_game_won")
 	health.connect("update_health", self, "_on_Health_update_health")
 	health.connect("died", self, "_on_Health_died")
 	
-	sprite.texture = load("res://Entities/Player/player-spaceship-"+str(player_index)+".png")
+	sprite.texture = load("res://Entities/Ship/player-spaceship-"+str(player_index)+".png")
 	
-	particle_spawn.texture = load("res://Entities/Player/explosion-"+str(player_index)+".png")
+	particle_spawn.texture = load("res://Entities/Ship/explosion-"+str(player_index)+".png")
 
 
 func get_input():

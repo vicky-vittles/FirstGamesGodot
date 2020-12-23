@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
-"class": "Player",
+"class": "Ship",
 "language": "GDScript",
-"path": "res://Entities/Player/Player.gd"
+"path": "res://Entities/Ship/Ship.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -25,7 +25,7 @@ _global_script_classes=[ {
 "path": "res://Systems/StateMachine.gd"
 } ]
 _global_script_class_icons={
-"Player": "",
+"Ship": "",
 "State": "",
 "StateMachine": ""
 }
@@ -92,6 +92,8 @@ reload={
 2d_physics/layer_2="player"
 2d_physics/layer_3="bullet"
 2d_physics/layer_4="asteroid"
+2d_physics/layer_5="hitbox"
+2d_physics/layer_6="hurtbox"
 
 [rendering]
 

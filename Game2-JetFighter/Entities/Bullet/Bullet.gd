@@ -6,8 +6,8 @@ var player_index = 1
 var direction = Vector2()
 
 
-func shoot(player_index, ship_direction):
-	$Sprite.texture = load("res://Entities/Bullet/bullet-" + str(player_index) + ".png")
+func shoot(p_index, ship_direction):
+	$Sprite.texture = load("res://Entities/Bullet/bullet-" + str(p_index) + ".png")
 	
 	rotation = ship_direction.angle() + PI/2
 	direction = ship_direction

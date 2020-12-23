@@ -14,10 +14,10 @@ func enter():
 func exit():
 	player.particle_spawn.emitting = false
 
-func process(delta):
+func process(_delta):
 	pass
 
-func physics_process(delta):
+func physics_process(_delta):
 	if not player.damage_animations.is_playing():
 		player.damage_animations.play("died")
 
