@@ -36,18 +36,18 @@ func process(_delta):
 	else:
 		var rand = randi() % 100
 		
-		if rand < 2:
+		if rand < 5:
 			ship.input_fire = true
 		
 		if not turning_around_randomly:
 		
-			if rand % 5 == 0:
+			if rand % 4 == 0:
 				turning_around_randomly = true
 				random_direction_timer.start()
 				
 				random_direction = 1
 				
-			elif rand % 5 == 1:
+			elif rand % 4 == 1:
 				turning_around_randomly = true
 				random_direction_timer.start()
 				

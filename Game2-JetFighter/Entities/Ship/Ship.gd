@@ -12,7 +12,8 @@ signal screen_entered(player_index)
 const SCREEN_WIDTH = 1280
 const SCREEN_WIDTH_PERCENTAGE = 0.3
 const SPEED = SCREEN_WIDTH * SCREEN_WIDTH_PERCENTAGE
-const ROTATION_SPEED = PI
+const ROTATION_SPEED = 1.12 * PI
+const SCREEN_EXTRA_SPACE = 200
 
 onready var movement_animations = $MovementAnimations
 onready var damage_animations = $DamageAnimations
@@ -123,12 +124,12 @@ func _on_Health_update_health(new_amount):
 	emit_signal("update_health", player_index, new_amount)
 
 func wrap_around_screen():
-	if position.x > 1280:
+	if position.x > Globals.resolution.x + SCREEN_EXTRA_SPACE:
 		position.x = 0
-	elif position.x < 0:
-		position.x = 1280
+	elif position.x < -SCREEN_EXTRA_SPACE:
+		position.x = Globals.resolution.x
 	
-	if position.y > 720:
+	if position.y > Globals.resolution.y + SCREEN_EXTRA_SPACE:
 		position.y = 0
-	elif position.y < 0:
-		position.y = 720
+	elif position.y < -SCREEN_EXTRA_SPACE:
+		position.y = Globals.resolution.y

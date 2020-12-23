@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Assets/m5x7.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/GravityBold-64.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/health-bar-bg.png" type="Texture" id=2]
 [ext_resource path="res://Assets/health-bar-fill-2.png" type="Texture" id=3]
 [ext_resource path="res://Assets/health-bar-fill-1.png" type="Texture" id=4]
@@ -13,11 +13,7 @@
 [ext_resource path="res://Systems/ScreenShake.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Camera2D.gd" type="Script" id=12]
 [ext_resource path="res://Entities/Ship/AI/Bot.tscn" type="PackedScene" id=13]
-
-
-[sub_resource type="DynamicFont" id=1]
-size = 75
-font_data = ExtResource( 1 )
+[ext_resource path="res://Assets/GravityBold-32.tres" type="DynamicFont" id=14]
 
 [sub_resource type="Animation" id=2]
 resource_name = "took_damage"
@@ -105,7 +101,7 @@ margin_left = 608.0
 margin_top = 304.0
 margin_right = 685.0
 margin_bottom = 467.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "3...
 "
 __meta__ = {
@@ -118,8 +114,8 @@ margin_left = -16.0
 margin_top = 272.0
 margin_right = 1309.0
 margin_bottom = 435.0
-custom_fonts/font = SubResource( 1 )
-text = "Jogador 2 venceu!
+custom_fonts/font = ExtResource( 14 )
+text = "Jogador x venceu!
 Pressione \"R\" ou \"Start\" para recomeçar"
 align = 1
 __meta__ = {
@@ -200,24 +196,24 @@ wait_time = 2.0
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "Music"
 
 [node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "Music"
 
 [node name="Arrow1" type="Sprite" parent="."]
-visible = false
 modulate = Color( 1, 0.25, 0.25, 1 )
-position = Vector2( -112, 320 )
+position = Vector2( 640, 224 )
 texture = ExtResource( 10 )
 
 [node name="Arrow2" type="Sprite" parent="."]
-visible = false
 modulate = Color( 0.25, 0.25, 1, 1 )
 position = Vector2( -112, 416 )
 texture = ExtResource( 10 )
-[connection signal="game_started" from="." to="Player1" method="_on_World_game_started"]
 [connection signal="game_started" from="." to="Player2" method="_on_World_game_started"]
-[connection signal="game_won" from="." to="Player1" method="_on_World_game_won"]
+[connection signal="game_started" from="." to="Player1" method="_on_World_game_started"]
 [connection signal="game_won" from="." to="Player2" method="_on_World_game_won"]
+[connection signal="game_won" from="." to="Player1" method="_on_World_game_won"]
 [connection signal="timeout" from="GameStartTimer" to="." method="_on_GameStartTimer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_AsteroidSpawnTimer_timeout"]

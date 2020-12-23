@@ -35,5 +35,4 @@ func _on_LifetimeTimer_timeout():
 
 func _on_Bullet_area_entered(area):
 	if area.is_in_group("player") or area.is_in_group("asteroid"):
-		get_parent().remove_child(self)
 		queue_free()
