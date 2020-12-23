@@ -147,7 +147,6 @@ texture = ExtResource( 3 )
 hframes = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
 polygon = PoolVector2Array( -19, -4, -10, -7, 0, -30, 10, -7, 18, -4, 18, 17, -19, 17 )
 
 [node name="Hurtbox" type="Area2D" parent="." groups=[

@@ -3,8 +3,8 @@ extends KinematicBody2D
 const TRANS = Tween.TRANS_SINE
 const EASE = Tween.EASE_IN_OUT
 
-onready var ray = $RayCast2D
 onready var tween = $Tween
+onready var ray = $RayCast2D
 onready var step_sfx = $Step
 onready var mouse_click_sfx = $MouseClick
 

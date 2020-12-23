@@ -12,7 +12,7 @@ var animated_health_p2 = 100
 
 
 func _ready():
-	$Music.play()
+	#$Music.play()
 	$GameStartTimer.start()
 	$Player1.connect("update_health", self, "_on_Player_update_health")
 	$Player2.connect("update_health", self, "_on_Player_update_health")
