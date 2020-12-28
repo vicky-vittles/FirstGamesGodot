@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/GravityBold-64.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/health-bar-bg.png" type="Texture" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Assets/arrow.png" type="Texture" id=10]
 [ext_resource path="res://Systems/ScreenShake.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Camera2D.gd" type="Script" id=12]
-[ext_resource path="res://Entities/Ship/AI/Bot.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/GravityBold-32.tres" type="DynamicFont" id=14]
 
 [sub_resource type="Animation" id=1]
@@ -74,10 +73,6 @@ script = ExtResource( 12 )
 
 [node name="Player1" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1024, 416 )
-
-[node name="Player2" parent="." instance=ExtResource( 13 )]
-position = Vector2( 256, 416 )
-player_index = 2
 
 [node name="Bullets" type="Node2D" parent="."]
 __meta__ = {
@@ -212,8 +207,6 @@ modulate = Color( 0.25, 0.25, 1, 1 )
 position = Vector2( -112, 416 )
 texture = ExtResource( 10 )
 [connection signal="game_started" from="." to="Player1" method="_on_World_game_started"]
-[connection signal="game_started" from="." to="Player2" method="_on_World_game_started"]
 [connection signal="game_won" from="." to="Player1" method="_on_World_game_won"]
-[connection signal="game_won" from="." to="Player2" method="_on_World_game_won"]
 [connection signal="timeout" from="GameStartTimer" to="." method="_on_GameStartTimer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_AsteroidSpawnTimer_timeout"]

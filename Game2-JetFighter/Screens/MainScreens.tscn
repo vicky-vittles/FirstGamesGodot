@@ -17,4 +17,6 @@ script = ExtResource( 4 )
 [connection signal="go_to_options" from="TitleScreen" to="." method="go_to_options"]
 [connection signal="quit" from="TitleScreen" to="." method="quit"]
 [connection signal="go_to_title_screen" from="GameSelectScreen" to="." method="go_to_title_screen"]
+[connection signal="new_vs_bot_game" from="GameSelectScreen" to="." method="new_vs_bot_game"]
+[connection signal="new_vs_player_game" from="GameSelectScreen" to="." method="new_vs_player_game"]
 [connection signal="go_to_title_screen" from="OptionsScreen" to="." method="go_to_title_screen"]
