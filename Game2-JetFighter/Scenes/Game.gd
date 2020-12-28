@@ -2,6 +2,7 @@ extends Node2D
 
 signal game_started()
 signal game_won(player_victory)
+signal update_game_over_message(message)
 signal player_took_damage()
 
 onready var arrow_1 = $Arrow1
@@ -11,6 +12,7 @@ onready var player_2 = $Player2
 
 enum GAME_STATE {START, PLAYING, END}
 var current_state = GAME_STATE.START
+var game_type
 var m
 
 var animated_health_p1 = 100
@@ -52,27 +54,6 @@ func update_arrow_position(arrow, player):
 	
 	arrow.global_position.x = clamp(player.global_position.x, 100, max_width - 100)
 	arrow.global_position.y = clamp(player.global_position.y, 100, max_height - 100)
-	
-#	if player.global_position.x != 0:
-#		m = player.global_position.y / player.global_position.x
-#
-#
-#	if player.global_position.x > max_width:
-#		arrow.global_position.x = max_width - 100
-#		arrow.global_position.y = m * arrow.global_position.x
-#
-#	elif player.global_position.x < 0:
-#		arrow.global_position.x = 100
-#		arrow.global_position.y = m * arrow.global_position.x
-#
-#
-#	if player.global_position.y > max_height:
-#		arrow.global_position.y = max_height - 100
-#		arrow.global_position.x = m / arrow.global_position.y
-#
-#	elif player.global_position.y < 0:
-#		arrow.global_position.y = 100
-#		arrow.global_position.x = m / 0.01
 	
 	arrow.look_at(player.global_position)
 
@@ -118,19 +99,14 @@ func _on_Player_update_health(player_index, new_amount):
 		
 		emit_signal("player_took_damage")
 
-
 func _on_Player_player_died(player_index):
 	current_state = GAME_STATE.END
 	$Music.stop()
 	$GameOverMusic.play()
-	$HUD/VictoryLabel.show()
 	if player_index == 1:
-		$HUD/VictoryLabel.text = "Player 2 won! \n" + "Press \"R\" or \"Start\" to restart"
 		emit_signal("game_won", 2)
 	elif player_index == 2:
-		$HUD/VictoryLabel.text = "Player 1 won! \n" + "Press \"R\" or \"Start\" to restart"
 		emit_signal("game_won", 1)
-
 
 func _on_Player_screen_exited(player_index):
 	
@@ -139,7 +115,6 @@ func _on_Player_screen_exited(player_index):
 	elif player_index == 2:
 		arrow_2.show()
 
-
 func _on_Player_screen_entered(player_index):
 	
 	if player_index == 1:
@@ -147,6 +122,6 @@ func _on_Player_screen_entered(player_index):
 	elif player_index == 2:
 		arrow_2.hide()
 
-
-func _on_World_game_won(player_victory):
-	pass # Replace with function body.
+func _on_Game_game_won(player_victory):
+	var message = "Player " + str(player_victory) + " won! \n"
+	emit_signal("update_game_over_message", message)

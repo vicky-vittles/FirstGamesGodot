@@ -13,31 +13,24 @@ size_flags_horizontal = 5
 size_flags_vertical = 5
 
 [node name="Title" parent="MarginContainer/VBoxContainer" index="0"]
-margin_top = 282.0
+margin_top = 317.0
 margin_right = 1280.0
-margin_bottom = 314.0
+margin_bottom = 349.0
+align = 1
+valign = 1
 
 [node name="Buttons" parent="MarginContainer/VBoxContainer" index="1"]
-margin_left = 362.0
-margin_top = 318.0
-margin_right = 918.0
-margin_bottom = 438.0
+margin_left = 372.0
+margin_top = 353.0
+margin_right = 908.0
+margin_bottom = 403.0
 size_flags_horizontal = 4
 custom_constants/separation = 20
 
-[node name="PlayAgain" type="Button" parent="MarginContainer/VBoxContainer/Buttons" index="0"]
-margin_right = 556.0
+[node name="TitleScreen" type="Button" parent="MarginContainer/VBoxContainer/Buttons" index="0"]
+margin_right = 536.0
 margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 4
-text = "       Play Again       "
-
-[node name="TitleScreen" type="Button" parent="MarginContainer/VBoxContainer/Buttons" index="1"]
-margin_top = 70.0
-margin_right = 556.0
-margin_bottom = 120.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 7
 text = "RETURN TO MAIN MENU"
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/PlayAgain" to="." method="_on_PlayAgain_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/TitleScreen" to="." method="_on_TitleScreen_pressed"]

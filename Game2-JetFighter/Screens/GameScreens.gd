@@ -1,8 +1,5 @@
 extends Node
 
-signal restart_game()
-
-
 onready var screens = {"EmptyScreen": $EmptyScreen,
 				"PausedScreen": $PausedScreen,
 				"GameOverScreen": $GameOverScreen,
@@ -31,10 +28,6 @@ func change_screen(new_screen):
 	actual_screen = new_screen
 	actual_screen.show_screen()
 
-func _on_GameOverScreen_play_again():
-	get_tree().paused = false
-	emit_signal("restart_game")
-
 func go_to_empty_screen():
 	get_tree().paused = false
 	change_screen("EmptyScreen")
@@ -48,3 +41,7 @@ func go_to_pause_screen():
 func go_to_title_screen():
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+func go_to_game_over_screen(message):
+	change_screen("GameOverScreen")
+	screens["GameOverScreen"].set_message(message)
