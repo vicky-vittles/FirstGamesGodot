@@ -18,6 +18,8 @@ var animated_health_p2 = 100
 
 
 func _ready():
+	Settings.change_music_slider(0)
+	Settings.change_sound_slider(0)
 	$Music.play()
 	
 	$GameStartTimer.start()

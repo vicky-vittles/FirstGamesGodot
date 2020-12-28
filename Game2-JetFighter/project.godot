@@ -33,12 +33,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Game2-JetFighter"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/World.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Globals="*res://Scripts/Globals.gd"
+Settings="*res://Scripts/Settings.gd"
 
 [display]
 

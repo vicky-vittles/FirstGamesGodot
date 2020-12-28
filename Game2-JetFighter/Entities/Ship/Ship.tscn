@@ -193,8 +193,8 @@ anims/died = SubResource( 5 )
 anims/take_damage = SubResource( 6 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( -2.40934e-21, -24.75 )
-scale = Vector2( 0.6, 0.475 )
+position = Vector2( 4.76837e-08, -24.75 )
+scale = Vector2( 0.2, 0.475 )
 
 [node name="BulletSpawn" type="Position2D" parent="."]
 position = Vector2( 0, -43 )
