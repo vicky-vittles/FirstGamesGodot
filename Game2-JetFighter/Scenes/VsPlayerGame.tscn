@@ -8,3 +8,5 @@
 [node name="Player2" parent="." index="3" instance=ExtResource( 2 )]
 position = Vector2( 256, 416 )
 player_index = 2
+[connection signal="game_started" from="." to="Player2" method="_on_World_game_started"]
+[connection signal="game_won" from="." to="." method="_on_World_game_won"]

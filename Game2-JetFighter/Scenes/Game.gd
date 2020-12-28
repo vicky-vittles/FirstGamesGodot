@@ -146,3 +146,7 @@ func _on_Player_screen_entered(player_index):
 		arrow_1.hide()
 	elif player_index == 2:
 		arrow_2.hide()
+
+
+func _on_World_game_won(player_victory):
+	pass # Replace with function body.
