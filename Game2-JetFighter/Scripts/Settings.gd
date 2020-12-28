@@ -3,12 +3,12 @@ extends Node
 const MUSIC_CHANNEL = "Music"
 const SOUND_CHANNEL = "Sound"
 
-var volume = {"Music": 0.5, "Sound": 0.5}
+var volume = {"Music": 0.3, "Sound": 0.3}
 
 
 func _ready():
-	set_volume(MUSIC_CHANNEL, 0.5)
-	set_volume(SOUND_CHANNEL, 0.5)
+	set_volume(MUSIC_CHANNEL, 0.3)
+	set_volume(SOUND_CHANNEL, 0.3)
 
 func change_music_slider(value):
 	value /= 100

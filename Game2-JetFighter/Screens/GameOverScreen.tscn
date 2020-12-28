@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Screens/BaseScreen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Screens/GameOverScreen.gd" type="Script" id=2]
+
+[node name="GameOverScreen" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" parent="MarginContainer" index="0"]
+margin_right = 1280.0
+margin_bottom = 720.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+
+[node name="Title" parent="MarginContainer/VBoxContainer" index="0"]
+margin_top = 282.0
+margin_right = 1280.0
+margin_bottom = 314.0
+
+[node name="Buttons" parent="MarginContainer/VBoxContainer" index="1"]
+margin_left = 362.0
+margin_top = 318.0
+margin_right = 918.0
+margin_bottom = 438.0
+size_flags_horizontal = 4
+custom_constants/separation = 20
+
+[node name="PlayAgain" type="Button" parent="MarginContainer/VBoxContainer/Buttons" index="0"]
+margin_right = 556.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 4
+text = "       Play Again       "
+
+[node name="TitleScreen" type="Button" parent="MarginContainer/VBoxContainer/Buttons" index="1"]
+margin_top = 70.0
+margin_right = 556.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 7
+text = "RETURN TO MAIN MENU"
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/PlayAgain" to="." method="_on_PlayAgain_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/TitleScreen" to="." method="_on_TitleScreen_pressed"]
