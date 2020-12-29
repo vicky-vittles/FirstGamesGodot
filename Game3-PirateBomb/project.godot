@@ -54,6 +54,11 @@ config/name="Game3-PirateBomb"
 run/main_scene="res://Screens/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Settings="*res://Scripts/Settings.gd"
+Globals="*res://Scripts/Globals.gd"
+
 [display]
 
 window/size/height=576

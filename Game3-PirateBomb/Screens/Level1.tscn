@@ -34,6 +34,7 @@ door_path = NodePath("../Door")
 
 [node name="Music" parent="." index="6"]
 stream = ExtResource( 9 )
+bus = "Music"
 
 [node name="Barrel" parent="Props" index="0" instance=ExtResource( 4 )]
 position = Vector2( 392, 448 )

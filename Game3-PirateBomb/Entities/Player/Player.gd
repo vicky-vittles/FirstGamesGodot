@@ -4,6 +4,8 @@ class_name Player
 
 signal bomb_exploded(player_index)
 
+const BOMB = preload("res://Entities/Bomb/Bomb.tscn")
+
 const ONE_FRAME = 0.0166
 const TILE_SIZE = 32
 const PLAYER_HEIGHT = 50
@@ -24,25 +26,56 @@ const KNOCKBACK_HEIGHT_TIME = 16 * ONE_FRAME
 const KNOCKBACK_GRAVITY = 2 * KNOCKBACK_HEIGHT / (KNOCKBACK_HEIGHT_TIME * KNOCKBACK_HEIGHT_TIME)
 const KNOCKBACK_SPEED = Vector2(KNOCKBACK_DISTANCE_IN_ONE_SECOND / KNOCKBACK_HEIGHT_TIME, -2 * KNOCKBACK_HEIGHT / KNOCKBACK_HEIGHT_TIME)
 
-onready var tween = $"BombTween"
-var bar_progress = 0
+onready var tween = $BombTween
+onready var bomb_placed_sfx = $BombPlaceSFX
+onready var steps_on_wood_sfx = $StepsOnWoodSFX
+onready var bomb_bar = $BombBar
+onready var animated_sprite = $AnimatedSprite
+onready var hurtbox = $Hurtbox
+onready var punch_hitbox = $PunchHitbox
+onready var punch_hitbox_shape = $PunchHitbox/CollisionShape2D
+onready var door_hitbox = $DoorHitbox
+onready var collision_shape = $CollisionShape2D
+onready var collision_shape_2 = $CollisionShape2D2
+onready var bomb_cooldown_timer = $BombCooldownTimer
+onready var bomb_spawn = $BombSpawn
+onready var health = $Health
 
+var bar_progress = 0
 var max_bombs = 4
 var bombs_left = max_bombs
 var can_place_bombs = true
-const BOMB = preload("res://Entities/Bomb/Bomb.tscn")
 
 var door
 var can_enter_doors = false
 
 export (int) var player_index = 1
 
+var left : bool = false
+var right : bool = false
+var up : bool = false
+var attack : bool = false
+var jump : bool = false
+
 var velocity = Vector2()
 var acceleration = Vector2()
 
 
 func _ready():
-	$PunchHitbox/CollisionShape2D.set_deferred("disabled", true)
+	punch_hitbox_shape.set_deferred("disabled", true)
+
+
+func get_input():
+	
+	left = Input.is_action_pressed("left_" + str(player_index))
+	right = Input.is_action_pressed("right_" + str(player_index))
+	up = Input.is_action_pressed("up_" + str(player_index))
+	jump = Input.is_action_just_pressed("jump_" + str(player_index))
+	attack = Input.is_action_just_pressed("bomb_" + str(player_index))
+	
+	if left and right:
+		left = false
+		right = false
 
 
 func place_bomb():
@@ -53,26 +86,26 @@ func place_bomb():
 		bombs_left = bombs_left - 1
 	
 		randomize()
-		$BombPlaceSFX.pitch_scale = rand_range(0.8, 1)
-		$BombPlaceSFX.play()
+		bomb_placed_sfx.pitch_scale = rand_range(0.8, 1)
+		bomb_placed_sfx.play()
 		
 		var bomb = BOMB.instance()
 		
-		bomb.position = $BombSpawn.global_position
+		bomb.position = bomb_spawn.global_position
 		
 		$"../Bombs".add_child(bomb)
 		
 		bomb.connect("exploded", self, "_on_Bomb_explosion")
 		
-		$"BombBar".show()
+		bomb_bar.show()
 		
 		bar_progress = 0
-		tween.interpolate_property(self, "bar_progress", 0, 100, $BombCooldownTimer.wait_time)
+		tween.interpolate_property(self, "bar_progress", 0, 100, bomb_cooldown_timer.wait_time)
 		
 		if not tween.is_active():
 			tween.start()
 		
-		$BombCooldownTimer.start()
+		bomb_cooldown_timer.start()
 
 
 func _physics_process(delta):
@@ -81,20 +114,20 @@ func _physics_process(delta):
 
 func turn_around(direction):
 	if direction == 1:
-		$AnimatedSprite.flip_h = false
-		$Hurtbox.position.x = abs($Hurtbox.position.x)
-		$PunchHitbox.position.x = abs($PunchHitbox.position.x)
-		$DoorHitbox.position.x = abs($DoorHitbox.position.x)
-		$CollisionShape2D.position.x = abs($CollisionShape2D.position.x)
-		$CollisionShape2D2.position.x = abs($CollisionShape2D2.position.x)
+		animated_sprite.flip_h = false
+		hurtbox.position.x = abs(hurtbox.position.x)
+		punch_hitbox.position.x = abs(punch_hitbox.position.x)
+		door_hitbox.position.x = abs(door_hitbox.position.x)
+		collision_shape.position.x = abs(collision_shape.position.x)
+		collision_shape_2.position.x = abs(collision_shape_2.position.x)
 		
 	elif direction == -1:
-		$AnimatedSprite.flip_h = true
-		$Hurtbox.position.x = -1 * abs($Hurtbox.position.x)
-		$PunchHitbox.position.x = -1 * abs($PunchHitbox.position.x)
-		$DoorHitbox.position.x = -1 * abs($DoorHitbox.position.x)
-		$CollisionShape2D.position.x = -1 * abs($CollisionShape2D.position.x)
-		$CollisionShape2D2.position.x = -1 * abs($CollisionShape2D2.position.x)
+		animated_sprite.flip_h = true
+		hurtbox.position.x = -1 * abs(hurtbox.position.x)
+		punch_hitbox.position.x = -1 * abs(punch_hitbox.position.x)
+		door_hitbox.position.x = -1 * abs(door_hitbox.position.x)
+		collision_shape.position.x = -1 * abs(collision_shape.position.x)
+		collision_shape_2.position.x = -1 * abs(collision_shape_2.position.x)
 
 
 func _on_DoorHitbox_area_entered(area):
@@ -111,7 +144,7 @@ func _on_DoorHitbox_area_exited(area):
 
 func _on_BombCooldownTimer_timeout():
 	can_place_bombs = true
-	$BombBar.hide()
+	bomb_bar.hide()
 
 
 func _on_Bomb_explosion():

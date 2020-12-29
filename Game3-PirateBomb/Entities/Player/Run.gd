@@ -1,61 +1,57 @@
 extends State
 
+var player
+
 func _ready():
 	$"../../Hurtbox".connect("area_entered", self, "_on_Hurtbox_area_entered")
 	$"../../PunchHitbox".connect("area_entered", self, "_on_PunchHitbox_area_entered")
 
 func enter():
-	fsm.actor.acceleration.y = Player.JUMP_ASCENT_GRAVITY
-	$"../../StepsOnWoodSFX".play_random()
-	$"../../PunchHitbox/CollisionShape2D".set_deferred("disabled", false)
+	player = fsm.actor
+	player.acceleration.y = Player.JUMP_ASCENT_GRAVITY
+	player.steps_on_wood_sfx.play_random()
+	player.punch_hitbox_shape.set_deferred("disabled", false)
 
 func exit():
-	$"../../StepsOnWoodSFX".stop()
-	$"../../PunchHitbox/CollisionShape2D".set_deferred("disabled", true)
+	player.steps_on_wood_sfx.stop()
+	player.punch_hitbox_shape.set_deferred("disabled", true)
 
 func physics_process(delta):
 	
-	var left = Input.is_action_pressed("left_" + str(fsm.actor.player_index))
-	var right = Input.is_action_pressed("right_" + str(fsm.actor.player_index))
-	var jump = Input.is_action_just_pressed("jump_" + str(fsm.actor.player_index))
-	var attack = Input.is_action_just_pressed("bomb_" + str(fsm.actor.player_index))
+	player.get_input()
 	
-	if left and right:
-		left = false
-		right = false
+	if player.attack:
+		player.place_bomb()
 	
-	if attack:
-		fsm.actor.place_bomb()
-	
-	if jump and fsm.actor.is_on_floor():
+	if player.jump and player.is_on_floor():
 		fsm.change_state($"../Jump")
 	
-	if right:
-		fsm.actor.velocity.x = Player.RUN_SPEED
-		fsm.actor.turn_around(1)
-		$"../../AnimatedSprite".play("run")
+	if player.right:
+		player.velocity.x = Player.RUN_SPEED
+		player.turn_around(1)
+		player.animated_sprite.play("run")
 		
-	elif left:
-		fsm.actor.velocity.x = -Player.RUN_SPEED
-		fsm.actor.turn_around(-1)
-		$"../../AnimatedSprite".play("run")
+	elif player.left:
+		player.velocity.x = -Player.RUN_SPEED
+		player.turn_around(-1)
+		player.animated_sprite.play("run")
 		
 	else:
-		fsm.actor.velocity.x = 0
+		player.velocity.x = 0
 		fsm.change_state($"../Idle")
 	
-	fsm.actor.velocity.y += fsm.actor.acceleration.y * delta
-	fsm.actor.velocity = fsm.actor.move_and_slide(fsm.actor.velocity, Vector2.UP)
+	player.velocity.y += player.acceleration.y * delta
+	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
 
 
 func _on_Hurtbox_area_entered(area):
 	if area.is_in_group("explosion") and fsm.current_state == self:
 		var explosion = (area as Explosion)
-		var hit_direction = (fsm.actor.global_position - explosion.global_position).normalized()
+		var hit_direction = (player.global_position - explosion.global_position).normalized()
 		
-		$"../../Health".update_health(-area.hit.amount)
+		player.health.update_health(-area.hit.amount)
 		
-		if $"../../Health".health > 0:
+		if player.health.health > 0:
 			$"../Hurt".set_direction(hit_direction)
 			fsm.change_state($"../Hurt")
 		else:
@@ -64,5 +60,5 @@ func _on_Hurtbox_area_entered(area):
 
 
 func _on_PunchHitbox_area_entered(area):
-	if area.is_in_group("bomb") and fsm.current_state == self and abs(fsm.actor.velocity.x) > 0:
+	if area.is_in_group("bomb") and fsm.current_state == self and abs(player.velocity.x) > 0:
 		fsm.change_state($"../Attack")

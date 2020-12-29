@@ -21,6 +21,7 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 
 [node name="CollisionSFX" parent="." instance=ExtResource( 2 )]
+bus = "Sound"
 
 [node name="MuteTimer" type="Timer" parent="."]
 one_shot = true
