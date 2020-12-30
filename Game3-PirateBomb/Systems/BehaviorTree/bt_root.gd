@@ -4,7 +4,7 @@ class_name BehaviorTreeRoot, "res://Assets/Icons/BehaviorTree/tree.svg"
 
 const Blackboard = preload("res://Systems/BehaviorTree/blackboard.gd")
 
-export (bool) var enabled = true
+export (bool) var enabled = false
 export (NodePath) var actor_path
 onready var actor = get_node(actor_path)
 onready var blackboard = Blackboard.new()

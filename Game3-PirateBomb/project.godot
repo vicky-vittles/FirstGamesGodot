@@ -102,12 +102,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
-"path": "res://Entities/Player/State.gd"
+"path": "res://Systems/State.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://Entities/Player/StateMachine.gd"
+"path": "res://Systems/StateMachine.gd"
 } ]
 _global_script_class_icons={
 "BehaviorTree": "",

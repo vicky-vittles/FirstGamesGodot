@@ -66,10 +66,6 @@ var velocity = Vector2()
 var acceleration = Vector2()
 
 
-func _ready():
-	punch_hitbox_shape.set_deferred("disabled", true)
-
-
 func get_input():
 	
 	left = Input.is_action_pressed("left_" + str(player_index))

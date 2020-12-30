@@ -31,9 +31,6 @@ door_path = NodePath("../Door2")
 position = Vector2( 896, 304 )
 door_path = NodePath("../Door")
 
-[node name="Music" parent="." index="6"]
-bus = "Music"
-
 [node name="Player1" parent="." index="7"]
 position = Vector2( 192, 320 )
 
