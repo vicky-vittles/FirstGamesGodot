@@ -1,6 +1,7 @@
 extends Node2D
 
 signal bomb_exploded()
+signal draw_line(points)
 
 var match_is_over = false
 var alive_players = [1, 2]
@@ -65,3 +66,7 @@ func _on_Player_died(player_index):
 
 func _on_Player_bomb_exploded(player_index):
 	emit_signal("bomb_exploded")
+
+
+func _on_Player2_draw_line(points):
+	$Line2D.points = points
