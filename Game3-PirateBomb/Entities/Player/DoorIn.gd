@@ -1,38 +1,34 @@
 extends State
 
+var player
+
 var has_entered_door = false
 var direction
 var door_pos
 var door_animation_finished = false
 
-func _ready():
-	$"../../Hurtbox".connect("area_entered", self, "_on_Hurtbox_area_entered")
-	$"../../AnimatedSprite".connect("animation_finished", self, "_on_AnimatedSprite_animation_finished")
-
 func enter():
+	player = fsm.actor
 	has_entered_door = false
 	
-	var player_pos = fsm.actor.global_position.x
-	door_pos = fsm.actor.door.global_position.x
+	var player_pos = player.global_position.x
+	door_pos = player.door.global_position.x
 	
 	if player_pos != door_pos:
 		if player_pos < door_pos:
-			fsm.actor.velocity.x = Player.RUN_SPEED
+			player.velocity.x = Player.RUN_SPEED
 			direction = 1
-			fsm.actor.turn_around(1)
-			$"../../AnimatedSprite".play("run")
+			player.turn_around(1)
+			player.animated_sprite.play("run")
 		else:
-			fsm.actor.velocity.x = -Player.RUN_SPEED
+			player.velocity.x = -Player.RUN_SPEED
 			direction = -1
-			fsm.actor.turn_around(-1)
-			$"../../AnimatedSprite".play("run")
+			player.turn_around(-1)
+			player.animated_sprite.play("run")
 	else:
-		$"../../AnimatedSprite".play("door_in")
+		player.animated_sprite.play("door_in")
 		
-	fsm.actor.acceleration.y = Player.JUMP_ASCENT_GRAVITY
-
-func exit():
-	pass
+	player.acceleration.y = Player.JUMP_ASCENT_GRAVITY
 
 func physics_process(delta):
 	
@@ -44,38 +40,38 @@ func physics_process(delta):
 	
 	else:
 	
-		var previous_pos = fsm.actor.global_position.x
-		fsm.actor.velocity = fsm.actor.move_and_slide(fsm.actor.velocity, Vector2.UP)
+		var previous_pos = player.global_position.x
+		player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
 		
 		if direction == 1:
-			fsm.actor.global_position.x = clamp(fsm.actor.global_position.x, previous_pos, door_pos)
+			player.global_position.x = clamp(player.global_position.x, previous_pos, door_pos)
 		elif direction == -1:
-			fsm.actor.global_position.x = clamp(fsm.actor.global_position.x, door_pos, previous_pos)
+			player.global_position.x = clamp(player.global_position.x, door_pos, previous_pos)
 		
-		if fsm.actor.global_position.x == previous_pos:
+		if player.global_position.x == previous_pos:
 			if not has_entered_door:
-				fsm.actor.door.enter()
-			$"../../AnimatedSprite".play("door_in")
+				player.door.enter()
+			player.animated_sprite.play("door_in")
 			has_entered_door = true
-			fsm.actor.velocity.x = 0
+			player.velocity.x = 0
 
 func _on_AnimatedSprite_animation_finished():
-	if $"../../AnimatedSprite".animation == "door_in" and fsm.current_state == self:
+	if fsm.current_state == self and player.animated_sprite.animation == "door_in":
 		door_animation_finished = true
-		fsm.actor.global_position = fsm.actor.door.connected_door.get_node("PlayerTeleportPosition").global_position
-		fsm.actor.door.connected_door.enter()
-		fsm.actor.door.close()
-		$"../DoorOut".door_to_exit = fsm.actor.door.connected_door
+		player.global_position = player.door.connected_door.get_node("PlayerTeleportPosition").global_position
+		player.door.connected_door.enter()
+		player.door.close()
+		$"../DoorOut".door_to_exit = player.door.connected_door
 
 
 func _on_Hurtbox_area_entered(area):
-	if area.is_in_group("explosion") and fsm.current_state == self:
+	if fsm.current_state == self and area.is_in_group("explosion"):
 		var explosion = (area as Explosion)
-		var hit_direction = (fsm.actor.global_position - explosion.global_position).normalized()
+		var hit_direction = (player.global_position - explosion.global_position).normalized()
 		
-		$"../../Health".update_health(-area.hit.amount)
+		player.health.update_health(-area.hit.amount)
 		
-		if $"../../Health".health > 0:
+		if player.health.health > 0:
 			$"../Hurt".set_direction(hit_direction)
 			fsm.change_state($"../Hurt")
 		else:

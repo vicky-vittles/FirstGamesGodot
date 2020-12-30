@@ -17,6 +17,10 @@ func change_state(new_state):
 	
 	new_state.enter()
 
+func _process(delta):
+	if current_state.has_method("process"):
+		current_state.process(delta)
+
 func _physics_process(delta):
 	if current_state.has_method("physics_process"):
 		current_state.physics_process(delta)

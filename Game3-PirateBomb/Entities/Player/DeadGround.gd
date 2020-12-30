@@ -1,12 +1,12 @@
 extends State
 
-func enter():
-	$DeathTimer.start()
-	$"../../AnimatedSprite".play("dead_ground")
+var player
 
-func exit():
-	pass
+func enter():
+	player = fsm.actor
+	$DeathTimer.start()
+	player.animated_sprite.play("dead_ground")
 
 func _on_DeathTimer_timeout():
-	fsm.actor.get_parent().remove_child(fsm.actor)
-	fsm.actor.queue_free()
+	player.get_parent().remove_child(player)
+	player.queue_free()

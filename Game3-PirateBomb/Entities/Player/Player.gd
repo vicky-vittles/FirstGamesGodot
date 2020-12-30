@@ -26,20 +26,25 @@ const KNOCKBACK_HEIGHT_TIME = 16 * ONE_FRAME
 const KNOCKBACK_GRAVITY = 2 * KNOCKBACK_HEIGHT / (KNOCKBACK_HEIGHT_TIME * KNOCKBACK_HEIGHT_TIME)
 const KNOCKBACK_SPEED = Vector2(KNOCKBACK_DISTANCE_IN_ONE_SECOND / KNOCKBACK_HEIGHT_TIME, -2 * KNOCKBACK_HEIGHT / KNOCKBACK_HEIGHT_TIME)
 
-onready var tween = $BombTween
-onready var bomb_placed_sfx = $BombPlaceSFX
-onready var steps_on_wood_sfx = $StepsOnWoodSFX
-onready var bomb_bar = $BombBar
-onready var animated_sprite = $AnimatedSprite
-onready var hurtbox = $Hurtbox
-onready var punch_hitbox = $PunchHitbox
-onready var punch_hitbox_shape = $PunchHitbox/CollisionShape2D
-onready var door_hitbox = $DoorHitbox
-onready var collision_shape = $CollisionShape2D
-onready var collision_shape_2 = $CollisionShape2D2
-onready var bomb_cooldown_timer = $BombCooldownTimer
-onready var bomb_spawn = $BombSpawn
-onready var health = $Health
+onready var character = $Character
+onready var bombs = $Bombs
+onready var collision_shape = get_node("CollisionShape2D")
+onready var collision_shape_2 = get_node("CollisionShape2D2")
+
+onready var animated_sprite = character.get_node("AnimatedSprite")
+onready var hurtbox = character.get_node("Hurtbox")
+onready var punch_hitbox = character.get_node("PunchHitbox")
+onready var punch_hitbox_shape = character.get_node("PunchHitbox/CollisionShape2D")
+onready var door_hitbox = character.get_node("DoorHitbox")
+onready var health = character.get_node("Health")
+onready var steps_on_wood_sfx = character.get_node("StepsOnWoodSFX")
+
+onready var bomb_bar = bombs.get_node("BombBar")
+onready var bomb_cooldown_timer = bombs.get_node("BombCooldownTimer")
+onready var tween = bombs.get_node("BombTween")
+onready var bomb_spawn = bombs.get_node("BombSpawn")
+onready var bomb_placed_sfx = bombs.get_node("BombPlaceSFX")
+onready var bomb_swish_sfx = bombs.get_node("BombSwishSFX")
 
 var bar_progress = 0
 var max_bombs = 4
@@ -78,6 +83,11 @@ func get_input():
 		right = false
 
 
+func move_y(delta):
+	velocity.y += acceleration.y * delta
+	velocity = move_and_slide(velocity, Vector2.UP)
+
+
 func place_bomb():
 	
 	if can_place_bombs and bombs_left > 0:
@@ -109,7 +119,7 @@ func place_bomb():
 
 
 func _physics_process(delta):
-	$BombBar/BarFill.value = bar_progress
+	bomb_bar.get_node("BarFill").value = bar_progress
 
 
 func turn_around(direction):

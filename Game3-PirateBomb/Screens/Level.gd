@@ -9,11 +9,11 @@ var alive_players = [1, 2]
 func _ready():
 	$Music.play()
 	
-	$Player1/Health.connect("update_health", self, "_on_Player_update_health")
-	$Player2/Health.connect("update_health", self, "_on_Player_update_health")
+	$Player1.health.connect("update_health", self, "_on_Player_update_health")
+	$Player2.health.connect("update_health", self, "_on_Player_update_health")
 	
-	$Player1/Health.connect("died", self, "_on_Player_died")
-	$Player2/Health.connect("died", self, "_on_Player_died")
+	$Player1.health.connect("died", self, "_on_Player_died")
+	$Player2.health.connect("died", self, "_on_Player_died")
 	
 	$Player1.connect("bomb_exploded", self, "_on_Player_bomb_exploded")
 	$Player2.connect("bomb_exploded", self, "_on_Player_bomb_exploded")

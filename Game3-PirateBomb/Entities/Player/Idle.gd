@@ -2,19 +2,14 @@ extends State
 
 var player
 
-func _ready():
-	$"../../Hurtbox".connect("area_entered", self, "_on_Hurtbox_area_entered")
-
 func enter():
 	player = fsm.actor
 	player.acceleration.y = Player.JUMP_ASCENT_GRAVITY
 
-func exit():
-	pass
+func process(delta):
+	player.get_input()
 
 func physics_process(delta):
-	
-	player.get_input()
 	
 	if player.attack:
 		player.place_bomb()
@@ -28,8 +23,7 @@ func physics_process(delta):
 	else:
 		player.animated_sprite.play("idle")
 	
-	player.velocity.y += player.acceleration.y * delta
-	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
+	player.move_y(delta)
 
 
 func _on_Hurtbox_area_entered(area):

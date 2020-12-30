@@ -1,23 +1,24 @@
 extends State
 
+var player
 var hit_direction
 
 func enter():
-	fsm.actor.velocity.y = Player.KNOCKBACK_SPEED.y
-	fsm.actor.acceleration.y = Player.KNOCKBACK_GRAVITY
-	$"../../AnimatedSprite".play("hit")
+	player = fsm.actor
+	player.velocity.y = Player.KNOCKBACK_SPEED.y
+	player.acceleration.y = Player.KNOCKBACK_GRAVITY
+	player.animated_sprite.play("hit")
 
 func exit():
-	fsm.actor.velocity.x = 0
+	player.velocity.x = 0
 
 func physics_process(delta):
 	
-	fsm.actor.velocity.x = sign(hit_direction.x) * Player.KNOCKBACK_SPEED.x
+	player.velocity.x = sign(hit_direction.x) * Player.KNOCKBACK_SPEED.x
 	
-	fsm.actor.velocity.y += fsm.actor.acceleration.y * delta
-	fsm.actor.velocity = fsm.actor.move_and_slide(fsm.actor.velocity, Vector2.UP)
+	player.move_y(delta)
 	
-	if fsm.actor.is_on_floor():
+	if player.is_on_floor():
 		fsm.change_state($"../Idle")
 
 func set_direction(direction):

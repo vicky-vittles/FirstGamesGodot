@@ -1,26 +1,24 @@
 extends State
 
+var player
 var hit_direction
 var has_timeout = false
 
 func enter():
+	player = fsm.actor
 	$HitTimer.start()
-	fsm.actor.velocity.y = Player.KNOCKBACK_SPEED.y
-	fsm.actor.acceleration.y = Player.KNOCKBACK_GRAVITY
-	$"../../AnimatedSprite".play("dead_hit")
-
-func exit():
-	pass
+	player.velocity.y = Player.KNOCKBACK_SPEED.y
+	player.acceleration.y = Player.KNOCKBACK_GRAVITY
+	player.animated_sprite.play("dead_hit")
 
 func physics_process(delta):
 	
-	if fsm.actor.is_on_floor() and has_timeout:
+	if player.is_on_floor() and has_timeout:
 		fsm.change_state($"../DeadGround")
 	
-	fsm.actor.velocity.x = sign(hit_direction.x) * Player.KNOCKBACK_SPEED.x
+	player.velocity.x = sign(hit_direction.x) * Player.KNOCKBACK_SPEED.x
 	
-	fsm.actor.velocity.y += fsm.actor.acceleration.y * delta
-	fsm.actor.velocity = fsm.actor.move_and_slide(fsm.actor.velocity, Vector2.UP)
+	player.move_y(delta)
 
 
 func set_direction(direction):
