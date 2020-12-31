@@ -172,6 +172,9 @@ __meta__ = {
 }
 
 [node name="AsteroidSpawnLocation" type="PathFollow2D" parent="AsteroidSpawn"]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="GameStartTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -198,8 +201,8 @@ modulate = Color( 0.25, 0.25, 1, 1 )
 position = Vector2( -112, 416 )
 texture = ExtResource( 10 )
 [connection signal="game_started" from="." to="Player1" method="_on_World_game_started"]
-[connection signal="game_won" from="." to="Player1" method="_on_World_game_won"]
 [connection signal="game_won" from="." to="." method="_on_Game_game_won"]
+[connection signal="game_won" from="." to="Player1" method="_on_World_game_won"]
 [connection signal="update_game_over_message" from="." to="GameScreens" method="go_to_game_over_screen"]
 [connection signal="timeout" from="GameStartTimer" to="." method="_on_GameStartTimer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_AsteroidSpawnTimer_timeout"]

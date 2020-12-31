@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://World.gd" type="Script" id=2]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 118.061, 394.161, 41.4432, 517.996, 122.515, 306.853, 494.02, 493.942, 766.635, 563.432, 573.31, 577.686, 388.894, 488.596, 260.604, 278.344, -4.8835, 204.4, 145.678, 189.254, 218.732, 418.215, 202.696, 566.104, 310.495, 338.034, 501.147, 126.891, 481.547, 247.163, 66.3884, 133.128, 104.697, 128.673, 333.658, 140.255, 392.457, 568.777, 649.036, 346.943, 747.035, 493.942, 750.599, 252.508, 899.379, 134.91, 914.524, 307.744, 771.98, 403.07, 735.453, 108.183 )
+polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 3, 4, 5, 6 ), PoolIntArray( 7, 8, 9 ), PoolIntArray( 10, 11, 0, 2 ), PoolIntArray( 12, 13, 14 ), PoolIntArray( 9, 15, 16, 17 ), PoolIntArray( 7, 12, 6, 18, 10, 2 ), PoolIntArray( 7, 9, 17 ), PoolIntArray( 7, 17, 12 ), PoolIntArray( 12, 14, 19, 20, 3, 6 ), PoolIntArray( 21, 22, 23, 24, 19 ), PoolIntArray( 14, 25, 21, 19 ) ]
+outlines = [ PoolVector2Array( 104.697, 128.673, 333.658, 140.255, 310.495, 338.034, 501.147, 126.891, 481.547, 247.163, 735.453, 108.183, 750.599, 252.508, 899.379, 134.91, 914.524, 307.744, 771.98, 403.07, 649.036, 346.943, 747.035, 493.942, 494.02, 493.942, 766.635, 563.432, 573.31, 577.686, 388.894, 488.596, 392.457, 568.777, 218.732, 418.215, 202.696, 566.104, 118.061, 394.161, 41.4432, 517.996, 122.515, 306.853, 260.604, 278.344, -4.8835, 204.4, 145.678, 189.254, 66.3884, 133.128 ) ]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 759.046, 327.851 )
+texture = ExtResource( 1 )
+
+[node name="Line2D" type="Line2D" parent="."]
