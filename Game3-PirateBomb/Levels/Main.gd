@@ -16,7 +16,7 @@ func start_game(chosen_level):
 	remove_child(title_screen)
 	title_screen.call_deferred("free")
 	
-	var game_resource = load("res://Screens/Game.tscn")
+	var game_resource = load("res://Levels/Game.tscn")
 	var game = game_resource.instance()
 	game.change_level(chosen_level)
 	add_child(game)

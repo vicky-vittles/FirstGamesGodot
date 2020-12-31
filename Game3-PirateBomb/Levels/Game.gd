@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var LEVEL_1 = preload("res://Screens/Level1.tscn")
-onready var LEVEL_2 = preload("res://Screens/Level2.tscn")
+onready var LEVEL_1 = preload("res://Levels/Level1.tscn")
+onready var LEVEL_2 = preload("res://Levels/Level2.tscn")
 
 var chosen_level
 

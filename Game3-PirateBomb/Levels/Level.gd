@@ -2,6 +2,7 @@ extends Node2D
 
 signal bomb_exploded()
 signal draw_line(points)
+signal game_won(player_victory)
 
 var match_is_over = false
 var alive_players = [1, 2]
@@ -58,10 +59,7 @@ func _on_Player_died(player_index):
 		
 		match_is_over = true
 		$VictoryLabel.show()
-		if winner == 1:
-			$VictoryLabel.text = "Jogador 1 venceu! \n Pressione Start para recomeçar"
-		elif winner == 2:
-			$VictoryLabel.text = "Jogador 2 venceu! \n Pressione Start para recomeçar"
+		emit_signal("game_won", winner)
 
 
 func _on_Player_bomb_exploded(player_index):
