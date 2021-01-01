@@ -20,3 +20,4 @@ fsm_path = NodePath("..")
 fsm_path = NodePath("..")
 
 [node name="Attack" type="AudioStreamPlayer" parent="."]
+bus = "Sound"

@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/blue-button-left.png" type="Texture" id=7]
 [ext_resource path="res://Assets/yellow-button-left.png" type="Texture" id=8]
 [ext_resource path="res://Assets/yellow-button.png" type="Texture" id=9]
-[ext_resource path="res://Screens/CharacterSelectScreen.gd" type="Script" id=10]
+[ext_resource path="res://Menus/OldScreens/CharacterSelectScreen.gd" type="Script" id=10]
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFontData" id=1]

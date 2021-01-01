@@ -74,3 +74,4 @@ shape = SubResource( 7 )
 
 [node name="Open" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "Sound"

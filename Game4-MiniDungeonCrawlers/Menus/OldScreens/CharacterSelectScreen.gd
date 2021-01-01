@@ -57,7 +57,7 @@ func _on_Play_pressed():
 	mainNode.remove_child(character_screen)
 	character_screen.call_deferred("free")
 	
-	var game_resource = load("res://Screens/Game.tscn")
+	var game_resource = load("res://Menus/Game.tscn")
 	var game = game_resource.instance()
 	
 	for i in range(players.size()):

@@ -81,8 +81,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Game4- Mini Dungeon Crawlers"
-run/main_scene="res://Screens/Main.tscn"
+run/main_scene="res://Main/World.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Settings="*res://Scripts/Settings.gd"
 
 [display]
 

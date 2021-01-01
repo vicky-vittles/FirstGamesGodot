@@ -44,3 +44,4 @@ shape = SubResource( 2 )
 
 [node name="Collected" parent="." index="3"]
 stream = ExtResource( 3 )
+bus = "Sound"

@@ -1,16 +1,17 @@
-extends MarginContainer
+extends "res://Screens/BaseScreen.gd"
+
+signal go_to_game_select()
+signal go_to_options()
+signal quit()
+
 
 func _on_Play_pressed():
-	
-	var mainNode = get_parent()
-	
-	var title_screen = self
-	mainNode.remove_child(title_screen)
-	title_screen.call_deferred("free")
-	
-	var game_resource = load("res://Screens/CharacterSelectScreen.tscn")
-	var game = game_resource.instance()
-	mainNode.add_child(game)
+	emit_signal("go_to_game_select")
+
+
+func _on_Options_pressed():
+	emit_signal("go_to_options")
+
 
 func _on_Quit_pressed():
-	get_tree().quit()
+	emit_signal("quit")

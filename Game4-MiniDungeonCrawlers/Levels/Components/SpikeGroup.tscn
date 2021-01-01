@@ -13,4 +13,5 @@ __meta__ = {
 stream = ExtResource( 2 )
 volume_db = -12.0
 max_distance = 500.0
+bus = "Sound"
 area_mask = 2147484678

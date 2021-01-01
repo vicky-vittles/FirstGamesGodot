@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/main-theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/GravityBold-8.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Screens/PlayerContainer.gd" type="Script" id=3]
+
+[node name="PlayerContainer" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+custom_constants/separation = 60
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerTypeButton" type="Button" parent="."]
+margin_right = 97.0
+margin_bottom = 18.0
+size_flags_horizontal = 6
+text = "Player 1"
+
+[node name="Control" type="MarginContainer" parent="."]
+margin_left = 48.0
+margin_top = 78.0
+margin_right = 48.0
+margin_bottom = 78.0
+size_flags_horizontal = 4
+
+[node name="Sprite" type="Sprite" parent="Control"]
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+margin_left = 15.0
+margin_top = 138.0
+margin_right = 81.0
+margin_bottom = 158.0
+size_flags_horizontal = 4
+custom_constants/separation = 10
+
+[node name="Left" type="Button" parent="Buttons"]
+margin_right = 28.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/font = ExtResource( 2 )
+text = " < "
+
+[node name="Right" type="Button" parent="Buttons"]
+margin_left = 38.0
+margin_right = 66.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/font = ExtResource( 2 )
+text = " > "
+[connection signal="pressed" from="PlayerTypeButton" to="." method="_on_PlayerTypeButton_pressed"]
+[connection signal="pressed" from="Buttons/Left" to="." method="_on_Left_pressed"]
+[connection signal="pressed" from="Buttons/Right" to="." method="_on_Right_pressed"]
