@@ -7,15 +7,20 @@
 [ext_resource path="res://Screens/OptionsScreen.tscn" type="PackedScene" id=5]
 
 [node name="GameScreens" type="Node"]
+pause_mode = 2
 script = ExtResource( 4 )
 
 [node name="EmptyScreen" parent="." instance=ExtResource( 1 )]
+layer = 2
 
 [node name="PausedScreen" parent="." instance=ExtResource( 2 )]
+layer = 2
 
 [node name="GameOverScreen" parent="." instance=ExtResource( 3 )]
+layer = 2
 
 [node name="OptionsScreen" parent="." instance=ExtResource( 5 )]
+layer = 2
 [connection signal="go_to_empty_screen" from="PausedScreen" to="." method="go_to_empty_screen"]
 [connection signal="go_to_options_screen" from="PausedScreen" to="." method="go_to_options_screen"]
 [connection signal="quit" from="PausedScreen" to="." method="go_to_title_screen"]

@@ -2,16 +2,20 @@ extends State
 
 const KNOCKBACK_DISTANCE = 70
 
+var player
+
 var duration_timeout
 var knockback_direction
 
 func enter():
+	player = fsm.actor
+	
 	duration_timeout = false
-	fsm.actor.get_node("AnimationPlayer").play("hit")
+	player.animation_player.play("hit")
 	
 	$DurationTimer.start()
-	fsm.actor.get_node("InvincibilityTimer").start()
-	fsm.actor.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", true)
+	player.invincibility_timer.start()
+	player.hurtbox_collision_shape.set_deferred("disabled", true)
 
 func exit():
 	pass
@@ -19,9 +23,9 @@ func exit():
 func physics_process(delta):
 	
 	if knockback_direction != Vector2.ZERO:
-		fsm.actor.velocity = fsm.actor.move_and_slide(knockback_direction * KNOCKBACK_DISTANCE)
+		player.velocity = player.move_and_slide(knockback_direction * KNOCKBACK_DISTANCE)
 	
-	var p_index = str(fsm.actor.player_index)
+	var p_index = str(player.player_index)
 		
 	var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
 	var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)

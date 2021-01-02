@@ -1,14 +1,17 @@
 extends State
 
+var player
+
 func enter():
-	$"../../Hurtbox".connect("area_entered", self, "_on_Hurtbox_area_entered")
+	player = fsm.actor
+	player.hurtbox.connect("area_entered", self, "_on_Hurtbox_area_entered")
 
 func exit():
 	pass
 
 func physics_process(delta):
 	
-	var p_index = str(fsm.actor.player_index)
+	var p_index = str(player.player_index)
 	
 	var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
 	var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
@@ -16,39 +19,39 @@ func physics_process(delta):
 	var vertical_look = Input.get_action_strength("r_down_" + p_index) - Input.get_action_strength("r_up_" + p_index)
 	var is_attacking = Input.is_action_pressed("attack_" + p_index)
 	
-	if is_attacking and fsm.actor.near_door != null and fsm.actor.get_node("Inventory").silver_keys > 0:
-		(fsm.actor.near_door as Door).open()
+	if is_attacking and player.near_door != null and player.inventory.silver_keys > 0:
+		(player.near_door as Door).open()
 		
-		fsm.actor.get_node("Inventory").update_silver_keys(-1)
+		player.inventory.update_silver_keys(-1)
 	
 	var direction = Vector2(horizontal, vertical).normalized()
-	fsm.actor.look_direction = Vector2(horizontal_look, vertical_look).normalized()
+	player.look_direction = Vector2(horizontal_look, vertical_look).normalized()
 	
-	if fsm.actor.look_direction.x > 0:
-		fsm.actor.turn_around(1)
-	elif fsm.actor.look_direction.x < 0:
-		fsm.actor.turn_around(-1)
+	if player.look_direction.x > 0:
+		player.turn_around(1)
+	elif player.look_direction.x < 0:
+		player.turn_around(-1)
 	else:
 		if direction.x > 0:
-			fsm.actor.turn_around(1)
+			player.turn_around(1)
 		elif direction.x < 0:
-			fsm.actor.turn_around(-1)
+			player.turn_around(-1)
 	
 	if direction.x != 0 or direction.y != 0:
 		fsm.change_state($"../Run")
 	else:
-		fsm.actor.get_node("AnimationPlayer").play("idle")
+		player.animation_player.play("idle")
 
 
 func _on_Hurtbox_area_entered(area):
 	
 	if (area.is_in_group("spike") or area.is_in_group("enemy_attack")) and fsm.current_state == self:
-		fsm.actor.get_node("Health").update_health(-area.damage)
+		player.health.update_health(-area.damage)
 		
 		$"../Hurt".knockback_direction = Vector2.ZERO
 		if (area is Spike):
 			var spike = area as Spike
-			var hit_direction = (fsm.actor.global_position - spike.global_position).normalized()
+			var hit_direction = (player.global_position - spike.global_position).normalized()
 			hit_direction.x = sign(hit_direction.x) if abs(hit_direction.x) > 0.75 else 0
 			hit_direction.y = sign(hit_direction.y) if abs(hit_direction.y) > 0.75 else 0
 			

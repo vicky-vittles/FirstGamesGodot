@@ -1,27 +1,30 @@
 extends State
 
+var weapon
+
 func enter():
-	fsm.actor.global_position = fsm.actor.user.get_node("AimCenter").global_position
+	weapon = fsm.actor
+	weapon.global_position = weapon.user.get_node("AimCenter").global_position
 
 func exit():
 	pass
 
 func physics_process(delta):
 	
-	var user = fsm.actor.user
+	var user = weapon.user
 	user.poll_input()
 	
 	var direction = user.walk_direction
-	fsm.actor.direction = user.look_direction
+	weapon.direction = user.look_direction
 	
-	if fsm.actor.direction != Vector2.ZERO:
+	if weapon.direction != Vector2.ZERO:
 		fsm.change_state($"../Ready")
 		
 	else:
 		if direction != Vector2.ZERO:
-			fsm.actor.direction = Vector2(sign(direction.x), sign(direction.y))
+			weapon.direction = Vector2(sign(direction.x), sign(direction.y))
 		
 		if direction.x > 0:
-			fsm.actor.rotation = -130
+			weapon.rotation = -130
 		elif direction.x < 0:
-			fsm.actor.rotation = 130
+			weapon.rotation = 130

@@ -19,8 +19,11 @@ func change_player(player_index, direction):
 		if player.gender == Player.GENDER.MALE:
 			player.gender = Player.GENDER.FEMALE
 		else:
-			player.character = min(player.character+1, Player.CHARACTERS.size()-1)
 			player.gender = Player.GENDER.MALE
+			if player.character < Player.CHARACTERS.size()-1:
+				player.character = min(player.character+1, Player.CHARACTERS.size()-1)
+			else:
+				player.character = 0
 	
 	elif direction == -1:
 		if player.gender == Player.GENDER.FEMALE:

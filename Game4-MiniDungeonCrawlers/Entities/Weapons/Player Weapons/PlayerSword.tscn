@@ -5,3 +5,12 @@
 [node name="Sword" groups=[
 "player_attack",
 ] instance=ExtResource( 1 )]
+
+[node name="StateMachine" parent="." index="2"]
+actor_path = NodePath("..")
+
+[node name="Sheathed" parent="StateMachine" index="0"]
+fsm_path = NodePath("..")
+
+[node name="Ready" parent="StateMachine" index="1"]
+fsm_path = NodePath("..")

@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 class_name Enemy
 
+onready var level = $"../.."
+
 const TILE_SIZE = 16
 export (int) var HORIZONTAL_DISTANCE_IN_ONE_SECOND = 6
 onready var SPEED = TILE_SIZE * HORIZONTAL_DISTANCE_IN_ONE_SECOND
@@ -55,7 +57,7 @@ func get_nearest_player():
 	var nearest_player_index = null
 	var smallest_distance = INF
 	
-	for i in range(1,3):
+	for i in range(1, level.game.number_of_players + 1):
 		var player = get_node("../../Players/Player" + str(i))
 		
 		var distance_to_player = player.global_position.distance_to(global_position)

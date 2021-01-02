@@ -1,12 +1,14 @@
 extends MarginContainer
 
+onready var game = $"../.."
+
 func _ready():
-	for i in range(1, 3):
+	for i in range(1, game.number_of_players+1):
 		var player = get_node("../../Level/Players/Player" + str(i))
 		
-		player.get_node("Health").connect("update_health", self, "_on_Player_update_health")
-		player.get_node("Inventory").connect("update_keys", self, "_on_Player_update_keys")
-		player.get_node("Inventory").connect("update_coins", self, "_on_Player_update_coins")
+		player.get_node("Character/Health").connect("update_health", self, "_on_Player_update_health")
+		player.get_node("Objects/Inventory").connect("update_keys", self, "_on_Player_update_keys")
+		player.get_node("Objects/Inventory").connect("update_coins", self, "_on_Player_update_coins")
 
 
 func set_player_portrait(player_index, texture):

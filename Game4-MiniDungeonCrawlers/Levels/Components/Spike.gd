@@ -19,9 +19,9 @@ func _ready():
 	else:
 		_on_TimerToOn_timeout()
 
-func disable_shapes(mode):
-	$CollisionShape2D.set_deferred("disabled", mode)
-	$StaticBody2D/CollisionShape2D.set_deferred("disabled", mode)
+func disable_shapes(_mode):
+	$CollisionShape2D.set_deferred("disabled", _mode)
+	$StaticBody2D/CollisionShape2D.set_deferred("disabled", _mode)
 
 func _on_TimerToOff_timeout():
 	disable_shapes(true)

@@ -14,7 +14,7 @@ func _ready():
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") and actual_screen == screens["EmptyScreen"]:
 		get_tree().paused = true
 		change_screen("PausedScreen")
 

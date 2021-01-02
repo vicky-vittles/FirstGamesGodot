@@ -60,8 +60,16 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="SinglePlayerCamera" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = -1232
+limit_right = 1536
+limit_bottom = 288
+editor_draw_limits = true
+
 [node name="MultiTargetCamera" parent="." instance=ExtResource( 3 )]
 visible = false
+current = false
 limit_top = -950
 limit_right = 1536
 zoom_speed = 0.1
@@ -2087,10 +2095,18 @@ position = Vector2( 936, -104 )
 
 [node name="Players" type="Node" parent="."]
 
-[node name="Player1Pos" type="Position2D" parent="Players"]
+[node name="PlayerPositions" type="Node" parent="."]
+
+[node name="Player1Pos" type="Position2D" parent="PlayerPositions"]
 position = Vector2( 26, 202 )
 
-[node name="Player2Pos" type="Position2D" parent="Players"]
+[node name="Player2Pos" type="Position2D" parent="PlayerPositions"]
 position = Vector2( 74, 202 )
+
+[node name="Player3Pos" type="Position2D" parent="PlayerPositions"]
+position = Vector2( 122, 202 )
+
+[node name="Player4Pos" type="Position2D" parent="PlayerPositions"]
+position = Vector2( 170, 202 )
 
 [node name="Projectiles" type="Node" parent="."]

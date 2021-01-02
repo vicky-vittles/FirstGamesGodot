@@ -3,20 +3,20 @@ extends State
 var player
 
 func enter():
-	$"../../Hurtbox".connect("area_entered", self, "_on_Hurtbox_area_entered")
+	player = fsm.actor
+	player.hurtbox.connect("area_entered", self, "_on_Hurtbox_area_entered")
 
 func exit():
 	pass
 
 func physics_process(delta):
 	
-	player = fsm.actor
 	player.poll_input()
 	
-	if player.is_attacking and player.near_door != null and player.get_node("Inventory").silver_keys > 0:
+	if player.is_attacking and player.near_door != null and player.inventory.silver_keys > 0:
 		(player.near_door as Door).open()
 		
-		player.get_node("Inventory").update_silver_keys(-1)
+		player.inventory.update_silver_keys(-1)
 	
 	var direction = player.walk_direction
 	if direction != Vector2.ZERO:
@@ -35,7 +35,7 @@ func physics_process(delta):
 	if direction.x == 0 and direction.y == 0:
 		fsm.change_state($"../Idle")
 	else:
-		player.get_node("AnimationPlayer").play("run")
+		player.animation_player.play("run")
 	
 	player.velocity = direction * player.SPEED
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
@@ -48,7 +48,7 @@ func physics_process(delta):
 func _on_Hurtbox_area_entered(area):
 	
 	if (area.is_in_group("spike") or area.is_in_group("enemy_attack")) and fsm.current_state == self:
-		player.get_node("Health").update_health(-area.damage)
+		player.health.update_health(-area.damage)
 		
 		$"../Hurt".knockback_direction = Vector2.ZERO
 		if (area is Spike):

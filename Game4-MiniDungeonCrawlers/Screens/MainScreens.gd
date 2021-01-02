@@ -1,7 +1,6 @@
 extends Node
 
-signal start_vs_player_game()
-signal start_vs_bot_game()
+signal start_game()
 
 
 onready var screens = {"TitleScreen": $TitleScreen,
@@ -38,8 +37,5 @@ func quit():
 func go_to_title_screen():
 	change_screen("TitleScreen")
 
-func new_vs_bot_game():
-	emit_signal("start_vs_bot_game")
-
-func new_vs_player_game():
-	emit_signal("start_vs_player_game")
+func new_game(game):
+	emit_signal("start_game", game)

@@ -1,8 +1,9 @@
 extends VBoxContainer
 
-signal change_character_type(player_index)
-signal previous_character(player_index)
-signal next_character(player_index)
+const OPAQUE = Color(1, 1, 1, 1)
+const TRANSPARENT = Color(1, 1, 1, 0)
+
+onready var player = $Control/Player
 
 enum PLAYER_TYPE { PLAYER = 0, CPU = 1, EMPTY = 2 }
 const PLAYER_TYPE_NEXTS = [PLAYER_TYPE.CPU, PLAYER_TYPE.EMPTY, PLAYER_TYPE.PLAYER]
@@ -18,11 +19,11 @@ func _on_PlayerTypeButton_pressed():
 
 
 func _on_Left_pressed():
-	pass # Replace with function body.
+	set_player(-1)
 
 
 func _on_Right_pressed():
-	pass # Replace with function body.
+	set_player(1)
 
 
 func set_player_type(value):
@@ -31,3 +32,33 @@ func set_player_type(value):
 		$PlayerTypeButton.text = PLAYER_TYPE_TEXTS[int(value)] + " %s" % str(player_index)
 	else:
 		$PlayerTypeButton.text = PLAYER_TYPE_TEXTS[int(value)]
+	
+	if player_type == PLAYER_TYPE.EMPTY:
+		$Control/Player.modulate = TRANSPARENT
+	else:
+		$Control/Player.modulate = OPAQUE
+
+
+func set_player(direction):
+	
+	if direction == 1:
+		if player.gender == Player.GENDER.MALE:
+			player.gender = Player.GENDER.FEMALE
+		else:
+			player.gender = Player.GENDER.MALE
+			if player.character < Player.CHARACTERS.size()-1:
+				player.character = min(player.character+1, Player.CHARACTERS.size()-1)
+			else:
+				player.character = 0
+	
+	elif direction == -1:
+		if player.gender == Player.GENDER.FEMALE:
+			player.gender = Player.GENDER.MALE
+		else:
+			player.gender = Player.GENDER.FEMALE
+			if player.character > 0:
+				player.character = max(player.character-1, 0)
+			else:
+				player.character = Player.CHARACTERS.size()-1
+	
+	player.set_sprite()

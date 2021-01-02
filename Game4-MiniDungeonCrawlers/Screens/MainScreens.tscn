@@ -21,4 +21,5 @@ bus = "Music"
 [connection signal="go_to_options" from="TitleScreen" to="." method="go_to_options"]
 [connection signal="quit" from="TitleScreen" to="." method="quit"]
 [connection signal="go_to_title_screen" from="GameSelectScreen" to="." method="go_to_title_screen"]
+[connection signal="new_game" from="GameSelectScreen" to="." method="new_game"]
 [connection signal="go_to_title_screen" from="OptionsScreen" to="." method="go_to_title_screen"]

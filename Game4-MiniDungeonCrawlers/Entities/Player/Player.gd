@@ -16,6 +16,19 @@ const TILE_SIZE = 16
 export (int) var HORIZONTAL_DISTANCE_IN_ONE_SECOND = 6
 onready var SPEED = TILE_SIZE * HORIZONTAL_DISTANCE_IN_ONE_SECOND
 
+onready var own_character = $Character
+onready var objects = $Objects
+onready var main_collision_shape = $CollisionShape2D
+onready var aim_center = $AimCenter
+onready var sprite = own_character.get_node("Sprite")
+onready var hurtbox = own_character.get_node("Hurtbox")
+onready var hurt_sfx = own_character.get_node("Hurt")
+onready var health = own_character.get_node("Health")
+onready var animation_player = own_character.get_node("AnimationPlayer")
+onready var invincibility_timer = own_character.get_node("InvincibilityTimer")
+onready var hurtbox_collision_shape = hurtbox.get_node("CollisionShape2D")
+onready var equipped_weapon = objects.get_node("EquippedWeapon")
+onready var inventory = objects.get_node("Inventory")
 onready var camera = $"../../MultiTargetCamera"
 
 var near_door
@@ -30,11 +43,11 @@ var is_attacking = false
 var velocity = Vector2()
 var last_direction = Vector2()
 
-onready var anim_health = $Health.max_health
+onready var anim_health = health.max_health
 
 
 func _ready():
-	$Health.connect("update_health", self, "_on_Health_update_health")
+	health.connect("update_health", self, "_on_Health_update_health")
 	set_sprite()
 
 
@@ -50,7 +63,7 @@ func set_sprite():
 	
 	var sprite_texture = load(path)
 	
-	$Sprite.texture = sprite_texture
+	sprite.texture = sprite_texture
 
 
 func poll_input():
@@ -68,18 +81,18 @@ func poll_input():
 		look_direction = Vector2(horizontal_look, vertical_look).normalized()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	pass
 
 func turn_around(direction):
 	if direction == 1:
-		$Sprite.flip_h = false
-		$Hurtbox.position.x = abs($Hurtbox.position.x)
-		$CollisionShape2D.position.x = abs($CollisionShape2D.position.x)
+		sprite.flip_h = false
+		hurtbox.position.x = abs(hurtbox.position.x)
+		main_collision_shape.position.x = abs(main_collision_shape.position.x)
 	elif direction == -1:
-		$Sprite.flip_h = true
-		$Hurtbox.position.x = -1 * abs($Hurtbox.position.x)
-		$CollisionShape2D.position.x = -1 * abs($CollisionShape2D.position.x)
+		sprite.flip_h = true
+		hurtbox.position.x = -1 * abs(hurtbox.position.x)
+		main_collision_shape.position.x = -1 * abs(main_collision_shape.position.x)
 
 func _on_Hurtbox_area_entered(area):
 	
@@ -90,20 +103,20 @@ func _on_Hurtbox_area_entered(area):
 		
 		var has_been_collected = false
 		
-		if area.is_in_group("silver_key") and $Inventory.silver_keys < $Inventory.MAX_SILVER_KEYS:
-			$Inventory.update_silver_keys(1)
+		if area.is_in_group("silver_key") and inventory.silver_keys < inventory.MAX_SILVER_KEYS:
+			inventory.update_silver_keys(1)
 			has_been_collected = true
 		
-		elif area.is_in_group("gold_key") and $Inventory.gold_keys < $Inventory.MAX_GOLD_KEYS:
-			$Inventory.update_gold_keys(1)
+		elif area.is_in_group("gold_key") and inventory.gold_keys < inventory.MAX_GOLD_KEYS:
+			inventory.update_gold_keys(1)
 			has_been_collected = true
 		
 		elif area.is_in_group("coin"):
-			$Inventory.update_coins(1)
+			inventory.update_coins(1)
 			has_been_collected = true
 		
-		elif area.is_in_group("life_potion") and $Health.health < $Health.max_health:
-			$Health.update_health(2)
+		elif area.is_in_group("life_potion") and health.health < health.max_health:
+			health.update_health(2)
 			has_been_collected = true
 		
 		if has_been_collected:
@@ -111,13 +124,13 @@ func _on_Hurtbox_area_entered(area):
 			collectible.collect()
 
 func _on_InvincibilityTimer_timeout():
-	$Hurtbox/CollisionShape2D.set_deferred("disabled", false)
+	hurtbox_collision_shape.set_deferred("disabled", false)
 
 func _on_Hurtbox_area_exited(area):
 	if area.is_in_group("door"):
 		near_door = null
 
-func _on_Health_update_health(player_index, new_amount):
+func _on_Health_update_health(_player_index, new_amount):
 	if new_amount < anim_health:
-		$Hurt.play()
+		hurt_sfx.play()
 	anim_health = new_amount

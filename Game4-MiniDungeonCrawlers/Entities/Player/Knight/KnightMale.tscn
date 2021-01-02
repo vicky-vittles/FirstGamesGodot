@@ -5,5 +5,5 @@
 
 [node name="Player" instance=ExtResource( 1 )]
 
-[node name="Sword" parent="EquippedWeapon" index="0" instance=ExtResource( 2 )]
-user_path = NodePath("../..")
+[node name="Sword" parent="Objects/EquippedWeapon" index="0" instance=ExtResource( 2 )]
+user_path = NodePath("../../..")
