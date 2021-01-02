@@ -36,6 +36,10 @@ export (int) var player_index = 1
 
 var can_poll_input = false
 
+var cheats_enabled = true
+var noclip_enabled = false
+var invincible_enabled = false
+
 var walk_direction = Vector2()
 var look_direction = Vector2()
 var is_attacking = false
@@ -49,6 +53,19 @@ onready var anim_health = health.max_health
 func _ready():
 	health.connect("update_health", self, "_on_Health_update_health")
 	set_sprite()
+
+
+func _process(delta):
+	if cheats_enabled:
+		if Input.is_action_just_pressed("cheat_noclip"):
+			noclip_enabled = !noclip_enabled
+			print("noclip is " + str(noclip_enabled))
+			main_collision_shape.set_deferred("disabled", noclip_enabled)
+		
+		if Input.is_action_just_pressed("cheat_invincible"):
+			invincible_enabled = !invincible_enabled
+			print("invincibility is " + str(invincible_enabled))
+			hurtbox_collision_shape.set_deferred("disabled", invincible_enabled)
 
 
 func set_sprite():
@@ -73,16 +90,21 @@ func poll_input():
 		
 		var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
 		var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
-		var horizontal_look = Input.get_action_strength("r_right_" + p_index) - Input.get_action_strength("r_left_" + p_index)
-		var vertical_look = Input.get_action_strength("r_down_" + p_index) - Input.get_action_strength("r_up_" + p_index)
 		is_attacking = Input.is_action_pressed("attack_" + p_index)
 		
 		walk_direction = Vector2(horizontal, vertical).normalized()
-		look_direction = Vector2(horizontal_look, vertical_look).normalized()
+		
+		if player_index > 1:
+			var horizontal_look = Input.get_action_strength("r_right_" + p_index) - Input.get_action_strength("r_left_" + p_index)
+			var vertical_look = Input.get_action_strength("r_down_" + p_index) - Input.get_action_strength("r_up_" + p_index)
+			look_direction = Vector2(horizontal_look, vertical_look).normalized()
+		else:
+			look_direction = global_position.direction_to(get_global_mouse_position())
 
 
 func _physics_process(_delta):
 	pass
+
 
 func turn_around(direction):
 	if direction == 1:
@@ -93,6 +115,7 @@ func turn_around(direction):
 		sprite.flip_h = true
 		hurtbox.position.x = -1 * abs(hurtbox.position.x)
 		main_collision_shape.position.x = -1 * abs(main_collision_shape.position.x)
+
 
 func _on_Hurtbox_area_entered(area):
 	
@@ -123,12 +146,15 @@ func _on_Hurtbox_area_entered(area):
 			var collectible = (area as Collectible)
 			collectible.collect()
 
+
 func _on_InvincibilityTimer_timeout():
 	hurtbox_collision_shape.set_deferred("disabled", false)
+
 
 func _on_Hurtbox_area_exited(area):
 	if area.is_in_group("door"):
 		near_door = null
+
 
 func _on_Health_update_health(_player_index, new_amount):
 	if new_amount < anim_health:

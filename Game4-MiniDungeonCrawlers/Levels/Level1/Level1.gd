@@ -1,8 +1,18 @@
 extends Node2D
 
+onready var enemies = $Enemies
+onready var elements = $Elements
+onready var keys = $Keys
+onready var collectibles = $Collectibles
 onready var game = $".."
 
 func _ready():
+	
+	enemies.visible = true
+	elements.visible = true
+	keys.visible = true
+	collectibles.visible = true
+	
 	$Music.play()
 	
 	for c in $Players.get_children():
