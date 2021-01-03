@@ -80,6 +80,7 @@ extents = Vector2( 5, 4 )
 extents = Vector2( 6, 5 )
 
 [node name="Goblin" instance=ExtResource( 1 )]
+scale = Vector2( 1.25, 1.25 )
 HORIZONTAL_DISTANCE_IN_ONE_SECOND = 5
 player_detection_radius = 96
 attack_detection_radius = 96

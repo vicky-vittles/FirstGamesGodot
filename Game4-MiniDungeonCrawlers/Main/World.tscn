@@ -7,4 +7,9 @@
 script = ExtResource( 2 )
 
 [node name="MainScreens" parent="." instance=ExtResource( 1 )]
+
+[node name="GameSelectScreen" parent="MainScreens" index="1"]
+world_path = NodePath("../..")
 [connection signal="start_game" from="MainScreens" to="." method="_on_MainScreens_start_game"]
+
+[editable path="MainScreens"]

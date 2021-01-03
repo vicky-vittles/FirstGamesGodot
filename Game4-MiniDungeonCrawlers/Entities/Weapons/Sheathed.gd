@@ -9,7 +9,7 @@ func enter():
 func exit():
 	pass
 
-func physics_process(delta):
+func physics_process(_delta):
 	
 	var user = weapon.user
 	user.poll_input()

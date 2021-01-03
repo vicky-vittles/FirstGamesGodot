@@ -9,7 +9,7 @@ func enter():
 func exit():
 	pass
 
-func physics_process(delta):
+func physics_process(_delta):
 	
 	fsm.actor.poll_input()
 	
@@ -20,7 +20,6 @@ func physics_process(delta):
 		fsm.actor.get_node("AnimationPlayer").play("run")
 		
 		var nearest_player_pos = fsm.actor.nearest_player.global_position
-		
 		var direction_to_player = (nearest_player_pos - fsm.actor.global_position).normalized()
 		
 		fsm.actor.turn_around(sign(direction_to_player.x))

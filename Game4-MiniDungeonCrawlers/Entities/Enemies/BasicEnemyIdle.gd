@@ -13,7 +13,7 @@ func exit():
 	wander_direction = 0
 	last_direction = 0
 
-func physics_process(delta):
+func physics_process(_delta):
 	
 	fsm.actor.poll_input()
 	

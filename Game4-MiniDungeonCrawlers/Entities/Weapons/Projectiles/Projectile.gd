@@ -34,5 +34,5 @@ func _on_Projectile_area_entered(area):
 	if area.is_in_group("enemy_hurtbox") or area.is_in_group("chest"):
 		delete()
 
-func _on_Projectile_body_entered(body):
+func _on_Projectile_body_entered(_body):
 	delete()

@@ -29,7 +29,6 @@ onready var invincibility_timer = own_character.get_node("InvincibilityTimer")
 onready var hurtbox_collision_shape = hurtbox.get_node("CollisionShape2D")
 onready var equipped_weapon = objects.get_node("EquippedWeapon")
 onready var inventory = objects.get_node("Inventory")
-onready var camera = $"../../MultiTargetCamera"
 
 var near_door
 export (int) var player_index = 1
@@ -55,7 +54,7 @@ func _ready():
 	set_sprite()
 
 
-func _process(delta):
+func _process(_delta):
 	if cheats_enabled:
 		if Input.is_action_just_pressed("cheat_noclip"):
 			noclip_enabled = !noclip_enabled

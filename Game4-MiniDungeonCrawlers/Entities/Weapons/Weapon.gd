@@ -21,7 +21,7 @@ func _ready():
 	if has_node("CollisionShape2D"):
 		$CollisionShape2D.set_deferred("disabled", true)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	pass
 
 func disable():

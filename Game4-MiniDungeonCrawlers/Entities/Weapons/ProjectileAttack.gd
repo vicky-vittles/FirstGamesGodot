@@ -19,7 +19,7 @@ func enter():
 func exit():
 	pass
 
-func physics_process(delta):
+func physics_process(_delta):
 	pass
 
 func _on_CooldownTimer_timeout():

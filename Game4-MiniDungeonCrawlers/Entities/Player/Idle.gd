@@ -9,7 +9,7 @@ func enter():
 func exit():
 	pass
 
-func physics_process(delta):
+func physics_process(_delta):
 	
 	var p_index = str(player.player_index)
 	

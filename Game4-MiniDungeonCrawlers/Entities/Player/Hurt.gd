@@ -20,7 +20,7 @@ func enter():
 func exit():
 	pass
 
-func physics_process(delta):
+func physics_process(_delta):
 	
 	if knockback_direction != Vector2.ZERO:
 		player.velocity = player.move_and_slide(knockback_direction * KNOCKBACK_DISTANCE)

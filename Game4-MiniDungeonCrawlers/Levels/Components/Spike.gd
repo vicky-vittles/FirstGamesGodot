@@ -14,7 +14,8 @@ func _ready():
 	disable_shapes(true)
 	
 	if mode == MODE.ALTERNATING:
-		$OffsetTimer.wait_time = offset_time
+		if offset_time > 0:
+			$OffsetTimer.wait_time = offset_time
 		$OffsetTimer.start()
 	else:
 		_on_TimerToOn_timeout()

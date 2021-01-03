@@ -43,9 +43,6 @@ margin_bottom = 160.0
 player_index = 2
 player_type = 1
 
-[node name="PlayerTypeButton" parent="MarginContainer/VBoxContainer/PlayerContainers/Container2" index="0"]
-disabled = true
-
 [node name="Container3" parent="MarginContainer/VBoxContainer/PlayerContainers" index="2" instance=ExtResource( 3 )]
 margin_left = 254.0
 margin_right = 351.0

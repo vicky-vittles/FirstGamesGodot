@@ -6,7 +6,7 @@ func enter():
 func exit():
 	pass
 
-func physics_process(delta):
+func physics_process(_delta):
 	
 	var user = fsm.actor.user
 	user.poll_input()
