@@ -9,6 +9,9 @@ var has_activated = false
 func _ready():
 	red_button = get_node("Red")
 	blue_button = get_node("Blue")
+	
+	red_button.other_button = blue_button
+	blue_button.other_button = red_button
 
 func _physics_process(delta):
 	if red_button.pressed and blue_button.pressed and not has_activated:

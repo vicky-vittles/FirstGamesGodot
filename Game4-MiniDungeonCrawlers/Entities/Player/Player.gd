@@ -20,16 +20,23 @@ onready var own_character = $Character
 onready var objects = $Objects
 onready var main_collision_shape = $CollisionShape2D
 onready var aim_center = $AimCenter
+onready var position_for_bot = $PositionForBot
 onready var sprite = own_character.get_node("Sprite")
+onready var enemy_detector = own_character.get_node("EnemyDetector")
 onready var hurtbox = own_character.get_node("Hurtbox")
 onready var hurt_sfx = own_character.get_node("Hurt")
 onready var health = own_character.get_node("Health")
 onready var animation_player = own_character.get_node("AnimationPlayer")
 onready var invincibility_timer = own_character.get_node("InvincibilityTimer")
 onready var hurtbox_collision_shape = hurtbox.get_node("CollisionShape2D")
-onready var equipped_weapon = objects.get_node("EquippedWeapon")
+onready var equipped_weapon = objects.get_node("EquippedWeapon").get_child(0)
 onready var inventory = objects.get_node("Inventory")
+var virtual_controller
+var main_player
+var dual_button
+var is_bot : bool
 
+var nearest_enemies = []
 var near_door
 export (int) var player_index = 1
 
@@ -50,6 +57,7 @@ onready var anim_health = health.max_health
 
 
 func _ready():
+	virtual_controller = get_node("VirtualController")
 	health.connect("update_health", self, "_on_Health_update_health")
 	set_sprite()
 
@@ -65,6 +73,11 @@ func _process(_delta):
 			invincible_enabled = !invincible_enabled
 			print("invincibility is " + str(invincible_enabled))
 			hurtbox_collision_shape.set_deferred("disabled", invincible_enabled)
+
+
+func _physics_process(delta):
+	if walk_direction != Vector2.ZERO:
+		position_for_bot.position = walk_direction * -30
 
 
 func set_sprite():
@@ -83,26 +96,74 @@ func set_sprite():
 
 
 func poll_input():
+	if virtual_controller:
+		virtual_controller.get_input()
+
+
+func get_other_players():
+	var all_players = get_parent().get_children()
+	var other_players = []
+	for p in all_players:
+		if p != self:
+			other_players.append(p)
+	return other_players
+
+
+func get_main_player():
+	var other_players = get_other_players()
+	var non_cpu_players = []
+	for p in other_players:
+		if not p.is_bot:
+			non_cpu_players.append()
 	
-	if can_poll_input:
-		var p_index = str(player_index)
-		
-		var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
-		var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
-		is_attacking = Input.is_action_pressed("attack_" + p_index)
-		
-		walk_direction = Vector2(horizontal, vertical).normalized()
-		
-		if player_index > 1:
-			var horizontal_look = Input.get_action_strength("r_right_" + p_index) - Input.get_action_strength("r_left_" + p_index)
-			var vertical_look = Input.get_action_strength("r_down_" + p_index) - Input.get_action_strength("r_up_" + p_index)
-			look_direction = Vector2(horizontal_look, vertical_look).normalized()
-		else:
-			look_direction = global_position.direction_to(get_global_mouse_position())
+	if non_cpu_players.size() == 1:
+		return non_cpu_players[0]
+	
+	non_cpu_players.sort_custom(Globals, "sort_by_health")
 
 
-func _physics_process(_delta):
-	pass
+func get_nearest_enemy():
+	if nearest_enemies.size() == 0:
+		return null
+	
+	var enemy_distances = []
+	for e in nearest_enemies:
+		enemy_distances.append([e, global_position.distance_to(e.global_position)])
+	
+	enemy_distances.sort_custom(Globals, "sort_by_distance")
+	return enemy_distances[0][0]
+
+
+func get_player_with_dual_button():
+	var other_players = get_other_players()
+	for p in other_players:
+		if p != self and p.dual_button:
+			return p
+
+
+func move_to(target_pos):
+	var distance_to_target = self.global_position.distance_to(target_pos)
+	if distance_to_target > 5:
+		var direction_to_target = self.global_position.direction_to(target_pos).normalized()
+		walk_direction = direction_to_target
+	else:
+		walk_direction = Vector2.ZERO
+
+
+func attack_target(target_pos):
+	var distance_to_target = self.global_position.distance_to(target_pos)
+	if equipped_weapon and distance_to_target > equipped_weapon.distance_reach:
+		var direction_to_target = self.global_position.direction_to(target_pos).normalized()
+		look_direction = direction_to_target
+		is_attacking = true
+	else:
+		look_direction = Vector2.ZERO
+		is_attacking = false
+
+
+func reset_attack():
+	look_direction = Vector2.ZERO
+	is_attacking = false
 
 
 func turn_around(direction):
@@ -159,3 +220,21 @@ func _on_Health_update_health(_player_index, new_amount):
 	if new_amount < anim_health:
 		hurt_sfx.play()
 	anim_health = new_amount
+
+func _on_EnemyDetector_area_entered(area):
+	if area.is_in_group("enemy_hurtbox"):
+		nearest_enemies.append(area)
+
+func _on_EnemyDetector_area_exited(area):
+	if area.is_in_group("enemy_hurtbox"):
+		nearest_enemies.remove(nearest_enemies.find(area))
+
+
+func _on_DualButtonDetector_area_entered(area):
+	if area.is_in_group("dual_button"):
+		dual_button = area
+
+
+func _on_DualButtonDetector_area_exited(area):
+	if area.is_in_group("dual_button"):
+		dual_button = null

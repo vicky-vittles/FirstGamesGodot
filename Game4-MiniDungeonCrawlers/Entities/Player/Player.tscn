@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Systems/StateMachine.tscn" type="PackedScene" id=2]
@@ -11,11 +11,16 @@
 [ext_resource path="res://Systems/Inventory.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/SFX/player-hurt.ogg" type="AudioStream" id=11]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 5, 6 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "hit"
+[sub_resource type="CircleShape2D" id=1]
+radius = 70.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 5, 6 )
+
+[sub_resource type="Animation" id=3]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -42,7 +47,7 @@ tracks/1/keys = {
 "values": [ true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -58,7 +63,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -74,7 +79,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7, 8 ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6, 2 )
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -98,19 +103,42 @@ hframes = 9
 visible = false
 texture = ExtResource( 6 )
 
+[node name="DualButtonDetector" type="Area2D" parent="Character"]
+visible = false
+position = Vector2( 1, 7 )
+collision_layer = 2
+collision_mask = 64
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/DualButtonDetector"]
+shape = SubResource( 7 )
+
+[node name="EnemyDetector" type="Area2D" parent="Character"]
+collision_layer = 2048
+collision_mask = 1024
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/EnemyDetector"]
+visible = false
+shape = SubResource( 1 )
+
 [node name="Hurtbox" parent="Character" groups=[
 "player_hurtbox",
 ] instance=ExtResource( 8 )]
 collision_mask = 2192
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Hurtbox"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Character"]
 autoplay = "idle"
-anims/hit = SubResource( 2 )
-anims/idle = SubResource( 3 )
-anims/run = SubResource( 4 )
+anims/hit = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/run = SubResource( 5 )
 
 [node name="Health" parent="Character" instance=ExtResource( 9 )]
 
@@ -147,10 +175,17 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 1, 11 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="AimCenter" type="Position2D" parent="."]
 position = Vector2( 1, 9 )
+
+[node name="PositionForBot" type="Position2D" parent="."]
+position = Vector2( 0, 15 )
+[connection signal="area_entered" from="Character/DualButtonDetector" to="." method="_on_DualButtonDetector_area_entered"]
+[connection signal="area_exited" from="Character/DualButtonDetector" to="." method="_on_DualButtonDetector_area_exited"]
+[connection signal="area_entered" from="Character/EnemyDetector" to="." method="_on_EnemyDetector_area_entered"]
+[connection signal="area_exited" from="Character/EnemyDetector" to="." method="_on_EnemyDetector_area_exited"]
 [connection signal="area_entered" from="Character/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="area_exited" from="Character/Hurtbox" to="." method="_on_Hurtbox_area_exited"]
 [connection signal="timeout" from="Character/InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]

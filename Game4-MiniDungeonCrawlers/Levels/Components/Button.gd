@@ -1,5 +1,6 @@
 extends Area2D
 
+var other_button
 var pressed = false
 var was_disabled = false
 

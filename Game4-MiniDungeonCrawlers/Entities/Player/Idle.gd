@@ -11,33 +11,24 @@ func exit():
 
 func physics_process(_delta):
 	
-	var p_index = str(player.player_index)
+	player.poll_input()
 	
-	var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
-	var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
-	var horizontal_look = Input.get_action_strength("r_right_" + p_index) - Input.get_action_strength("r_left_" + p_index)
-	var vertical_look = Input.get_action_strength("r_down_" + p_index) - Input.get_action_strength("r_up_" + p_index)
-	var is_attacking = Input.is_action_pressed("attack_" + p_index)
-	
-	if is_attacking and player.near_door != null and player.inventory.silver_keys > 0:
+	if player.is_attacking and player.near_door != null and player.inventory.silver_keys > 0:
 		(player.near_door as Door).open()
 		
 		player.inventory.update_silver_keys(-1)
-	
-	var direction = Vector2(horizontal, vertical).normalized()
-	player.look_direction = Vector2(horizontal_look, vertical_look).normalized()
 	
 	if player.look_direction.x > 0:
 		player.turn_around(1)
 	elif player.look_direction.x < 0:
 		player.turn_around(-1)
 	else:
-		if direction.x > 0:
+		if player.walk_direction.x > 0:
 			player.turn_around(1)
-		elif direction.x < 0:
+		elif player.walk_direction.x < 0:
 			player.turn_around(-1)
 	
-	if direction.x != 0 or direction.y != 0:
+	if player.walk_direction.x != 0 or player.walk_direction.y != 0:
 		fsm.change_state($"../Run")
 	else:
 		player.animation_player.play("idle")

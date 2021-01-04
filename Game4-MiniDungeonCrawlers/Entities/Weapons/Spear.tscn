@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/SFX/spear-swish.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3, 5 )
+extents = Vector2( 3, 11 )
 
 [node name="Spear" instance=ExtResource( 1 )]
 collision_layer = 2048
@@ -19,7 +19,7 @@ attack_duration = 0.2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-position = Vector2( 0, -11 )
+position = Vector2( 0, -5 )
 shape = SubResource( 1 )
 
 [node name="StateMachine" parent="." index="2"]

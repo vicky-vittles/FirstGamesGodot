@@ -1,16 +1,11 @@
 extends Node
 
+static func sort_by_health(a, b):
+	if a.health.health < b.health.health:
+		return true
+	return false
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+static func sort_by_distance(a, b):
+	if a[1] < b[1]:
+		return true
+	return false

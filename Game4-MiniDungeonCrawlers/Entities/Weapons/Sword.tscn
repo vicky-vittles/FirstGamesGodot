@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/SFX/sword-swish.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 8 )
+extents = Vector2( 4, 12 )
 
 [node name="Sword" instance=ExtResource( 1 )]
 collision_layer = 2048
@@ -19,6 +19,7 @@ distance_reach = 25
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0, 4 )
 shape = SubResource( 1 )
 
 [node name="StateMachine" parent="." index="2"]

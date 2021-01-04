@@ -3,12 +3,14 @@ extends Node
 class_name StateMachine
 
 export (NodePath) var actor_path
-onready var actor = get_node(actor_path)
+var actor
 var current_state : Object
 
 var is_active = true
 
 func _ready():
+	if actor_path:
+		actor = get_node(actor_path)
 	actor.connect("ready", self, "_on_Actor_ready")
 
 func _on_Actor_ready():

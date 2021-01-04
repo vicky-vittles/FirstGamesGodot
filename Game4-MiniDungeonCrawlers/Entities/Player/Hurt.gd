@@ -25,18 +25,8 @@ func physics_process(_delta):
 	if knockback_direction != Vector2.ZERO:
 		player.velocity = player.move_and_slide(knockback_direction * KNOCKBACK_DISTANCE)
 	
-	var p_index = str(player.player_index)
-		
-	var horizontal = Input.get_action_strength("l_right_" + p_index) - Input.get_action_strength("l_left_" + p_index)
-	var vertical = Input.get_action_strength("l_down_" + p_index) - Input.get_action_strength("l_up_" + p_index)
-	
-	var direction = Vector2(horizontal, vertical).normalized()
-	
 	if duration_timeout:
-		if direction != Vector2.ZERO:
-			fsm.change_state($"../Run")
-		else:
-			fsm.change_state($"../Idle")
+		fsm.change_state($"../Idle")
 
 func _on_DurationTimer_timeout():
 	duration_timeout = true

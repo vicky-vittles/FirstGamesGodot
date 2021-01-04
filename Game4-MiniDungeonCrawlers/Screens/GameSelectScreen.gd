@@ -3,6 +3,9 @@ extends "res://Screens/BaseScreen.gd"
 signal go_to_title_screen()
 signal new_game(game)
 
+const PLAYER_VIRTUAL_CONTROLLER = preload("res://Entities/Player/Controllers/PlayerVirtualController.tscn")
+const BOT_VIRTUAL_CONTROLLER = preload("res://Entities/Player/Controllers/BotVirtualController.tscn")
+
 export (NodePath) var world_path
 onready var world = get_node(world_path)
 onready var containers = {
@@ -34,7 +37,19 @@ func _on_Play_pressed():
 			player.player_index = i
 			player.get_node("Objects/EquippedWeapon").show()
 			
+			var virtual_controller
+			if containers[i].player_type == containers[i].PLAYER_TYPE.PLAYER:
+				virtual_controller = PLAYER_VIRTUAL_CONTROLLER.instance()
+				player.is_bot = false
+			else:
+				virtual_controller = BOT_VIRTUAL_CONTROLLER.instance()
+				virtual_controller.get_node("StateMachine").actor = player
+				player.is_bot = true
+			player.add_child(virtual_controller)
+			virtual_controller.player = player
+			
 			players.append(player)
+			player.main_player = players[0]
 	
 	var game_resource = load("res://Menus/Game.tscn")
 	var game = game_resource.instance()
