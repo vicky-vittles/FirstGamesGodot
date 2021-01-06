@@ -63,7 +63,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CardShowTimer" type="Timer" parent="."]
+[node name="PlayerPointPosition1" type="Position2D" parent="."]
+position = Vector2( -256, 256 )
+
+[node name="PlayerPointPosition2" type="Position2D" parent="."]
+position = Vector2( 1280, 256 )
+
+[node name="AnimationTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
 
@@ -71,4 +77,4 @@ one_shot = true
 anims/advance_turn = SubResource( 1 )
 [connection signal="card_flipped" from="Board" to="." method="_on_Board_card_flipped"]
 [connection signal="game_ended" from="Board" to="." method="_on_Board_game_ended"]
-[connection signal="timeout" from="CardShowTimer" to="." method="_on_CardShowTimer_timeout"]
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_CardShowTimer_timeout"]

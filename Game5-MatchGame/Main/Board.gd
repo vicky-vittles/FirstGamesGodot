@@ -1,6 +1,6 @@
 extends Node2D
 
-signal card_flipped(id, card_suit, card_value)
+signal card_flipped(id, card_value)
 signal game_ended()
 
 const CARD = preload("res://Entities/Card.tscn")
@@ -25,20 +25,18 @@ func generate_new_board():
 	var cards_chosen = []
 	
 	for i in range(1, game.number_of_pairs + 1):
-		var rand_suit = 0
 		var rand_value = 0
 		
-		while(cards_chosen.has([rand_suit, rand_value])):
-			rand_suit = randi() % 4
-			rand_value = (randi() % 13) + 1
+		while(cards_chosen.has(rand_value)):
+			rand_value = (randi() % 23)
 		
-		cards_chosen.append([ rand_suit, rand_value ])
+		cards_chosen.append(rand_value)
 		
 		var card_1 = CARD.instance()
 		var card_2 = CARD.instance()
 		
-		card_1.init(rand_suit, rand_value)
-		card_2.init(rand_suit, rand_value)
+		card_1.init(rand_value)
+		card_2.init(rand_value)
 		
 		cards_to_add.append(card_1)
 		cards_to_add.append(card_2)
@@ -55,15 +53,15 @@ func generate_new_board():
 		
 		var pos_x = 102 * (i % 8)
 		var pos_y = 138 * (ceil(float(i+1) / 8) - 1)
-		rand_card.position = Vector2(pos_x, pos_y)
+		rand_card.position = Vector2(pos_x + 48, pos_y + 63)
 
 
 func debug():
 	for card in get_children():
 		card.debug()
 
-func _on_Card_flipped(id, card_suit, card_value):
-	emit_signal("card_flipped", id, card_suit, card_value)
+func _on_Card_flipped(id, card_value):
+	emit_signal("card_flipped", id, card_value)
 
 func disable_all_cards():
 	for card in self.get_children():

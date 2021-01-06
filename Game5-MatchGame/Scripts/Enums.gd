@@ -1,3 +1,0 @@
-extends Node
-
-enum CARD_SUITS { HEARTS, SPADES, DIAMONDS, CLUBS }

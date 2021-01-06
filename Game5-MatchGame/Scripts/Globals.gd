@@ -1,16 +1,13 @@
 extends Node
 
+enum PLAYER_TYPE { HUMAN, EASY_AI, NORMAL_AI, PERFECT_AI }
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+static func sort_by_card_value(a, b):
+	if a[1] < b[1]:
+		return true
+	return false
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+static func sort_by_points(a, b):
+	if a[1] > b[1]:
+		return true
+	return false

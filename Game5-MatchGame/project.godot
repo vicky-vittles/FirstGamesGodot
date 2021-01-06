@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Card",
 "language": "GDScript",
 "path": "res://Entities/Card.gd"
+}, {
+"base": "Node2D",
+"class": "Game",
+"language": "GDScript",
+"path": "res://Main/Game.gd"
 } ]
 _global_script_class_icons={
-"Card": ""
+"Card": "",
+"Game": ""
 }
 
 [application]
@@ -26,7 +32,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Enums="*res://Scripts/Enums.gd"
 Globals="*res://Scripts/Globals.gd"
 
 [display]
