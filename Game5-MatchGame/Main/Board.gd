@@ -71,6 +71,13 @@ func enable_all_cards():
 	for card in self.get_children():
 		card.enable()
 
+func get_all_closed_cards():
+	var available_cards = []
+	for c in get_children():
+		if c.is_flipped:
+			available_cards.append(c)
+	return available_cards
+
 func get_card_by_id(id: int):
 	for card in get_children():
 		if card.name == str(id):

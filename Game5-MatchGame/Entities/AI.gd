@@ -1,4 +1,4 @@
-extends Node
+extends "res://Entities/Player.gd"
 
 signal chosen_card(player_index, card_id, card_value)
 
@@ -8,44 +8,48 @@ const AI_TABLE = {
 				Globals.PLAYER_TYPE.NORMAL_AI: [24, 0.66],
 				Globals.PLAYER_TYPE.PERFECT_AI: [32, 1.0]}
 
-var animation_timer : float
-var time_of_animation : float = 0.5
-var animation_timer_is_on : bool = false
+export (NodePath) var board_path
 
-var player_index : int
-var type
+onready var board = get_node(board_path)
+onready var animation_timer = $AnimationTimer
+
+var can_play_turn : bool = false
 
 var memory = []
 var found_pair = []
 
+
 func init(_index : int, _type):
 	player_index = _index
 	type = _type
+	randomize()
+
 
 func _process(delta):
-	update_timer(delta)
-
-func update_timer(delta):
-	if animation_timer_is_on:
-		animation_timer += delta
-		if animation_timer >= time_of_animation:
-			animation_timer = 0
-			animation_timer_is_on = false
-
-func play_turn(cards):
-	if not animation_timer_is_on:
+	if can_play_turn:
+		can_play_turn = false
+		
 		if found_pair.size() == 0:
 			get_pair_in_memory()
 		
+		var card_to_choose
 		if found_pair.size() > 0:
-			var card_to_choose = found_pair.pop_front()
-			choose_card(card_to_choose[0], card_to_choose[1])
-		
-		animation_timer_is_on = true
-	print(animation_timer)
+			card_to_choose = found_pair.pop_front()
+		else:
+			var rand_index = randi() % board.get_all_closed_cards().size()
+			var c = board.get_child(rand_index)
+			card_to_choose = [int(c.name), c.card_value]
+		choose_card(card_to_choose[0], card_to_choose[1])
+
+
+func play_turn():
+	if animation_timer.is_stopped():
+		animation_timer.start()
+
 
 func choose_card(card_id, card_value):
 	emit_signal("chosen_card", player_index, card_id, card_value)
+
 
 func get_pair_in_memory():
 	if memory.size() < 2:
@@ -63,6 +67,7 @@ func get_pair_in_memory():
 			memory = temp_memory.duplicate(true)
 			return
 
+
 func put_in_memory(card) -> void:
 	for i in memory.size():
 		if memory[i][0] == card[0]:
@@ -71,3 +76,7 @@ func put_in_memory(card) -> void:
 	if memory.size() >= AI_TABLE[type][0]:
 		memory.pop_front()
 	memory.append(card)
+
+
+func _on_AnimationTimer_timeout():
+	can_play_turn = true
