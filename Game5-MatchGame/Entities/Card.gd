@@ -17,6 +17,7 @@ onready var debug_label = $DebugLabel
 export (int) var card_value = 1
 
 var is_flipped : bool = true setget set_is_flipped
+var out_of_game : bool = false
 
 
 func init(_value : int):
@@ -57,6 +58,7 @@ func debug():
 	debug_label.show()
 
 func exit_board(position_to_exit):
+	out_of_game = true
 	tween.interpolate_property(self, "global_position", global_position, position_to_exit, 0.4)
 	tween.start()
 

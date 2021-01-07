@@ -51,7 +51,6 @@ func _process(delta):
 		get_player(get_player_turn()).points += 1
 	else:
 		cards_to_close = cards_selected.duplicate(true)
-		advance_turn()
 	
 	cards_selected.clear()
 	
@@ -68,7 +67,9 @@ func get_player(_player_index : int):
 
 func ai_turn():
 	if is_an_ai(get_player_turn()):
-		get_player(get_player_turn()).play_turn()
+		var player = get_player(get_player_turn())
+		if player.cards_to_turn > 0:
+			player.play_turn()
 
 
 func is_an_ai(_player_index) -> bool:
@@ -78,11 +79,16 @@ func is_an_ai(_player_index) -> bool:
 func advance_turn() -> void:
 	var previous_player = player_turns.pop_front()
 	player_turns.push_back(previous_player)
+	get_player(get_player_turn()).cards_to_turn = 2
 
 
 func update_turn_label() -> void:
 	player_turn_label.text = "Player " + str(get_player_turn()) + "'s turn"
 	animation_player.play("update_turn_label")
+
+
+func redo_turn() -> void:
+	get_player(get_player_turn()).cards_to_turn = 2
 
 
 func get_player_turn() -> int:
@@ -111,11 +117,13 @@ func _on_CardShowTimer_timeout():
 		board.get_card_by_id(cards_to_exit[0][0]).exit_board(position_to_exit)
 		board.get_card_by_id(cards_to_exit[1][0]).exit_board(position_to_exit)
 		cards_to_exit.clear()
+		redo_turn()
 	
 	if cards_to_close:
 		board.get_card_by_id(cards_to_close[0][0]).close()
 		board.get_card_by_id(cards_to_close[1][0]).close()
 		cards_to_close.clear()
+		advance_turn()
 		update_turn_label()
 	
 	board.enable_all_cards()

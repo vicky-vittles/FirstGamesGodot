@@ -26,7 +26,7 @@ func init(_index : int, _type):
 
 
 func _process(delta):
-	if can_play_turn:
+	if cards_to_turn > 0 and can_play_turn:
 		can_play_turn = false
 		
 		if found_pair.size() == 0:
@@ -48,7 +48,10 @@ func play_turn():
 
 
 func choose_card(card_id, card_value):
-	emit_signal("chosen_card", player_index, card_id, card_value)
+	var debug_c = board.get_card_by_id(card_id)
+	if board.get_card_by_id(card_id).is_flipped:
+		cards_to_turn -= 1
+		emit_signal("chosen_card", player_index, card_id, card_value)
 
 
 func get_pair_in_memory():

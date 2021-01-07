@@ -74,7 +74,7 @@ func enable_all_cards():
 func get_all_closed_cards():
 	var available_cards = []
 	for c in get_children():
-		if c.is_flipped:
+		if c.is_flipped and not c.out_of_game:
 			available_cards.append(c)
 	return available_cards
 
