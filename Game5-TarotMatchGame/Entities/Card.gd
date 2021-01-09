@@ -28,7 +28,7 @@ func _ready():
 	init(card_value)
 
 
-func _process(delta):
+func _process(_delta):
 	if Globals.debug_mode:
 		debug_label.show()
 
@@ -56,13 +56,14 @@ func close() -> bool:
 
 
 func get_captured():
+	if card_status == CARD_STATUS.OUT_OF_GAME:
+		return
+	
+	card_status = CARD_STATUS.OUT_OF_GAME
 	animation_player.play("celebrate")
 
 
 func exit_board(position_to_exit):
-	if card_status == CARD_STATUS.OUT_OF_GAME:
-		return
-	
 	tween.interpolate_property(self, "global_position", global_position, position_to_exit, 0.4)
 	tween.start()
 

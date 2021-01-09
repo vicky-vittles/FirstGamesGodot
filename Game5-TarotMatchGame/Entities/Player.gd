@@ -20,7 +20,7 @@ func init_player(_index : int, _type):
 	player_type = _type
 
 
-func play_turn(cards):
+func play_turn(_cards):
 	pass
 
 

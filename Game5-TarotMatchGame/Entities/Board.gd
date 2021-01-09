@@ -2,7 +2,6 @@ extends Node2D
 
 signal choose_card(id, card_value)
 signal animation_ended(id, anim_name)
-signal game_ended()
 
 const CARD = preload("res://Entities/Card.tscn")
 
@@ -13,11 +12,6 @@ func _ready():
 	randomize()
 
 
-func _process(delta):
-	if self.get_child_count() == 0:
-		emit_signal("game_ended")
-
-
 func generate_new_board():
 	for c in get_children():
 		remove_child(c)
@@ -25,7 +19,7 @@ func generate_new_board():
 	var cards_to_add = []
 	var cards_chosen = []
 	
-	for i in range(1, game.number_of_pairs + 1):
+	for _i in range(1, game.number_of_pairs + 1):
 		var rand_value = 0
 		
 		while(cards_chosen.has(rand_value)):

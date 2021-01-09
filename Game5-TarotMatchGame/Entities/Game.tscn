@@ -1,10 +1,38 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Entities/Board.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Game.gd" type="Script" id=2]
 [ext_resource path="res://Entities/Human.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/GravityBold-32.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Entities/AI.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "advance_turn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("GUI/PlayerTurnLabel:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GUI/PlayerTurnLabel:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 318, 712.96 ), Vector2( 224, 604 ), Vector2( 318, 712.96 ) ]
+}
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -37,6 +65,9 @@ position = Vector2( 114, 118 )
 wait_time = 1.5
 one_shot = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/advance_turn = SubResource( 1 )
+
 [node name="PlayerPositions" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
@@ -57,8 +88,7 @@ player_index = 1
 [node name="2" parent="Players" instance=ExtResource( 5 )]
 game_path = NodePath("../..")
 player_index = 2
-player_type = 1
+player_type = 3
 [connection signal="animation_ended" from="Board" to="." method="_on_Board_animation_ended"]
 [connection signal="choose_card" from="Board" to="." method="_on_Board_choose_card"]
-[connection signal="game_ended" from="Board" to="." method="_on_Board_game_ended"]
 [connection signal="timeout" from="MemorizingTimer" to="." method="_on_MemorizingTimer_timeout"]

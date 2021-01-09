@@ -12,14 +12,31 @@ var found_pair = []
 
 func init(_index : int, _type):
 	init_player(_index, _type)
+	randomize()
 
 
-func play_turn(cards):
+func _process(_delta):
+	var cards_to_remove = []
+	for i in memory.size():
+		if memory[i].card_status == Card.CARD_STATUS.OUT_OF_GAME:
+			cards_to_remove.append(memory[i])
+	for i in cards_to_remove.size():
+		memory.remove(memory.find(cards_to_remove[i]))
+		#print(cards_to_remove[i].name + "," + str(cards_to_remove[i].card_value) + " removida carta")
+
+
+func play_turn(_cards):
+	if game.board.get_all_closed_cards().size() == 0:
+		return
 	
 	if found_pair.size() == 0:
-		get_pair_in_memory()
+		var _did_find_pair = get_pair_in_memory()
 	
-	if found_pair.size() > 0:
+	var rand_chance = (randi() % 100) + 1
+	var chance_of_hitting = 100 * AI_TABLE[player_type][1]
+	
+	if found_pair.size() > 0 and rand_chance <= chance_of_hitting:
+		#print("lembrou")
 		chosen_card = found_pair.pop_front()
 	else:
 		var available_indexes = []
@@ -32,10 +49,11 @@ func play_turn(cards):
 		chosen_card = game.board.get_card_by_id(rand_index)
 
 
-func get_pair_in_memory():
+func get_pair_in_memory() -> bool:
 	if memory.size() < 2:
-		return
+		return false
 	
+	var has_found_pair = false
 	var temp_memory = memory.duplicate(true)
 	temp_memory.sort_custom(Globals, "sort_by_card_value")
 	
@@ -43,13 +61,22 @@ func get_pair_in_memory():
 		if temp_memory[i].card_value == temp_memory[i+1].card_value:
 			found_pair.append(temp_memory[i])
 			found_pair.append(temp_memory[i+1])
-			temp_memory.remove(i)
-			temp_memory.remove(i+1)
-			memory = temp_memory.duplicate(true)
-			return
+			has_found_pair = true
+	
+	if has_found_pair:
+		for i in found_pair.size():
+			var index = temp_memory.find(found_pair[i])
+			#print(temp_memory[index].name + "," + str(temp_memory[index].card_value) + " removida carta")
+			temp_memory.remove(index)
+		memory = temp_memory.duplicate(true)
+	return has_found_pair
 
 
 func put_in_memory(card) -> void:
+	for i in found_pair.size():
+		if int(found_pair[i].name) == int(card.name):
+			return
+	
 	for i in memory.size():
 		if int(memory[i].name) == int(card.name):
 			return
@@ -57,3 +84,4 @@ func put_in_memory(card) -> void:
 	if memory.size() >= AI_TABLE[player_type][0]:
 		memory.pop_front()
 	memory.append(card)
+	#print(card.name + "," + str(card.card_value) + " nova carta")

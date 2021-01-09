@@ -1,10 +1,13 @@
 extends Node2D
 
+signal game_ended(players_arr)
+
 enum GAME_STATE { ON_TURN, PAUSED, ON_ANIMATION }
 
 onready var player_turn_label = $GUI/PlayerTurnLabel
 onready var board = $Board
 onready var memorizing_timer = $MemorizingTimer
+onready var animation_player = $AnimationPlayer
 onready var player_positions = $PlayerPositions
 onready var players = $Players
 
@@ -33,8 +36,10 @@ func _ready():
 	board.generate_new_board()
 
 
-func _process(delta):
+func _process(_delta):
 	process_player_turn()
+	if board.get_all_closed_cards().size() == 0 and game_state == GAME_STATE.ON_TURN:
+		end_game()
 
 
 func process_player_turn():
@@ -47,10 +52,11 @@ func process_player_turn():
 		
 			if actual_player.chosen_card:
 				var card = actual_player.chosen_card
-				var is_a_closed_card = card.open()
-				game_state = GAME_STATE.ON_ANIMATION
+				var is_a_closed_card = card.is_openable()
 				
 				if is_a_closed_card:
+					card.open()
+					game_state = GAME_STATE.ON_ANIMATION
 					card_pair_to_check.append(card)
 					actual_player.cards_to_turn += -1
 				
@@ -66,6 +72,7 @@ func process_player_turn():
 			if c1.card_value == c2.card_value:
 				c1.get_captured()
 				c2.get_captured()
+				actual_player.points += 1
 				
 				game_state = GAME_STATE.ON_ANIMATION
 			else:
@@ -94,9 +101,10 @@ func advance_turn():
 	get_player(player_of_past_turn).cards_to_turn = 2
 	player_turns.push_back(player_of_past_turn)
 	player_turn_label.text = "Player " + str(get_actual_player()) + "'s turn"
+	animation_player.play("advance_turn")
 
 
-func _on_Board_choose_card(id, card_value):
+func _on_Board_choose_card(id, _card_value):
 	#if game_state == GAME_STATE.ON_TURN:
 	clicked_card = board.get_card_by_id(id)
 
@@ -129,8 +137,11 @@ func _on_Board_animation_ended(id, anim_name):
 			card_pair_to_check.clear()
 		finished_turn = true
 
-func _on_Board_game_ended():
-	pass # Replace with function body.
+func end_game():
+	var players_arr = []
+	for p in players.get_children():
+		players_arr.append([p.player_index, p.points])
+	emit_signal("game_ended", players_arr)
 
 func _on_MemorizingTimer_timeout():
 	game_state = GAME_STATE.ON_TURN
