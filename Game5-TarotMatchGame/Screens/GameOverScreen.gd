@@ -1,21 +1,9 @@
-extends CanvasLayer
+extends "res://Screens/BaseScreen.gd"
 
-onready var label = $MarginContainer/VBoxContainer/Label
+signal go_to_title_screen()
 
+func set_message(message):
+	$MarginContainer/VBoxContainer/Title.text = message
 
-func set_winning_message(is_a_victory : bool, player_points):
-	var message
-	if is_a_victory:
-		var winning_player = player_points[0]
-		message = "Player " + str(winning_player[0]) + " has won!\r\n\r\n"
-	else:
-		message = "It's a tie!\r\n\r\n"
-	
-	for p in player_points:
-		message += "Player " + str(p[0]) + ": " + str(p[1]) + " points\r\n"
-	
-	label.text = message
-
-
-func _on_Button_pressed():
-	get_tree().reload_current_scene()
+func _on_TitleScreen_pressed():
+	emit_signal("go_to_title_screen")

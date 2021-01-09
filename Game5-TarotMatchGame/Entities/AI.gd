@@ -3,7 +3,7 @@ extends Player
 # Memory capacity / Chance that it will remember a card at any given turn
 const AI_TABLE = {
 				PLAYER_TYPE.EASY_AI: [10, 0.33],
-				PLAYER_TYPE.NORMAL_AI: [24, 0.66],
+				PLAYER_TYPE.NORMAL_AI: [24, 0.75],
 				PLAYER_TYPE.PERFECT_AI: [32, 1.0]}
 
 var memory = []

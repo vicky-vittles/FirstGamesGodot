@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Screens/TitleScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Screens/GameSelectScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Screens/MainScreens.gd" type="Script" id=4]
+
+[node name="MainScreens" type="Node"]
+script = ExtResource( 4 )
+
+[node name="TitleScreen" parent="." instance=ExtResource( 2 )]
+
+[node name="GameSelectScreen" parent="." instance=ExtResource( 3 )]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+autoplay = true
+[connection signal="go_to_game_select" from="TitleScreen" to="." method="go_to_game_select"]
+[connection signal="quit" from="TitleScreen" to="." method="quit"]
+[connection signal="go_to_title_screen" from="GameSelectScreen" to="." method="go_to_title_screen"]
+[connection signal="new_game" from="GameSelectScreen" to="." method="_on_GameSelectScreen_new_game"]

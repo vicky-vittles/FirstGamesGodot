@@ -11,8 +11,8 @@ onready var animation_player = $AnimationPlayer
 onready var player_positions = $PlayerPositions
 onready var players = $Players
 
-export (int) var number_of_pairs = 16
-export (int) var number_of_players = 2
+const number_of_pairs = 16
+const number_of_players = 2
 
 var game_state = GAME_STATE.ON_TURN
 var finished_turn : bool = false
@@ -23,16 +23,9 @@ var card_pair_to_check = []
 var player_turns = []
 
 
-func init(_pairs : int, _players : int):
-	number_of_pairs = _pairs
-	number_of_players = _players
-	
+func _ready():
 	for i in range(1, players.get_child_count() + 1):
 		player_turns.append(i)
-
-
-func _ready():
-	init(number_of_pairs, number_of_players)
 	board.generate_new_board()
 
 

@@ -3,12 +3,11 @@ extends Node
 class_name Player
 
 enum PLAYER_TYPE { HUMAN, EASY_AI, NORMAL_AI, PERFECT_AI }
+const PLAYER_TYPE_DESC = ["Human", "Easy AI", "Normal AI", "Perfect AI"]
 
-export (NodePath) var game_path
-export (int) var player_index = 0
-export (PLAYER_TYPE) var player_type
-
-onready var game = get_node(game_path)
+var player_index
+var player_type
+var game
 var chosen_card
 
 var points : int = 0
