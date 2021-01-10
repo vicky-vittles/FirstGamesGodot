@@ -1,4 +1,2 @@
-extends "res://Entities/Player.gd"
+extends "res://Entities/_Player.gd"
 
-func get_input():
-	print("olá")

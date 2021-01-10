@@ -1,3 +1,5 @@
 extends Node
 
-enum CELL_TYPE { EMPTY, X, O }
+enum TILE_TYPE { EMPTY, X, O }
+enum TILE_MODE { AVAILABLE, DISABLED }
+enum PLAYER_TYPE { HUMAN, AI }
