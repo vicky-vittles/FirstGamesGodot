@@ -18,4 +18,4 @@ func set_winning_message(is_a_victory : bool, player_points):
 
 
 func _on_Button_pressed():
-	get_tree().reload_current_scene()
+	var _reloaded_scene = get_tree().reload_current_scene()

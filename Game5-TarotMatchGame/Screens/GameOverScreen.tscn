@@ -8,27 +8,27 @@ script = ExtResource( 2 )
 
 [node name="VBoxContainer" parent="MarginContainer" index="0"]
 margin_right = 1024.0
-margin_bottom = 576.0
+margin_bottom = 768.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
 
 [node name="Title" parent="MarginContainer/VBoxContainer" index="0"]
-margin_top = 241.0
+margin_top = 341.0
 margin_right = 1024.0
-margin_bottom = 281.0
+margin_bottom = 373.0
 align = 1
 valign = 1
 
 [node name="Buttons" parent="MarginContainer/VBoxContainer" index="1"]
-margin_left = 306.0
-margin_top = 285.0
-margin_right = 717.0
-margin_bottom = 335.0
+margin_left = 244.0
+margin_top = 377.0
+margin_right = 780.0
+margin_bottom = 427.0
 size_flags_horizontal = 4
 custom_constants/separation = 20
 
 [node name="TitleScreen" type="Button" parent="MarginContainer/VBoxContainer/Buttons" index="0"]
-margin_right = 411.0
+margin_right = 536.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 7

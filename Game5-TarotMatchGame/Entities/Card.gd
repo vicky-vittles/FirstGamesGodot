@@ -11,6 +11,7 @@ onready var back = $Back
 onready var animation_player = $AnimationPlayer
 onready var tween = $Tween
 onready var debug_label = $DebugLabel
+onready var open_sfx = $OpenSFX
 
 enum CARD_STATUS { OPEN, CLOSED, OUT_OF_GAME }
 
@@ -40,6 +41,7 @@ func open() -> bool:
 	card_status = CARD_STATUS.OPEN
 	button.disabled = true
 	animation_player.play("open")
+	open_sfx.play_random()
 	
 	return true
 
@@ -78,10 +80,14 @@ func is_openable() -> bool:
 	return card_status == CARD_STATUS.CLOSED
 
 func _to_string() -> String:
-	return "Id:" + str(int(self.name)) + ". Value:" + str(card_value)
+	return "Id:" + str(int(self.name)) + "\nValue:" + str(card_value)
 
 func _on_Button_pressed():
 	emit_signal("choose_card", int(self.name), card_value)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	emit_signal("animation_ended", int(self.name), anim_name)
+
+func debug():
+	debug_label.text = _to_string()
+	debug_label.show()

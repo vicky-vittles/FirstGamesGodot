@@ -10,6 +10,8 @@ onready var memorizing_timer = $MemorizingTimer
 onready var animation_player = $AnimationPlayer
 onready var player_positions = $PlayerPositions
 onready var players = $Players
+onready var card_found_sfx = $CardFoundSFX
+var consecutive_cards_found : int = 0
 
 const number_of_pairs = 16
 const number_of_players = 2
@@ -27,6 +29,8 @@ func _ready():
 	for i in range(1, players.get_child_count() + 1):
 		player_turns.append(i)
 	board.generate_new_board()
+	if Globals.debug_mode:
+		board.debug()
 
 
 func _process(_delta):
@@ -65,6 +69,7 @@ func process_player_turn():
 			if c1.card_value == c2.card_value:
 				c1.get_captured()
 				c2.get_captured()
+				card_found_sfx.play_increasing(consecutive_cards_found)
 				actual_player.points += 1
 				
 				game_state = GAME_STATE.ON_ANIMATION
@@ -94,6 +99,7 @@ func advance_turn():
 	get_player(player_of_past_turn).cards_to_turn = 2
 	player_turns.push_back(player_of_past_turn)
 	player_turn_label.text = "Player " + str(get_actual_player()) + "'s turn"
+	consecutive_cards_found = 0
 	animation_player.play("advance_turn")
 
 
@@ -120,6 +126,7 @@ func _on_Board_animation_ended(id, anim_name):
 		if not finished_turn:
 			var actual_player = get_player(get_actual_player())
 			actual_player.cards_to_turn = 2
+			consecutive_cards_found += 1
 			
 			var position_to_exit = player_positions.get_child(actual_player.player_index - 1).global_position
 			var c1 = card_pair_to_check[0]

@@ -80,3 +80,7 @@ func _on_Card_chosen(id, card_value):
 
 func _on_Card_animation_ended(id, anim_name):
 	emit_signal("animation_ended", id, anim_name)
+
+func debug():
+	for c in get_children():
+		c.debug()
