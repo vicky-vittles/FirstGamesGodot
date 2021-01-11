@@ -1,7 +1,10 @@
 extends Node
 
-var player_index : int
-var player_type
+export (int) var player_index
+export (Enums.PLAYER_TYPE) var player_type
+export (Enums.TILE_TYPE) var tile_type
+
+var chosen_tile
 
 
 func init(_index : int, _type):
@@ -9,5 +12,5 @@ func init(_index : int, _type):
 	player_type = _type
 
 
-func play_turn(big_board):
+func play_turn(game):
 	pass

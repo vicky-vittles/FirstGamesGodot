@@ -40,6 +40,11 @@ position = Vector2( 96, 160 )
 
 [node name="9" parent="Tiles" instance=ExtResource( 1 )]
 position = Vector2( 160, 160 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -16, -16 )
+scale = Vector2( 1.4, 1.4 )
+centered = false
 [connection signal="tile_pressed" from="Tiles/1" to="." method="_on_Tile_tile_pressed"]
 [connection signal="tile_pressed" from="Tiles/2" to="." method="_on_Tile_tile_pressed"]
 [connection signal="tile_pressed" from="Tiles/3" to="." method="_on_Tile_tile_pressed"]

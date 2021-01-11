@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
+[ext_resource path="res://Assets/EmptyTile-ButtonStyle.tres" type="StyleBox" id=1]
 [ext_resource path="res://Entities/Tile.gd" type="Script" id=2]
 
 [node name="Tile" type="Node2D"]
@@ -11,6 +12,7 @@ margin_left = -56.0
 margin_top = -56.0
 margin_right = 56.0
 margin_bottom = 56.0
+custom_styles/disabled = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
