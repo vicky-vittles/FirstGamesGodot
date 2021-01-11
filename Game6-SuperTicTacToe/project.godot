@@ -10,11 +10,23 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "BigBoard",
+"language": "GDScript",
+"path": "res://Entities/BigBoard.gd"
+}, {
+"base": "Node2D",
+"class": "SmallBoard",
+"language": "GDScript",
+"path": "res://Entities/SmallBoard.gd"
+}, {
+"base": "Node2D",
 "class": "Tile",
 "language": "GDScript",
 "path": "res://Entities/Tile.gd"
 } ]
 _global_script_class_icons={
+"BigBoard": "",
+"SmallBoard": "",
 "Tile": ""
 }
 

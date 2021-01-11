@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name SmallBoard
+
 signal tile_pressed(board_id, tile_id)
 
 onready var sprite = $Sprite
@@ -15,16 +17,27 @@ func _ready():
 		tile.turn_on_off(true)
 
 
+# Uses the board status to determine if a player owns this board
 func check_victory() -> bool:
+	var board_status = get_game_status()
+	var board_owner = check_board_owner(board_status)
+	
+	if board_owner != Enums.TILE_TYPE.EMPTY:
+		return true
+	else:
+		return false
+
+# Returns the general type of this board (if its owned by a player - still can be played on)
+static func check_board_owner(board_status):
 	for pattern in Globals.VICTORY_PATTERNS:
-		var a = get_tile_by_id(pattern[0]).tile_type
-		var b = get_tile_by_id(pattern[1]).tile_type
-		var c = get_tile_by_id(pattern[2]).tile_type
+		var a = board_status[pattern[0] - 1]
+		var b = board_status[pattern[1] - 1]
+		var c = board_status[pattern[2] - 1]
 		if a == Enums.TILE_TYPE.EMPTY or b == Enums.TILE_TYPE.EMPTY or c == Enums.TILE_TYPE.EMPTY:
 			continue
 		if a == b and b == c and a == c:
-			return true
-	return false
+			return a
+	return Enums.TILE_TYPE.EMPTY
 
 
 func set_type(_type):
@@ -47,6 +60,14 @@ func get_all_empty_tiles():
 		if tile.is_empty():
 			tiles_to_return.append(tile)
 	return tiles_to_return
+
+# Returns a array representation of the types of each tile of this board
+# [EMPTY, X, O, O, EMPTY, EMPTY, X, EMPTY, EMPTY, O]
+func get_game_status():
+	var tile_arr = []
+	for tile in tiles.get_children():
+		tile_arr.append(tile.tile_type)
+	return tile_arr
 
 func _on_Tile_tile_pressed(tile_id):
 	emit_signal("tile_pressed", id, tile_id)

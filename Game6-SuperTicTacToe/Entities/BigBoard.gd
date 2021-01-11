@@ -1,20 +1,16 @@
 extends Node2D
 
+class_name BigBoard
+
 signal tile_pressed(board_id, tile_id)
 
 onready var boards = $Boards
 
 
-func check_victory():
-	for pattern in Globals.VICTORY_PATTERNS:
-		var a = get_board_by_id(pattern[0]).type
-		var b = get_board_by_id(pattern[1]).type
-		var c = get_board_by_id(pattern[2]).type
-		if a == Enums.TILE_TYPE.EMPTY or b == Enums.TILE_TYPE.EMPTY or c == Enums.TILE_TYPE.EMPTY:
-			continue
-		if a == b and b == c and a == c:
-			return true
-	return false
+func check_victory() -> bool:
+	var game_status = get_game_status()
+	var game_result_type = check_winning_player(game_status)
+	return game_result_type != Enums.TILE_TYPE.EMPTY
 
 
 func get_tile_by_id(_board_id : int, _tile_id : int):
@@ -52,6 +48,30 @@ func update_tile_modes(_tile_played_id : int):
 						tile.turn_on_off(false)
 				else:
 					tile.turn_on_off(false)
+
+# Returns a matrix representation of the types of the tiles of each board
+func get_game_status():
+	var board_arr = []
+	for board in boards.get_children():
+		board_arr.append(board.get_game_status())
+	return board_arr
+
+# Creates a meta-array of the results of each board (who owns them) and checks if a player has won
+static func check_winning_player(game_status):
+	var board_arr = []
+	for i in game_status.size():
+		var board_type = SmallBoard.check_board_owner(game_status[i])
+		board_arr.append(board_type)
+	
+	for pattern in Globals.VICTORY_PATTERNS:
+		var a = board_arr[pattern[0] - 1]
+		var b = board_arr[pattern[1] - 1]
+		var c = board_arr[pattern[2] - 1]
+		if a == Enums.TILE_TYPE.EMPTY or b == Enums.TILE_TYPE.EMPTY or c == Enums.TILE_TYPE.EMPTY:
+			continue
+		if a == b and b == c and a == c:
+			return a
+	return Enums.TILE_TYPE.EMPTY
 
 func _on_SmallBoard_tile_pressed(board_id, tile_id):
 	emit_signal("tile_pressed", board_id, tile_id)

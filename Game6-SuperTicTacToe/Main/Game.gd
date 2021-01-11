@@ -8,6 +8,7 @@ onready var players = $Players
 
 var player_turns = []
 var clicked_tile
+var last_played_tile_id : int
 
 
 func _ready():
@@ -34,6 +35,7 @@ func process_player_turn():
 		
 		# Fill tile with player point
 		tile.fill_by_player(actual_player.tile_type)
+		last_played_tile_id = chosen_tile_id
 		
 		# Check victories for small board and big board
 		var has_conquered_small_board = small_board.check_victory()
@@ -70,6 +72,14 @@ func advance_turn():
 	player_turns.push_back(player_of_past_turn)
 	
 	status_label.text = str(Enums.TILE_TYPE.keys()[get_actual_player().tile_type]) + " is playing"
+
+func get_game_status():
+	var game_status = big_board.get_game_status()
+	var status = {
+				"last_played_tile_id": last_played_tile_id,
+				"next_player": get_actual_player().tile_type,
+				"game_status": game_status}
+	return status
 
 func _on_BigBoard_tile_pressed(board_id, tile_id):
 	clicked_tile = big_board.get_board_by_id(board_id).get_tile_by_id(tile_id)
