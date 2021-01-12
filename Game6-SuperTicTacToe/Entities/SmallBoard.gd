@@ -27,7 +27,8 @@ func check_victory() -> bool:
 	else:
 		return false
 
-# Returns the general type of this board (if its owned by a player - still can be played on)
+# Returns the general type of this board
+# (if its owned by a player - still can be played on)
 static func check_board_owner(board_status):
 	for pattern in Globals.VICTORY_PATTERNS:
 		var a = board_status[pattern[0] - 1]
