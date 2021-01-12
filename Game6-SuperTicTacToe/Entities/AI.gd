@@ -28,7 +28,7 @@ func _ready():
 
 func play_turn(game):
 	var game_status = game.get_game_status()
-	var minimax_eval = minimax(game_status, null, 3, true)
+	var minimax_eval = minimax(game_status, null, 1, true)
 	var next_move = minimax_eval["move"]
 	chosen_tile = game.big_board.get_board_by_id(next_move[0]).get_tile_by_id(next_move[1])
 
@@ -39,9 +39,16 @@ func minimax(game_status, move, depth : int, is_maximizing_player : bool):
 	
 	if depth == 0 or game_is_over:
 		var lp_tile_id = game_status["last_played_tile_id"]
-		var board_owner = SmallBoard.check_board_owner(game_status["game_status"][lp_tile_id-1])
+		var game_score = GAME_SCORES[winning_player]
+		var board_owner = SmallBoard.check_board_owner(game_status["game_status"][lp_tile_id])
 		var board_score = BigBoard.check_small_board_estimate_value(lp_tile_id, game_status["next_player"], game_status["game_status"]) * BOARD_SCORES[board_owner]
-		var score_to_return = GAME_SCORES[winning_player] + board_score
+		var supposed_board_score = BOARD_SCORES[SmallBoard.check_supposed_board_owner(game_status["game_status"][lp_tile_id])]
+		if is_maximizing_player:
+			board_score = max(board_score, supposed_board_score)
+		else:
+			board_score = min(board_score, supposed_board_score)
+		var tile_score = move[2] * TILE_SCORES[game_status["game_status"][move[0]][move[1]]]
+		var score_to_return = game_score + board_score + tile_score
 		return {"move": move, "score":score_to_return}
 	
 	if is_maximizing_player:
@@ -86,13 +93,13 @@ func get_all_possible_moves(game_status):
 		meta_board.append(SmallBoard.check_board_owner(big_board_status[board_index]))
 	
 	# Check if played on a board owned by someone
-	has_played_on_owned_board = meta_board[last_played_tile_id - 1] != Enums.TILE_TYPE.EMPTY
+	has_played_on_owned_board = meta_board[last_played_tile_id] != Enums.TILE_TYPE.EMPTY
 	
 	if not has_played_on_owned_board:
-		for tile_index in big_board_status[last_played_tile_id - 1].size():
+		for tile_index in big_board_status[last_played_tile_id].size():
 			var board_id = last_played_tile_id
-			if big_board_status[board_id-1][tile_index] == Enums.TILE_TYPE.EMPTY:
-				possible_moves.append([board_id, (tile_index+1)])
+			if big_board_status[board_id][tile_index] == Enums.TILE_TYPE.EMPTY:
+				possible_moves.append([board_id, tile_index, Globals.POSITION_SCORES[tile_index]])
 	else:
 		for board_index in big_board_status.size():
 			var is_board_owned = SmallBoard.check_board_owner(big_board_status[board_index])
@@ -100,13 +107,15 @@ func get_all_possible_moves(game_status):
 				continue
 			for tile_index in big_board_status[board_index].size():
 				if big_board_status[board_index][tile_index] == Enums.TILE_TYPE.EMPTY:
-					possible_moves.append([(board_index+1), (tile_index+1)])
+					possible_moves.append([board_index, tile_index, Globals.POSITION_SCORES[tile_index]])
+	
+	possible_moves.sort_custom(Globals, "sort_by_tile_priority")
 	
 	return possible_moves
 
 
 func apply_move_to_game_status(move, game_status):
-	game_status["game_status"][move[0]-1][move[1]-1] = game_status["next_player"]
+	game_status["game_status"][move[0]][move[1]] = game_status["next_player"]
 	game_status["last_played_tile_id"] = move[1]
 	var next_player = game_status["next_player"]
 	if next_player == Enums.TILE_TYPE.X:
@@ -125,7 +134,7 @@ func undo_move_to_game_status(move, last_played_tile_id, game_status):
 		game_status["next_player"] = Enums.TILE_TYPE.X
 	
 	game_status["last_played_tile_id"] = last_played_tile_id
-	game_status["game_status"][move[0]-1][move[1]-1] = Enums.TILE_TYPE.EMPTY
+	game_status["game_status"][move[0]][move[1]] = Enums.TILE_TYPE.EMPTY
 	
 	return game_status
 

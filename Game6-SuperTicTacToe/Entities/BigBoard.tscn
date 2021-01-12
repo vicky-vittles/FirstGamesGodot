@@ -15,31 +15,32 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="1" parent="Boards" instance=ExtResource( 1 )]
+[node name="0" parent="Boards" instance=ExtResource( 1 )]
 
-[node name="2" parent="Boards" instance=ExtResource( 1 )]
+[node name="1" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 208, 0 )
 
-[node name="3" parent="Boards" instance=ExtResource( 1 )]
+[node name="2" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 416, 0 )
 
-[node name="4" parent="Boards" instance=ExtResource( 1 )]
+[node name="3" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 0, 208 )
 
-[node name="5" parent="Boards" instance=ExtResource( 1 )]
+[node name="4" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 208, 208 )
 
-[node name="6" parent="Boards" instance=ExtResource( 1 )]
+[node name="5" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 416, 208 )
 
-[node name="7" parent="Boards" instance=ExtResource( 1 )]
+[node name="6" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 0, 416 )
 
-[node name="8" parent="Boards" instance=ExtResource( 1 )]
+[node name="7" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 208, 416 )
 
-[node name="9" parent="Boards" instance=ExtResource( 1 )]
+[node name="8" parent="Boards" instance=ExtResource( 1 )]
 position = Vector2( 416, 416 )
+[connection signal="tile_pressed" from="Boards/0" to="." method="_on_SmallBoard_tile_pressed"]
 [connection signal="tile_pressed" from="Boards/1" to="." method="_on_SmallBoard_tile_pressed"]
 [connection signal="tile_pressed" from="Boards/2" to="." method="_on_SmallBoard_tile_pressed"]
 [connection signal="tile_pressed" from="Boards/3" to="." method="_on_SmallBoard_tile_pressed"]
@@ -48,4 +49,3 @@ position = Vector2( 416, 416 )
 [connection signal="tile_pressed" from="Boards/6" to="." method="_on_SmallBoard_tile_pressed"]
 [connection signal="tile_pressed" from="Boards/7" to="." method="_on_SmallBoard_tile_pressed"]
 [connection signal="tile_pressed" from="Boards/8" to="." method="_on_SmallBoard_tile_pressed"]
-[connection signal="tile_pressed" from="Boards/9" to="." method="_on_SmallBoard_tile_pressed"]

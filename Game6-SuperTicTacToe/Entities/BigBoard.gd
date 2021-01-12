@@ -65,9 +65,9 @@ static func check_winning_player(game_status):
 		board_arr.append(board_type)
 	
 	for pattern in Globals.VICTORY_PATTERNS:
-		var a = board_arr[pattern[0] - 1]
-		var b = board_arr[pattern[1] - 1]
-		var c = board_arr[pattern[2] - 1]
+		var a = board_arr[pattern[0]]
+		var b = board_arr[pattern[1]]
+		var c = board_arr[pattern[2]]
 		if a == Enums.TILE_TYPE.EMPTY or b == Enums.TILE_TYPE.EMPTY or c == Enums.TILE_TYPE.EMPTY:
 			continue
 		if a == b and b == c:
@@ -95,9 +95,9 @@ static func check_small_board_estimate_value(board_id_to_check : int, player_typ
 	
 	var result = 0
 	for pattern in Globals.VICTORY_PATTERNS:
-		var a = meta_board[pattern[0] - 1]
-		var b = meta_board[pattern[1] - 1]
-		var c = meta_board[pattern[2] - 1]
+		var a = meta_board[pattern[0]]
+		var b = meta_board[pattern[1]]
+		var c = meta_board[pattern[2]]
 		if a == Enums.TILE_TYPE.EMPTY or b == Enums.TILE_TYPE.EMPTY or c == Enums.TILE_TYPE.EMPTY:
 			continue
 		if a == b and b == c:

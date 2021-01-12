@@ -31,13 +31,34 @@ func check_victory() -> bool:
 # (if its owned by a player - still can be played on)
 static func check_board_owner(board_status):
 	for pattern in Globals.VICTORY_PATTERNS:
-		var a = board_status[pattern[0] - 1]
-		var b = board_status[pattern[1] - 1]
-		var c = board_status[pattern[2] - 1]
+		var a = board_status[pattern[0]]
+		var b = board_status[pattern[1]]
+		var c = board_status[pattern[2]]
 		if a == Enums.TILE_TYPE.EMPTY or b == Enums.TILE_TYPE.EMPTY or c == Enums.TILE_TYPE.EMPTY:
 			continue
 		if a == b and b == c and a == c:
 			return a
+	return Enums.TILE_TYPE.EMPTY
+
+# Returns the general type of this board
+
+static func check_supposed_board_owner(board_status):
+	for pattern in Globals.VICTORY_PATTERNS:
+		var a = board_status[pattern[0]]
+		var b = board_status[pattern[1]]
+		var c = board_status[pattern[2]]
+		var x_count = 1 if a == Enums.TILE_TYPE.X else 0
+		x_count = x_count+1 if b == Enums.TILE_TYPE.X else x_count
+		x_count = x_count+1 if c == Enums.TILE_TYPE.X else x_count
+		var o_count = 1 if a == Enums.TILE_TYPE.O else 0
+		o_count = x_count+1 if b == Enums.TILE_TYPE.O else o_count
+		o_count = x_count+1 if c == Enums.TILE_TYPE.O else o_count
+		if x_count == 0 and o_count == 0:
+			continue
+		if sign(x_count) > 0 and o_count == 0:
+			return Enums.TILE_TYPE.X
+		if sign(o_count) > 0 and x_count == 0:
+			return Enums.TILE_TYPE.O
 	return Enums.TILE_TYPE.EMPTY
 
 
