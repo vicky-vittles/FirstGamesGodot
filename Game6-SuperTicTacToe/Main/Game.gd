@@ -11,12 +11,12 @@ var clicked_tile
 var last_played_tile_id : int
 
 
-func _ready():
+func init_players():
 	for i in range(1, players.get_child_count() + 1):
 		player_turns.append(i)
 
 
-func _process(delta):
+func _process(_delta):
 	process_player_turn()
 
 
@@ -43,11 +43,11 @@ func process_player_turn():
 			small_board.set_type(actual_player.tile_type)
 		var has_won = big_board.check_victory()
 		if has_won:
-			emit_signal("game_ended", actual_player, players)
+			emit_signal("game_ended", actual_player)
 			return
 		
 		# Update board tiles
-		big_board.update_tile_modes(chosen_tile_id)
+		big_board.update_tile_modes(chosen_tile_id, get_next_player().tile_type)
 		
 		# Reset clicked tile variables
 		clicked_tile = null
@@ -65,6 +65,10 @@ func get_player(_index : int):
 
 func get_actual_player():
 	var _index = player_turns.front()
+	return get_player(_index)
+
+func get_next_player():
+	var _index = player_turns.back()
 	return get_player(_index)
 
 func advance_turn():

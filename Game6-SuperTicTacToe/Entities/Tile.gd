@@ -12,6 +12,10 @@ const TILE_BUTTON_STYLES = {
 			Enums.TILE_TYPE.EMPTY: preload("res://Assets/EmptyTile-ButtonStyle.tres"),
 			Enums.TILE_TYPE.X: preload("res://Assets/RedTile-ButtonStyle.tres"),
 			Enums.TILE_TYPE.O: preload("res://Assets/BlueTile-ButtonStyle.tres")}
+const TILE_HOVERED_BUTTON_STYLES = {
+			Enums.TILE_TYPE.EMPTY: preload("res://Assets/EmptyTileHovered-ButtonStyle.tres"),
+			Enums.TILE_TYPE.X: preload("res://Assets/RedTileHovered-ButtonStyle.tres"),
+			Enums.TILE_TYPE.O: preload("res://Assets/BlueTileHovered-ButtonStyle.tres")}
 const SEMI_TRANSPARENT = Color(1.0, 1.0, 1.0, 0.25)
 const OPAQUE = Color(1.0, 1.0, 1.0, 1.0)
 
@@ -26,7 +30,6 @@ var is_available : bool = true
 
 func init(_board_id : int):
 	board_id = _board_id
-	turn_on_off(true)
 
 
 func fill_by_player(new_type):
@@ -34,14 +37,17 @@ func fill_by_player(new_type):
 		return
 	
 	tile_type = new_type
-	turn_on_off(false)
+	turn_on_off(false, null)
 	#button.add_stylebox_override("normal", TILE_BUTTON_STYLES[tile_type])
 	sprite.texture = TILE_IMAGES[tile_type]
 
 
-func turn_on_off(_is_on : bool):
+func turn_on_off(_is_on : bool, actual_player_tile_type):
 	if _is_on:
 		button.disabled = false
+		if actual_player_tile_type:
+			button.add_stylebox_override("normal", TILE_BUTTON_STYLES[actual_player_tile_type])
+			button.add_stylebox_override("hover", TILE_HOVERED_BUTTON_STYLES[actual_player_tile_type])
 		sprite.modulate = OPAQUE
 		is_available = true
 	else:

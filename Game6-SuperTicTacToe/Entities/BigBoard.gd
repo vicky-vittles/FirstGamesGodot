@@ -31,23 +31,23 @@ func get_all_playable_boards():
 				break
 	return available_boards
 
-func update_tile_modes(_tile_played_id : int):
+func update_tile_modes(_tile_played_id : int, actual_player_tile_type):
 	var played_on_a_won_board = get_board_by_id(_tile_played_id).type != Enums.TILE_TYPE.EMPTY
 	for board in boards.get_children():
 		for tile in board.get_all_empty_tiles():
 			if not played_on_a_won_board:
 				if tile.is_empty() and _tile_played_id == tile.board_id:
-					tile.turn_on_off(true)
+					tile.turn_on_off(true, actual_player_tile_type)
 				else:
-					tile.turn_on_off(false)
+					tile.turn_on_off(false, null)
 			else:
 				if board.id != _tile_played_id and board.type == Enums.TILE_TYPE.EMPTY:
 					if tile.is_empty():
-						tile.turn_on_off(true)
+						tile.turn_on_off(true, actual_player_tile_type)
 					else:
-						tile.turn_on_off(false)
+						tile.turn_on_off(false, null)
 				else:
-					tile.turn_on_off(false)
+					tile.turn_on_off(false, null)
 
 # Returns a matrix representation of the types of the tiles of each board
 func get_game_status():
@@ -74,15 +74,14 @@ static func check_winning_player(game_status):
 			return a
 	return Enums.TILE_TYPE.EMPTY
 
-# Creates a meta-array of the results of each board (using the full board),
-# and returns a number indicating how many configurations using the board_to_check_id
-# can win the game
-static func check_small_board_estimate_value(board_id_to_check : int, player_type, game_status):
+static func rank_small_board(game_status, board_id):
+	var player_type = game_status["next_player"]
+	
 	var game_status_temp = []
-	for i in game_status.size():
+	for i in game_status["game_status"].size():
 		var board_temp = []
-		for j in game_status[i].size():
-			var tile_temp = game_status[i][j]
+		for j in game_status["game_status"][i].size():
+			var tile_temp = game_status["game_status"][i][j]
 			if tile_temp == Enums.TILE_TYPE.EMPTY:
 				tile_temp = player_type
 			board_temp.append(tile_temp)
@@ -101,7 +100,7 @@ static func check_small_board_estimate_value(board_id_to_check : int, player_typ
 		if a == Enums.TILE_TYPE.EMPTY or b == Enums.TILE_TYPE.EMPTY or c == Enums.TILE_TYPE.EMPTY:
 			continue
 		if a == b and b == c:
-			if pattern[0] == board_id_to_check or pattern[1] == board_id_to_check or pattern[2] == board_id_to_check:
+			if pattern[0] == board_id or pattern[1] == board_id or pattern[2] == board_id:
 				result += 1
 	return result
 

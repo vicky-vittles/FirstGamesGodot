@@ -28,55 +28,69 @@ func _ready():
 
 func play_turn(game):
 	var game_status = game.get_game_status()
-	var minimax_eval = minimax(game_status, null, 1, true)
+	var minimax_eval = minimax(game_status, null, 2, -INF, INF, true)
 	var next_move = minimax_eval["move"]
 	chosen_tile = game.big_board.get_board_by_id(next_move[0]).get_tile_by_id(next_move[1])
 
 
-func minimax(game_status, move, depth : int, is_maximizing_player : bool):
+func minimax(game_status, move_taken, depth : int, alpha, beta, is_maximizing_player : bool):
 	var winning_player = BigBoard.check_winning_player(game_status["game_status"])
 	var game_is_over = winning_player != Enums.TILE_TYPE.EMPTY
 	
 	if depth == 0 or game_is_over:
-		var lp_tile_id = game_status["last_played_tile_id"]
-		var game_score = GAME_SCORES[winning_player]
-		var board_owner = SmallBoard.check_board_owner(game_status["game_status"][lp_tile_id])
-		var board_score = BigBoard.check_small_board_estimate_value(lp_tile_id, game_status["next_player"], game_status["game_status"]) * BOARD_SCORES[board_owner]
-		var supposed_board_score = BOARD_SCORES[SmallBoard.check_supposed_board_owner(game_status["game_status"][lp_tile_id])]
-		if is_maximizing_player:
-			board_score = max(board_score, supposed_board_score)
-		else:
-			board_score = min(board_score, supposed_board_score)
-		var tile_score = move[2] * TILE_SCORES[game_status["game_status"][move[0]][move[1]]]
-		var score_to_return = game_score + board_score + tile_score
-		return {"move": move, "score":score_to_return}
+		var score_to_return = evaluate_board(game_status, move_taken, depth, winning_player, is_maximizing_player)
+		#print(str(depth) + ": " + str(move_taken) + " " + str(score_to_return))
+		return {"move": move_taken, "score":score_to_return}
 	
 	if is_maximizing_player:
 		var max_eval = -INF
 		var move_to_take
 		var possible_moves = get_all_possible_moves(game_status)
-		for move in possible_moves:
+		for possible_move in possible_moves:
 			var saved_tile_id = game_status["last_played_tile_id"]
-			game_status = apply_move_to_game_status(move, game_status)
-			var eval = minimax(game_status, move, depth-1, false)["score"]
-			game_status = undo_move_to_game_status(move, saved_tile_id, game_status)
+			game_status = apply_move_to_game_status(possible_move, game_status)
+			var eval = minimax(game_status, possible_move, depth-1, alpha, beta, false)["score"]
+			print(str(depth) + ": " + str(possible_move) + " " + str(eval))
+			game_status = undo_move_to_game_status(possible_move, saved_tile_id, game_status)
 			if eval > max_eval:
 				max_eval = eval
-				move_to_take = move
+				move_to_take = possible_move
+			alpha = max(eval, alpha)
+			if beta <= alpha:
+				break
 		return {"move": move_to_take, "score": max_eval}
 	else:
 		var min_eval = INF
 		var move_to_take
 		var possible_moves = get_all_possible_moves(game_status)
-		for move in possible_moves:
+		for possible_move in possible_moves:
 			var saved_tile_id = game_status["last_played_tile_id"]
-			game_status = apply_move_to_game_status(move, game_status)
-			var eval = minimax(game_status, move, depth-1, true)["score"]
-			game_status = undo_move_to_game_status(move, saved_tile_id, game_status)
+			game_status = apply_move_to_game_status(possible_move, game_status)
+			var eval = minimax(game_status, possible_move, depth-1, alpha, beta, true)["score"]
+			print(str(depth) + ": " + str(possible_move) + " " + str(eval))
+			game_status = undo_move_to_game_status(possible_move, saved_tile_id, game_status)
 			if eval < min_eval:
 				min_eval = eval
-				move_to_take = move
+				move_to_take = possible_move
+			beta = min(eval, beta)
+			if beta <= alpha:
+				break
 		return {"move": move_to_take, "score": min_eval}
+
+
+func evaluate_board(game_status, move_taken, depth : int, winning_player, is_maximizing_player : bool):
+	var lp_tile_id = game_status["last_played_tile_id"]
+	var sb_owner_info = SmallBoard.check_small_board_owner(game_status["game_status"], lp_tile_id, game_status["next_player"])
+	var sb_rank = BigBoard.rank_small_board(game_status, lp_tile_id)
+	#var tile_rank = SmallBoard.rank_tile(game_status, move_taken[0], move_taken[1])
+	
+	var game_score = GAME_SCORES[winning_player]
+	var board_score = BOARD_SCORES[sb_owner_info["owner"]] * sb_owner_info["biggest_score"] * sb_rank
+	#var tile_score = TILE_SCORES[tile_rank["player"]] * tile_rank["rank"]
+	
+	var score_to_return = game_score + board_score #+ tile_score
+	#print(score_to_return)
+	return score_to_return
 
 
 func get_all_possible_moves(game_status):
