@@ -16,7 +16,21 @@ _global_script_class_icons={
 [application]
 
 config/name="Game7-OnePoker"
+run/main_scene="res://Main/Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://Scripts/Globals.gd"
+Settings="*res://Scripts/Settings.gd"
+
+[display]
+
+window/size/height=768
+window/size/test_width=1024
+window/size/test_height=768
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [rendering]
 
