@@ -1,3 +1,3 @@
 extends Node
 
-var guest_player_id : int = -1
+var other_player_id : int = -1

@@ -11,8 +11,7 @@ func _ready():
 
 func _player_connected(id):
 	print("Player connected to server!")
-	if id > 1:
-		Globals.guest_player_id = id
+	Globals.other_player_id = id
 	var game = GAME.instance()
 	get_tree().get_root().add_child(game)
 	hide()

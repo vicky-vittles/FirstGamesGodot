@@ -8,9 +8,32 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "CardModel",
+"language": "GDScript",
+"path": "res://Entities/Models/CardModel.gd"
+}, {
+"base": "Node",
+"class": "DeckModel",
+"language": "GDScript",
+"path": "res://Entities/Models/DeckModel.gd"
+}, {
+"base": "Node",
+"class": "GameModel",
+"language": "GDScript",
+"path": "res://Entities/Models/GameModel.gd"
+}, {
+"base": "Node",
+"class": "PlayerModel",
+"language": "GDScript",
+"path": "res://Entities/Models/PlayerModel.gd"
+} ]
 _global_script_class_icons={
-
+"CardModel": "",
+"DeckModel": "",
+"GameModel": "",
+"PlayerModel": ""
 }
 
 [application]
@@ -23,6 +46,8 @@ config/icon="res://icon.png"
 
 Globals="*res://Scripts/Globals.gd"
 Settings="*res://Scripts/Settings.gd"
+Enums="*res://Scripts/Enums.gd"
+Tests="*res://Scripts/Tests.gd"
 
 [display]
 
