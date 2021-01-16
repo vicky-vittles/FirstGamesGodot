@@ -38,13 +38,14 @@ func minimax(game_status, move_taken, depth : int, alpha, beta, is_maximizing_pl
 	var game_is_over = winning_player != Enums.TILE_TYPE.EMPTY
 	
 	if depth == 0 or game_is_over:
-		var score_to_return = evaluate_board(game_status, move_taken, depth, winning_player, is_maximizing_player)
+		var score_to_return = evaluate_board(game_status, move_taken, winning_player, is_maximizing_player)
 		#print(str(depth) + ": " + str(move_taken) + " " + str(score_to_return))
 		return {"move": move_taken, "score":score_to_return}
 	
 	if is_maximizing_player:
 		var max_eval = -INF
 		var move_to_take
+		var this_eval = evaluate_board(game_status, move_taken, winning_player, true)
 		var possible_moves = get_all_possible_moves(game_status)
 		for possible_move in possible_moves:
 			var saved_tile_id = game_status["last_played_tile_id"]
@@ -78,7 +79,7 @@ func minimax(game_status, move_taken, depth : int, alpha, beta, is_maximizing_pl
 		return {"move": move_to_take, "score": min_eval}
 
 
-func evaluate_board(game_status, move_taken, depth : int, winning_player, is_maximizing_player : bool):
+func evaluate_board(game_status, move_taken, winning_player, is_maximizing_player : bool):
 	var lp_tile_id = game_status["last_played_tile_id"]
 	var sb_owner_info = SmallBoard.check_small_board_owner(game_status["game_status"], lp_tile_id, game_status["next_player"])
 	var sb_rank = BigBoard.rank_small_board(game_status, lp_tile_id)

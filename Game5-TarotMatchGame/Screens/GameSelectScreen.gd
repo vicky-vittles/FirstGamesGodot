@@ -8,7 +8,6 @@ onready var ai_dialog = $AIDifficultyDialog
 var ai_type = Player.PLAYER_TYPE.HUMAN
 
 func _on_PlayerGame_pressed():
-	ai_type = Player.PLAYER_TYPE.HUMAN
 	emit_signal("new_game", ai_type)
 
 func _on_AIDifficultyDialog_item_selected(option):
