@@ -34,3 +34,8 @@ func bet_lives(_lives_to_bet : int) -> bool:
 		lives = lives - _lives_to_bet
 		return true
 	return false
+
+
+# Gain lives that were bet
+func gain_lives(_lives_gain : int) -> void:
+	lives += _lives_gain

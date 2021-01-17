@@ -4,6 +4,7 @@ class_name DeckModel
 
 const TOTAL_CARDS_IN_ONE_DECK = 52
 const DECKS_USED = 2
+const TOTAL_CARDS = TOTAL_CARDS_IN_ONE_DECK * DECKS_USED
 
 var cards = []
 

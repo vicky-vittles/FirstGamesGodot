@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/TestScene.gd" type="Script" id=1]
+[ext_resource path="res://Entities/Card/Card.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/LifeStatue.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Entities/LivesTray.tscn" type="PackedScene" id=4]
+
+[node name="TestScene" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Card1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 580.807, 178.92 )
+
+[node name="Card2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 746.083, 179.98 )
+
+[node name="Card3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 918.776, 173.623 )
+
+[node name="Card4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 593.521, 354.791 )
+
+[node name="Card5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 747.143, 351.613 )
+
+[node name="Card6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 918.776, 345.256 )
+
+[node name="LifeStatue1" parent="." instance=ExtResource( 3 )]
+position = Vector2( 156.801, 458.748 )
+
+[node name="LifeStatue2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 289.251, 455.38 )
+
+[node name="LifeStatue3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 464.355, 456.503 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 802.936, 539.031 )
+
+[node name="LivesTray" parent="." instance=ExtResource( 4 )]
+[connection signal="clicked" from="LifeStatue1" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue2" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue3" to="." method="send_statue_to_tray"]
