@@ -11,6 +11,9 @@ onready var card_6 = $Card6
 onready var life_statue_1 = $LifeStatue1
 onready var life_statue_2 = $LifeStatue2
 onready var life_statue_3 = $LifeStatue3
+onready var hi_lo_panel_1 = $HighLowPanel
+onready var hi_lo_panel_2 = $HighLowPanel2
+onready var hi_lo_panel_3 = $HighLowPanel3
 onready var pos = $Position2D
 onready var lives_tray = $LivesTray
 
@@ -23,7 +26,11 @@ func _ready():
 	card_5.init_test(Enums.CARD_SUITS.CLUBS, Enums.CARD_VALUES.QUEEN)
 	card_6.init_test(Enums.CARD_SUITS.DIAMONDS, Enums.CARD_VALUES.TEN)
 	
-	card_1.go_to_target(Vector2(700, 700), ANIM_DELAY)
+	hi_lo_panel_1.set_message(0, 2)
+	hi_lo_panel_2.set_message(1, 1)
+	hi_lo_panel_3.set_message(2, 0)
+	
+	#card_1.go_to_target(Vector2(700, 700), ANIM_DELAY)
 
 
 func send_statue_to_tray(statue):

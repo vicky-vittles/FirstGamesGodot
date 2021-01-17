@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/TestScene.gd" type="Script" id=1]
 [ext_resource path="res://Entities/Card/Card.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Entities/LifeStatue.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Entities/LivesTray.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Entities/GUI/LifeStatue.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Entities/GUI/LivesTray.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Entities/GUI/HighLowPanel.tscn" type="PackedScene" id=5]
 
 [node name="TestScene" type="Node2D"]
 script = ExtResource( 1 )
@@ -36,12 +37,45 @@ position = Vector2( 156.801, 458.748 )
 position = Vector2( 289.251, 455.38 )
 
 [node name="LifeStatue3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 464.355, 456.503 )
+position = Vector2( 382.3, 450.557 )
+
+[node name="LifeStatue4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 479.815, 437.476 )
+
+[node name="LifeStatue5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 578.519, 433.908 )
+
+[node name="LifeStatue6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 664.142, 429.151 )
+
+[node name="LifeStatue7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 752.143, 417.259 )
+
+[node name="LifeStatue8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 837.766, 411.313 )
+
+[node name="LifeStatue9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 940.038, 410.124 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 802.936, 539.031 )
 
 [node name="LivesTray" parent="." instance=ExtResource( 4 )]
+
+[node name="HighLowPanel" parent="." instance=ExtResource( 5 )]
+position = Vector2( 432.872, 58.2712 )
+
+[node name="HighLowPanel2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 583.901, 58.2712 )
+
+[node name="HighLowPanel3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 733.741, 51.1359 )
 [connection signal="clicked" from="LifeStatue1" to="." method="send_statue_to_tray"]
 [connection signal="clicked" from="LifeStatue2" to="." method="send_statue_to_tray"]
 [connection signal="clicked" from="LifeStatue3" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue4" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue5" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue6" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue7" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue8" to="." method="send_statue_to_tray"]
+[connection signal="clicked" from="LifeStatue9" to="." method="send_statue_to_tray"]
