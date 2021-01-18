@@ -5,9 +5,9 @@ const def_suit = Enums.CARD_SUITS.CLUBS
 
 
 func _ready():
-	_CardModel_against_card_tests()
-	_DeckModel_create_tests()
-	_GameModel_tests()
+	#_CardModel_against_card_tests()
+	#_DeckModel_create_tests()
+	#_GameModel_tests()
 	pass
 
 
@@ -17,14 +17,14 @@ func _GameModel_tests():
 
 func _GameModel_start_game_test():
 	var game_model = GameModel.new()
-	game_model.init([1, 13371337])
+	game_model.init([{"id":1, "name":"Kaiji"}, {"id":13371337, "name":"Kazuya"}])
 	game_model.start_game()
 	for i in game_model.players.size():
 		assert(game_model.players[i].hand.size() == 2)
 
 func _GameModel_game_test():
 	var game_model = GameModel.new()
-	game_model.init([1, 2])
+	game_model.init([{"id":1, "name":"Kaiji"}, {"id":2, "name":"Kazuya"}])
 	var card_1 = CardModel.new()
 	card_1.init(def_suit, Enums.CARD_VALUES.TWO)
 	var card_2 = CardModel.new()
@@ -45,8 +45,8 @@ func _GameModel_game_test():
 				1: 3,
 				2: 3}
 	game_model.play_turn(_cards_played, _lives_played)
-	assert(game_model.get_player_by_id(1).lives == 4)
-	assert(game_model.get_player_by_id(2).lives == 10)
+	assert(game_model.get_player_by_id(1).lives == 5)
+	assert(game_model.get_player_by_id(2).lives == 11)
 	assert(game_model.get_player_by_id(1).hand.size() == 2)
 	assert(game_model.get_player_by_id(2).hand.size() == 2)
 	assert(game_model.get_player_by_id(1).hand[0] == card_4)
@@ -61,8 +61,8 @@ func _GameModel_game_test():
 				1: 1,
 				2: 1}
 	game_model.play_turn(_cards_played, _lives_played)
-	assert(game_model.get_player_by_id(1).lives == 5)
-	assert(game_model.get_player_by_id(2).lives == 9)
+	assert(game_model.get_player_by_id(1).lives == 6)
+	assert(game_model.get_player_by_id(2).lives == 10)
 	assert(game_model.get_player_by_id(1).hand.size() == 2)
 	assert(game_model.get_player_by_id(2).hand.size() == 2)
 	assert(game_model.last_winning_player_id == 1)
@@ -81,8 +81,8 @@ func _GameModel_game_test():
 				1: 4,
 				2: 4}
 	game_model.play_turn(_cards_played, _lives_played)
-	assert(game_model.get_player_by_id(1).lives == 5)
-	assert(game_model.get_player_by_id(2).lives == 9)
+	assert(game_model.get_player_by_id(1).lives == 6)
+	assert(game_model.get_player_by_id(2).lives == 10)
 	assert(game_model.get_player_by_id(1).hand.size() == 2)
 	assert(game_model.get_player_by_id(2).hand.size() == 2)
 	assert(game_model.get_player_by_id(1).hand[0] == card_5)

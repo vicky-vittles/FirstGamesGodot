@@ -7,11 +7,12 @@ var players
 var last_winning_player_id
 
 
-func init(_player_ids):
+# _players : [ {id:1, name:""}, {id:2, name:""} ]
+func init(_players):
 	players = []
-	for _id in _player_ids:
+	for _player in _players:
 		var new_player = PlayerModel.new()
-		new_player.init(_id)
+		new_player.init(_player["id"], _player["name"])
 		players.append(new_player)
 	players.sort_custom(Globals, "sort_by_name_int")
 	deck = DeckModel.new()

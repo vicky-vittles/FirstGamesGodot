@@ -2,16 +2,20 @@ extends Node
 
 class_name PlayerModel
 
+signal received_card(card)
+
 const HAND_SIZE = 2
 
 var id : int
+var player_name : String
 var lives : int
 var hand = []
 
 
 # Constructor
-func init(_id : int):
+func init(_id : int, _player_name : String):
 	id = _id
+	player_name = _player_name
 	lives = Settings.INITIAL_LIVES
 	hand = []
 
@@ -21,6 +25,7 @@ func receive_card(_new_card) -> void:
 	if hand.size() >= HAND_SIZE:
 		return
 	hand.append(_new_card)
+	emit_signal("received_card", _new_card)
 
 
 # Play card and remove it from hand

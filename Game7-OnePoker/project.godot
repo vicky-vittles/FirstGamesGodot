@@ -48,6 +48,7 @@ Globals="*res://Scripts/Globals.gd"
 Settings="*res://Scripts/Settings.gd"
 Enums="*res://Scripts/Enums.gd"
 Tests="*res://Scripts/Tests.gd"
+AnimationQueue="*res://Systems/AnimationQueue.gd"
 
 [display]
 

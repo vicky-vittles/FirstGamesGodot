@@ -6,4 +6,4 @@ const SERVER_PORT = 51234
 
 # Game Rules
 const NUMBER_OF_PLAYERS = 2
-const INITIAL_LIVES = 7
+const INITIAL_LIVES = 8

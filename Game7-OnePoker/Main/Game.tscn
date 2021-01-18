@@ -20,12 +20,13 @@ position = Vector2( 672, 288 )
 text = "Lives Bet"
 
 [node name="ThisPlayerPos" type="Position2D" parent="."]
-position = Vector2( 0, 512 )
+position = Vector2( 0, 480 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="OtherPlayerPos" type="Position2D" parent="."]
+position = Vector2( 0, 32 )
 __meta__ = {
 "_edit_lock_": true
 }
