@@ -1,5 +1,6 @@
 extends Node
 
+const SERVER_ID = 1
 const INVALID_PLAYER_ID = -1
 
 var other_player_id = INVALID_PLAYER_ID

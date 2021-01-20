@@ -16,7 +16,7 @@ func init():
 
 
 func create_decks() -> void:
-	for i in range(1, DECKS_USED + 1):
+	for _i in range(1, DECKS_USED + 1):
 		for suit in Enums.CARD_SUITS.values():
 			for value in Enums.CARD_VALUES.values():
 				var new_card = CardModel.new()

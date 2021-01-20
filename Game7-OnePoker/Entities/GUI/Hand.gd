@@ -12,6 +12,7 @@ func receive_card(card) -> void:
 	if next_pos_index == 3:
 		return
 	var _card_to_add = CARD.instance()
+	_card_to_add.init(card)
 	add_child(_card_to_add)
 	var next_pos = pos[next_pos_index]
 	_card_to_add.go_to_target(next_pos.global_position)

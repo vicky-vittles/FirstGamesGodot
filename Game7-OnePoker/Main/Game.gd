@@ -28,15 +28,76 @@ func _ready():
 	other_player.global_position = other_player_pos.global_position
 	players.add_child(other_player)
 	
-	# Create game model
-	var players_init_dicts = [this_player_init_dict, other_player_init_dict]
-	players_init_dicts.sort_custom(Globals, "sort_by_network_id")
-	game_model = GameModel.new()
-	game_model.init(players_init_dicts)
+	# Create game model if itself is a server
+	if this_nuid == Globals.SERVER_ID:
+		var players_init_dicts = [this_player_init_dict, other_player_init_dict]
+		players_init_dicts.sort_custom(Globals, "sort_by_network_id")
+		game_model = GameModel.new()
+		game_model.init(players_init_dicts)
+		
+		# Start game
+		game_model.start_game()
+		
+		# Link player models to each player GUI scene
+		var encoded_game_model = encode_game_model()
+		rpc("set_encoded_game_model", encoded_game_model)
+		set_game_model(game_model)
+
+
+func encode_game_model():
+	var _encoded = {}
+	var cards = []
+	for i in game_model.deck.cards.size():
+		var _card_model = game_model.deck.cards[i]
+		cards.append([_card_model.card_suit, _card_model.card_value])
 	
-	# Link player models to each player GUI scene
+	var players_to_add = []
+	for i in game_model.players.size():
+		var _player = game_model.players[i]
+		players_to_add.append([_player.id, _player.player_name])
+	
+	_encoded["deck"] = cards
+	_encoded["players"] = players_to_add
+	
+	return _encoded
+
+
+remote func set_encoded_game_model(_encoded_game_model) -> void:
+	var _game_model = GameModel.new()
+	
+	var _deck_model = DeckModel.new()
+	var deck = []
+	for i in _encoded_game_model["deck"].size():
+		var _card_model = CardModel.new()
+		_card_model.init(_encoded_game_model["deck"][i][0], _encoded_game_model["deck"][i][1])
+		deck.append(_card_model)
+	_deck_model.cards = deck
+	
+	var players_to_add = []
+	for i in _encoded_game_model["players"].size():
+		var _player_model = PlayerModel.new()
+		_player_model.init(_encoded_game_model["players"][i][0], _encoded_game_model["players"][i][1])
+		players_to_add.append(_player_model)
+	
+	_game_model.deck = _deck_model
+	_game_model.players = players_to_add
+	_game_model.last_winning_player_id = Globals.INVALID_PLAYER_ID
+	
+	set_game_model(_game_model)
+
+
+func set_game_model(_game_model) -> void:
+	game_model = _game_model
+	
+	var this_nuid = get_tree().get_network_unique_id()
+	var this_player = get_player(this_nuid)
 	this_player.init(game_model.get_player_by_id(this_nuid))
-	other_player.init(game_model.get_player_by_id(Globals.other_player_id))
 	
-	# Start game
-	game_model.start_game()
+	var other_player = get_player(Globals.other_player_id)
+	other_player.init(game_model.get_player_by_id(Globals.other_player_id))
+
+
+func get_player(_player_id : int):
+	for p in players.get_children():
+		if p.name == str(_player_id):
+			return p
