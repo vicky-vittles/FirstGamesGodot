@@ -54,7 +54,10 @@ func encode_game_model():
 	var players_to_add = []
 	for i in game_model.players.size():
 		var _player = game_model.players[i]
-		players_to_add.append([_player.id, _player.player_name])
+		var _player_hand = []
+		for j in _player.hand.size():
+			_player_hand.append([_player.hand[j].card_suit, _player.hand[j].card_value])
+		players_to_add.append([_player.id, _player.player_name, _player_hand])
 	
 	_encoded["deck"] = cards
 	_encoded["players"] = players_to_add
@@ -77,6 +80,10 @@ remote func set_encoded_game_model(_encoded_game_model) -> void:
 	for i in _encoded_game_model["players"].size():
 		var _player_model = PlayerModel.new()
 		_player_model.init(_encoded_game_model["players"][i][0], _encoded_game_model["players"][i][1])
+		for j in _encoded_game_model["players"][i][2].size():
+			var card_to_add = CardModel.new()
+			card_to_add.init(_encoded_game_model["players"][i][2][j][0], _encoded_game_model["players"][i][2][j][1])
+			_player_model.hand.append(card_to_add)
 		players_to_add.append(_player_model)
 	
 	_game_model.deck = _deck_model
@@ -92,9 +99,11 @@ func set_game_model(_game_model) -> void:
 	var this_nuid = get_tree().get_network_unique_id()
 	var this_player = get_player(this_nuid)
 	this_player.init(game_model.get_player_by_id(this_nuid))
+	game_model.get_player_by_id(this_nuid).sync_signals()
 	
 	var other_player = get_player(Globals.other_player_id)
 	other_player.init(game_model.get_player_by_id(Globals.other_player_id))
+	game_model.get_player_by_id(Globals.other_player_id).sync_signals()
 
 
 func get_player(_player_id : int):

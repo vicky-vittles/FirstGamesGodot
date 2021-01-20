@@ -31,10 +31,10 @@ var is_facing = FACING.DOWN
 func init(_model):
 	model = _model
 	$Front.frame = model.card_suit * 13 + CARD_FRAMES[model.card_value]
-	if is_facing == FACING.DOWN:
-		$AnimationPlayer.play("open")
-	else:
-		$AnimationPlayer.play("close")
+#	if is_facing == FACING.DOWN:
+#		$AnimationPlayer.play("open")
+#	else:
+#		$AnimationPlayer.play("close")
 
 
 # Constructor to use in Tests.gd
@@ -48,4 +48,4 @@ func init_test(_suit, _value):
 func go_to_target(_target_position : Vector2, _delay = 0.0) -> void:
 	tween.interpolate_property(self, "global_position", global_position, _target_position, 1, TRANS, EASE, _delay)
 	tween.start()
-	#AnimationQueue.enqueue_animation(tween)
+	AnimationQueue.enqueue_animation(tween)

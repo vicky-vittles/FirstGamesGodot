@@ -20,12 +20,19 @@ func init(_id : int, _player_name : String):
 	hand = []
 
 
+# Emits signals for the current set variables
+func sync_signals() -> void:
+	for i in hand.size():
+		var card_in_hand = hand[i]
+		emit_signal("received_card", card_in_hand)
+
+
 # Receive new card and put it in hand
 func receive_card(_new_card) -> void:
 	if hand.size() >= HAND_SIZE:
 		return
 	hand.append(_new_card)
-	#emit_signal("received_card", _new_card)
+	emit_signal("received_card", _new_card)
 
 
 # Play card and remove it from hand
