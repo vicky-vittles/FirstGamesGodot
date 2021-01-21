@@ -1,7 +1,12 @@
 extends Node2D
 
+class_name Card
+
+signal pressed(card)
+
 const TRANS = Tween.TRANS_LINEAR
 const EASE = Tween.EASE_IN_OUT
+const ANIM_TIME = 0.4
 const CARD_FRAMES = {
 			Enums.CARD_VALUES.ACE: 0,
 			Enums.CARD_VALUES.TWO: 1,
@@ -18,6 +23,7 @@ const CARD_FRAMES = {
 			Enums.CARD_VALUES.KING: 12}
 enum FACING { UP, DOWN }
 
+onready var button = $Button
 onready var front = $Front
 onready var back = $Back
 onready var animation_player = $AnimationPlayer
@@ -31,10 +37,6 @@ var is_facing = FACING.DOWN
 func init(_model):
 	model = _model
 	$Front.frame = model.card_suit * 13 + CARD_FRAMES[model.card_value]
-#	if is_facing == FACING.DOWN:
-#		$AnimationPlayer.play("open")
-#	else:
-#		$AnimationPlayer.play("close")
 
 
 # Constructor to use in Tests.gd
@@ -44,8 +46,21 @@ func init_test(_suit, _value):
 	init(_model)
 
 
+# Function for passing along the pressed() signal of the button
+func _on_Button_pressed():
+	emit_signal("pressed", self)
+
+
+func disable() -> void:
+	button.disabled = true
+
+
+func enable() -> void:
+	button.disabled = false
+
+
 # Go to target position
 func go_to_target(_target_position : Vector2, _delay = 0.0) -> void:
-	tween.interpolate_property(self, "global_position", global_position, _target_position, 1, TRANS, EASE, _delay)
-	tween.start()
+	tween.interpolate_property(self, "global_position", global_position, _target_position, ANIM_TIME, TRANS, EASE, _delay)
+	#tween.start()
 	AnimationQueue.enqueue_animation(tween)

@@ -2,7 +2,10 @@ extends Node
 
 class_name GameModel
 
+signal player_chose_card(player_id, card_suit, card_value)
+
 var deck : DeckModel
+var chosen_cards = {}
 var players
 var last_winning_player_id
 
@@ -76,3 +79,9 @@ func play_turn(_chosen_cards, _lives_bet) -> void:
 	for i in players.size():
 		var _card_to_give = deck.buy_card()
 		players[i].receive_card(_card_to_give)
+
+
+# Update chosen card
+func player_chose_card(player_id, card_model):
+	chosen_cards[player_id] = card_model
+	emit_signal("player_chose_card", player_id, card_model)

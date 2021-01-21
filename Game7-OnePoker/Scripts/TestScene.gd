@@ -35,3 +35,7 @@ func _ready():
 
 func send_statue_to_tray(statue):
 	lives_tray.put_statue(statue)
+
+
+func _on_Card_pressed(card):
+	card.go_to_target(Vector2(0,0))

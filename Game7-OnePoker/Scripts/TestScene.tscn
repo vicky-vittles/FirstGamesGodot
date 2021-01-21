@@ -16,19 +16,19 @@ __meta__ = {
 position = Vector2( 580.807, 178.92 )
 
 [node name="Card2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 746.083, 179.98 )
+position = Vector2( 772.351, 303.646 )
 
 [node name="Card3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 918.776, 173.623 )
+position = Vector2( 582.589, 287.61 )
 
 [node name="Card4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 593.521, 354.791 )
+position = Vector2( 264.537, 311.664 )
 
 [node name="Card5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 747.143, 351.613 )
+position = Vector2( 292.155, 183.375 )
 
 [node name="Card6" parent="." instance=ExtResource( 2 )]
-position = Vector2( 918.776, 345.256 )
+position = Vector2( 828.477, 198.52 )
 
 [node name="LifeStatue1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 156.801, 458.748 )
@@ -70,6 +70,12 @@ position = Vector2( 583.901, 58.2712 )
 
 [node name="HighLowPanel3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 733.741, 51.1359 )
+[connection signal="pressed" from="Card1" to="." method="_on_Card_pressed"]
+[connection signal="pressed" from="Card2" to="." method="_on_Card_pressed"]
+[connection signal="pressed" from="Card3" to="." method="_on_Card_pressed"]
+[connection signal="pressed" from="Card4" to="." method="_on_Card_pressed"]
+[connection signal="pressed" from="Card5" to="." method="_on_Card_pressed"]
+[connection signal="pressed" from="Card6" to="." method="_on_Card_pressed"]
 [connection signal="clicked" from="LifeStatue1" to="." method="send_statue_to_tray"]
 [connection signal="clicked" from="LifeStatue2" to="." method="send_statue_to_tray"]
 [connection signal="clicked" from="LifeStatue3" to="." method="send_statue_to_tray"]

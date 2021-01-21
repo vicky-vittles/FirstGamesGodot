@@ -1,5 +1,7 @@
 extends Node2D
 
+signal card_chosen_from_hand(card)
+
 const CARD = preload("res://Entities/Card/Card.tscn")
 
 onready var pos = {1: $Pos1, 2: $Pos2}
@@ -13,6 +15,7 @@ func receive_card(card) -> void:
 		return
 	var _card_to_add = CARD.instance()
 	_card_to_add.init(card)
+	_card_to_add.connect("pressed", self, "card_chosen_from_hand")
 	add_child(_card_to_add)
 	var next_pos = pos[next_pos_index]
 	_card_to_add.go_to_target(next_pos.global_position)
@@ -23,3 +26,31 @@ func receive_card(card) -> void:
 		next_pos_index = 3
 	else:
 		next_pos_index = other_index
+
+
+# Listen for card pressed signal in hand
+func card_chosen_from_hand(card) -> void:
+	emit_signal("card_chosen_from_hand", card)
+
+
+# Lookup card in hand by suit and value
+func get_card_by_model(card_suit, card_value) -> Card:
+	for c in get_children():
+		if c is Card:
+			if c.model.card_suit == card_suit and c.model.card_value == card_value:
+				return c
+	return null
+
+
+# Disable all cards
+func disable_cards() -> void:
+	for c in get_children():
+		if c is Card:
+			c.disable()
+
+
+# Enable all cards
+func enable_cards() -> void:
+	for c in get_children():
+		if c is Card:
+			c.enable()

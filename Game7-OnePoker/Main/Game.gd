@@ -1,5 +1,7 @@
 extends Node2D
 
+onready var open_cards = $OpenCards
+onready var lives_tray = $LivesTray
 onready var this_player_pos = $ThisPlayerPos
 onready var other_player_pos = $OtherPlayerPos
 onready var players = $Players
@@ -44,6 +46,7 @@ func _ready():
 		set_game_model(game_model)
 
 
+# Called by the server to encode the game state and send to the clients
 func encode_game_model():
 	var _encoded = {}
 	var cards = []
@@ -65,6 +68,7 @@ func encode_game_model():
 	return _encoded
 
 
+# Method that the server calls for the clients to execute and update their game model
 remote func set_encoded_game_model(_encoded_game_model) -> void:
 	var _game_model = GameModel.new()
 	
@@ -93,20 +97,60 @@ remote func set_encoded_game_model(_encoded_game_model) -> void:
 	set_game_model(_game_model)
 
 
+# Called by all clients to set the final game model variable and start the game
 func set_game_model(_game_model) -> void:
 	game_model = _game_model
 	
 	var this_nuid = get_tree().get_network_unique_id()
 	var this_player = get_player(this_nuid)
 	this_player.init(game_model.get_player_by_id(this_nuid))
+	this_player.connect("chosen_card", self, "player_chose_card")
 	game_model.get_player_by_id(this_nuid).sync_signals()
 	
 	var other_player = get_player(Globals.other_player_id)
 	other_player.init(game_model.get_player_by_id(Globals.other_player_id))
+	other_player.connect("chosen_card", self, "player_chose_card")
 	game_model.get_player_by_id(Globals.other_player_id).sync_signals()
+	
+	game_model.connect("player_chose_card", self, "_on_GameModel_player_chose_card")
 
 
+# Get Player scene GUI using network id
 func get_player(_player_id : int):
 	for p in players.get_children():
 		if p.name == str(_player_id):
 			return p
+
+
+# Player chose card signal
+func player_chose_card(player_id, chosen_card):
+	var player_model = game_model.get_player_by_id(player_id)
+	game_model.player_chose_card(player_id, chosen_card.model)
+
+
+# Update when Game Model updates the players' chosen cards
+func _on_GameModel_player_chose_card(player_id, card_model):
+	var this_nuid = get_tree().get_network_unique_id()
+	var is_equal_this_nuid = (player_id == this_nuid)
+	var player_gui
+	if is_equal_this_nuid:
+		player_gui = get_player(this_nuid)
+	else:
+		player_gui = get_player(Globals.other_player_id)
+	
+	var card_gui = player_gui.hand.get_card_by_model(card_model.card_value, card_model.card_suit)
+	var previous_pos = card_gui.global_position
+	var card_destiny_pos
+	if is_equal_this_nuid:
+		card_destiny_pos = open_cards.this_player_pos
+	else:
+		card_destiny_pos = open_cards.other_player_pos
+	
+	card_gui.get_parent().remove_child(card_gui)
+	open_cards.add_child(card_gui)
+	card_gui.global_position = previous_pos
+	card_gui.go_to_target(card_destiny_pos.global_position)
+	
+	if is_equal_this_nuid:
+		player_gui.hand.disable_cards()
+	player_gui.lives_tray.enable_statues()

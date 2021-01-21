@@ -1,5 +1,7 @@
 extends Node2D
 
+signal chosen_card(player_id, card)
+
 onready var lives_tray = $LivesTray
 onready var hand = $Hand
 onready var high_low_panel = $HighLowPanel
@@ -16,11 +18,11 @@ func init(_model : PlayerModel):
 	lives_tray.change_name(player_model.player_name)
 
 
-func _ready():
-	if not is_network_master():
-		pass
-
-
 # Updates automatically when PlayerModel receives a card
 func _PlayerModel_received_card(card):
 	hand.receive_card(card)
+
+
+# Card from hand has been clicked
+func _on_Hand_card_chosen_from_hand(card):
+	emit_signal("chosen_card", player_model.id, card)

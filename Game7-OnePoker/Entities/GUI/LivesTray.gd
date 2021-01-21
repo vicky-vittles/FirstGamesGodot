@@ -39,3 +39,15 @@ func put_statue(_statue) -> void:
 	_statue.go_to_target(next_pos.global_position)
 	next_pos.global_position += PADDING
 	#print(next_pos.global_position)
+
+
+# Disable all statues from being clicked
+func disable_statues() -> void:
+	for s in statues.get_children():
+		s.disable()
+
+
+# Enable all statues from being clicked
+func enable_statues() -> void:
+	for s in statues.get_children():
+		s.enable()

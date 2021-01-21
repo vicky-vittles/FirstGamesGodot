@@ -19,3 +19,4 @@ position = Vector2( 456, 256 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[connection signal="card_chosen_from_hand" from="Hand" to="." method="_on_Hand_card_chosen_from_hand"]
