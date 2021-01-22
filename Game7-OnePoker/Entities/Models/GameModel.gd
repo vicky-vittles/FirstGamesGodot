@@ -47,7 +47,7 @@ func start_game() -> void:
 
 
 # Returns the player with the given network id
-func get_player_by_id(_id : int) -> PlayerModel:
+func get_player_by_id(_id : int):
 	for i in $Players.get_child_count():
 		if $Players.get_child(i).id == _id:
 			return $Players.get_child(i)

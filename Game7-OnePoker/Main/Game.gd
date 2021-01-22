@@ -1,5 +1,8 @@
 extends Node2D
 
+const CARD_MODEL_SCENE = preload("res://Entities/Models/CardModel.tscn")
+const DECK_MODEL_SCENE = preload("res://Entities/Models/DeckModel.tscn")
+const PLAYER_MODEL_SCENE = preload("res://Entities/Models/PlayerModel.tscn")
 const GAME_MODEL_SCENE = preload("res://Entities/Models/GameModel.tscn")
 
 onready var open_cards = $OpenCards
@@ -37,7 +40,8 @@ func _ready():
 	if this_nuid == Globals.SERVER_ID:
 		var players_init_dicts = [this_player_init_dict, other_player_init_dict]
 		players_init_dicts.sort_custom(Globals, "sort_by_network_id")
-		game_model = GameModel.new()
+		game_model = GAME_MODEL_SCENE.instance()
+		add_child(game_model)
 		game_model.init(players_init_dicts)
 		
 		# Start game
@@ -65,8 +69,8 @@ func encode_game_model():
 		cards.append([_card_model.card_suit, _card_model.card_value])
 	
 	var players_to_add = []
-	for i in game_model.players.size():
-		var _player = game_model.players[i]
+	for i in game_model.players.get_child_count():
+		var _player = game_model.players.get_child(i)
 		var _player_hand = []
 		for j in _player.hand.size():
 			_player_hand.append([_player.hand[j].card_suit, _player.hand[j].card_value])
@@ -81,24 +85,23 @@ func encode_game_model():
 
 # Method that the server calls for the clients to execute and update their game model
 remote func set_encoded_game_model(_encoded_game_model) -> void:
-	var _game_model = GameModel.new()
+	var _game_model = GAME_MODEL_SCENE.instance()
 	
-	var _deck_model = DeckModel.new()
-	var deck = []
+	var _deck_model = DECK_MODEL_SCENE.instance()
 	for i in _encoded_game_model["deck"].size():
-		var _card_model = CardModel.new()
+		var _card_model = CARD_MODEL_SCENE.instance()
 		_card_model.init(_encoded_game_model["deck"][i][0], _encoded_game_model["deck"][i][1])
-		deck.append(_card_model)
-	_deck_model.cards = deck
+		_deck_model.cards.add_child(_card_model)
 	
 	var players_to_add = []
 	for i in _encoded_game_model["players"].size():
-		var _player_model = PlayerModel.new()
+		var _player_model = PLAYER_MODEL_SCENE.instance()
 		_player_model.init(_encoded_game_model["players"][i][0], _encoded_game_model["players"][i][1])
 		for j in _encoded_game_model["players"][i][2].size():
-			var card_to_add = CardModel.new()
+			var card_to_add = CARD_MODEL_SCENE.instance()
 			card_to_add.init(_encoded_game_model["players"][i][2][j][0], _encoded_game_model["players"][i][2][j][1])
 			_player_model.hand.append(card_to_add)
+			_
 		players_to_add.append(_player_model)
 	
 	_game_model.game_stage = _encoded_game_model["game_stage"]

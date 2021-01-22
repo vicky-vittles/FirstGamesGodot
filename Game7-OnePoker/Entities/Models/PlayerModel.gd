@@ -2,6 +2,8 @@ extends Node
 
 class_name PlayerModel
 
+const CARD_MODEL_SCENE = preload("res://Entities/Models/CardModel.tscn")
+
 signal received_card(card)
 signal gain_lives(lives)
 
@@ -10,7 +12,7 @@ const HAND_SIZE = 2
 var id : int
 var player_name : String
 var lives : int
-var hand = []
+onready var hand = $Hand
 
 
 # Constructor (network id and name)
@@ -18,21 +20,22 @@ func init(_id : int, _player_name : String):
 	id = _id
 	player_name = _player_name
 	lives = Settings.INITIAL_LIVES
-	hand = []
 
 
 # Emits signals for the current set variables
 func sync_signals() -> void:
-	for i in hand.size():
-		var card_in_hand = hand[i]
+	for i in hand.get_child_count():
+		var card_in_hand = hand.get_child(i)
 		emit_signal("received_card", card_in_hand)
 
 
 # Receive new card and put it in hand
 func receive_card(_new_card) -> void:
-	if hand.size() >= HAND_SIZE:
+	if hand.get_child_count() >= HAND_SIZE:
 		return
-	hand.append(_new_card)
+	var _card_to_add = CARD_MODEL_SCENE.instance()
+	_card_to_add.init(_new_card.card_suit, _new_card.card_value)
+	hand.add_child(_card_to_add)
 	emit_signal("received_card", _new_card)
 
 
