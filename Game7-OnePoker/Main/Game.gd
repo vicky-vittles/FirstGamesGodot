@@ -1,5 +1,7 @@
 extends Node2D
 
+const GAME_MODEL_SCENE = preload("res://Entities/Models/GameModel.tscn")
+
 onready var open_cards = $OpenCards
 onready var lives_tray = $LivesTray
 onready var this_player_pos = $ThisPlayerPos
@@ -12,6 +14,7 @@ const OTHER_PLAYER = preload("res://Entities/Player/OtherPlayer.tscn")
 var game_model
 
 
+# Create Player Views, and if server, start Game
 func _ready():
 	# Add this player GUI scene
 	var this_nuid = get_tree().get_network_unique_id()
@@ -46,6 +49,13 @@ func _ready():
 		set_game_model(game_model)
 
 
+# Get Player scene GUI using network id
+func get_player(_player_id : int):
+	for p in players.get_children():
+		if p.name == str(_player_id):
+			return p
+
+
 # Called by the server to encode the game state and send to the clients
 func encode_game_model():
 	var _encoded = {}
@@ -62,6 +72,7 @@ func encode_game_model():
 			_player_hand.append([_player.hand[j].card_suit, _player.hand[j].card_value])
 		players_to_add.append([_player.id, _player.player_name, _player_hand])
 	
+	_encoded["game_stage"] = game_model.game_stage
 	_encoded["deck"] = cards
 	_encoded["players"] = players_to_add
 	
@@ -90,6 +101,7 @@ remote func set_encoded_game_model(_encoded_game_model) -> void:
 			_player_model.hand.append(card_to_add)
 		players_to_add.append(_player_model)
 	
+	_game_model.game_stage = _encoded_game_model["game_stage"]
 	_game_model.deck = _deck_model
 	_game_model.players = players_to_add
 	_game_model.last_winning_player_id = Globals.INVALID_PLAYER_ID
@@ -100,36 +112,34 @@ remote func set_encoded_game_model(_encoded_game_model) -> void:
 # Called by all clients to set the final game model variable and start the game
 func set_game_model(_game_model) -> void:
 	game_model = _game_model
+#	for i in game_model.deck.cards.size():
+#		print(game_model.deck.cards[i])
 	
+	# Connect player view signal to game view
 	var this_nuid = get_tree().get_network_unique_id()
 	var this_player = get_player(this_nuid)
 	this_player.init(game_model.get_player_by_id(this_nuid))
-	this_player.connect("chosen_card", self, "player_chose_card")
+	this_player.connect("chosen_card", self, "_on_Player_chose_card")
 	game_model.get_player_by_id(this_nuid).sync_signals()
 	
 	var other_player = get_player(Globals.other_player_id)
 	other_player.init(game_model.get_player_by_id(Globals.other_player_id))
-	other_player.connect("chosen_card", self, "player_chose_card")
 	game_model.get_player_by_id(Globals.other_player_id).sync_signals()
 	
+	# Connect game model signals to game gui
 	game_model.connect("player_chose_card", self, "_on_GameModel_player_chose_card")
+	game_model.connect("change_game_stage", self, "_on_GameModel_change_game_stage")
 
 
-# Get Player scene GUI using network id
-func get_player(_player_id : int):
-	for p in players.get_children():
-		if p.name == str(_player_id):
-			return p
-
-
-# Player chose card signal
-func player_chose_card(player_id, chosen_card):
+# Player GUI chose card signal
+func _on_Player_chose_card(player_id, chosen_card):
 	var player_model = game_model.get_player_by_id(player_id)
 	game_model.player_chose_card(player_id, chosen_card.model)
 
 
 # Update when Game Model updates the players' chosen cards
 func _on_GameModel_player_chose_card(player_id, card_model):
+	# Get player GUI scene with player_id
 	var this_nuid = get_tree().get_network_unique_id()
 	var is_equal_this_nuid = (player_id == this_nuid)
 	var player_gui
@@ -138,7 +148,8 @@ func _on_GameModel_player_chose_card(player_id, card_model):
 	else:
 		player_gui = get_player(Globals.other_player_id)
 	
-	var card_gui = player_gui.hand.get_card_by_model(card_model.card_value, card_model.card_suit)
+	# Get Card GUI scene, and calculate its final position of animation
+	var card_gui = player_gui.hand.get_card_by_model(card_model.card_suit, card_model.card_value)
 	var previous_pos = card_gui.global_position
 	var card_destiny_pos
 	if is_equal_this_nuid:
@@ -146,11 +157,19 @@ func _on_GameModel_player_chose_card(player_id, card_model):
 	else:
 		card_destiny_pos = open_cards.other_player_pos
 	
+	# Reparent card (to open cards), and start its animation
 	card_gui.get_parent().remove_child(card_gui)
 	open_cards.add_child(card_gui)
 	card_gui.global_position = previous_pos
 	card_gui.go_to_target(card_destiny_pos.global_position)
+	card_gui.close()
 	
+	# If this client has chosen its cards, enable next game stage buttons
 	if is_equal_this_nuid:
 		player_gui.hand.disable_cards()
 	player_gui.lives_tray.enable_statues()
+
+
+# Update when Game Model updates its game stage
+func _on_GameModel_change_game_stage(game_stage):
+	pass

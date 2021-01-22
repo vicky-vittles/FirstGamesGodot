@@ -3,6 +3,7 @@ extends Node
 class_name PlayerModel
 
 signal received_card(card)
+signal gain_lives(lives)
 
 const HAND_SIZE = 2
 
@@ -12,7 +13,7 @@ var lives : int
 var hand = []
 
 
-# Constructor
+# Constructor (network id and name)
 func init(_id : int, _player_name : String):
 	id = _id
 	player_name = _player_name
@@ -51,3 +52,4 @@ func bet_lives(_lives_to_bet : int) -> bool:
 # Gain lives that were bet
 func gain_lives(_lives_gain : int) -> void:
 	lives += _lives_gain
+	emit_signal("gain_lives", _lives_gain)

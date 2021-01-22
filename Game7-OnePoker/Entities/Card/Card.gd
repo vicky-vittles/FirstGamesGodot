@@ -23,19 +23,19 @@ const CARD_FRAMES = {
 			Enums.CARD_VALUES.KING: 12}
 enum FACING { UP, DOWN }
 
+onready var model = $CardModel
 onready var button = $Button
 onready var front = $Front
 onready var back = $Back
 onready var animation_player = $AnimationPlayer
 onready var tween = $Tween
 
-var model : CardModel
 var is_facing = FACING.DOWN
 
 
 # Initialize using CardModel
 func init(_model):
-	model = _model
+	model.init(_model.card_suit, _model.card_value)
 	$Front.frame = model.card_suit * 13 + CARD_FRAMES[model.card_value]
 
 
@@ -48,12 +48,24 @@ func init_test(_suit, _value):
 
 # Function for passing along the pressed() signal of the button
 func _on_Button_pressed():
+	disable()
 	emit_signal("pressed", self)
 
 
+func open() -> void:
+	if is_facing == FACING.UP:
+		return
+	is_facing = FACING.UP
+	AnimationQueue.enqueue_animation(animation_player, "open")
+	
+func close() -> void:
+	if is_facing == FACING.DOWN:
+		return
+	is_facing = FACING.DOWN
+	AnimationQueue.enqueue_animation(animation_player, "close")
+
 func disable() -> void:
 	button.disabled = true
-
 
 func enable() -> void:
 	button.disabled = false

@@ -5,10 +5,13 @@ const def_suit = Enums.CARD_SUITS.CLUBS
 
 
 func _ready():
-	#_CardModel_against_card_tests()
-	#_DeckModel_create_tests()
-	#_GameModel_tests()
+	#do_tests()
 	pass
+
+func do_tests():
+	_CardModel_against_card_tests()
+	_DeckModel_create_tests()
+	_GameModel_tests()
 
 
 func _GameModel_tests():
@@ -93,7 +96,7 @@ func _GameModel_game_test():
 func _DeckModel_create_tests():
 	_DeckModel_size_test()
 	_DeckModel_correct_suits_test()
-	#_DeckModel_print_test()
+	_DeckModel_print_test()
 	_DeckModel_buy_card_test()
 
 func _DeckModel_size_test():
