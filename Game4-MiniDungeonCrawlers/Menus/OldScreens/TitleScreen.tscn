@@ -3,8 +3,6 @@
 [ext_resource path="res://Assets/Super-Dungeon.png" type="Texture" id=1]
 [ext_resource path="res://Menus/OldScreens/TitleScreen.gd" type="Script" id=2]
 
-
-
 [sub_resource type="DynamicFontData" id=1]
 antialiased = false
 font_path = "res://Assets/m5x7.ttf"

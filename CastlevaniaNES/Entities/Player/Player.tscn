@@ -732,11 +732,12 @@ hframes = 3
 
 [node name="Whip" type="Sprite" parent="Sprites"]
 visible = false
-position = Vector2( -33, -1 )
+position = Vector2( -33, 6 )
 z_index = 1
 texture = ExtResource( 10 )
 vframes = 4
 hframes = 3
+frame = 2
 script = ExtResource( 11 )
 
 [node name="Whip" type="Area2D" parent="."]

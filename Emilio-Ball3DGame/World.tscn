@@ -5,17 +5,17 @@
 [ext_resource path="res://tex_Water.jpg" type="Texture" id=3]
 [ext_resource path="res://World.gd" type="Script" id=4]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 1, 0.654902, 0, 1 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 3, 2, 3 )
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="SphereShape" id=3]
 
-[sub_resource type="SphereMesh" id=2]
+[sub_resource type="SphereMesh" id=4]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_texture = ExtResource( 3 )
 roughness = 0.04
 
@@ -28,7 +28,7 @@ use_collision = true
 width = 6.0
 height = 0.5
 depth = 16.0
-material = SubResource( 4 )
+material = SubResource( 1 )
 
 [node name="CSGBox2" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.913474, -0.406896, 0, 0.406896, 0.913474, 7.45402, 11.3445, -2.38915 )
@@ -36,7 +36,7 @@ use_collision = true
 width = 6.0
 height = 0.5
 depth = 16.0
-material = SubResource( 4 )
+material = SubResource( 1 )
 
 [node name="CSGBox3" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.922605, 0.385745, 0, -0.385745, 0.922605, 14.6431, 6.29664, -0.739079 )
@@ -44,7 +44,7 @@ use_collision = true
 width = 6.0
 height = 0.5
 depth = 16.0
-material = SubResource( 4 )
+material = SubResource( 1 )
 
 [node name="Goal" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6431, 0.296642, -13.8688 )
@@ -61,7 +61,7 @@ radius = 3.66363
 [node name="GoalTrigger" type="Area" parent="Goal"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Goal/GoalTrigger"]
-shape = SubResource( 5 )
+shape = SubResource( 2 )
 
 [node name="Player" type="RigidBody" parent="." groups=[
 "player",
@@ -70,11 +70,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.7066, 4.94625 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.781368, 0.624071, 0, -0.624071, 0.781368, 0.012815, 26.0818, 14.8995 )
