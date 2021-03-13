@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://entities/rocket/Rocket.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/antenna/Antenna.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/bg.png" type="Texture" id=3]
+[ext_resource path="res://levels/_Level.gd" type="Script" id=4]
+[ext_resource path="res://entities/EndZone.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/main-theme.tres" type="Theme" id=6]
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AcceptDialog" type="AcceptDialog" parent="CanvasLayer"]
+pause_mode = 2
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -288.0
+margin_right = -238.0
+margin_bottom = -160.0
+theme = ExtResource( 6 )
+popup_exclusive = true
+window_title = "Level Cleared!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Sprite" parent="."]
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 3 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Scenario" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Asteroids" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="EndZone" parent="." instance=ExtResource( 5 )]
+
+[node name="Rocket" parent="." instance=ExtResource( 1 )]
+position = Vector2( 500.757, 345.567 )
+
+[node name="Antenna" parent="." instance=ExtResource( 2 )]
+position = Vector2( 851, 324 )
+[connection signal="confirmed" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
+[connection signal="stage_cleared" from="EndZone" to="." method="_on_EndZone_stage_cleared"]
+[connection signal="explode" from="Rocket" to="Rocket/StateMachine/Active" method="explode"]
+[connection signal="explode" from="Rocket" to="." method="_on_Rocket_explode"]
+[connection signal="spawn" from="Rocket" to="Antenna" method="_on_Rocket_spawn"]
+[connection signal="touched_rocket" from="Antenna" to="Rocket" method="explode"]

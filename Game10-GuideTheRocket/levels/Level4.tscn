@@ -1,0 +1,180 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://levels/_Level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/space-tileset01.tres" type="TileSet" id=2]
+[ext_resource path="res://entities/asteroid/Asteroid.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 16, 48 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 32, 48 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 32, 16 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 32, 16 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 64 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 16, 32 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 16, 240 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 288, 16 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 224, 16 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 64, 40 )
+
+[node name="Level" instance=ExtResource( 1 )]
+level_id = 4
+
+[node name="TileMap" type="TileMap" parent="Scenario" index="0"]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 196609, 2, 0, 196609, 3, 0, 196609, 4, 0, 196609, 5, 0, 196609, 6, 0, 196609, 7, 0, 196609, 8, 0, 1, 9, 0, 196609, 10, 0, 196609, 11, 0, 196609, 12, 0, 196609, 13, 0, 196609, 14, 0, 1, 15, 0, 196609, 16, 0, 196609, 17, 0, 196609, 18, 0, 196609, 19, 0, 2, 65536, 0, 65539, 65544, 0, 65539, 65550, 0, 65539, 65555, 0, 65539, 131072, 0, 65539, 131080, 0, 65539, 131086, 0, 65539, 131091, 0, 65539, 196608, 0, 65539, 196616, 0, 131075, 196622, 0, 131075, 196627, 0, 65539, 262144, 0, 65539, 262147, 0, 196608, 262148, 0, 196609, 262149, 0, 2, 262155, 0, 3, 262161, 0, 0, 262162, 0, 1, 262163, 0, 65538, 327680, 0, 65539, 327685, 0, 65539, 327691, 0, 65539, 327697, 0, 65536, 327698, 0, 65537, 327699, 0, 65538, 393216, 0, 65539, 393221, 0, 65539, 393227, 0, 65539, 393233, 0, 65536, 393234, 0, 65537, 393235, 0, 65538, 458752, 0, 65536, 458753, 0, 196609, 458754, 0, 196610, 458757, 0, 131072, 458758, 0, 196609, 458759, 0, 196609, 458760, 0, 196609, 458761, 0, 196609, 458762, 0, 1, 458763, 0, 131073, 458764, 0, 196609, 458765, 0, 196609, 458766, 0, 196609, 458767, 0, 196609, 458768, 0, 196609, 458769, 0, 131073, 458770, 0, 131073, 458771, 0, 65538, 524288, 0, 65539, 524298, 0, 65539, 524307, 0, 65539, 589824, 0, 65539, 589834, 0, 65539, 589843, 0, 65539, 655360, 0, 65539, 655364, 0, 3, 655367, 0, 3, 655370, 0, 65539, 655379, 0, 65539, 720896, 0, 65539, 720900, 0, 131075, 720903, 0, 65539, 720906, 0, 131072, 720907, 0, 196609, 720908, 0, 196610, 720912, 0, 3, 720915, 0, 65539, 786432, 0, 65539, 786439, 0, 65539, 786448, 0, 65539, 786451, 0, 65539, 851968, 0, 65539, 851975, 0, 65539, 851984, 0, 65539, 851987, 0, 65539, 917504, 0, 131072, 917505, 0, 196609, 917506, 0, 196609, 917507, 0, 196609, 917508, 0, 196609, 917509, 0, 196609, 917510, 0, 196609, 917511, 0, 131073, 917512, 0, 196609, 917513, 0, 196609, 917514, 0, 196609, 917515, 0, 196609, 917516, 0, 196609, 917517, 0, 196609, 917518, 0, 196609, 917519, 0, 196609, 917520, 0, 131073, 917521, 0, 196609, 917522, 0, 196609, 917523, 0, 131074 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ScenarioCollision" type="StaticBody2D" parent="Scenario" index="1" groups=[
+"terrain",
+]]
+collision_layer = 2
+collision_mask = 4
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="1" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="0"]
+position = Vector2( 272, 80 )
+shape = SubResource( 2 )
+
+[node name="7" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="1"]
+position = Vector2( 368, 176 )
+shape = SubResource( 2 )
+
+[node name="12" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="2"]
+position = Vector2( 464, 80 )
+shape = SubResource( 2 )
+
+[node name="13" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="3"]
+position = Vector2( 576, 176 )
+shape = SubResource( 7 )
+
+[node name="8" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="4"]
+position = Vector2( 176, 176 )
+shape = SubResource( 2 )
+
+[node name="9" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="5"]
+position = Vector2( 528, 400 )
+shape = SubResource( 2 )
+
+[node name="14" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="6"]
+position = Vector2( 384, 368 )
+shape = SubResource( 11 )
+
+[node name="16" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="7"]
+position = Vector2( 64, 240 )
+shape = SubResource( 10 )
+
+[node name="17" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="8"]
+position = Vector2( 128, 144 )
+shape = SubResource( 10 )
+
+[node name="10" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="9"]
+position = Vector2( 336, 320 )
+shape = SubResource( 6 )
+
+[node name="11" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="10"]
+position = Vector2( 240, 384 )
+shape = SubResource( 6 )
+
+[node name="15" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="11"]
+position = Vector2( 144, 352 )
+shape = SubResource( 9 )
+
+[node name="2" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="12"]
+position = Vector2( 624, 240 )
+shape = SubResource( 3 )
+
+[node name="3" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="13"]
+position = Vector2( 16, 240 )
+shape = SubResource( 3 )
+
+[node name="4" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="14"]
+position = Vector2( 320, 464 )
+shape = SubResource( 4 )
+
+[node name="5" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="15"]
+position = Vector2( 320, 16 )
+shape = SubResource( 4 )
+
+[node name="6" type="CollisionShape2D" parent="Scenario/ScenarioCollision" index="16"]
+position = Vector2( 384, 240 )
+shape = SubResource( 5 )
+
+[node name="Asteroid" parent="Asteroids" index="0" instance=ExtResource( 3 )]
+position = Vector2( 480, 304 )
+direction = Vector2( 1, 0 )
+
+[node name="Asteroid3" parent="Asteroids" index="1" instance=ExtResource( 3 )]
+position = Vector2( 288, 288 )
+direction = Vector2( -1, 0 )
+
+[node name="Asteroid5" parent="Asteroids" index="2" instance=ExtResource( 3 )]
+position = Vector2( 64, 72 )
+direction = Vector2( 0, 1 )
+
+[node name="Asteroid6" parent="Asteroids" index="3" instance=ExtResource( 3 )]
+position = Vector2( 272, 176 )
+direction = Vector2( 1, 0 )
+
+[node name="Asteroid7" parent="Asteroids" index="4" instance=ExtResource( 3 )]
+position = Vector2( 368, 80 )
+direction = Vector2( -1, 0 )
+
+[node name="Asteroid8" parent="Asteroids" index="5" instance=ExtResource( 3 )]
+position = Vector2( 512, 160 )
+direction = Vector2( 0, 1 )
+
+[node name="Asteroid4" parent="Asteroids" index="6" instance=ExtResource( 3 )]
+position = Vector2( 72, 416 )
+direction = Vector2( 1, 0 )
+
+[node name="Asteroid2" parent="Asteroids" index="7" instance=ExtResource( 3 )]
+position = Vector2( 480, 416 )
+direction = Vector2( -1, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="EndZone" index="0"]
+modulate = Color( 1, 1, 1, 0.498039 )
+margin_left = 480.0
+margin_top = 32.0
+margin_right = 608.0
+margin_bottom = 128.0
+color = Color( 1, 0.270588, 0.270588, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndZone" index="1"]
+position = Vector2( 544, 80 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Rocket" parent="." index="5"]
+position = Vector2( 576, 384 )
+[connection signal="explode" from="Rocket" to="Rocket/StateMachine/Active" method="explode"]

@@ -1,15 +1,14 @@
 extends State
 
+onready var DEAD = $"../Dead"
 var rocket
 
 func enter():
 	rocket = fsm.actor
 
-func exit():
-	pass
+func physics_process(delta):
+	rocket.set_target()
+	rocket.move(delta)
 
-func process(_delta):
-	pass
-
-func physics_process(_delta):
-	pass
+func explode():
+	fsm.change_state(DEAD)
