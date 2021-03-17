@@ -7,6 +7,7 @@ func enter():
 	slime = fsm.actor
 
 func process(_delta):
+	slime.get_direction()
 	slime.prepare_jump()
 	slime.turn_around(slime.direction)
 

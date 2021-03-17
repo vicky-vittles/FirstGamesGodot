@@ -1,16 +1,18 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Slime 32x32.png" type="Texture" id=1]
-[ext_resource path="res://entities/Slime/slime.gd" type="Script" id=2]
-[ext_resource path="res://systems/state_machine/StateMachine.gd" type="Script" id=3]
-[ext_resource path="res://entities/Slime/idle.gd" type="Script" id=4]
-[ext_resource path="res://entities/Slime/jump.gd" type="Script" id=5]
+[ext_resource path="res://systems/state_machine/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://entities/slime/idle.gd" type="Script" id=3]
+[ext_resource path="res://entities/slime/jump.gd" type="Script" id=4]
+[ext_resource path="res://entities/slime/slime.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 9 )
 
 [node name="Slime" type="KinematicBody2D"]
-script = ExtResource( 2 )
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 5 )
 MAX_JUMP_DISTANCE = 300
 
 [node name="Graphics" type="Node2D" parent="."]
@@ -36,15 +38,15 @@ __meta__ = {
 one_shot = true
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 actor_path = NodePath("..")
 
 [node name="Jump" type="Node" parent="StateMachine"]
-script = ExtResource( 5 )
+script = ExtResource( 4 )
 fsm_path = NodePath("..")
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 fsm_path = NodePath("..")
 [connection signal="jump_started" from="." to="StateMachine/Idle" method="_on_Slime_jump_started"]
 [connection signal="on_floor" from="." to="StateMachine/Jump" method="_on_Slime_on_floor"]

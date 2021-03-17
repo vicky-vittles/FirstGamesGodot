@@ -6,11 +6,13 @@ signal on_floor()
 const FLOOR_NORMAL = Vector2.UP
 
 # Physics constants
+export (int) var MIN_JUMP_HEIGHT = 50
 export (int) var MAX_JUMP_HEIGHT = 350
+export (int) var MIN_JUMP_DISTANCE = 30
 export (int) var MAX_JUMP_DISTANCE = 350
 const MIN_JUMP_TIME : float = 0.5 / 2
 const MAX_JUMP_TIME : float = 1.5 / 2
-const TIME_TO_MAX : float = 2.0
+const TIME_TO_MAX : float = 1.5 #Tempo total de carregamento do mouse até pulo máx
 
 # Nodes
 onready var main_sprite = $Graphics/Main
@@ -23,6 +25,7 @@ var press_time : float = 0.0
 var target_point = Vector2()
 var target_time : float = 0.0
 
+var is_pressing : bool = false
 var is_jumping : bool = false
 
 onready var gravity : int = 2*MAX_JUMP_HEIGHT/(MAX_JUMP_TIME*MAX_JUMP_TIME)
@@ -37,25 +40,37 @@ func _draw():
 	draw_circle(target_point, 5.0, Color.blue)
 
 
+func get_direction():
+	var relative_mouse_pos = get_global_mouse_position() - global_position
+	direction = 1 if sign(relative_mouse_pos.x) >= 0 else -1
+
 func prepare_jump():
 	if Input.is_action_pressed("jump"):
-		if press_timer.is_stopped():
+		if press_timer.is_stopped() and not is_pressing:
+			is_pressing = true
 			press_timer.start()
-		var relative_mouse_pos = get_global_mouse_position() - global_position
 		var t = (TIME_TO_MAX - press_timer.time_left) / TIME_TO_MAX
-		
-		direction = 1 if sign(relative_mouse_pos.x) >= 0 else -1
-		target_point.x = lerp(0, direction * MAX_JUMP_DISTANCE, t)
-		target_point.y = lerp(0, -MAX_JUMP_HEIGHT, t)
-		target_time = lerp(MIN_JUMP_TIME, MAX_JUMP_TIME, t)
+		linear_interpolate(t)
 		update()
+		
+		if t >= 1.0:
+			start_jump()
 	if Input.is_action_just_released("jump"):
-		gravity = -2 * target_point.y / (target_time * target_time)
-		velocity = Vector2(
-				target_point.x / target_time,
-				2 * target_point.y / target_time)
-		press_timer.stop()
-		emit_signal("jump_started")
+		start_jump()
+
+func linear_interpolate(t):
+	target_point.x = lerp(direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
+	target_point.y = lerp(-MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
+	target_time = lerp(MIN_JUMP_TIME, MAX_JUMP_TIME, t)
+
+func start_jump():
+	is_pressing = false
+	gravity = -2 * target_point.y / (target_time * target_time)
+	velocity = Vector2(
+			target_point.x / target_time,
+			2 * target_point.y / target_time)
+	press_timer.stop()
+	emit_signal("jump_started")
 
 func move(delta):
 	velocity.y += gravity * delta

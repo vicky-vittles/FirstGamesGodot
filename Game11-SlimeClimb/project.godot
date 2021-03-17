@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Block",
+"language": "GDScript",
+"path": "res://entities/level_objects/blocks/_block.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://systems/state_machine/StateMachine.gd"
 } ]
 _global_script_class_icons={
+"Block": "",
 "State": "",
 "StateMachine": ""
 }
@@ -29,6 +35,10 @@ _global_script_class_icons={
 config/name="Game11-SlimeClimb"
 run/main_scene="res://main/Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://globals/Globals.gd"
 
 [display]
 
@@ -58,9 +68,16 @@ jump={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_2="terrain"
+2d_physics/layer_3="entities"
+2d_physics/layer_4="triggers"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 environment/default_environment="res://default_env.tres"
