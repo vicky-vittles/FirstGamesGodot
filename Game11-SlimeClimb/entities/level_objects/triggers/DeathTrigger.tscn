@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://entities/level_objects/triggers/_Trigger.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/level_objects/triggers/death_trigger.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2560, 1280 )
+
+[node name="DeathTrigger" groups=[
+"death_trigger",
+] instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" parent="." index="1"]
+position = Vector2( 0, 1280 )
+shape = SubResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_DeathTrigger_body_entered"]

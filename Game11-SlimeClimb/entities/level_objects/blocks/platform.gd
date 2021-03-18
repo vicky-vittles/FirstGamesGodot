@@ -1,13 +1,17 @@
 extends Block
 
-export (int) var WIDTH = 1
-export (int) var HEIGHT = 1
+export (int) var WIDTH = 0
+export (int) var HEIGHT = 0
 export (PackedScene) var BLOCK_TYPE
 
-onready var sprite = $Sprite
+func init(width: int, height: int, block_type):
+	WIDTH = width
+	HEIGHT = height
+	BLOCK_TYPE = block_type
 
-func _ready():
-	sprite.visible = false
+func setup():
+	assert(WIDTH != 0)
+	assert(HEIGHT != 0)
 	assert(BLOCK_TYPE != null)
 	assert(BLOCK_TYPE.instance() is Block)
 	for w in WIDTH:
@@ -16,3 +20,6 @@ func _ready():
 			add_child(block)
 			block.global_position = global_position + Vector2(
 					w*Globals.TILE_SIZE, h*Globals.TILE_SIZE)
+
+func _ready():
+	setup()

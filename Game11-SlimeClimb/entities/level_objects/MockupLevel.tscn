@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://entities/level_objects/blocks/Platform.tscn" type="PackedScene" id=1]
+
+[node name="MockupLevel" type="Node2D"]
+
+[node name="Platform" parent="." instance=ExtResource( 1 )]
+position = Vector2( 160, 416 )
+script = null
+
+[node name="Platform7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 160, -64 )
+script = null
+
+[node name="Platform10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 160, -320 )
+script = null
+
+[node name="Platform4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 160, 160 )
+script = null
+
+[node name="Platform2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 32, 288 )
+script = null
+
+[node name="Platform3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 464, 288 )
+script = null
+
+[node name="Platform5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 32, 32 )
+script = null
+
+[node name="Platform6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 464, 32 )
+script = null
+
+[node name="Platform8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 32, -192 )
+script = null
+
+[node name="Platform9" parent="." instance=ExtResource( 1 )]
+position = Vector2( 464, -192 )
+script = null
+
+[node name="Platform11" parent="." instance=ExtResource( 1 )]
+position = Vector2( 32, -448 )
+script = null
+
+[node name="Platform12" parent="." instance=ExtResource( 1 )]
+position = Vector2( 464, -448 )
+script = null

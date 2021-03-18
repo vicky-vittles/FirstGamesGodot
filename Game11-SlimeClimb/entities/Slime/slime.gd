@@ -6,13 +6,13 @@ signal on_floor()
 const FLOOR_NORMAL = Vector2.UP
 
 # Physics constants
-export (int) var MIN_JUMP_HEIGHT = 50
-export (int) var MAX_JUMP_HEIGHT = 350
-export (int) var MIN_JUMP_DISTANCE = 30
-export (int) var MAX_JUMP_DISTANCE = 350
+export (int) var MIN_JUMP_HEIGHT = 25
+export (int) var MAX_JUMP_HEIGHT = 300
+export (int) var MIN_JUMP_DISTANCE = 10
+export (int) var MAX_JUMP_DISTANCE = 300
 const MIN_JUMP_TIME : float = 0.5 / 2
 const MAX_JUMP_TIME : float = 1.5 / 2
-const TIME_TO_MAX : float = 1.5 #Tempo total de carregamento do mouse até pulo máx
+const TIME_TO_MAX : float = 1.2 #Tempo total de carregamento do mouse até pulo máx
 
 # Nodes
 onready var main_sprite = $Graphics/Main
@@ -41,8 +41,13 @@ func _draw():
 
 
 func get_direction():
-	var relative_mouse_pos = get_global_mouse_position() - global_position
-	direction = 1 if sign(relative_mouse_pos.x) >= 0 else -1
+	if Input.is_action_pressed("left"):
+		direction = -1
+	elif Input.is_action_pressed("right"):
+		direction = 1
+	else:
+		var relative_mouse_pos = get_global_mouse_position() - global_position
+		direction = 1 if sign(relative_mouse_pos.x) >= 0 else -1
 
 func prepare_jump():
 	if Input.is_action_pressed("jump"):
@@ -50,7 +55,7 @@ func prepare_jump():
 			is_pressing = true
 			press_timer.start()
 		var t = (TIME_TO_MAX - press_timer.time_left) / TIME_TO_MAX
-		linear_interpolate(t)
+		interpolate(t)
 		update()
 		
 		if t >= 1.0:
@@ -58,10 +63,10 @@ func prepare_jump():
 	if Input.is_action_just_released("jump"):
 		start_jump()
 
-func linear_interpolate(t):
-	target_point.x = lerp(direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
-	target_point.y = lerp(-MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
-	target_time = lerp(MIN_JUMP_TIME, MAX_JUMP_TIME, t)
+func interpolate(t):
+	target_point.x = Easing.easeInSine(direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
+	target_point.y = Easing.easeInSine(-MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
+	target_time = Easing.easeInSine(MIN_JUMP_TIME, MAX_JUMP_TIME, t)
 
 func start_jump():
 	is_pressing = false
