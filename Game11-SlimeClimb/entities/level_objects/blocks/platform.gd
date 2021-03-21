@@ -3,7 +3,7 @@ extends Block
 export (int) var WIDTH = 0
 export (int) var HEIGHT = 0
 export (bool) var CENTERED = false
-export (Enums.BLOCKS) var BLOCK_TYPE
+export (preload("res://globals/Enums.gd").BLOCKS) var BLOCK_TYPE
 
 onready var sprite = $Sprite
 onready var collision_shape = $CollisionShape2D
@@ -13,6 +13,15 @@ func init(width: int, height: int, centered: bool, block_type: int):
 	HEIGHT = height
 	CENTERED = centered
 	BLOCK_TYPE = block_type
+
+func get_border_position(border: int) -> Vector2:
+	return get_central_position() + sign(border) * Globals.TILE_SIZE * Vector2(WIDTH/2,0)
+
+func get_central_position() -> Vector2:
+	if CENTERED:
+		return global_position
+	else:
+		return global_position + Globals.TILE_SIZE * Vector2(WIDTH/2, HEIGHT/2)
 
 func setup():
 	assert(WIDTH != 0)

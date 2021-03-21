@@ -5,6 +5,12 @@ var slime
 
 func enter():
 	slime = fsm.actor
+	slime.animation_player.play("jump")
+
+func exit():
+	slime.dust_particles.amount = lerp(20, 30, abs(slime.velocity.y/slime.aux_speed))
+	slime.dust_particles.restart()
+	slime.dust_particles.emitting = true
 
 func physics_process(delta):
 	slime.move(delta)

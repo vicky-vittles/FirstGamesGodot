@@ -14,9 +14,13 @@ export (int) var MAX_JUMP_DISTANCE = 300
 const MIN_JUMP_TIME : float = 0.5 / 2
 const MAX_JUMP_TIME : float = 1.5 / 2
 const TIME_TO_MAX : float = 1.2 #Tempo total de carregamento do mouse até pulo máx
+onready var aux_speed = 0.75*2*MAX_JUMP_DISTANCE / MIN_JUMP_TIME
 
 # Nodes
 onready var main_sprite = $Graphics/Main
+onready var animation_player = $Graphics/AnimationPlayer
+onready var arrow_widget = $Graphics/ArrowWidget
+onready var dust_particles = $Graphics/Dust
 
 # Mouse press
 onready var press_timer = $PressTimer
@@ -37,8 +41,12 @@ var velocity = Vector2()
 func _ready():
 	press_timer.wait_time = TIME_TO_MAX
 
-func _draw():
-	draw_circle(target_point, 5.0, Color.blue)
+func _process(delta):
+	if is_pressing:
+		arrow_widget.show_sprites()
+		arrow_widget.calculate_trajectory(target_point, global_position)
+	else:
+		arrow_widget.hide_sprites()
 
 
 func get_direction():

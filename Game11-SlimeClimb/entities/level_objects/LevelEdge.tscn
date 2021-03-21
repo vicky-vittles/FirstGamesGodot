@@ -7,19 +7,30 @@
 script = ExtResource( 3 )
 
 [node name="Platform4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 240, 416 )
-WIDTH = 12
+position = Vector2( 256, 416 )
+WIDTH = 8
 HEIGHT = 1
 BLOCK_TYPE = 1
 
-[node name="Platform5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 64, 240 )
-WIDTH = 8
+[node name="Platform8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 48, 176 )
+WIDTH = 10
 HEIGHT = 1
 BLOCK_TYPE = 1
 
 [node name="Platform6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 448, 240 )
-WIDTH = 8
+position = Vector2( 416, 288 )
+WIDTH = 10
 HEIGHT = 1
 BLOCK_TYPE = 1
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = 304.0
+margin_top = 192.0
+margin_right = 344.0
+margin_bottom = 206.0
+text = "Level Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}

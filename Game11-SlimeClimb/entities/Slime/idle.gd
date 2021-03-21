@@ -5,6 +5,7 @@ var slime
 
 func enter():
 	slime = fsm.actor
+	slime.animation_player.play("fall")
 
 func process(_delta):
 	slime.get_direction()
