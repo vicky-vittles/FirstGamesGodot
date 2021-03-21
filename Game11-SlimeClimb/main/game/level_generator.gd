@@ -5,7 +5,6 @@ const SCREEN_HEIGHT : int = 480
 onready var SCREEN_WIDTH_TILES : int = SCREEN_WIDTH / Globals.TILE_SIZE
 onready var SCREEN_HEIGHT_TILES : int = SCREEN_HEIGHT / Globals.TILE_SIZE
 const PLATFORM = preload("res://entities/level_objects/blocks/Platform.tscn")
-const CAVE_BLOCK = preload("res://entities/level_objects/blocks/CaveBlock.tscn")
 
 onready var scrolling_level = get_parent()
 onready var level_end = $"../LevelEnd"
@@ -40,7 +39,7 @@ func generate_screen(screen_id: int):
 
 func generate_platform(plat_id: int, height_range: int, screen_origin: Vector2):
 	var platform = PLATFORM.instance()
-	platform.init(8, 1, CAVE_BLOCK)
+	platform.init(8, 1, false, Enums.BLOCKS.CAVE_BLOCK)
 	platforms.add_child(platform)
 	
 	alternating_plat = !alternating_plat

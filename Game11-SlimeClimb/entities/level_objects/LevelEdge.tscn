@@ -1,26 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://entities/level_objects/blocks/Platform.tscn" type="PackedScene" id=1]
-[ext_resource path="res://entities/level_objects/blocks/CaveBlock.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/level_objects/level_edge.gd" type="Script" id=3]
 
 [node name="LevelEdge" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="Platform" parent="." instance=ExtResource( 1 )]
-position = Vector2( 96, 416 )
-WIDTH = 28
+[node name="Platform4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 240, 416 )
+WIDTH = 12
 HEIGHT = 1
-BLOCK_TYPE = ExtResource( 2 )
+BLOCK_TYPE = 1
 
-[node name="Platform2" parent="." instance=ExtResource( 1 )]
+[node name="Platform5" parent="." instance=ExtResource( 1 )]
 position = Vector2( 64, 240 )
 WIDTH = 8
 HEIGHT = 1
-BLOCK_TYPE = ExtResource( 2 )
+BLOCK_TYPE = 1
 
-[node name="Platform3" parent="." instance=ExtResource( 1 )]
+[node name="Platform6" parent="." instance=ExtResource( 1 )]
 position = Vector2( 448, 240 )
 WIDTH = 8
 HEIGHT = 1
-BLOCK_TYPE = ExtResource( 2 )
+BLOCK_TYPE = 1

@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entities/level_objects/blocks/_Block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/level_objects/blocks/platform.gd" type="Script" id=2]
+[ext_resource path="res://assets/blocks/dummy-placeholder.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 0, 0 )
 
 [node name="Platform" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
-visible = false
-region_rect = Rect2( 0, 0, 64, 16 )
+texture = ExtResource( 3 )
+vframes = 1
+hframes = 1
+frame = 0
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )

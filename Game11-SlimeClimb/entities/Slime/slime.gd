@@ -6,6 +6,7 @@ signal on_floor()
 const FLOOR_NORMAL = Vector2.UP
 
 # Physics constants
+export (Curve) var jump_press_curve
 export (int) var MIN_JUMP_HEIGHT = 25
 export (int) var MAX_JUMP_HEIGHT = 300
 export (int) var MIN_JUMP_DISTANCE = 10
@@ -67,6 +68,11 @@ func interpolate(t):
 	target_point.x = Easing.easeInSine(direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
 	target_point.y = Easing.easeInSine(-MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
 	target_time = Easing.easeInSine(MIN_JUMP_TIME, MAX_JUMP_TIME, t)
+
+func curve_interpolate(t):
+	target_point.x = Easing.curve(jump_press_curve, direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
+	target_point.y = Easing.curve(jump_press_curve, -MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
+	target_time = Easing.curve(jump_press_curve, MIN_JUMP_TIME, MAX_JUMP_TIME, t)
 
 func start_jump():
 	is_pressing = false

@@ -10,3 +10,7 @@ func easeInSine(a, b, t):
 func easeInCirc(a, b, t):
 	var y = 1 - sqrt(1 - t*t);
 	return linear(a, b, y)
+
+func curve(curve, a, b, t):
+	var y = curve.interpolate(t)
+	return linear(a, b, y)

@@ -46,6 +46,7 @@ config/icon="res://icon.png"
 
 Globals="*res://globals/Globals.gd"
 Easing="*res://globals/Easing.gd"
+Enums="*res://globals/Enums.gd"
 
 [debug]
 
