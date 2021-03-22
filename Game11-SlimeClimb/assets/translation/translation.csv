@@ -1,3 +1,5 @@
 keys,en,pt
 LEVEL_LABEL,"Level %s","Fase %s"
-GAME_OVER,"Game Over\nTry Again?","Game Over\nTentar de novo?"
+GAME_OVER,"Game Over\nClick to try again","Fim de jogo\nClique para tentar novamente"
+PRESS_HOLD_TO_JUMP,"Press and hold to jump!","Clique e segure para pular!"
+PAUSE,"Paused","Pausado"

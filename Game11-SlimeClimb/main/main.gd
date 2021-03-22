@@ -2,6 +2,7 @@ extends Node
 
 func _ready():
 	TranslationServer.set_locale("en")
+	get_tree().paused = false
 
 func _process(_delta):
 	if Input.is_action_just_pressed("exit"):

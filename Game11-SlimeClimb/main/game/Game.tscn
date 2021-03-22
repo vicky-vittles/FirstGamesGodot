@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/bg_layers/layer2.png" type="Texture" id=1]
 [ext_resource path="res://assets/bg_layers/layer3.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://assets/ui/main-theme.tres" type="Theme" id=12]
 [ext_resource path="res://main/game/level_generator.gd" type="Script" id=13]
 [ext_resource path="res://main/game/GUI.gd" type="Script" id=14]
+[ext_resource path="res://assets/ui/button-flat-style-box_TRANSPARENT.tres" type="StyleBox" id=15]
+[ext_resource path="res://assets/ui/pause-button.png" type="Texture" id=16]
 
 [sub_resource type="Animation" id=6]
 resource_name = "game_ended"
@@ -68,6 +70,112 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.8, 0.8, 0.8, 0.752941 ) ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "game_paused"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.8, 0.8, 0.8, 0.752941 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ScrollingLevel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.8, 0.8, 0.8, 0.752941 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("root/PauseLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("root/PauseLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "game_resumed"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.8, 0.8, 0.8, 0.752941 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ScrollingLevel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.8, 0.8, 0.8, 0.752941 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("root/PauseLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("root/PauseLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [sub_resource type="Animation" id=5]
 resource_name = "game_started"
 length = 0.2
@@ -82,6 +190,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("root/CurrentStage:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("root/CurrentStage:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -98,6 +230,42 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("root/CurrentStage:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("root/GameOver:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("root/PauseLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -116,6 +284,7 @@ tracks/0/keys = {
 }
 
 [node name="Game" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_lock_": true
@@ -134,6 +303,7 @@ __meta__ = {
 }
 
 [node name="CurrentStage" type="Label" parent="GUI/root"]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 32.0
 margin_top = 32.0
 margin_right = 132.0
@@ -150,18 +320,18 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="ClickToJump" type="RichTextLabel" parent="GUI/root/Position2D"]
+[node name="ClickToJump" type="Label" parent="GUI/root/Position2D"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -155.238
-margin_top = -15.6031
-margin_right = 164.762
-margin_bottom = 16.3969
-bbcode_text = "Click with mouse to jump!"
-text = "Click with mouse to jump!"
-scroll_active = false
+margin_left = -319.5
+margin_top = -14.0
+margin_right = 320.5
+margin_bottom = 18.0
+text = "PRESS_HOLD_TO_JUMP"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -174,17 +344,49 @@ text = "GAME_OVER"
 align = 1
 valign = 1
 __meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PauseButton" type="Button" parent="GUI/root"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -80.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = 80.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 15 )
+custom_styles/normal = ExtResource( 15 )
+icon = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseLabel" type="Label" parent="GUI/root"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "PAUSE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GUI"]
 autoplay = "idle_start"
 anims/game_ended = SubResource( 6 )
+anims/game_paused = SubResource( 7 )
+anims/game_resumed = SubResource( 8 )
 anims/game_started = SubResource( 5 )
 anims/idle_start = SubResource( 4 )
 anims/new_level = SubResource( 3 )
 
 [node name="Background" type="Node2D" parent="."]
+pause_mode = 1
 position = Vector2( 320, 0 )
 script = ExtResource( 8 )
 __meta__ = {
@@ -227,6 +429,7 @@ __meta__ = {
 }
 
 [node name="ScrollingLevel" type="Node2D" parent="."]
+pause_mode = 1
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_lock_": true
@@ -251,6 +454,7 @@ __meta__ = {
 position = Vector2( 288, 384 )
 
 [node name="Hidden" type="Node2D" parent="."]
+pause_mode = 1
 __meta__ = {
 "_edit_lock_": true
 }
@@ -271,17 +475,21 @@ BLOCK_TYPE = 1
 position = Vector2( 0, 528 )
 
 [node name="ResetPoint" type="Position2D" parent="."]
+pause_mode = 1
 position = Vector2( 0, 480 )
 __meta__ = {
 "_edit_lock_": true
 }
 [connection signal="game_ended" from="." to="GUI" method="_on_Game_game_ended"]
+[connection signal="game_paused" from="." to="GUI" method="_on_Game_game_paused"]
+[connection signal="game_resumed" from="." to="GUI" method="_on_Game_game_resumed"]
 [connection signal="game_started" from="." to="GUI" method="_on_Game_game_started"]
 [connection signal="game_started" from="." to="ScrollingLevel" method="start"]
 [connection signal="game_started" from="." to="Background" method="start"]
+[connection signal="pressed" from="GUI/root/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="update_level" from="ScrollingLevel" to="GUI" method="update_stage"]
 [connection signal="update_level" from="ScrollingLevel" to="ScrollingLevel/LevelManager" method="update_level"]
-[connection signal="jump_started" from="ScrollingLevel/Slime" to="." method="_on_Slime_jump_started"]
 [connection signal="jump_started" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_jump_started"]
+[connection signal="jump_started" from="ScrollingLevel/Slime" to="." method="_on_Slime_jump_started"]
 [connection signal="on_floor" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_on_floor"]
 [connection signal="player_died" from="Hidden/DeathTrigger" to="." method="emit_signal" binds= [ "game_ended" ]]

@@ -17,3 +17,11 @@ func _on_Game_game_ended():
 	animation_player.stop()
 	animation_player.queue("game_ended")
 	get_tree().paused = true
+
+func _on_Game_game_paused():
+	animation_player.stop()
+	animation_player.queue("game_paused")
+
+func _on_Game_game_resumed():
+	animation_player.stop()
+	animation_player.queue("game_resumed")
