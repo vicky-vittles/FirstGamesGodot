@@ -36,6 +36,7 @@ __meta__ = {
 }
 
 [node name="Layer1" type="Sprite" parent="Background"]
+modulate = Color( 0.807843, 0.807843, 0.807843, 0.588235 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 640, 960 )
@@ -44,6 +45,7 @@ __meta__ = {
 }
 
 [node name="Layer2" type="Sprite" parent="Background"]
+modulate = Color( 0.929412, 0.929412, 0.929412, 0.705882 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 640, 960 )
@@ -97,14 +99,14 @@ position = Vector2( 0, 528 )
 position = Vector2( -128, 0 )
 WIDTH = 8
 HEIGHT = 32
-BLOCK_TYPE = 3
+BLOCK_TYPE = 1
 
 [node name="Wall2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 640, 0 )
 WIDTH = 8
 HEIGHT = 32
-BLOCK_TYPE = 3
-[connection signal="jump_started" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_jump_started"]
+BLOCK_TYPE = 1
 [connection signal="jump_started" from="ScrollingLevel/Slime" to="." method="_on_Slime_jump_started"]
+[connection signal="jump_started" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_jump_started"]
 [connection signal="on_floor" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_on_floor"]
 [connection signal="player_died" from="DeathTrigger" to="." method="_on_DeathTrigger_player_died"]

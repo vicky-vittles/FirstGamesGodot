@@ -9,7 +9,7 @@ const FLOOR_NORMAL = Vector2.UP
 export (Curve) var jump_press_curve
 export (int) var MIN_JUMP_HEIGHT = 25
 export (int) var MAX_JUMP_HEIGHT = 300
-export (int) var MIN_JUMP_DISTANCE = 10
+export (int) var MIN_JUMP_DISTANCE = 25
 export (int) var MAX_JUMP_DISTANCE = 300
 const MIN_JUMP_TIME : float = 0.5 / 2
 const MAX_JUMP_TIME : float = 1.5 / 2
@@ -44,7 +44,7 @@ func _ready():
 func _process(delta):
 	if is_pressing:
 		arrow_widget.show_sprites()
-		arrow_widget.calculate_trajectory(target_point, global_position)
+		arrow_widget.calculate_trajectory(target_point, global_position, delta)
 	else:
 		arrow_widget.hide_sprites()
 
@@ -73,9 +73,9 @@ func prepare_jump():
 		start_jump()
 
 func interpolate(t):
-	target_point.x = Easing.easeInSine(direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
-	target_point.y = Easing.easeInSine(-MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
-	target_time = Easing.easeInSine(MIN_JUMP_TIME, MAX_JUMP_TIME, t)
+	target_point.x = Easing.easeInCirc(direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
+	target_point.y = Easing.easeInCirc(-MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
+	target_time = Easing.easeInCirc(MIN_JUMP_TIME, MAX_JUMP_TIME, t)
 
 func curve_interpolate(t):
 	target_point.x = Easing.curve(jump_press_curve, direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
@@ -93,12 +93,23 @@ func start_jump():
 
 func move(delta):
 	velocity.y += gravity * delta
-	move_and_slide(velocity, FLOOR_NORMAL)
-	if is_on_floor():
-		emit_signal("on_floor")
+#	move_and_slide(velocity, FLOOR_NORMAL)
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		var normal = collision.normal
+		var dot = normal.dot(FLOOR_NORMAL)
+		if dot >= 0.9:
+			emit_signal("on_floor")
+		if dot <= -0.9:
+			velocity.y = 0
+		if dot <= 0.1 and dot >= -0.1:
+			velocity = Vector2(0,0)
 
 func turn_around(dir: int):
 	if dir == 1:
 		main_sprite.scale.x = 1
 	elif dir == -1:
 		main_sprite.scale.x = -1
+
+#func is_on_ground():
+#	return is_on_floor()
