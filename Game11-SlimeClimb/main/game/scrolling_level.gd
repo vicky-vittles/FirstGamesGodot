@@ -21,11 +21,11 @@ func _physics_process(delta):
 			reset_level()
 
 func reset_level():
-	var prev_pos = slime.global_position
 	var next_level = level_manager.current_level + 1
+	speed = Enums.get_scroll_speed(next_level)
+	var prev_pos = slime.global_position
 	global_position.y = 0
 	slime.global_position = prev_pos
-	speed = Enums.get_scroll_speed(next_level)
 	emit_signal("update_level", next_level)
 
 func _on_Slime_jump_started():

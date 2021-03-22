@@ -134,8 +134,8 @@ position = Vector2( 0, 480 )
 __meta__ = {
 "_edit_lock_": true
 }
-[connection signal="update_level" from="ScrollingLevel" to="GUI" method="update_stage"]
 [connection signal="update_level" from="ScrollingLevel" to="ScrollingLevel/LevelManager" method="update_level"]
+[connection signal="update_level" from="ScrollingLevel" to="GUI" method="update_stage"]
 [connection signal="jump_started" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_jump_started"]
 [connection signal="jump_started" from="ScrollingLevel/Slime" to="." method="_on_Slime_jump_started"]
 [connection signal="on_floor" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_on_floor"]
