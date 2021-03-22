@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/bg_layers/layer2.png" type="Texture" id=1]
 [ext_resource path="res://assets/bg_layers/layer3.png" type="Texture" id=2]
@@ -15,6 +15,106 @@
 [ext_resource path="res://main/game/level_generator.gd" type="Script" id=13]
 [ext_resource path="res://main/game/GUI.gd" type="Script" id=14]
 
+[sub_resource type="Animation" id=6]
+resource_name = "game_ended"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/GameOver:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("root/GameOver:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Background:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.8, 0.8, 0.8, 0.752941 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ScrollingLevel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.8, 0.8, 0.8, 0.752941 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "game_started"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/Position2D/ClickToJump:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle_start"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/CurrentStage:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 10 )
 __meta__ = {
@@ -22,6 +122,7 @@ __meta__ = {
 }
 
 [node name="GUI" type="CanvasLayer" parent="."]
+pause_mode = 2
 script = ExtResource( 14 )
 
 [node name="root" type="Control" parent="GUI"]
@@ -42,6 +143,46 @@ text = "Level 01"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Position2D" type="Position2D" parent="GUI/root"]
+position = Vector2( 320, 224 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ClickToJump" type="RichTextLabel" parent="GUI/root/Position2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -155.238
+margin_top = -15.6031
+margin_right = 164.762
+margin_bottom = 16.3969
+bbcode_text = "Click with mouse to jump!"
+text = "Click with mouse to jump!"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="Label" parent="GUI/root"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "GAME_OVER"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI"]
+autoplay = "idle_start"
+anims/game_ended = SubResource( 6 )
+anims/game_started = SubResource( 5 )
+anims/idle_start = SubResource( 4 )
+anims/new_level = SubResource( 3 )
 
 [node name="Background" type="Node2D" parent="."]
 position = Vector2( 320, 0 )
@@ -134,9 +275,13 @@ position = Vector2( 0, 480 )
 __meta__ = {
 "_edit_lock_": true
 }
-[connection signal="update_level" from="ScrollingLevel" to="ScrollingLevel/LevelManager" method="update_level"]
+[connection signal="game_ended" from="." to="GUI" method="_on_Game_game_ended"]
+[connection signal="game_started" from="." to="GUI" method="_on_Game_game_started"]
+[connection signal="game_started" from="." to="ScrollingLevel" method="start"]
+[connection signal="game_started" from="." to="Background" method="start"]
 [connection signal="update_level" from="ScrollingLevel" to="GUI" method="update_stage"]
-[connection signal="jump_started" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_jump_started"]
+[connection signal="update_level" from="ScrollingLevel" to="ScrollingLevel/LevelManager" method="update_level"]
 [connection signal="jump_started" from="ScrollingLevel/Slime" to="." method="_on_Slime_jump_started"]
+[connection signal="jump_started" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_jump_started"]
 [connection signal="on_floor" from="ScrollingLevel/Slime" to="ScrollingLevel" method="_on_Slime_on_floor"]
-[connection signal="player_died" from="Hidden/DeathTrigger" to="." method="_on_DeathTrigger_player_died"]
+[connection signal="player_died" from="Hidden/DeathTrigger" to="." method="emit_signal" binds= [ "game_ended" ]]
