@@ -13,7 +13,7 @@ onready var reset_point = $"../../ResetPoint"
 onready var platforms = $"../Platforms"
 onready var slime = $"../Slime"
 
-export (int) var initial_level = 5
+export (int) var initial_level = 1
 onready var current_level : int = initial_level
 
 func _ready():
@@ -61,7 +61,7 @@ func generate_platform(data):
 	var final_pos = tile_size * Vector2(20,3)
 	
 	if prev_platform == null:
-		next_platform.init(8, 1, true, Enums.BLOCKS.CAVE_BLOCK)
+		next_platform.init(8, 1, true, true, Enums.BLOCKS.CAVE_BLOCK)
 	else:
 		var central_pos = prev_platform.get_central_position()-screen_origin
 		central_pos.x = clamp(central_pos.x, 0, SCREEN_WIDTH)
@@ -76,11 +76,16 @@ func generate_platform(data):
 		else:
 			#Put platform on the left
 			direction_to_put_plat = -1
+		var diff_r_and_l = abs(space_available_l - space_available_r)
+		if diff_r_and_l <= 5 * Globals.TILE_SIZE:
+			direction_to_put_plat = pow(-1, randi() % 2)
 		
 		var prev_plat_border = prev_platform.get_border_position(direction_to_put_plat)-screen_origin
-		final_pos.x = prev_plat_border.x + direction_to_put_plat*(tile_size*rand_distance + tile_size*rand_width/2)
+		var pos_x = prev_plat_border.x + direction_to_put_plat*(tile_size*rand_distance + tile_size*rand_width/2)
+		var rand_variation = ((randf()*2.0)-1.0)*tile_size
+		final_pos.x = clamp(pos_x, 0, SCREEN_WIDTH) + rand_variation
 		final_pos.y = prev_plat_border.y - tile_size*rand_height
-		next_platform.init(rand_width, 1, true, Enums.BLOCKS.CAVE_BLOCK)
+		next_platform.init(rand_width, 1, true, true, Enums.BLOCKS.CAVE_BLOCK)
 	
 	platforms.add_child(next_platform)
 	next_platform.global_position = final_pos + screen_origin
@@ -89,3 +94,12 @@ func generate_platform(data):
 
 func get_screen_origin(screen_id: int) -> Vector2:
 	return Vector2(0, -1*(screen_id-1)*SCREEN_HEIGHT)
+
+func update_level(level_id):
+	# Clear previous level
+	for platform in platforms.get_children():
+		platform.queue_free()
+	
+	# Generate next level
+	current_level = level_id
+	generate_level(level_id)

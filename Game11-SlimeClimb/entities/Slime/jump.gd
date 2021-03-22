@@ -12,6 +12,9 @@ func exit():
 	slime.dust_particles.restart()
 	slime.dust_particles.emitting = true
 
+func process(_delta):
+	slime.teleport()
+
 func physics_process(delta):
 	slime.move(delta)
 	slime.turn_around(slime.direction)

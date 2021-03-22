@@ -33,6 +33,14 @@ var DIFFICULTY_PER_LEVEL = {
 	15: PLAT_LEVELS.HARD,
 	25: PLAT_LEVELS.VERY_HARD}
 
+var SCROLL_SPEED_PER_LEVEL = {
+	1: 60,
+	3: 60,
+	7: 70,
+	10: 80,
+	12: 100,
+	15: 120}
+
 enum PLAT_LEVELS {
 	EASY,
 	NORMAL,
@@ -40,8 +48,8 @@ enum PLAT_LEVELS {
 	VERY_HARD}
 
 var PLAT_DISTANCES = {
-	PLAT_LEVELS.EASY: [7,8,9,10],
-	PLAT_LEVELS.NORMAL: [12,14,15,16],
+	PLAT_LEVELS.EASY: [5,6],
+	PLAT_LEVELS.NORMAL: [10,12,14,16],
 	PLAT_LEVELS.HARD: [18,19,20,21],
 	PLAT_LEVELS.VERY_HARD: [23,24,25,26]}
 
@@ -52,8 +60,8 @@ var PLAT_HEIGHTS = {
 	PLAT_LEVELS.VERY_HARD: [16,17,18]}
 
 var PLAT_WIDTHS = {
-	PLAT_LEVELS.EASY: [14,13,12,11],
-	PLAT_LEVELS.NORMAL: [10,9,8,7],
+	PLAT_LEVELS.EASY: [12,11],
+	PLAT_LEVELS.NORMAL: [9,8],
 	PLAT_LEVELS.HARD: [6,5,4],
 	PLAT_LEVELS.VERY_HARD: [3,2,1]}
 
@@ -69,6 +77,12 @@ func get_total_platforms(level: int):
 	for level_key in PLATFORMS_PER_SCREEN.keys():
 		if level <= level_key:
 			return PLATFORMS_PER_SCREEN[level_key]
+	return 0
+
+func get_scroll_speed(level: int):
+	for level_key in SCROLL_SPEED_PER_LEVEL.keys():
+		if level <= level_key:
+			return SCROLL_SPEED_PER_LEVEL[level_key]
 	return 0
 
 func get_level_difficulty(level: int):

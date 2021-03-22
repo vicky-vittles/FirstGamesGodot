@@ -163,3 +163,4 @@ script = ExtResource( 3 )
 fsm_path = NodePath("..")
 [connection signal="jump_started" from="." to="StateMachine/Idle" method="_on_Slime_jump_started"]
 [connection signal="on_floor" from="." to="StateMachine/Jump" method="_on_Slime_on_floor"]
+[connection signal="teleported" from="." to="StateMachine/Idle" method="_on_Slime_teleported"]

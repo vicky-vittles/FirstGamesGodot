@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal jump_started()
 signal on_floor()
+signal teleported()
 
 const FLOOR_NORMAL = Vector2.UP
 
@@ -40,6 +41,11 @@ var velocity = Vector2()
 
 func _ready():
 	press_timer.wait_time = TIME_TO_MAX
+
+func teleport():
+	if Input.is_action_just_pressed("teleport"):
+		global_position = get_global_mouse_position()
+		emit_signal("teleported")
 
 func _process(delta):
 	if is_pressing:
@@ -92,8 +98,16 @@ func start_jump():
 	emit_signal("jump_started")
 
 func move(delta):
+	move_sliding(delta)
+
+func move_sliding(delta):
 	velocity.y += gravity * delta
-#	move_and_slide(velocity, FLOOR_NORMAL)
+	move_and_slide(velocity, FLOOR_NORMAL)
+	if is_on_floor():
+		emit_signal("on_floor")
+
+func move_colliding(delta):
+	velocity.y += gravity * delta
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var normal = collision.normal

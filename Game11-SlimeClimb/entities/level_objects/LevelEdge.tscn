@@ -12,6 +12,12 @@ WIDTH = 8
 HEIGHT = 1
 BLOCK_TYPE = 1
 
+[node name="Platform5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 256, 40 )
+WIDTH = 8
+HEIGHT = 1
+BLOCK_TYPE = 1
+
 [node name="Platform8" parent="." instance=ExtResource( 1 )]
 position = Vector2( 48, 176 )
 WIDTH = 10
