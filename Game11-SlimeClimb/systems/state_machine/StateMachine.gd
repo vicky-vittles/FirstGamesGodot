@@ -28,6 +28,11 @@ func change_state(new_state) -> void:
 		current_state.enter()
 
 
+func _input(event):
+	if is_active and current_state.has_method("input"):
+		current_state.input(event)
+
+
 func _process(delta):
 	if is_active and current_state.has_method("process"):
 		current_state.process(delta)

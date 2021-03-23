@@ -7,17 +7,17 @@ enum BLOCKS {
 	INVISIBLE = 3}
 
 var BLOCK_SPRITES = {
-	BLOCKS.DUMMY: preload("res://assets/blocks/dummy-placeholder.png"),
-	BLOCKS.CAVE_BLOCK: preload("res://assets/blocks/cave-block.png"),
-	BLOCKS.CAVE_BLOCK_TOP: preload("res://assets/blocks/cave-block-top.png"),
-	BLOCKS.INVISIBLE: preload("res://assets/blocks/dummy-placeholder.png")}
+	BLOCKS.DUMMY: preload("res://assets/images/blocks/dummy-placeholder.png"),
+	BLOCKS.CAVE_BLOCK: preload("res://assets/images/blocks/cave-block.png"),
+	BLOCKS.CAVE_BLOCK_TOP: preload("res://assets/images/blocks/cave-block-top.png"),
+	BLOCKS.INVISIBLE: preload("res://assets/images/blocks/dummy-placeholder.png")}
 
 var SCREENS_PER_LEVEL = {
 	#Up to Level : number of screens
-	3: 4,
-	7: 5,
-	13: 6,
-	20: 7}
+	3: 2,
+	7: 3,
+	13: 4,
+	20: 5}
 
 var PLATFORMS_PER_SCREEN = {
 	#Up to level : number of platforms

@@ -1,14 +1,19 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://assets/slime/slime-jump.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/slime/slime-jump.png" type="Texture" id=1]
 [ext_resource path="res://systems/state_machine/StateMachine.gd" type="Script" id=2]
 [ext_resource path="res://entities/slime/idle.gd" type="Script" id=3]
 [ext_resource path="res://entities/slime/jump.gd" type="Script" id=4]
 [ext_resource path="res://entities/slime/slime.gd" type="Script" id=5]
 [ext_resource path="res://entities/slime/jump_press_curve.tres" type="Curve" id=6]
 [ext_resource path="res://entities/slime/arrow_widget.gd" type="Script" id=7]
-[ext_resource path="res://assets/particles/white-circle.png" type="Texture" id=8]
-[ext_resource path="res://assets/slime/slime-arrow-end.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/particles/white-circle.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/slime/slime-arrow-end.png" type="Texture" id=9]
+[ext_resource path="res://assets/audio/slime-splash.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/audio/slime-jump.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/whistle_silenced_start.wav" type="AudioStream" id=12]
+
+
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.295181 )
@@ -149,6 +154,21 @@ __meta__ = {
 
 [node name="PressTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="SoundEffects" type="Node" parent="."]
+
+[node name="Jump" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource( 11 )
+bus = "Sound_Main"
+
+[node name="Squash" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource( 10 )
+volume_db = -3.0
+bus = "Sound_Main"
+
+[node name="Whistle" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource( 12 )
+bus = "Sound_Main"
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )

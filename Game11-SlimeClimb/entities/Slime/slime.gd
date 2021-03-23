@@ -5,6 +5,8 @@ signal on_floor()
 signal teleported()
 
 const FLOOR_NORMAL = Vector2.UP
+const MIN_PITCH : float = 0.85
+const MAX_PITCH : float = 1.15
 
 # Physics constants
 export (Curve) var jump_press_curve
@@ -22,6 +24,10 @@ onready var main_sprite = $Graphics/Main
 onready var animation_player = $Graphics/AnimationPlayer
 onready var arrow_widget = $Graphics/ArrowWidget
 onready var dust_particles = $Graphics/Dust
+onready var jump_sfx = $SoundEffects/Jump
+onready var squash_sfx = $SoundEffects/Squash
+onready var whistle_sfx = $SoundEffects/Whistle
+onready var whistle_start_timer = $SoundEffects/WhistleStartTimer
 
 # Mouse press
 onready var press_timer = $PressTimer
@@ -31,12 +37,17 @@ var press_time : float = 0.0
 var target_point = Vector2()
 var target_time : float = 0.0
 
+# _input(event) mouse variables
+var is_mouse_pressed : bool = false
+var is_mouse_released : bool = false
+
 var is_pressing : bool = false
 var is_jumping : bool = false
 
 onready var gravity : int = 2*MAX_JUMP_HEIGHT/(MAX_JUMP_TIME*MAX_JUMP_TIME)
 var direction : int = 1
 var velocity = Vector2()
+var t
 
 
 func _ready():
@@ -69,14 +80,15 @@ func prepare_jump():
 		if press_timer.is_stopped() and not is_pressing:
 			is_pressing = true
 			press_timer.start()
-		var t = (TIME_TO_MAX - press_timer.time_left) / TIME_TO_MAX
+			whistle_sfx.play()
+		t = (TIME_TO_MAX - press_timer.time_left) / TIME_TO_MAX
 		interpolate(t)
 		update()
 		
 		if t >= 1.0:
-			start_jump()
+			start_jump(t)
 	if Input.is_action_just_released("jump"):
-		start_jump()
+		start_jump(t)
 
 func interpolate(t):
 	target_point.x = Easing.easeInCirc(direction * MIN_JUMP_DISTANCE, direction * MAX_JUMP_DISTANCE, t)
@@ -88,8 +100,11 @@ func curve_interpolate(t):
 	target_point.y = Easing.curve(jump_press_curve, -MIN_JUMP_HEIGHT, -MAX_JUMP_HEIGHT, t)
 	target_time = Easing.curve(jump_press_curve, MIN_JUMP_TIME, MAX_JUMP_TIME, t)
 
-func start_jump():
+func start_jump(t):
 	is_pressing = false
+	whistle_sfx.stop()
+	jump_sfx.pitch_scale = Easing.easeInSine(MIN_PITCH, MAX_PITCH, t)
+	jump_sfx.play()
 	gravity = -2 * target_point.y / (target_time * target_time)
 	velocity = Vector2(
 			target_point.x / target_time,
@@ -97,14 +112,18 @@ func start_jump():
 	press_timer.stop()
 	emit_signal("jump_started")
 
+func get_on_ground():
+	emit_signal("on_floor")
+	squash_sfx.play()
+
 func move(delta):
 	move_sliding(delta)
 
 func move_sliding(delta):
+	velocity = move_and_slide(velocity, FLOOR_NORMAL)
 	velocity.y += gravity * delta
-	move_and_slide(velocity, FLOOR_NORMAL)
 	if is_on_floor():
-		emit_signal("on_floor")
+		get_on_ground()
 
 func move_colliding(delta):
 	velocity.y += gravity * delta

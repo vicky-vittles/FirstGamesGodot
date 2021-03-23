@@ -1,6 +1,6 @@
 extends Path2D
 
-const PIECE_TEXTURE = preload("res://assets/slime/slime-arrow-piece.png")
+const PIECE_TEXTURE = preload("res://assets/images/slime/slime-arrow-piece.png")
 export (int) var number_of_points = 10
 
 onready var arrow_end = $"../ArrowEnd"
