@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/qodot/textures/qodot-environment/BIGBRICKS.png" type="Texture" id=1]
+
+
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+material_override = SubResource( 1 )
+operation = 2
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643749, 0, 0.133246 )
+operation = 1
+depth = 5.5977
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.826719, 1.42491, 1.16697 )
+operation = 1
+width = 3.41895
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.218978, -0.360947, 0.906513, -3.16811e-08, 0.929062, 0.369925, -0.97573, 0.0810053, -0.203444, 5.25048, 4.26765, 1.23171e-07 )
