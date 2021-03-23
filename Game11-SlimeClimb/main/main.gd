@@ -1,7 +1,7 @@
 extends Node
 
 func _ready():
-	TranslationServer.set_locale("en")
+	TranslationServer.set_locale("pt")
 	get_tree().paused = false
 
 func _process(_delta):

@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://entities/human/human.gd" type="Script" id=1]
+[ext_resource path="res://assets/models/human/human.dae" type="PackedScene" id=2]
+[ext_resource path="res://entities/human/graphics.gd" type="Script" id=3]
+[ext_resource path="res://systems/state_machine/state_machine.gd" type="Script" id=4]
+[ext_resource path="res://entities/human/walk.gd" type="Script" id=5]
+[ext_resource path="res://entities/human/idle.gd" type="Script" id=6]
+[ext_resource path="res://systems/virtual_controller/device_controller.gd" type="Script" id=7]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.4, 0.1, 0.4 )
+
+[node name="Human" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="DeviceController" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="Graphics" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="human" parent="Graphics" instance=ExtResource( 2 )]
+
+[node name="CollisionShape_Body" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape_Feet" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+shape = SubResource( 2 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 4 )
+actor_path = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+fsm_path = NodePath("..")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+fsm_path = NodePath("..")
