@@ -1,17 +1,17 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://entities/human/human.gd" type="Script" id=1]
-[ext_resource path="res://assets/models/human/human.dae" type="PackedScene" id=2]
+[ext_resource path="res://assets/models/human/human_model.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/human/graphics.gd" type="Script" id=3]
 [ext_resource path="res://systems/state_machine/state_machine.gd" type="Script" id=4]
 [ext_resource path="res://entities/human/states/walk.gd" type="Script" id=5]
 [ext_resource path="res://entities/human/states/idle.gd" type="Script" id=6]
-[ext_resource path="res://systems/virtual_controller/device_controller.gd" type="Script" id=7]
 [ext_resource path="res://entities/human/character_mover.gd" type="Script" id=8]
 [ext_resource path="res://entities/human/states/jump.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.5
+radius = 0.33
+height = 1.1
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.4, 0.1, 0.4 )
@@ -21,9 +21,7 @@ extents = Vector3( 0.4, 0.1, 0.4 )
 ]]
 script = ExtResource( 1 )
 mouse_sensitivity = 0.33
-
-[node name="DeviceController" type="Node" parent="."]
-script = ExtResource( 7 )
+is_player = false
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.144115 )
@@ -41,7 +39,7 @@ __meta__ = {
 [node name="human" parent="Graphics" instance=ExtResource( 2 )]
 
 [node name="CollisionShape_Body" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -57,7 +55,8 @@ __meta__ = {
 [node name="CharacterMover" type="Node" parent="."]
 script = ExtResource( 8 )
 body_path = NodePath("..")
-RUN_SPEED = 10.0
+RUN_SPEED = 9.0
+JUMP_TIME = 0.4
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 4 )

@@ -1,8 +1,10 @@
 extends KinematicBody
 
+export (Color) var color
 export (float) var mouse_sensitivity = 0.5
+export (bool) var is_player = true
 
-onready var input = $DeviceController
+onready var input = $Controller
 onready var camera = $Camera
 onready var graphics = $Graphics
 onready var character_mover = $CharacterMover
@@ -10,13 +12,17 @@ onready var character_mover = $CharacterMover
 var move_direction : Vector3
 
 func _ready():
+	graphics.change_color(color)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if not is_player:
+		graphics.visible = true
 
 func event_input(event):
 	if event is InputEventMouseMotion:
-		rotation_degrees.y -= mouse_sensitivity * event.relative.x
-		camera.rotation_degrees.x -= mouse_sensitivity * event.relative.y
-		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90, 90)
+		if is_player:
+			rotation_degrees.y -= mouse_sensitivity * event.relative.x
+			camera.rotation_degrees.x -= mouse_sensitivity * event.relative.y
+			camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90, 90)
 
 func get_input():
 	input.clear_input()

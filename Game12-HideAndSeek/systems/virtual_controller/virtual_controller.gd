@@ -15,6 +15,9 @@ func _ready():
 
 
 # Public
+func get_input():
+	pass
+
 func get_press(action_name: String):
 	return get_action(action_name, PRESS_TYPE.PRESS)
 
