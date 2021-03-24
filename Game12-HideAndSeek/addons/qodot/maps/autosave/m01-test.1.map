@@ -1,0 +1,16 @@
+// Game: Qodot-HideAndSeek
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures/qodot-environment"
+// brush 0
+{
+( -208.2728074473309 195.43831455169038 16 ) ( -224.27280744733088 -252.56168544830965 16 ) ( -224.27280744733088 -252.56168544830965 0 ) qodot-environment/BIGLEAVES 22.864868 8.907004 0 1 1
+( -128 -256 16 ) ( 288 -304 0 ) ( 288 -304 -16 ) qodot-environment/BIGLEAVES 0 -12.464217 0 1 1
+( 288 -304 -16 ) ( 304 144 -16 ) ( -112 192 0 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( -112 192 16 ) ( 304 144 0 ) ( 288 -304 0 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 304 144 -16 ) ( 304 144 0 ) ( -112 192 16 ) qodot-environment/BIGLEAVES 0 -12.464187 0 1 1
+( 288 -304 0 ) ( 304 144 0 ) ( 304 144 -16 ) qodot-environment/BIGLEAVES 26.303162 8.907009 0 1 1
+}
+}

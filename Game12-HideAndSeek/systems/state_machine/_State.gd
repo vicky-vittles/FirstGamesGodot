@@ -14,6 +14,10 @@ func exit():
 	pass
 
 
+func input(event):
+	pass
+
+
 func process(_delta):
 	pass
 

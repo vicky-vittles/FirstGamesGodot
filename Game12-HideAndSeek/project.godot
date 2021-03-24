@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/qodot/game_definitions/worldspawn_layers/liquid.gd"
 }, {
-"base": "Spatial",
-"class": "OrbitArm",
-"language": "GDScript",
-"path": "res://addons/qodot/example_scenes/2-miscallaneous/1-runtime-map-building/orbit_arm.gd"
-}, {
 "base": "PhysicsEntity",
 "class": "PhysicsBall",
 "language": "GDScript",
@@ -193,7 +188,6 @@ _global_script_class_icons={
 "DeviceController": "res://assets/icons/device-controller.svg",
 "LavaLayer": "",
 "LiquidLayer": "",
-"OrbitArm": "",
 "PhysicsBall": "",
 "PhysicsEntity": "",
 "QodotDependencies": "",
@@ -250,6 +244,10 @@ gdscript/warnings/return_value_discarded=false
 
 enabled=PoolStringArray( "qodot" )
 
+[gdnative]
+
+singletons=[  ]
+
 [input]
 
 reload={
@@ -303,9 +301,14 @@ walk={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_2="terrain"
+2d_physics/layer_3="entities"
+2d_physics/layer_4="triggers"
+
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
