@@ -375,12 +375,14 @@ is_player = false
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.144115 )
+far = 300.0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Graphics" type="Spatial" parent="."]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
+visible = false
 script = ExtResource( 3 )
 
 [node name="human" parent="Graphics" instance=ExtResource( 2 )]
@@ -402,11 +404,12 @@ shape = SubResource( 2 )
 [node name="CollisionShape_Feet" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
 shape = SubResource( 3 )
+disabled = true
 
 [node name="CharacterMover" type="Node" parent="."]
 script = ExtResource( 8 )
 body_path = NodePath("..")
-RUN_SPEED = 9.0
+RUN_SPEED = 15.0
 JUMP_TIME = 0.4
 
 [node name="StateMachine" type="Node" parent="."]

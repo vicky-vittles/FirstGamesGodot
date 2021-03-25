@@ -1,0 +1,24 @@
+// Game: Qodot-HideAndSeek
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures/qodot/elements;textures/qodot/rocks;textures/qodot/wood"
+// brush 0
+{
+( -64 64 0 ) ( -64 -64 0 ) ( -64 -64 -16 ) qodot/rocks/DIRT 0 0 0 1 1
+( -64 -64 0 ) ( 64 -64 0 ) ( 64 -64 -16 ) qodot/rocks/DIRT 0 0 0 1 1
+( 64 -64 -16 ) ( 64 64 -16 ) ( -64 64 -16 ) qodot/rocks/DIRT 0 0 0 1 1
+( -64 64 0 ) ( 64 64 0 ) ( 64 -64 0 ) qodot/rocks/DIRT 0 0 0 1 1
+( 64 64 -16 ) ( 64 64 0 ) ( -64 64 0 ) qodot/rocks/DIRT 0 0 0 1 1
+( 64 -64 0 ) ( 64 64 0 ) ( 64 64 -16 ) qodot/rocks/DIRT 0 0 0 1 1
+}
+// brush 1
+{
+( -64 -64 -16 ) ( -64 64 0 ) ( -64 -64 0 ) qodot/rocks/DIRT 0 0 0 1 1
+( 64 -64 0 ) ( -64 -64 -16 ) ( -64 -64 0 ) qodot/rocks/DIRT 0 0 0 1 1
+( 64 64 0 ) ( -64 -64 0 ) ( -64 64 0 ) qodot/rocks/DIRT 0 0 0 1 1
+( 64 64 0 ) ( -64 -64 -16 ) ( 64 -64 -16 ) qodot/rocks/DIRT 0 0 0 1 1
+( 64 64 0 ) ( 64 -64 -16 ) ( 64 -64 0 ) qodot/rocks/DIRT 0 0 0 1 1
+}
+}

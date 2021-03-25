@@ -1,0 +1,25 @@
+// Game: Qodot-HideAndSeek
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures/qodot/elements;textures/qodot/rocks;textures/qodot/wood"
+// brush 0
+{
+( -496 0 0 ) ( -496 -48 0 ) ( -496 -48 -16 ) qodot/rocks/DIRT 0 16 0 1 1
+( -400 560 -16 ) ( -400 560 0 ) ( -496 0 0 ) qodot/rocks/DIRT 0 16 0 1 1
+( -496 -48 0 ) ( -400 -400 0 ) ( -400 -400 -16 ) qodot/rocks/DIRT 0 16 0 1 1
+( -400 -400 0 ) ( -144 -544 0 ) ( -144 -544 -16 ) qodot/rocks/DIRT 0 16 0 1 1
+( -304 608 -16 ) ( -304 608 0 ) ( -400 560 0 ) qodot/rocks/DIRT 0 16 0 1 1
+( -96 672 -16 ) ( -96 672 0 ) ( -304 608 0 ) qodot/rocks/DIRT 0 16 0 1 1
+( 384 -368 -16 ) ( 496 0 -16 ) ( 448 352 -16 ) qodot/rocks/DIRT 0 0 0 1 1
+( 448 352 0 ) ( 496 0 0 ) ( 384 -368 0 ) qodot/rocks/DIRT 0 0 0 1 1
+( 0 672 -16 ) ( 0 672 0 ) ( -96 672 0 ) qodot/rocks/DIRT 0 16 0 1 1
+( -144 -544 0 ) ( 176 -464 0 ) ( 176 -464 -16 ) qodot/rocks/DIRT 0 16 0 1 1
+( 176 -464 0 ) ( 384 -368 0 ) ( 384 -368 -16 ) qodot/rocks/DIRT -16 16 0 1 1
+( 304 528 -16 ) ( 304 528 0 ) ( 0 672 0 ) qodot/rocks/DIRT 0 16 0 1 1
+( 448 352 -16 ) ( 448 352 0 ) ( 304 528 0 ) qodot/rocks/DIRT 0 16 0 1 1
+( 384 -368 0 ) ( 496 0 0 ) ( 496 0 -16 ) qodot/rocks/DIRT 0 16 0 1 1
+( 448 352 0 ) ( 448 352 -16 ) ( 496 0 -16 ) qodot/rocks/DIRT 0 16 0 1 1
+}
+}

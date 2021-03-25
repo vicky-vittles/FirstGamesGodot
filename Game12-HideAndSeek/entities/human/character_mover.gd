@@ -8,8 +8,8 @@ const FLOOR_NORMAL = Vector3.UP
 export (NodePath) var body_path
 onready var body : KinematicBody = get_node(body_path)
 
-export (float) var RUN_SPEED = 5.0
-export (float) var SLOW_SPEED = 3.0
+export (float) var RUN_SPEED = 100.0
+export (float) var SLOW_SPEED = 6.0
 export (float) var JUMP_HEIGHT = 4.0
 export (float) var JUMP_TIME = 0.33
 onready var JUMP_SPEED = 2*JUMP_HEIGHT/JUMP_TIME

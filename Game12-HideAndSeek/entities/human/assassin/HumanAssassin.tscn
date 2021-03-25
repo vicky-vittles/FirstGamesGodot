@@ -125,17 +125,8 @@ autoplay = "idle"
 anims/attack = SubResource( 2 )
 anims/idle = SubResource( 3 )
 
-[node name="Idle" parent="StateMachine" index="0"]
-fsm_path = NodePath("../../../Human/StateMachine")
-
-[node name="Walk" parent="StateMachine" index="1"]
-fsm_path = NodePath("../../../Human/StateMachine")
-
-[node name="Jump" parent="StateMachine" index="2"]
-fsm_path = NodePath("../../../Human/StateMachine")
-
 [node name="Attack" type="Node" parent="StateMachine" index="3"]
 script = ExtResource( 5 )
-fsm_path = NodePath("../../../Human/StateMachine")
+fsm_path = NodePath("..")
 [connection signal="body_entered" from="DamageArea" to="DamageArea" method="_on_DamageArea_body_entered"]
 [connection signal="animation_finished" from="Camera/Weapon/AnimationPlayer" to="StateMachine/Attack" method="_on_AnimationPlayer_animation_finished"]

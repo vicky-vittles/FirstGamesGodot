@@ -1,0 +1,13 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+path="res://.import/m02-forest.map-64abb6b35e9013d2ada6035bfa584907.tres"
+
+[deps]
+
+source_file="res://addons/qodot/maps/m02-forest.map"
+dest_files=[ "res://.import/m02-forest.map-64abb6b35e9013d2ada6035bfa584907.tres" ]
+
+[params]
+
