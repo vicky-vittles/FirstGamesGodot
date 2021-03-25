@@ -13,4 +13,49 @@
 ( 160 176 -32 ) ( 161 176 -32 ) ( 160 176 -31 ) qodot-environment/BIGSQUARES -16 -16 0 1 1
 ( 160 176 -32 ) ( 160 176 -31 ) ( 160 177 -32 ) qodot-environment/BIGSQUARES 0 -16 0 1 1
 }
+// brush 1
+{
+( 64 48 96 ) ( 64 -64 96 ) ( 64 -64 0 ) qodot-environment/BIGLEAVES -16 16 0 1 1
+( 64 -64 96 ) ( 80 -64 96 ) ( 80 -64 0 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 80 -64 0 ) ( 80 48 0 ) ( 64 48 0 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 64 48 96 ) ( 80 48 96 ) ( 80 -64 96 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 80 48 0 ) ( 80 48 96 ) ( 64 48 96 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 80 -64 96 ) ( 80 48 96 ) ( 80 48 0 ) qodot-environment/BIGLEAVES -16 16 0 1 1
+}
+// brush 2
+{
+( 64 -36 0 ) ( 64 -64 0 ) ( 64 -64 -32 ) qodot-environment/BIGLEAVES -8 0 0 1 1
+( 64 -64 0 ) ( 80 -64 0 ) ( 80 -64 -32 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 80 -64 -32 ) ( 80 -36 -32 ) ( 64 -36 -32 ) qodot-environment/BIGLEAVES 0 8 0 1 1
+( 64 -36 0 ) ( 80 -36 0 ) ( 80 -64 0 ) qodot-environment/BIGLEAVES 0 8 0 1 1
+( 80 -36 -32 ) ( 80 -36 0 ) ( 64 -36 0 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 80 -64 0 ) ( 80 -36 0 ) ( 80 -36 -32 ) qodot-environment/BIGLEAVES -8 0 0 1 1
+}
+// brush 3
+{
+( 64 48 0 ) ( 64 20 0 ) ( 64 20 -32 ) qodot-environment/BIGLEAVES -12 0 0 1 1
+( 64 20 0 ) ( 80 20 0 ) ( 80 20 -32 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 80 20 -32 ) ( 80 48 -32 ) ( 64 48 -32 ) qodot-environment/BIGLEAVES 0 12 0 1 1
+( 64 48 0 ) ( 80 48 0 ) ( 80 20 0 ) qodot-environment/BIGLEAVES 0 12 0 1 1
+( 80 48 -32 ) ( 80 48 0 ) ( 64 48 0 ) qodot-environment/BIGLEAVES 0 0 0 1 1
+( 80 20 0 ) ( 80 48 0 ) ( 80 48 -32 ) qodot-environment/BIGLEAVES -12 0 0 1 1
+}
+// brush 4
+{
+( 64 20 0 ) ( 64 4 0 ) ( 64 4 -16 ) qodot-environment/BIGLEAVES 20 16 0 1 1
+( 64 4 0 ) ( 80 4 0 ) ( 80 4 -16 ) qodot-environment/BIGLEAVES 0 16 0 1 1
+( 80 4 -16 ) ( 80 20 -16 ) ( 64 20 -16 ) qodot-environment/BIGLEAVES 0 -20 0 1 1
+( 64 20 0 ) ( 80 20 0 ) ( 80 4 0 ) qodot-environment/BIGLEAVES 0 -20 0 1 1
+( 80 20 -16 ) ( 80 20 0 ) ( 64 20 0 ) qodot-environment/BIGLEAVES 0 16 0 1 1
+( 80 4 0 ) ( 80 20 0 ) ( 80 20 -16 ) qodot-environment/BIGLEAVES 20 16 0 1 1
+}
+// brush 5
+{
+( 64 4 0 ) ( 64 -12 0 ) ( 64 -12 -16 ) qodot-environment/BIGLEAVES 4 16 0 1 1
+( 64 -12 0 ) ( 80 -12 0 ) ( 80 -12 -16 ) qodot-environment/BIGLEAVES 0 16 0 1 1
+( 80 -12 -16 ) ( 80 4 -16 ) ( 64 4 -16 ) qodot-environment/BIGLEAVES 0 -4 0 1 1
+( 64 4 0 ) ( 80 4 0 ) ( 80 -12 0 ) qodot-environment/BIGLEAVES 0 -4 0 1 1
+( 80 4 -16 ) ( 80 4 0 ) ( 64 4 0 ) qodot-environment/BIGLEAVES 0 16 0 1 1
+( 80 -12 0 ) ( 80 4 0 ) ( 80 4 -16 ) qodot-environment/BIGLEAVES 4 16 0 1 1
+}
 }

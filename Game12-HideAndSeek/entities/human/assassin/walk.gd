@@ -3,6 +3,7 @@ extends "res://entities/human/states/walk.gd"
 onready var ATTACK = $"../Attack"
 
 func physics_process(delta):
+	human.check_crouch()
 	human.full_movement(delta)
 	if human.input.get_press("attack"):
 		fsm.change_state(ATTACK)

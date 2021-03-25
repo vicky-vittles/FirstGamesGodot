@@ -8,6 +8,7 @@ export (NodePath) var body_path
 onready var body : KinematicBody = get_node(body_path)
 
 export (float) var RUN_SPEED = 5.0
+export (float) var SLOW_SPEED = 3.0
 export (float) var JUMP_HEIGHT = 4.0
 export (float) var JUMP_TIME = 0.33
 onready var JUMP_SPEED = 2*JUMP_HEIGHT/JUMP_TIME
@@ -15,7 +16,7 @@ onready var GRAVITY = -2*JUMP_HEIGHT/(JUMP_TIME*JUMP_TIME)
 
 export (bool) var ignore_rotation_on_movement = false #Move using relative or global rotation
 
-onready var speed = RUN_SPEED
+var speed
 onready var acceleration = Vector3(0, GRAVITY, 0)
 
 var pressed_jump : bool = false
@@ -24,6 +25,15 @@ var movement_direction : Vector3
 var velocity_air : Vector3
 var velocity_ground : Vector3
 var velocity : Vector3
+
+func _ready():
+	set_run_speed()
+
+func set_slow_speed():
+	speed = SLOW_SPEED
+
+func set_run_speed():
+	speed = RUN_SPEED
 
 func set_movement_direction(_dir: Vector3):
 	movement_direction = _dir.normalized()

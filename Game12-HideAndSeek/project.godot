@@ -304,8 +304,11 @@ walk={
 [layer_names]
 
 2d_physics/layer_2="terrain"
+3d_physics/layer_2="terrain"
 2d_physics/layer_3="entities"
+3d_physics/layer_3="entities"
 2d_physics/layer_4="triggers"
+3d_physics/layer_4="triggers"
 
 [rendering]
 

@@ -4,11 +4,16 @@ export (Color) var color
 export (float) var mouse_sensitivity = 0.5
 export (bool) var is_player = true
 
+export (bool) var can_attack = false
+
 onready var input = $Controller
+onready var head = $Head
 onready var camera = $Camera
 onready var graphics = $Graphics
 onready var character_mover = $CharacterMover
+onready var animation_player = $AnimationPlayer
 
+var is_crouching : bool = false
 var move_direction : Vector3
 
 func _ready():
@@ -33,6 +38,22 @@ func get_input():
 		move_direction += Vector3.BACK * int(input.get_hold("move_backward"))
 		move_direction += Vector3.LEFT * int(input.get_hold("move_left"))
 		move_direction += Vector3.RIGHT * int(input.get_hold("move_right"))
+
+func check_walk():
+	if input.get_hold("walk") or (not input.get_hold("walk") and is_crouching):
+		character_mover.set_slow_speed()
+	else:
+		character_mover.set_run_speed()
+
+func check_crouch():
+	if input.get_press("crouch") and not head.is_colliding:
+		is_crouching = !is_crouching
+		if is_crouching:
+			character_mover.set_slow_speed()
+			animation_player.play("crouch")
+		else:
+			character_mover.set_run_speed()
+			animation_player.play("stand_up")
 
 func air_movement(delta):
 	character_mover.set_movement_direction(move_direction)

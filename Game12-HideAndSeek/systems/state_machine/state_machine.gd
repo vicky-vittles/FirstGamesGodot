@@ -4,7 +4,7 @@ class_name StateMachine
 
 export (NodePath) var actor_path
 var actor
-var current_state : Object
+var current_state
 
 var is_active : bool = true
 
