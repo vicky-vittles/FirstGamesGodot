@@ -1,6 +1,7 @@
 extends KinematicBody
 
 export (Color) var color
+export (float) var invisibility = 0.0
 export (float) var mouse_sensitivity = 0.5
 export (bool) var is_player = true
 
@@ -17,6 +18,7 @@ var is_crouching : bool = false
 var move_direction : Vector3
 
 func _ready():
+	graphics.set_transparent(1.0 - invisibility)
 	graphics.change_color(color)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if not is_player:
@@ -38,6 +40,9 @@ func get_input():
 		move_direction += Vector3.BACK * int(input.get_hold("move_backward"))
 		move_direction += Vector3.LEFT * int(input.get_hold("move_left"))
 		move_direction += Vector3.RIGHT * int(input.get_hold("move_right"))
+
+func hurt():
+	animation_player.play("die")
 
 func check_walk():
 	if input.get_hold("walk") or (not input.get_hold("walk") and is_crouching):

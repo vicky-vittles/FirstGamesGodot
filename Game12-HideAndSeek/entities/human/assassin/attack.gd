@@ -5,7 +5,10 @@ onready var IDLE = $"../Idle"
 
 func enter():
 	human = fsm.actor
-	human.attack()
+	human.attack_start()
+
+func exit():
+	human.attack_end()
 
 func input(event):
 	human.event_input(event)

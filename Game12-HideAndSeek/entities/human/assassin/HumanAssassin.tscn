@@ -1,12 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://entities/human/_Human.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/swords.png" type="Texture" id=2]
 [ext_resource path="res://entities/human/assassin/assassin.gd" type="Script" id=3]
+[ext_resource path="res://entities/human/assassin/damage_area.gd" type="Script" id=4]
 [ext_resource path="res://entities/human/assassin/attack.gd" type="Script" id=5]
 
-[sub_resource type="Animation" id=1]
-resource_name = "attack"
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.5, 1, 0.4 )
+
+[sub_resource type="Animation" id=2]
 length = 0.35
 step = 0.05
 tracks/0/type = "value"
@@ -46,8 +49,7 @@ tracks/2/keys = {
 "values": [ Vector3( 0.5, 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:translation")
 tracks/0/interp = 1
@@ -90,7 +92,18 @@ script = ExtResource( 3 )
 is_player = true
 can_attack = true
 
-[node name="Camera" parent="." index="0"]
+[node name="DamageArea" type="Area" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.68434e-14, 1, -0.879203 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 4 )
+human_path = NodePath("..")
+
+[node name="CollisionShape" type="CollisionShape" parent="DamageArea" index="0"]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Camera" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.00133921 )
 fov = 90.0
 
@@ -107,14 +120,14 @@ hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Weapon" index="1"]
 autoplay = "idle"
-anims/attack = SubResource( 1 )
-anims/idle = SubResource( 2 )
+anims/attack = SubResource( 2 )
+anims/idle = SubResource( 3 )
 
-[node name="CharacterMover" parent="." index="5"]
+[node name="CharacterMover" parent="." index="6"]
 body_path = NodePath("../../HumanAssassin")
-SLOW_SPEED = 3.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="3"]
 script = ExtResource( 5 )
 fsm_path = NodePath("..")
+[connection signal="body_entered" from="DamageArea" to="DamageArea" method="_on_DamageArea_body_entered"]
 [connection signal="animation_finished" from="Camera/Weapon/AnimationPlayer" to="StateMachine/Attack" method="_on_AnimationPlayer_animation_finished"]
