@@ -1,8 +1,7 @@
 extends KinematicBody
 
 export (Color) var color
-export (float) var invisibility = 0.0
-export (float) var mouse_sensitivity = 0.5
+export (float, 0.0, 1.0) var mouse_sensitivity = 0.5
 export (bool) var is_player = true
 
 export (bool) var can_attack = false
@@ -18,7 +17,6 @@ var is_crouching : bool = false
 var move_direction : Vector3
 
 func _ready():
-	graphics.set_transparent(1.0 - invisibility)
 	graphics.change_color(color)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if not is_player:

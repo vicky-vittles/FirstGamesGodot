@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/models/human/human.dae" type="PackedScene" id=1]
 [ext_resource path="res://assets/models/human/human_model.gd" type="Script" id=2]
 
+[sub_resource type="SpatialMaterial" id=1]
+resource_name = "ManMat"
+flags_vertex_lighting = true
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+metallic = 0.06
+roughness = 0.0960784
+
 [node name="human" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Man" parent="rig/Skeleton" index="0"]
+material/0 = SubResource( 1 )

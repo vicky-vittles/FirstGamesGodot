@@ -1,5 +1,6 @@
 extends Node
 
+signal movement_info(body, velocity, grounded)
 signal on_ground()
 
 const FLOOR_NORMAL = Vector3.UP
@@ -63,3 +64,4 @@ func move(delta):
 	else:
 		snap = Vector3.DOWN
 	pressed_jump = false
+	emit_signal("movement_info", body, velocity, grounded)

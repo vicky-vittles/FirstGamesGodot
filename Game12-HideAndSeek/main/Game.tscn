@@ -1,31 +1,27 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://main/game.gd" type="Script" id=1]
-[ext_resource path="res://entities/human/_Human.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/flag/Flag.tscn" type="PackedScene" id=2]
 [ext_resource path="res://maps/M01-Test.tscn" type="PackedScene" id=3]
-[ext_resource path="res://entities/human/assassin/HumanAssassin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://systems/virtual_controller/device_controller.gd" type="Script" id=5]
-[ext_resource path="res://systems/virtual_controller/virtual_controller.gd" type="Script" id=6]
+[ext_resource path="res://entities/human/innocent/InnocentHuman.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="HumanAssassin" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.45504, 0, -3.27815 )
-color = Color( 1, 0, 0, 1 )
-
-[node name="Controller" type="Node" parent="HumanAssassin"]
-script = ExtResource( 5 )
-
-[node name="Human" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.59439, 0, 3.8804 )
-color = Color( 0, 0.0156863, 1, 1 )
+[node name="Human" parent="." instance=ExtResource( 7 )]
+color = Color( 0, 0.203922, 1, 1 )
+mouse_sensitivity = 0.25
 
 [node name="Controller" type="Node" parent="Human"]
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 
 [node name="Map" parent="." instance=ExtResource( 3 )]
 
 [node name="FullVisionCamera" type="Camera" parent="."]
 transform = Transform( 0.684929, -0.474238, 0.553147, 0, 0.75918, 0.65088, -0.72861, -0.445807, 0.519984, 6.09152, 3.12484, 6.92471 )
 fov = 90.0
+
+[node name="Flag" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.50772, -2, -3.18294 )
+color = Color( 0, 1, 0.133333, 1 )
