@@ -20,3 +20,4 @@ func tick(actor, blackboard):
 				actor.input.set_hold(button, value)
 			VirtualController.PRESS_TYPE.CONSUME:
 				actor.input.set_consume(button, value)
+	return SUCCESS

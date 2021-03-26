@@ -6,6 +6,7 @@ const HUMANS = "humans"
 const HIDING_SPOTS = "hiding_spots"
 
 const NEAREST_HIDING_SPOT = "nearest_hiding_spot"
+const RANDOM_HIDING_SPOT = "random_hiding_spot"
 
 const PLAYER = "player"
 const TARGET = "target"

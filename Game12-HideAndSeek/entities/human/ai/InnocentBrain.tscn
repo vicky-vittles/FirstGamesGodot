@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://entities/human/ai/_Brain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://systems/behavior_tree/Composites/sequencer.gd" type="Script" id=2]
@@ -6,39 +6,66 @@
 [ext_resource path="res://entities/human/ai/actions/set_target.gd" type="Script" id=4]
 [ext_resource path="res://systems/behavior_tree/Decorators/timed.gd" type="Script" id=5]
 [ext_resource path="res://entities/human/ai/actions/calculate_path_to_target.gd" type="Script" id=6]
-[ext_resource path="res://entities/human/ai/set_move_direction.gd" type="Script" id=7]
-[ext_resource path="res://entities/human/ai/actions/find_nearest_hiding_spot.gd" type="Script" id=8]
-[ext_resource path="res://entities/human/ai/conditions/is_in_state.gd" type="Script" id=9]
+[ext_resource path="res://entities/human/ai/setters/set_move_direction.gd" type="Script" id=7]
+[ext_resource path="res://entities/human/ai/conditions/is_in_state.gd" type="Script" id=8]
+[ext_resource path="res://entities/human/ai/conditions/test_flag.gd" type="Script" id=9]
 [ext_resource path="res://systems/behavior_tree/Decorators/succeeder.gd" type="Script" id=10]
 [ext_resource path="res://systems/behavior_tree/Decorators/inverter.gd" type="Script" id=11]
-[ext_resource path="res://entities/human/ai/actions/set_inputs.gd" type="Script" id=12]
+[ext_resource path="res://entities/human/ai/setters/set_inputs.gd" type="Script" id=12]
+[ext_resource path="res://entities/human/ai/actions/find_random_hiding_spot.gd" type="Script" id=13]
+[ext_resource path="res://entities/human/ai/setters/set_flag.gd" type="Script" id=14]
 
 [node name="Brain" instance=ExtResource( 1 )]
 
 [node name="root" type="Node" parent="." index="0"]
 script = ExtResource( 2 )
 
-[node name="go to hide spot" type="Node" parent="root" index="0"]
+[node name="go to hiding spot" type="Node" parent="root" index="0"]
 script = ExtResource( 2 )
 
-[node name="timed update on hiding spot pos" type="Node" parent="root/go to hide spot" index="0"]
+[node name="update hiding spot" type="Node" parent="root/go to hiding spot" index="0"]
+script = ExtResource( 10 )
+
+[node name="find hiding spot" type="Node" parent="root/go to hiding spot/update hiding spot" index="0"]
+script = ExtResource( 2 )
+
+[node name="if not hidden" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot" index="0"]
+script = ExtResource( 11 )
+
+[node name="check if hidden" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot/if not hidden" index="0"]
+script = ExtResource( 9 )
+flag_name = "is_hidden"
+
+[node name="if has no hiding spot" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot" index="1"]
+script = ExtResource( 11 )
+
+[node name="check if has hiding spot" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot/if has no hiding spot" index="0"]
+script = ExtResource( 9 )
+flag_name = "has_hiding_spot"
+
+[node name="find hiding spot" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot" index="2"]
 script = ExtResource( 5 )
 period = 0.2
 
-[node name="get path to hiding spot" type="Node" parent="root/go to hide spot/timed update on hiding spot pos" index="0"]
+[node name="get path to hiding spot" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot/find hiding spot" index="0"]
 script = ExtResource( 2 )
 
-[node name="find nearest hiding spot" type="Node" parent="root/go to hide spot/timed update on hiding spot pos/get path to hiding spot" index="0"]
-script = ExtResource( 8 )
+[node name="find random hiding spot" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot/find hiding spot/get path to hiding spot" index="0"]
+script = ExtResource( 13 )
 
-[node name="set target" type="Node" parent="root/go to hide spot/timed update on hiding spot pos/get path to hiding spot" index="1"]
+[node name="set target" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot/find hiding spot/get path to hiding spot" index="1"]
 script = ExtResource( 4 )
-param_name = "nearest_hiding_spot"
+param_name = "random_hiding_spot"
 
-[node name="calculate path to target" type="Node" parent="root/go to hide spot/timed update on hiding spot pos/get path to hiding spot" index="2"]
+[node name="calculate path to target" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot/find hiding spot/get path to hiding spot" index="2"]
 script = ExtResource( 6 )
 
-[node name="move to hiding spot" type="Node" parent="root/go to hide spot" index="1"]
+[node name="now has hiding spot" type="Node" parent="root/go to hiding spot/update hiding spot/find hiding spot/find hiding spot/get path to hiding spot" index="3"]
+script = ExtResource( 14 )
+flag_name = "has_hiding_spot"
+value = true
+
+[node name="move to hiding spot" type="Node" parent="root/go to hiding spot" index="1"]
 script = ExtResource( 3 )
 
 [node name="crouch and stay invisible" type="Node" parent="root" index="1"]
@@ -54,7 +81,7 @@ script = ExtResource( 2 )
 script = ExtResource( 11 )
 
 [node name="check if in crouch state" type="Node" parent="root/crouch and stay invisible/crouch/sequencer/if not crouching" index="0"]
-script = ExtResource( 9 )
+script = ExtResource( 8 )
 state = "Crouch"
 
 [node name="press crouch" type="Node" parent="root/crouch and stay invisible/crouch/sequencer" index="1"]
@@ -65,3 +92,8 @@ values = [ true ]
 
 [node name="stay still" type="Node" parent="root/crouch and stay invisible" index="1"]
 script = ExtResource( 7 )
+
+[node name="now is hidden" type="Node" parent="root/crouch and stay invisible" index="2"]
+script = ExtResource( 14 )
+flag_name = "is_hidden"
+value = true
