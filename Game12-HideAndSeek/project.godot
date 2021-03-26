@@ -170,6 +170,11 @@ _global_script_classes=[ {
 "path": "res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd"
 }, {
 "base": "QodotFGDPointClass",
+"class": "QodotGrassBush",
+"language": "GDScript",
+"path": "res://addons/qodot/entities/grass_bush/qodot_grass_bush.gd"
+}, {
+"base": "QodotFGDPointClass",
 "class": "QodotHidingSpot",
 "language": "GDScript",
 "path": "res://addons/qodot/entities/hiding_spot/qodot_hiding_spot.gd"
@@ -322,6 +327,7 @@ _global_script_class_icons={
 "QodotFGDFile": "",
 "QodotFGDPointClass": "",
 "QodotFGDSolidClass": "",
+"QodotGrassBush": "",
 "QodotHidingSpot": "",
 "QodotLight": "",
 "QodotMap": "",

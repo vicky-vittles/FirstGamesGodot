@@ -12,3 +12,4 @@ func tick(actor, blackboard):
 	if path.size() > 0:
 		blackboard.set(Params.PATH_TO_PLAYER, path)
 		blackboard.set(Params.PATH_TO_PLAYER_CURRENT_NODE, 0)
+	return SUCCESS

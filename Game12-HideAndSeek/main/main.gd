@@ -1,7 +1,7 @@
 extends Node
 
 #const PGD = preload("res://addons/qodot/game_definitions/fgd/qodot_fgd.tres")
-
+#
 #func _ready():
 #	PGD.set_export_file()
 

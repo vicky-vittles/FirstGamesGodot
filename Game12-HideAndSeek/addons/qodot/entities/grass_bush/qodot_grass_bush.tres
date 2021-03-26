@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://addons/qodot/entities/grass_bush/qodot_grass_bush.gd" type="Script" id=1]
+[ext_resource path="res://entities/props/GrassBush.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/props/grass_bush.gd" type="Script" id=3]
+[ext_resource path="res://addons/qodot/game_definitions/fgd/base_classes/target_base_class.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+class_options = "----------------------------------------------------------------"
+classname = "QodotGrassBush"
+description = "A grass bush which allows humans to hide"
+qodot_internal = false
+base_classes = [ ExtResource( 4 ) ]
+class_properties = {
+
+}
+class_property_descriptions = {
+
+}
+meta_properties = {
+"color": Color( 0.8, 0.8, 0.8, 1 ),
+"size": AABB( -8, -8, -8, 8, 8, 8 )
+}
+node_options = "----------------------------------------------------------------"
+node_class = ""
+transient_node = false
+scene = "----------------------------------------------------------------"
+scene_file = ExtResource( 2 )
+scripting = "----------------------------------------------------------------"
+script_class = ExtResource( 3 )

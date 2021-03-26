@@ -5,6 +5,7 @@ const DIST_THRESHOLD = 16
 var path
 var path_node : int = 0
 
+
 func tick(actor, blackboard):
 	var my_pos = actor.global_transform.origin
 	path = blackboard.get(Params.PATH_TO_PLAYER)
@@ -24,3 +25,12 @@ func tick(actor, blackboard):
 	if has_reached_player:
 		return SUCCESS
 	return RUNNING
+
+
+func is_near_stopping_point(actor, _path, _path_node):
+#	if path == null or path.size() == 0 or is_near_stopping_point(actor, path, path_node):
+#		actor.move_direction = Vector3.ZERO
+#		print("parei")
+#		return SUCCESS
+	var point = _path[_path_node]
+	return (_path.size() < 2 and actor.global_transform.origin.distance_to(point) < DIST_THRESHOLD)
