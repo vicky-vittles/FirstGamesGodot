@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://entities/human/human.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/human/human_model.tscn" type="PackedScene" id=2]
@@ -11,17 +11,11 @@
 [ext_resource path="res://entities/human/states/jump.gd" type="Script" id=9]
 [ext_resource path="res://entities/human/crouch.gd" type="Script" id=10]
 [ext_resource path="res://entities/human/walk.gd" type="Script" id=11]
+[ext_resource path="res://entities/props/debug_sphere.gd" type="Script" id=12]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.3
 height = 0.5
-
-[sub_resource type="CapsuleShape" id=2]
-radius = 0.33
-height = 1.1
-
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.4, 0.1, 0.4 )
 
 [sub_resource type="CapsuleShape" id=4]
 radius = 0.33
@@ -168,6 +162,13 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 0.33
+height = 1.1
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.4, 0.1, 0.4 )
 
 [sub_resource type="Animation" id=8]
 tracks/0/type = "value"
@@ -366,6 +367,9 @@ tracks/7/keys = {
 "values": [ Vector3( 0, 1.87964, 0 ) ]
 }
 
+[sub_resource type="SpatialMaterial" id=10]
+albedo_color = Color( 1, 0, 0, 1 )
+
 [node name="Human" type="KinematicBody" groups=[
 "human",
 ]]
@@ -376,20 +380,20 @@ mouse_sensitivity = 0.25
 is_player = false
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.144115 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.144 )
 far = 300.0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Graphics" type="Spatial" parent="."]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0.804462 )
 script = ExtResource( 3 )
 
 [node name="human" parent="Graphics" instance=ExtResource( 2 )]
 
 [node name="Head" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87964, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.898161, 0 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 7 )
@@ -399,12 +403,12 @@ excluding_groups = [ "human" ]
 shape = SubResource( 1 )
 
 [node name="CollisionShape_Body" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
-shape = SubResource( 2 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.35, 0 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape_Feet" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 disabled = true
 
 [node name="CharacterMover" type="Node" parent="."]
@@ -446,5 +450,16 @@ anims/crouch = SubResource( 6 )
 anims/die = SubResource( 7 )
 anims/idle = SubResource( 8 )
 anims/stand_up = SubResource( 9 )
+
+[node name="Debug" type="Spatial" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CSGSphere" type="CSGSphere" parent="Debug"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.2592, 0 )
+radius = 3.0
+material = SubResource( 10 )
+script = ExtResource( 12 )
 [connection signal="on_ground" from="CharacterMover" to="StateMachine/Jump" method="_on_CharacterMover_on_ground"]
 [connection signal="timeout" from="StateMachine/Jump/Timer" to="StateMachine/Jump" method="_on_Timer_timeout"]

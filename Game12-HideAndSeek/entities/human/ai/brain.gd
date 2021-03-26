@@ -1,11 +1,10 @@
 extends BehaviorTreeRoot
 class_name Brain
 
-export (NodePath) var game_path
-onready var game = get_node(game_path)
-
-func _ready():
+func init_blackboard(game):
 	blackboard.set(Params.GAME, game)
+	blackboard.set(Params.HUMANS, game.humans)
+	blackboard.set(Params.HIDING_SPOTS, game.map.hiding_spots)
 
 func _physics_process(delta):
 	blackboard.set(Params.DELTA, delta)

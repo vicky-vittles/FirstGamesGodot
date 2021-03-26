@@ -3,7 +3,9 @@
 [ext_resource path="res://entities/props/grass-bush.dae" type="PackedScene" id=1]
 [ext_resource path="res://entities/props/grass_bush.gd" type="Script" id=2]
 
-[node name="GrassBush" type="Spatial"]
+[node name="GrassBush" type="Spatial" groups=[
+"grass_bush",
+]]
 script = ExtResource( 2 )
 
 [node name="grass-bush" parent="." instance=ExtResource( 1 )]

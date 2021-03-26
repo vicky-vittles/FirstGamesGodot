@@ -23,7 +23,7 @@ color = Color( 1, 0, 0, 1 )
 script = ExtResource( 5 )
 
 [node name="Human2" parent="Humans" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49.8289, 5.50383, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5466, 0.583317, 103.591 )
 color = Color( 0, 0.156863, 1, 1 )
 mouse_sensitivity = 0.25
 is_player = false
@@ -35,6 +35,5 @@ script = ExtResource( 7 )
 [node name="Brain" parent="Humans/Human2" instance=ExtResource( 8 )]
 enabled = true
 actor_path = NodePath("..")
-game_path = NodePath("../../..")
 
 [node name="Map" parent="." instance=ExtResource( 3 )]

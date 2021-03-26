@@ -13,7 +13,9 @@ var can_attack : bool
 # Navigation and pathfinding
 var nav
 
+var brain
 onready var input = $Controller
+onready var fsm = $StateMachine
 onready var head = $Head
 onready var camera = $Camera
 onready var graphics = $Graphics
@@ -23,6 +25,8 @@ onready var animation_player = $AnimationPlayer
 var move_direction : Vector3
 
 func _ready():
+	if has_node("Brain"):
+		brain = get_node("Brain")
 	graphics.change_color(color)
 	character_mover.ignore_rotation_on_movement = ignore_rotation_on_movement
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
