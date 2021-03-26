@@ -39,8 +39,8 @@ func _process(delta):
 
 
 func _physics_process(delta):
-	if not actor.is_player:
-		print(current_state.name)
+#	if not actor.is_player:
+#		print(current_state.name)
 	if is_active and current_state.has_method("physics_process"):
 		current_state.physics_process(delta)
 

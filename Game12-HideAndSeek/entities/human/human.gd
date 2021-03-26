@@ -30,13 +30,16 @@ func _ready():
 		graphics.visible = true
 
 func event_input(event):
+	if not is_player:
+		return
 	if event is InputEventMouseMotion:
-		if is_player:
-			rotation_degrees.y -= mouse_sensitivity * event.relative.x
-			camera.rotation_degrees.x -= mouse_sensitivity * event.relative.y
-			camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90, 90)
+		rotation_degrees.y -= mouse_sensitivity * event.relative.x
+		camera.rotation_degrees.x -= mouse_sensitivity * event.relative.y
+		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90, 90)
 
 func get_input():
+	if not is_player:
+		return
 	input.clear_input()
 	move_direction = Vector3.ZERO
 	if input:
@@ -58,7 +61,6 @@ func move_to_target(target: Vector3):
 	if dir.length() != 0:
 		dir *= 1 / dir.length()
 	move_direction = dir
-	print(move_direction)
 	oriented(global_transform.origin + move_direction * NOT_Y_AXIS)
 
 func air_movement(delta):
