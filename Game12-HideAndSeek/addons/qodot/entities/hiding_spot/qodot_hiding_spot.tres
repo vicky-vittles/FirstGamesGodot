@@ -13,7 +13,7 @@ description = "A hiding spot for the AI to use."
 qodot_internal = false
 base_classes = [ ExtResource( 4 ) ]
 class_properties = {
-
+"crouch": 0
 }
 class_property_descriptions = {
 

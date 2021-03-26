@@ -99,7 +99,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.68434e-14, 1, -0.879203 )
 collision_layer = 8
 collision_mask = 4
 script = ExtResource( 4 )
-human_path = NodePath("../../Human")
+human_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="DamageArea" index="0"]
 shape = SubResource( 1 )
