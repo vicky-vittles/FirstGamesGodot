@@ -333,3 +333,8 @@
 "classname" "light"
 "origin" "-256 336 512"
 }
+// entity 2
+{
+"classname" "QodotHidingSpot"
+"origin" "-136 344 128"
+}

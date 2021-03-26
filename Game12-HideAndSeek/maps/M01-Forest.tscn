@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://maps/_Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/qodot/src/nodes/qodot_map.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://addons/qodot/textures/qodot/elements/BIGLEAVES.png" type="Texture" id=9]
 [ext_resource path="res://addons/qodot/textures/qodot/rocks/GRAYROCKS.png" type="Texture" id=10]
 [ext_resource path="res://addons/qodot/textures/qodot/elements/TALLGRASS.png" type="Texture" id=11]
+[ext_resource path="res://entities/props/HidingSpot.tscn" type="PackedScene" id=12]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -317,3 +318,6 @@ properties = {
 light_bake_mode = 2
 shadow_enabled = true
 omni_range = 16.0
+
+[node name="entity_2_QodotHidingSpot" parent="QodotMap" index="2" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5, 8, -8.5 )

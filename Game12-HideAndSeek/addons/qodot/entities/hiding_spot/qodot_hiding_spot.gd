@@ -1,1 +1,2 @@
-extends QodotFGDBaseClass
+extends QodotFGDPointClass
+class_name QodotHidingSpot

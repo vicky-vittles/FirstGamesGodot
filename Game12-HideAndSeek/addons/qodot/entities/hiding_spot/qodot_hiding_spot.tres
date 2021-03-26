@@ -1,14 +1,17 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://addons/qodot/entities/hiding_spot/qodot_hiding_spot.gd" type="Script" id=1]
+[ext_resource path="res://entities/props/HidingSpot.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/props/hiding_spot.gd" type="Script" id=3]
+[ext_resource path="res://addons/qodot/game_definitions/fgd/base_classes/target_base_class.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
 class_options = "----------------------------------------------------------------"
-classname = "Qodot-HidingSpot"
+classname = "QodotHidingSpot"
 description = "A hiding spot for the AI to use."
 qodot_internal = false
-base_classes = [  ]
+base_classes = [ ExtResource( 4 ) ]
 class_properties = {
 
 }
@@ -20,5 +23,9 @@ meta_properties = {
 "size": AABB( -8, -8, -8, 8, 8, 8 )
 }
 node_options = "----------------------------------------------------------------"
-node_class = "HidingSpot"
+node_class = ""
 transient_node = false
+scene = "----------------------------------------------------------------"
+scene_file = ExtResource( 2 )
+scripting = "----------------------------------------------------------------"
+script_class = ExtResource( 3 )
