@@ -9,6 +9,91 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody",
+"class": "AssassinHuman",
+"language": "GDScript",
+"path": "res://entities/human/assassin/assassin_human.gd"
+}, {
+"base": "Node",
+"class": "BehaviorTree",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/behavior_tree.gd"
+}, {
+"base": "BehaviorTreeLeaf",
+"class": "BehaviorTreeAction",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Leaves/action.gd"
+}, {
+"base": "BehaviorTreeNode",
+"class": "BehaviorTreeComposite",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Composites/composite.gd"
+}, {
+"base": "BehaviorTreeLeaf",
+"class": "BehaviorTreeCondition",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Leaves/condition.gd"
+}, {
+"base": "BehaviorTreeNode",
+"class": "BehaviorTreeDecorator",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Decorators/decorator.gd"
+}, {
+"base": "BehaviorTreeDecorator",
+"class": "BehaviorTreeFailer",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Decorators/failer.gd"
+}, {
+"base": "BehaviorTreeDecorator",
+"class": "BehaviorTreeInverter",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Decorators/inverter.gd"
+}, {
+"base": "BehaviorTreeNode",
+"class": "BehaviorTreeLeaf",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Leaves/leaf.gd"
+}, {
+"base": "BehaviorTreeDecorator",
+"class": "BehaviorTreeLimiter",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Decorators/limiter.gd"
+}, {
+"base": "BehaviorTree",
+"class": "BehaviorTreeNode",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/bt_node.gd"
+}, {
+"base": "BehaviorTree",
+"class": "BehaviorTreeRoot",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/bt_root.gd"
+}, {
+"base": "BehaviorTreeComposite",
+"class": "BehaviorTreeSelector",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Composites/selector.gd"
+}, {
+"base": "BehaviorTreeComposite",
+"class": "BehaviorTreeSequencer",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Composites/sequencer.gd"
+}, {
+"base": "BehaviorTreeDecorator",
+"class": "BehaviorTreeSucceeder",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Decorators/succeeder.gd"
+}, {
+"base": "BehaviorTreeDecorator",
+"class": "BehaviorTreeTimed",
+"language": "GDScript",
+"path": "res://systems/behavior_tree/Decorators/timed.gd"
+}, {
+"base": "BehaviorTreeRoot",
+"class": "Brain",
+"language": "GDScript",
+"path": "res://entities/human/ai/brain.gd"
+}, {
 "base": "VirtualController",
 "class": "DeviceController",
 "language": "GDScript",
@@ -18,6 +103,16 @@ _global_script_classes=[ {
 "class": "HidingSpot",
 "language": "GDScript",
 "path": "res://entities/props/hiding_spot.gd"
+}, {
+"base": "KinematicBody",
+"class": "Human",
+"language": "GDScript",
+"path": "res://entities/human/human.gd"
+}, {
+"base": "KinematicBody",
+"class": "InnocentHuman",
+"language": "GDScript",
+"path": "res://entities/human/innocent/innocent_human.gd"
 }, {
 "base": "LiquidLayer",
 "class": "LavaLayer",
@@ -195,8 +290,27 @@ _global_script_classes=[ {
 "path": "res://addons/qodot/game_definitions/worldspawn_layers/liquid/water.gd"
 } ]
 _global_script_class_icons={
+"AssassinHuman": "res://assets/icons/assassin.svg",
+"BehaviorTree": "",
+"BehaviorTreeAction": "res://assets/icons/behavior_tree/action.svg",
+"BehaviorTreeComposite": "res://assets/icons/behavior_tree/category_composite.svg",
+"BehaviorTreeCondition": "res://assets/icons/behavior_tree/condition.svg",
+"BehaviorTreeDecorator": "res://assets/icons/behavior_tree/category_decorator.svg",
+"BehaviorTreeFailer": "res://assets/icons/behavior_tree/fail.svg",
+"BehaviorTreeInverter": "res://assets/icons/behavior_tree/inverter.svg",
+"BehaviorTreeLeaf": "res://assets/icons/behavior_tree/action.svg",
+"BehaviorTreeLimiter": "res://assets/icons/behavior_tree/limiter.svg",
+"BehaviorTreeNode": "res://assets/icons/behavior_tree/action.svg",
+"BehaviorTreeRoot": "res://assets/icons/behavior_tree/tree.svg",
+"BehaviorTreeSelector": "res://assets/icons/behavior_tree/selector.svg",
+"BehaviorTreeSequencer": "res://assets/icons/behavior_tree/sequencer.svg",
+"BehaviorTreeSucceeder": "res://assets/icons/behavior_tree/succeed.svg",
+"BehaviorTreeTimed": "res://assets/icons/behavior_tree/category_decorator.svg",
+"Brain": "",
 "DeviceController": "res://assets/icons/device-controller.svg",
 "HidingSpot": "",
+"Human": "res://assets/icons/human.svg",
+"InnocentHuman": "res://assets/icons/innocent.svg",
 "LavaLayer": "",
 "LiquidLayer": "",
 "PhysicsBall": "",
@@ -243,6 +357,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://globals/Globals.gd"
+Params="*res://globals/Params.gd"
 
 [debug]
 

@@ -1,14 +1,16 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://entities/human/human.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/human/human_model.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/human/graphics.gd" type="Script" id=3]
 [ext_resource path="res://systems/state_machine/state_machine.gd" type="Script" id=4]
-[ext_resource path="res://entities/human/states/walk.gd" type="Script" id=5]
+[ext_resource path="res://entities/human/states/run.gd" type="Script" id=5]
 [ext_resource path="res://entities/human/states/idle.gd" type="Script" id=6]
 [ext_resource path="res://systems/polling_collision_area/polling_collision_area.gd" type="Script" id=7]
 [ext_resource path="res://entities/human/character_mover.gd" type="Script" id=8]
 [ext_resource path="res://entities/human/states/jump.gd" type="Script" id=9]
+[ext_resource path="res://entities/human/crouch.gd" type="Script" id=10]
+[ext_resource path="res://entities/human/walk.gd" type="Script" id=11]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.3
@@ -419,12 +421,23 @@ actor_path = NodePath("..")
 script = ExtResource( 6 )
 fsm_path = NodePath("..")
 
-[node name="Walk" type="Node" parent="StateMachine"]
+[node name="Run" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
 fsm_path = NodePath("..")
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource( 9 )
+fsm_path = NodePath("..")
+
+[node name="Timer" type="Timer" parent="StateMachine/Jump"]
+one_shot = true
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+fsm_path = NodePath("..")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
 fsm_path = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -434,3 +447,4 @@ anims/die = SubResource( 7 )
 anims/idle = SubResource( 8 )
 anims/stand_up = SubResource( 9 )
 [connection signal="on_ground" from="CharacterMover" to="StateMachine/Jump" method="_on_CharacterMover_on_ground"]
+[connection signal="timeout" from="StateMachine/Jump/Timer" to="StateMachine/Jump" method="_on_Timer_timeout"]

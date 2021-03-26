@@ -2,7 +2,8 @@ extends Spatial
 
 const TERRAIN_LAYER : int = 2
 const TERRAIN_MASK : int = 4
-onready var qodot_map = $QodotMap
+onready var navigation = $Navigation
+onready var qodot_map = $Navigation/NavigationMeshInstance/QodotMap
 
 func _ready():
 	for terrain in qodot_map.get_children():

@@ -1,8 +1,10 @@
 extends State
 
 var human
+onready var RUN = $"../Run"
 onready var WALK = $"../Walk"
 onready var JUMP = $"../Jump"
+onready var CROUCH = $"../Crouch"
 
 func enter():
 	human = fsm.actor
@@ -15,12 +17,14 @@ func process(delta):
 	human.get_input()
 
 func physics_process(delta):
-	human.check_walk()
-	human.check_crouch()
 	human.air_movement(delta)
 	if human.input.get_press("attack") and human.can_attack:
 		fsm.change_state($"../Attack")
-	elif human.input.get_press("jump") and not human.is_crouching:
+	elif human.input.get_press("jump"):
 		fsm.change_state(JUMP)
-	elif human.move_direction != Vector3.ZERO:
+	elif human.input.get_press("crouch") and not human.head.is_colliding:
+		fsm.change_state(CROUCH)
+	elif human.input.get_press("walk"):
 		fsm.change_state(WALK)
+	elif human.move_direction.length() != 0:
+		fsm.change_state(RUN)

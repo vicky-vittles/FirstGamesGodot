@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entities/human/ai/brain.gd" type="Script" id=1]
+[ext_resource path="res://systems/behavior_tree/BehaviorTree.tscn" type="PackedScene" id=2]
+
+[node name="Brain" instance=ExtResource( 2 )]
+script = ExtResource( 1 )

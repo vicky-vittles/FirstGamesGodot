@@ -15,7 +15,7 @@ export (float) var JUMP_TIME = 0.33
 onready var JUMP_SPEED = 2*JUMP_HEIGHT/JUMP_TIME
 onready var GRAVITY = -2*JUMP_HEIGHT/(JUMP_TIME*JUMP_TIME)
 
-export (bool) var ignore_rotation_on_movement = false #Move using relative or global rotation
+var ignore_rotation_on_movement : bool = false
 
 var speed
 onready var acceleration = Vector3(0, GRAVITY, 0)

@@ -20,8 +20,5 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Tween" type="Tween" parent="Invisibility" index="1"]
-
-[node name="CharacterMover" parent="." index="6"]
-SLOW_SPEED = 6.0
 [connection signal="timeout" from="Invisibility/StartTimer" to="Invisibility" method="_on_StartTimer_timeout"]
 [connection signal="movement_info" from="CharacterMover" to="Invisibility" method="_on_CharacterMover_movement_info"]

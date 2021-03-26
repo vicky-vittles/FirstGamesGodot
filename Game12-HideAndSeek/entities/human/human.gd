@@ -1,10 +1,17 @@
 extends KinematicBody
 
+class_name Human, "res://assets/icons/human.svg"
+
+const NOT_Y_AXIS = Vector3(1,0,1)
+
 export (Color) var color
 export (float, 0.0, 1.0) var mouse_sensitivity = 0.5
 export (bool) var is_player = true
+export (bool) var ignore_rotation_on_movement = false #Move using relative or global rotation
+var can_attack : bool
 
-export (bool) var can_attack = false
+# Navigation and pathfinding
+var nav
 
 onready var input = $Controller
 onready var head = $Head
@@ -13,11 +20,11 @@ onready var graphics = $Graphics
 onready var character_mover = $CharacterMover
 onready var animation_player = $AnimationPlayer
 
-var is_crouching : bool = false
 var move_direction : Vector3
 
 func _ready():
 	graphics.change_color(color)
+	character_mover.ignore_rotation_on_movement = ignore_rotation_on_movement
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if not is_player:
 		graphics.visible = true
@@ -42,21 +49,17 @@ func get_input():
 func hurt():
 	animation_player.play("die")
 
-func check_walk():
-	if input.get_hold("walk") or (not input.get_hold("walk") and is_crouching):
-		character_mover.set_slow_speed()
-	else:
-		character_mover.set_run_speed()
+func oriented(dir: Vector3):
+	look_at(dir, Vector3.UP)
 
-func check_crouch():
-	if input.get_press("crouch") and not head.is_colliding:
-		is_crouching = !is_crouching
-		if is_crouching:
-			character_mover.set_slow_speed()
-			animation_player.play("crouch")
-		else:
-			character_mover.set_run_speed()
-			animation_player.play("stand_up")
+func move_to_target(target: Vector3):
+	var dir = global_transform.origin.direction_to(target).normalized()
+	dir *= NOT_Y_AXIS
+	if dir.length() != 0:
+		dir *= 1 / dir.length()
+	move_direction = dir
+	print(move_direction)
+	oriented(global_transform.origin + move_direction * NOT_Y_AXIS)
 
 func air_movement(delta):
 	character_mover.set_movement_direction(move_direction)

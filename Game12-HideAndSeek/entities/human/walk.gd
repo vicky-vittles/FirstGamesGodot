@@ -2,11 +2,16 @@ extends State
 
 var human
 onready var IDLE = $"../Idle"
-onready var JUMP = $"../Jump"
 
 func enter():
 	human = fsm.actor
+	human.graphics.human_animation_player.playback_speed = 0.5
 	human.graphics.play_anim(Globals.HUMAN_WALK_ANIM)
+	human.character_mover.set_slow_speed()
+
+func exit():
+	human.graphics.human_animation_player.playback_speed = 1.0
+	human.character_mover.set_run_speed()
 
 func input(event):
 	human.event_input(event)
@@ -15,12 +20,6 @@ func process(delta):
 	human.get_input()
 
 func physics_process(delta):
-	human.check_walk()
-	human.check_crouch()
 	human.full_movement(delta)
-	if human.input.get_press("attack") and human.can_attack:
-		fsm.change_state($"../Attack")
-	elif human.input.get_press("jump") and not human.is_crouching:
-		fsm.change_state(JUMP)
-	elif human.move_direction == Vector3.ZERO:
+	if human.input.get_press("walk"):
 		fsm.change_state(IDLE)
