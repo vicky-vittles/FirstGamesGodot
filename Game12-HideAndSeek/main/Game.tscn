@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://main/game.gd" type="Script" id=1]
 [ext_resource path="res://maps/M01-Forest.tscn" type="PackedScene" id=3]
@@ -6,7 +6,6 @@
 [ext_resource path="res://systems/virtual_controller/device_controller.gd" type="Script" id=5]
 [ext_resource path="res://entities/human/innocent/InnocentHuman.tscn" type="PackedScene" id=6]
 [ext_resource path="res://systems/virtual_controller/virtual_controller.gd" type="Script" id=7]
-[ext_resource path="res://entities/human/ai/InnocentBrain.tscn" type="PackedScene" id=8]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
@@ -31,51 +30,5 @@ ignore_rotation_on_movement = true
 
 [node name="Controller" type="Node" parent="Humans/Human2"]
 script = ExtResource( 7 )
-
-[node name="Brain" parent="Humans/Human2" instance=ExtResource( 8 )]
-enabled = true
-actor_path = NodePath("..")
-
-[node name="Human3" parent="Humans" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06008, 0.583317, -21.1011 )
-color = Color( 0, 0.156863, 1, 1 )
-mouse_sensitivity = 0.25
-is_player = false
-ignore_rotation_on_movement = true
-
-[node name="Controller" type="Node" parent="Humans/Human3"]
-script = ExtResource( 7 )
-
-[node name="Brain" parent="Humans/Human3" instance=ExtResource( 8 )]
-enabled = true
-actor_path = NodePath("..")
-
-[node name="Human4" parent="Humans" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06008, 0.583317, -21.1011 )
-color = Color( 0, 0.156863, 1, 1 )
-mouse_sensitivity = 0.25
-is_player = false
-ignore_rotation_on_movement = true
-
-[node name="Controller" type="Node" parent="Humans/Human4"]
-script = ExtResource( 7 )
-
-[node name="Brain" parent="Humans/Human4" instance=ExtResource( 8 )]
-enabled = true
-actor_path = NodePath("..")
-
-[node name="Human5" parent="Humans" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06008, 0.583317, -21.1011 )
-color = Color( 0, 0.156863, 1, 1 )
-mouse_sensitivity = 0.25
-is_player = false
-ignore_rotation_on_movement = true
-
-[node name="Controller" type="Node" parent="Humans/Human5"]
-script = ExtResource( 7 )
-
-[node name="Brain" parent="Humans/Human5" instance=ExtResource( 8 )]
-enabled = true
-actor_path = NodePath("..")
 
 [node name="Map" parent="." instance=ExtResource( 3 )]

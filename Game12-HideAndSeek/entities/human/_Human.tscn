@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://entities/human/human.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/human/human_model.tscn" type="PackedScene" id=2]
@@ -13,25 +13,28 @@
 [ext_resource path="res://entities/human/walk.gd" type="Script" id=11]
 [ext_resource path="res://entities/props/debug_sphere.gd" type="Script" id=12]
 
+[sub_resource type="CylinderShape" id=11]
+radius = 1.07305
+
 [sub_resource type="CylinderShape" id=1]
 radius = 0.3
 height = 0.5
 
-[sub_resource type="CapsuleShape" id=6]
+[sub_resource type="CapsuleShape" id=2]
 radius = 0.33
 height = 1.1
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.4, 0.1, 0.4 )
 
-[sub_resource type="CapsuleShape" id=2]
+[sub_resource type="CapsuleShape" id=4]
 radius = 0.33
 height = 0.01
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 0.2, 0.1, 0.2 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -79,7 +82,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 2 ) ]
+"values": [ SubResource( 4 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -103,7 +106,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 3 ) ]
+"values": [ SubResource( 5 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -130,8 +133,7 @@ tracks/7/keys = {
 "values": [ Vector3( 0, 0.898161, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "die"
+[sub_resource type="Animation" id=7]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -217,7 +219,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 6 ) ]
+"values": [ SubResource( 2 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -241,7 +243,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 7 ) ]
+"values": [ SubResource( 3 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -316,7 +318,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 6 ) ]
+"values": [ SubResource( 2 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -340,7 +342,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 7 ) ]
+"values": [ SubResource( 3 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -392,6 +394,23 @@ script = ExtResource( 3 )
 
 [node name="human" parent="Graphics" instance=ExtResource( 2 )]
 
+[node name="LineofSight" type="RayCast" parent="Graphics"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+enabled = true
+collision_mask = 10
+collide_with_areas = true
+
+[node name="CenterPos" type="Position3D" parent="Graphics"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.0513, 0 )
+
+[node name="PerceptibleArea" type="Area" parent="Graphics"]
+collision_layer = 8
+collision_mask = 2147483648
+
+[node name="CollisionShape" type="CollisionShape" parent="Graphics/PerceptibleArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 11 )
+
 [node name="Head" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87964, 0 )
 collision_layer = 4
@@ -404,11 +423,11 @@ shape = SubResource( 1 )
 
 [node name="CollisionShape_Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape_Feet" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
-shape = SubResource( 7 )
+shape = SubResource( 3 )
 disabled = true
 
 [node name="CharacterMover" type="Node" parent="."]
@@ -446,8 +465,8 @@ fsm_path = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/crouch = SubResource( 4 )
-anims/die = SubResource( 5 )
+anims/crouch = SubResource( 6 )
+anims/die = SubResource( 7 )
 anims/idle = SubResource( 8 )
 anims/stand_up = SubResource( 9 )
 

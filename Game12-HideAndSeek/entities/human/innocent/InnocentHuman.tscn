@@ -21,8 +21,8 @@ one_shot = true
 
 [node name="Tween" type="Tween" parent="Invisibility" index="1"]
 
-[node name="SensingField" parent="." index="3"]
-collidable_groups = [ "assassin_human", "human" ]
-excluding_groups = [ "innocent_human" ]
+[node name="PerceptibleArea" parent="Graphics" index="3" groups=[
+"innocent_human",
+]]
 [connection signal="timeout" from="Invisibility/StartTimer" to="Invisibility" method="_on_StartTimer_timeout"]
 [connection signal="movement_info" from="CharacterMover" to="Invisibility" method="_on_CharacterMover_movement_info"]
