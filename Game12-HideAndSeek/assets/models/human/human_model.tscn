@@ -15,4 +15,5 @@ roughness = 0.0960784
 script = ExtResource( 2 )
 
 [node name="Man" parent="rig/Skeleton" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 material/0 = SubResource( 1 )
