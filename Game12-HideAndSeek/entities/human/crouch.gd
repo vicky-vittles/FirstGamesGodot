@@ -19,6 +19,8 @@ func process(delta):
 	human.get_input()
 
 func physics_process(delta):
+	var is_crouch = human.input.get_consume("crouch") or human.input.get_press("crouch")
 	human.full_movement(delta)
-	if human.input.get_press("crouch") and not human.head.is_colliding:
+	if is_crouch and not human.head.is_colliding:
+		human.input.consume("crouch")
 		fsm.change_state(IDLE)

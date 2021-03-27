@@ -14,15 +14,14 @@ var can_attack : bool
 var nav
 
 var brain
-onready var input = $Controller
-onready var fsm = $StateMachine
-onready var line_of_sight = $Graphics/LineofSight
-onready var center_pos = $Graphics/CenterPos
-onready var head = $Head
 onready var camera = $Camera
 onready var graphics = $Graphics
+onready var center_pos = $Sensors/CenterPos
+onready var head = $Head
 onready var character_mover = $CharacterMover
+onready var fsm = $StateMachine
 onready var animation_player = $AnimationPlayer
+onready var input = $Controller
 
 var move_direction : Vector3
 

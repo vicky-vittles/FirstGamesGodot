@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://main/game.gd" type="Script" id=1]
+[ext_resource path="res://entities/human/ai/InnocentBrain.tscn" type="PackedScene" id=2]
 [ext_resource path="res://maps/M01-Forest.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/human/assassin/HumanAssassin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://systems/virtual_controller/device_controller.gd" type="Script" id=5]
@@ -30,5 +31,9 @@ ignore_rotation_on_movement = true
 
 [node name="Controller" type="Node" parent="Humans/Human2"]
 script = ExtResource( 7 )
+
+[node name="Brain" parent="Humans/Human2" instance=ExtResource( 2 )]
+enabled = true
+actor_path = NodePath("..")
 
 [node name="Map" parent="." instance=ExtResource( 3 )]
