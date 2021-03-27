@@ -17,7 +17,7 @@ func tick(actor, blackboard):
 	var has_reached_target = my_pos.distance_to(final_pos) < DIST_THRESHOLD
 	
 	if has_reached_next_point:
-		path_node = clamp(path_node + 1, 0, path.size()-1)
+		path_node = int(clamp(path_node + 1, 0, path.size()-1))
 	blackboard.set(Params.PATH_TO_TARGET_CURRENT_NODE, path_node)
 	
 	actor.move_to_target(path[path_node])

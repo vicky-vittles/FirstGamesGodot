@@ -3,6 +3,8 @@ extends Node
 const GAME = "game"
 const DELTA = "delta"
 const HUMANS = "humans"
+const ASSASSINS = "assassins"
+const INNOCENTS = "innocents"
 const HIDING_SPOTS = "hiding_spots"
 
 const NEAREST_HIDING_SPOT = "nearest_hiding_spot"

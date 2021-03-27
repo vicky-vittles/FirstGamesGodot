@@ -17,14 +17,21 @@
 radius = 0.3
 height = 0.5
 
-[sub_resource type="CapsuleShape" id=4]
+[sub_resource type="CapsuleShape" id=6]
+radius = 0.33
+height = 1.1
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 0.4, 0.1, 0.4 )
+
+[sub_resource type="CapsuleShape" id=2]
 radius = 0.33
 height = 0.01
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.2, 0.1, 0.2 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -72,7 +79,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 4 ) ]
+"values": [ SubResource( 2 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -96,7 +103,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 5 ) ]
+"values": [ SubResource( 3 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -123,7 +130,7 @@ tracks/7/keys = {
 "values": [ Vector3( 0, 0.898161, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "die"
 length = 0.5
 tracks/0/type = "value"
@@ -162,13 +169,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
-
-[sub_resource type="CapsuleShape" id=2]
-radius = 0.33
-height = 1.1
-
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.4, 0.1, 0.4 )
 
 [sub_resource type="Animation" id=8]
 tracks/0/type = "value"
@@ -217,7 +217,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 2 ) ]
+"values": [ SubResource( 6 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -241,7 +241,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 3 ) ]
+"values": [ SubResource( 7 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -316,7 +316,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 2 ) ]
+"values": [ SubResource( 6 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -340,7 +340,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 3 ) ]
+"values": [ SubResource( 7 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -380,20 +380,20 @@ mouse_sensitivity = 0.25
 is_player = false
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.144 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.144115 )
 far = 300.0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Graphics" type="Spatial" parent="."]
-transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0.804462 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 script = ExtResource( 3 )
 
 [node name="human" parent="Graphics" instance=ExtResource( 2 )]
 
 [node name="Head" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.898161, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87964, 0 )
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 7 )
@@ -403,12 +403,12 @@ excluding_groups = [ "human" ]
 shape = SubResource( 1 )
 
 [node name="CollisionShape_Body" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.35, 0 )
-shape = SubResource( 4 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
+shape = SubResource( 6 )
 
 [node name="CollisionShape_Feet" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 disabled = true
 
 [node name="CharacterMover" type="Node" parent="."]
@@ -446,8 +446,8 @@ fsm_path = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/crouch = SubResource( 6 )
-anims/die = SubResource( 7 )
+anims/crouch = SubResource( 4 )
+anims/die = SubResource( 5 )
 anims/idle = SubResource( 8 )
 anims/stand_up = SubResource( 9 )
 
