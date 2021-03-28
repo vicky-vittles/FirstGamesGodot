@@ -10,3 +10,5 @@ func _process(delta):
 		get_tree().reload_current_scene()
 	if Input.is_action_just_pressed("escape"):
 		get_tree().quit()
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen

@@ -5,6 +5,7 @@ onready var RUN = $"../Run"
 onready var WALK = $"../Walk"
 onready var JUMP = $"../Jump"
 onready var CROUCH = $"../Crouch"
+onready var DEAD = $"../Dead"
 
 func enter():
 	human = fsm.actor
@@ -30,3 +31,7 @@ func physics_process(delta):
 		fsm.change_state(WALK)
 	elif human.move_direction.length() != 0:
 		fsm.change_state(RUN)
+
+func _on_Human_died(_human):
+	if fsm.current_state == self:
+		fsm.change_state(DEAD)

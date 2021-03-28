@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://entities/human/human.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/human/human_model.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://entities/human/crouch.gd" type="Script" id=10]
 [ext_resource path="res://entities/human/walk.gd" type="Script" id=11]
 [ext_resource path="res://entities/props/debug_sphere.gd" type="Script" id=12]
+[ext_resource path="res://entities/human/dead.gd" type="Script" id=13]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 1.07305
@@ -383,7 +384,8 @@ is_player = false
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.578, -0.144115 )
-far = 300.0
+fov = 90.0
+far = 400.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -470,6 +472,10 @@ fsm_path = NodePath("..")
 script = ExtResource( 11 )
 fsm_path = NodePath("..")
 
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
+fsm_path = NodePath("..")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 anims/crouch = SubResource( 7 )
@@ -487,5 +493,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.2592, 0 )
 radius = 3.0
 material = SubResource( 11 )
 script = ExtResource( 12 )
+[connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Walk" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Idle" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Run" method="_on_Human_died"]
 [connection signal="on_ground" from="CharacterMover" to="StateMachine/Jump" method="_on_CharacterMover_on_ground"]
 [connection signal="timeout" from="StateMachine/Jump/Timer" to="StateMachine/Jump" method="_on_Timer_timeout"]

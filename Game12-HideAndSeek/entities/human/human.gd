@@ -1,6 +1,7 @@
 extends KinematicBody
-
 class_name Human, "res://assets/icons/human.svg"
+
+signal died(human)
 
 const NOT_Y_AXIS = Vector3(1,0,1)
 
@@ -55,7 +56,7 @@ func get_input():
 		move_direction += Vector3.RIGHT * int(input.get_hold("move_right"))
 
 func hurt():
-	animation_player.play("die")
+	emit_signal("died", self)
 
 func oriented(dir: Vector3):
 	look_at(dir, Vector3.UP)

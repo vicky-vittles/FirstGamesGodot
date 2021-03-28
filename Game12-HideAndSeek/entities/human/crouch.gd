@@ -2,6 +2,7 @@ extends State
 
 var human
 onready var IDLE = $"../Idle"
+onready var DEAD = $"../Dead"
 
 func enter():
 	human = fsm.actor
@@ -24,3 +25,7 @@ func physics_process(delta):
 	if is_crouch and not human.head.is_colliding:
 		human.input.consume("crouch")
 		fsm.change_state(IDLE)
+
+func _on_Human_died(_human):
+	if fsm.current_state == self:
+		fsm.change_state(DEAD)

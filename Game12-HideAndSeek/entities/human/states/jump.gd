@@ -3,6 +3,7 @@ extends State
 var human
 onready var timer = $Timer
 onready var IDLE = $"../Idle"
+onready var DEAD = $"../Dead"
 
 var has_applied_jump : bool = false
 var can_receive_ground_signal : bool = false
@@ -34,3 +35,7 @@ func _on_CharacterMover_on_ground():
 
 func _on_Timer_timeout():
 	can_receive_ground_signal = true
+
+func _on_Human_died(_human):
+	if fsm.current_state == self:
+		fsm.change_state(DEAD)
