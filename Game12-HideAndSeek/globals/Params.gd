@@ -13,6 +13,9 @@ const INNOCENTS = "innocents"
 const HIDING_SPOTS = "hiding_spots"
 
 const FOUND_BY_ASSASSIN = "found_by_assassin"
+const CLOSEST_ASSASSIN = "closest_assassin"
+const ASSASSIN_RECENT_VISITED_SPOTS = "assassin_recent_visited_spots"
+const NEXT_CLOSEST_SAFEST_SPOT = "next_closest_safest_spot"
 
 const NEAREST_HIDING_SPOT = "nearest_hiding_spot"
 const RANDOM_HIDING_SPOT = "random_hiding_spot"

@@ -14,6 +14,9 @@
 [ext_resource path="res://entities/props/debug_sphere.gd" type="Script" id=12]
 [ext_resource path="res://entities/human/dead.gd" type="Script" id=13]
 
+[sub_resource type="SpatialMaterial" id=11]
+albedo_color = Color( 1, 0, 0, 1 )
+
 [sub_resource type="CylinderShape" id=1]
 radius = 1.07305
 
@@ -370,9 +373,6 @@ tracks/7/keys = {
 "values": [ Vector3( 0, 1.87964, 0 ) ]
 }
 
-[sub_resource type="SpatialMaterial" id=11]
-albedo_color = Color( 1, 0, 0, 1 )
-
 [node name="Human" type="KinematicBody" groups=[
 "human",
 ]]
@@ -398,6 +398,14 @@ __meta__ = {
 }
 
 [node name="human" parent="Graphics" instance=ExtResource( 2 )]
+
+[node name="Flag" type="CSGSphere" parent="Graphics"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 10.2592, 0 )
+radius = 2.0
+radial_segments = 6
+rings = 3
+material = SubResource( 11 )
+script = ExtResource( 12 )
 
 [node name="Sensors" type="Spatial" parent="."]
 __meta__ = {
@@ -482,21 +490,10 @@ anims/crouch = SubResource( 7 )
 anims/die = SubResource( 8 )
 anims/idle = SubResource( 9 )
 anims/stand_up = SubResource( 10 )
-
-[node name="Debug" type="Spatial" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CSGSphere" type="CSGSphere" parent="Debug"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.2592, 0 )
-radius = 3.0
-material = SubResource( 11 )
-script = ExtResource( 12 )
-[connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Walk" method="_on_Human_died"]
-[connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Idle" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Run" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
 [connection signal="on_ground" from="CharacterMover" to="StateMachine/Jump" method="_on_CharacterMover_on_ground"]
 [connection signal="timeout" from="StateMachine/Jump/Timer" to="StateMachine/Jump" method="_on_Timer_timeout"]

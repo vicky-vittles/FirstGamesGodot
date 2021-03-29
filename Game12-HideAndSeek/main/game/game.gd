@@ -33,6 +33,7 @@ func _ready():
 	for human in humans:
 		if human is AssassinHuman:
 			human.innocents = innocents
+			human.all_hiding_spots = map.hiding_spots
 		if human is InnocentHuman:
 			human.assassins = assassins
 	start_grace()

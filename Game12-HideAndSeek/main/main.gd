@@ -5,6 +5,9 @@ extends Node
 #func _ready():
 #	PGD.set_export_file()
 
+func _ready():
+	TranslationServer.set_locale("pt")
+
 func _process(delta):
 	if Input.is_action_just_pressed("reload"):
 		get_tree().reload_current_scene()
