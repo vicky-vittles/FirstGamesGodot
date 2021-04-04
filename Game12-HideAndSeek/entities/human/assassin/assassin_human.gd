@@ -68,6 +68,8 @@ func has_visited_hiding_spot(spot):
 func attack_start():
 	damage_area_shape.disabled = false
 	weapon_animation_player.play("attack")
+	slash_sfx.play_random()
 
 func attack_end():
 	damage_area_shape.disabled = true
+	slash_sfx.stop()

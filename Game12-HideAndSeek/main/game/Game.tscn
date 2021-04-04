@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://main/game/game.gd" type="Script" id=1]
 [ext_resource path="res://systems/virtual_controller/virtual_controller.gd" type="Script" id=2]
@@ -12,11 +12,12 @@
 [ext_resource path="res://main/game/world-environment.tres" type="Environment" id=10]
 [ext_resource path="res://assets/ui/main-theme.tres" type="Theme" id=11]
 [ext_resource path="res://main/game/match_timer.gd" type="Script" id=12]
+[ext_resource path="res://assets/audio/music.ogg" type="AudioStream" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "default"
 tracks/0/type = "value"
-tracks/0/path = NodePath("root/ScreenFade:visible")
+tracks/0/path = NodePath("root/labels/GameOverLabel:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -25,27 +26,15 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("root/labels/GameOverLabel:visible")
+tracks/1/path = NodePath("root/labels/MatchTimeLabel:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("root/labels/MatchTimeLabel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -55,36 +44,12 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=2]
 step = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("root/ScreenFade:modulate")
+tracks/0/path = NodePath("root/labels/MatchTimeLabel:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("root/ScreenFade:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("root/labels/MatchTimeLabel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -163,9 +128,11 @@ tracks/1/keys = {
 }
 
 [node name="Game" type="Spatial"]
+pause_mode = 1
 script = ExtResource( 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
+pause_mode = 2
 script = ExtResource( 8 )
 
 [node name="root" type="MarginContainer" parent="UI"]
@@ -175,14 +142,6 @@ theme = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
-}
-
-[node name="ScreenFade" type="ColorRect" parent="UI/root"]
-margin_right = 1024.0
-margin_bottom = 600.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_lock_": true
 }
 
 [node name="labels" type="Control" parent="UI/root"]
@@ -201,6 +160,7 @@ __meta__ = {
 }
 
 [node name="MatchTimeLabel" type="Label" parent="UI/root/labels"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -512.0
@@ -220,6 +180,11 @@ anims/default = SubResource( 1 )
 anims/start_game = SubResource( 2 )
 anims/win_game = SubResource( 3 )
 
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -18.0
+bus = "Music"
+
 [node name="Humans" type="Spatial" parent="."]
 script = ExtResource( 9 )
 __meta__ = {
@@ -235,7 +200,6 @@ script = ExtResource( 7 )
 [node name="Human2" parent="Humans" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06008, 0.583317, -21.1011 )
 color = Color( 0, 0.156863, 1, 1 )
-mouse_sensitivity = 0.25
 is_player = false
 ignore_rotation_on_movement = true
 
@@ -243,34 +207,6 @@ ignore_rotation_on_movement = true
 script = ExtResource( 2 )
 
 [node name="Brain" parent="Humans/Human2" instance=ExtResource( 5 )]
-enabled = true
-actor_path = NodePath("..")
-
-[node name="Human3" parent="Humans" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06008, 0.583317, -21.1011 )
-color = Color( 0, 1, 0.133333, 1 )
-mouse_sensitivity = 0.25
-is_player = false
-ignore_rotation_on_movement = true
-
-[node name="Controller" type="Node" parent="Humans/Human3"]
-script = ExtResource( 2 )
-
-[node name="Brain" parent="Humans/Human3" instance=ExtResource( 5 )]
-enabled = true
-actor_path = NodePath("..")
-
-[node name="Human4" parent="Humans" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06008, 0.583317, -21.1011 )
-color = Color( 0.992157, 1, 0, 1 )
-mouse_sensitivity = 0.25
-is_player = false
-ignore_rotation_on_movement = true
-
-[node name="Controller" type="Node" parent="Humans/Human4"]
-script = ExtResource( 2 )
-
-[node name="Brain" parent="Humans/Human4" instance=ExtResource( 5 )]
 enabled = true
 actor_path = NodePath("..")
 
@@ -306,3 +242,4 @@ environment = ExtResource( 10 )
 [connection signal="human_died" from="Humans" to="." method="human_died"]
 [connection signal="timeout" from="Timers/GraceTimer" to="." method="start_game"]
 [connection signal="match_time_update" from="Timers/MatchTimer" to="UI" method="_on_MatchTimer_match_time_update"]
+[connection signal="timeout" from="Timers/MatchTimer" to="." method="_on_MatchTimer_timeout"]

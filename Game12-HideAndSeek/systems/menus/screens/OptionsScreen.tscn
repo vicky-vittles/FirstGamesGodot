@@ -1,0 +1,125 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://systems/menus/screens/_ButtonsScreen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://systems/menus/screens/options_screen.gd" type="Script" id=2]
+[ext_resource path="res://assets/ui/music-icon.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/sound-icon.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/mouse-icon.png" type="Texture" id=5]
+
+[node name="OptionsScreen" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="title" parent="root" index="0"]
+margin_bottom = 42.0
+
+[node name="Title" parent="root/title" index="0"]
+text = "SCREEN_OPTIONS"
+
+[node name="center" parent="root" index="1"]
+margin_left = -93.0
+margin_top = -103.0
+margin_right = 93.0
+margin_bottom = 103.0
+
+[node name="options" parent="root/center" index="0"]
+margin_right = 186.0
+margin_bottom = 206.0
+size_flags_horizontal = 0
+
+[node name="inv" parent="root/center/options" index="0"]
+margin_right = 186.0
+
+[node name="buttons" parent="root/center/options" index="1"]
+margin_right = 186.0
+margin_bottom = 206.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="music" type="HBoxContainer" parent="root/center/options/buttons" index="0"]
+margin_right = 186.0
+margin_bottom = 32.0
+
+[node name="icon" type="TextureRect" parent="root/center/options/buttons/music" index="0"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="root/center/options/buttons/music" index="1"]
+margin_left = 36.0
+margin_right = 186.0
+margin_bottom = 32.0
+alignment = 1
+
+[node name="MusicScroll" type="HScrollBar" parent="root/center/options/buttons/music/VBoxContainer" index="0"]
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 150, 0 )
+max_value = 1.0
+step = 0.1
+
+[node name="sound" type="HBoxContainer" parent="root/center/options/buttons" index="1"]
+margin_top = 42.0
+margin_right = 186.0
+margin_bottom = 74.0
+
+[node name="icon" type="TextureRect" parent="root/center/options/buttons/sound" index="0"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="root/center/options/buttons/sound" index="1"]
+margin_left = 36.0
+margin_right = 186.0
+margin_bottom = 32.0
+alignment = 1
+
+[node name="SoundScroll" type="HScrollBar" parent="root/center/options/buttons/sound/VBoxContainer" index="0"]
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 150, 0 )
+max_value = 1.0
+step = 0.1
+
+[node name="mouse_sensibility" type="HBoxContainer" parent="root/center/options/buttons" index="2"]
+margin_top = 84.0
+margin_right = 186.0
+margin_bottom = 116.0
+alignment = 1
+
+[node name="icon" type="TextureRect" parent="root/center/options/buttons/mouse_sensibility" index="0"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 5 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="root/center/options/buttons/mouse_sensibility" index="1"]
+margin_left = 36.0
+margin_right = 186.0
+margin_bottom = 32.0
+alignment = 1
+
+[node name="SensibilityScroll" type="HScrollBar" parent="root/center/options/buttons/mouse_sensibility/VBoxContainer" index="0"]
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 150, 0 )
+max_value = 1.0
+step = 0.1
+
+[node name="button" type="HBoxContainer" parent="root/center/options/buttons" index="3"]
+margin_top = 126.0
+margin_right = 186.0
+margin_bottom = 160.0
+alignment = 1
+
+[node name="Back" type="Button" parent="root/center/options/buttons/button" index="0"]
+margin_left = 31.0
+margin_right = 155.0
+margin_bottom = 34.0
+text = "BTN_BACK"
+[connection signal="value_changed" from="root/center/options/buttons/music/VBoxContainer/MusicScroll" to="." method="_on_MusicScroll_value_changed"]
+[connection signal="value_changed" from="root/center/options/buttons/sound/VBoxContainer/SoundScroll" to="." method="_on_SoundScroll_value_changed"]
+[connection signal="value_changed" from="root/center/options/buttons/mouse_sensibility/VBoxContainer/SensibilityScroll" to="." method="_on_SensibilityScroll_value_changed"]
+[connection signal="pressed" from="root/center/options/buttons/button/Back" to="." method="emit_signal" binds= [ "go_to_title_screen" ]]

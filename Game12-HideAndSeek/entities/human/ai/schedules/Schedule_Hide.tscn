@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://systems/behavior_tree/Decorators/inverter.gd" type="Script" id=1]
+[ext_resource path="res://systems/behavior_tree/Decorators/succeeder.gd" type="Script" id=2]
+[ext_resource path="res://entities/human/ai/setters/set_inputs.gd" type="Script" id=3]
+[ext_resource path="res://entities/human/ai/setters/set_flag.gd" type="Script" id=4]
+[ext_resource path="res://entities/human/ai/setters/set_move_direction.gd" type="Script" id=5]
+[ext_resource path="res://entities/human/ai/conditions/is_in_state.gd" type="Script" id=6]
+[ext_resource path="res://systems/behavior_tree/Composites/sequencer.gd" type="Script" id=7]
+
+[node name="hide" type="Node"]
+script = ExtResource( 7 )
+
+[node name="crouch" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="sequencer" type="Node" parent="crouch"]
+script = ExtResource( 7 )
+
+[node name="if not crouching" type="Node" parent="crouch/sequencer"]
+script = ExtResource( 1 )
+
+[node name="check if in crouch state" type="Node" parent="crouch/sequencer/if not crouching"]
+script = ExtResource( 6 )
+state = "Crouch"
+
+[node name="press crouch" type="Node" parent="crouch/sequencer"]
+script = ExtResource( 3 )
+buttons_to_press = [ "crouch" ]
+press_types = [ 2 ]
+values = [ true ]
+
+[node name="stay still" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="now is hidden" type="Node" parent="."]
+script = ExtResource( 4 )
+flag_name = "is_hidden"
+value = true

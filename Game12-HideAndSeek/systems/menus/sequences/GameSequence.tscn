@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://systems/menus/sequences/game_sequence.gd" type="Script" id=1]
+[ext_resource path="res://systems/menus/screens/EmptyScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://systems/menus/screens/PauseScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://systems/menus/screens/OptionsScreen.tscn" type="PackedScene" id=4]
+
+[node name="GameSequence" type="Node"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="EmptyScreen" parent="." instance=ExtResource( 2 )]
+
+[node name="PauseScreen" parent="." instance=ExtResource( 3 )]
+
+[node name="OptionsScreen" parent="." instance=ExtResource( 4 )]
+pause_mode = 2
+[connection signal="paused" from="EmptyScreen" to="." method="go_to_pause_screen" flags=3]
+[connection signal="go_to_options_screen" from="PauseScreen" to="." method="go_to_options_screen"]
+[connection signal="resume" from="PauseScreen" to="." method="go_to_empty_screen"]
+[connection signal="go_to_title_screen" from="OptionsScreen" to="." method="go_to_pause_screen"]

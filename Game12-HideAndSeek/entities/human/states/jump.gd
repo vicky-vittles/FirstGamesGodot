@@ -13,6 +13,7 @@ func enter():
 	timer.wait_time = human.character_mover.JUMP_TIME / 2
 	timer.start()
 	human.graphics.play_anim(Globals.HUMAN_WALK_ANIM)
+	human.jump_sfx.play()
 	has_applied_jump = false
 	can_receive_ground_signal = false
 

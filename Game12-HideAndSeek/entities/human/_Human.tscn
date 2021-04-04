@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://entities/human/human.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/human/human_model.tscn" type="PackedScene" id=2]
@@ -13,32 +13,47 @@
 [ext_resource path="res://entities/human/walk.gd" type="Script" id=11]
 [ext_resource path="res://entities/props/debug_sphere.gd" type="Script" id=12]
 [ext_resource path="res://entities/human/dead.gd" type="Script" id=13]
-
-[sub_resource type="SpatialMaterial" id=11]
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="CylinderShape" id=1]
-radius = 1.07305
+[ext_resource path="res://systems/random_audio_player/RandomAudioPlayer3D.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/audio/step (1).wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/audio/step (2).wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/audio/step (6).wav" type="AudioStream" id=17]
+[ext_resource path="res://assets/audio/step (4).wav" type="AudioStream" id=18]
+[ext_resource path="res://assets/audio/step (3).wav" type="AudioStream" id=19]
+[ext_resource path="res://assets/audio/step (5).wav" type="AudioStream" id=20]
+[ext_resource path="res://assets/audio/jump.wav" type="AudioStream" id=21]
+[ext_resource path="res://assets/audio/sword_slash (1).wav" type="AudioStream" id=22]
+[ext_resource path="res://assets/audio/sword_slash (3).wav" type="AudioStream" id=23]
+[ext_resource path="res://assets/audio/sword_slash (2).wav" type="AudioStream" id=24]
+[ext_resource path="res://assets/audio/sword_hit (1).wav" type="AudioStream" id=25]
+[ext_resource path="res://assets/audio/sword_hit (2).wav" type="AudioStream" id=26]
+[ext_resource path="res://systems/random_audio_player/RandomAudioPlayer.tscn" type="PackedScene" id=27]
+[ext_resource path="res://entities/human/audio.gd" type="Script" id=30]
 
 [sub_resource type="CylinderShape" id=2]
+radius = 1.07305
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CylinderShape" id=3]
 radius = 0.3
 height = 0.5
 
-[sub_resource type="CapsuleShape" id=3]
+[sub_resource type="CapsuleShape" id=4]
 radius = 0.33
 height = 1.1
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 0.4, 0.1, 0.4 )
 
-[sub_resource type="CapsuleShape" id=5]
+[sub_resource type="CapsuleShape" id=6]
 radius = 0.33
 height = 0.01
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=7]
 extents = Vector3( 0.2, 0.1, 0.2 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -86,7 +101,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 5 ) ]
+"values": [ SubResource( 6 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -110,7 +125,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 6 ) ]
+"values": [ SubResource( 7 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -137,7 +152,7 @@ tracks/7/keys = {
 "values": [ Vector3( 0, 0.898161, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -176,7 +191,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
 tracks/0/interp = 1
@@ -223,7 +238,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 3 ) ]
+"values": [ SubResource( 4 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -247,7 +262,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 4 ) ]
+"values": [ SubResource( 5 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -274,7 +289,7 @@ tracks/7/keys = {
 "values": [ Vector3( 0, 1.87964, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:translation")
@@ -322,7 +337,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 3 ) ]
+"values": [ SubResource( 4 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape_Feet:translation")
@@ -346,7 +361,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 4 ) ]
+"values": [ SubResource( 5 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Camera:translation")
@@ -379,7 +394,6 @@ tracks/7/keys = {
 collision_layer = 4
 collision_mask = 10
 script = ExtResource( 1 )
-mouse_sensitivity = 0.25
 is_player = false
 
 [node name="Camera" type="Camera" parent="."]
@@ -399,13 +413,36 @@ __meta__ = {
 
 [node name="human" parent="Graphics" instance=ExtResource( 2 )]
 
-[node name="Flag" type="CSGSphere" parent="Graphics"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 10.2592, 0 )
-radius = 2.0
-radial_segments = 6
-rings = 3
-material = SubResource( 11 )
-script = ExtResource( 12 )
+[node name="Audio" type="Spatial" parent="."]
+script = ExtResource( 30 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Steps" parent="Audio" instance=ExtResource( 14 )]
+max_db = 6.0
+max_distance = 100.0
+bus = "Sound"
+audios = [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 17 ) ]
+
+[node name="Jump" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource( 21 )
+max_db = 6.0
+max_distance = 100.0
+bus = "Sound"
+
+[node name="Slash" parent="Audio" instance=ExtResource( 14 )]
+max_distance = 100.0
+bus = "Sound"
+audios = [ ExtResource( 22 ), ExtResource( 24 ), ExtResource( 23 ) ]
+
+[node name="Hurt" parent="Audio" instance=ExtResource( 27 )]
+bus = "Sound"
+audios = [ ExtResource( 25 ), ExtResource( 26 ) ]
+
+[node name="HighGrass" parent="Audio" instance=ExtResource( 14 )]
+bus = "Sound"
 
 [node name="Sensors" type="Spatial" parent="."]
 __meta__ = {
@@ -423,7 +460,15 @@ collision_mask = 2147483648
 
 [node name="CollisionShape" type="CollisionShape" parent="Sensors/PerceptibleArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
+
+[node name="Flag" type="CSGSphere" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2592, 0 )
+radius = 2.0
+radial_segments = 6
+rings = 3
+material = SubResource( 1 )
+script = ExtResource( 12 )
 
 [node name="Head" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87964, 0 )
@@ -436,15 +481,15 @@ __meta__ = {
 excluding_groups = [ "human" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Head"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="CollisionShape_Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape_Feet" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 disabled = true
 
 [node name="CharacterMover" type="Node" parent="."]
@@ -486,14 +531,14 @@ fsm_path = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/crouch = SubResource( 7 )
-anims/die = SubResource( 8 )
-anims/idle = SubResource( 9 )
-anims/stand_up = SubResource( 10 )
+anims/crouch = SubResource( 8 )
+anims/die = SubResource( 9 )
+anims/idle = SubResource( 10 )
+anims/stand_up = SubResource( 11 )
 [connection signal="died" from="." to="StateMachine/Walk" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Idle" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Run" method="_on_Human_died"]
-[connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
-[connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
 [connection signal="on_ground" from="CharacterMover" to="StateMachine/Jump" method="_on_CharacterMover_on_ground"]
 [connection signal="timeout" from="StateMachine/Jump/Timer" to="StateMachine/Jump" method="_on_Timer_timeout"]

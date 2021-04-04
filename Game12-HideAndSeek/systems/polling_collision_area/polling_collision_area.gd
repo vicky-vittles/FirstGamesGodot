@@ -3,6 +3,7 @@ extends Area
 export (Array,String) var collidable_groups
 export (Array,String) var excluding_groups
 var is_colliding : bool = false
+var colliding_body
 
 func _ready():
 	connect("body_entered", self, "_on_body_entered")
@@ -13,9 +14,11 @@ func _on_body_entered(body):
 		if not collidable_groups.has(body_group) or excluding_groups.has(body_group):
 			return
 	is_colliding = true
+	colliding_body = body
 
 func _on_body_exited(body):
 	for body_group in body.get_groups():
 		if not collidable_groups.has(body_group) or excluding_groups.has(body_group):
 			return
 	is_colliding = false
+	colliding_body = null

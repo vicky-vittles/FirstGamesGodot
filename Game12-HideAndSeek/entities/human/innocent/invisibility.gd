@@ -30,13 +30,12 @@ func _on_CharacterMover_movement_info(body, velocity, is_grounded):
 		start_timer.stop()
 		if invisibility > 0.5:
 			slow_down()
-			print("fui achado")
 		inv_tween.stop_all()
 		invisibility = 0.0
 		is_moving = true
 
 func slow_down():
-	speed_tween.interpolate_property(human.character_mover, "speed", slowdown_percentage*human.character_mover.SLOW_SPEED, human.character_mover.SLOW_SPEED, slowdown_time)
+	speed_tween.interpolate_property(human.character_mover, "speed", slowdown_percentage*human.character_mover.RUN_SPEED, human.character_mover.RUN_SPEED, slowdown_time)
 	speed_tween.start()
 
 func _on_StartTimer_timeout():

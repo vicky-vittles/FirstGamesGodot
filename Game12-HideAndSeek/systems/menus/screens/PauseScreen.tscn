@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://systems/menus/screens/_ButtonsScreen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://systems/menus/screens/pause_screen.gd" type="Script" id=2]
+
+[node name="PauseScreen" instance=ExtResource( 1 )]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="Title" parent="root/title" index="0"]
+text = ""
+
+[node name="center" parent="root" index="1"]
+margin_left = -100.0
+margin_top = -84.0
+margin_right = 100.0
+margin_bottom = 84.0
+
+[node name="options" parent="root/center" index="0"]
+margin_right = 200.0
+margin_bottom = 168.0
+
+[node name="inv" parent="root/center/options" index="0"]
+margin_right = 200.0
+
+[node name="buttons" parent="root/center/options" index="1"]
+margin_right = 200.0
+margin_bottom = 168.0
+
+[node name="Resume" type="Button" parent="root/center/options/buttons" index="0"]
+margin_right = 200.0
+margin_bottom = 34.0
+text = "BTN_RESUME"
+
+[node name="Options" type="Button" parent="root/center/options/buttons" index="1"]
+margin_top = 44.0
+margin_right = 200.0
+margin_bottom = 78.0
+text = "BTN_OPTIONS"
+
+[node name="Quit" type="Button" parent="root/center/options/buttons" index="2"]
+margin_top = 88.0
+margin_right = 200.0
+margin_bottom = 122.0
+text = "BTN_QUIT_GAME"
+[connection signal="pressed" from="root/center/options/buttons/Resume" to="." method="emit_signal" binds= [ "resume" ]]
+[connection signal="pressed" from="root/center/options/buttons/Options" to="." method="emit_signal" binds= [ "go_to_options_screen" ]]
+[connection signal="pressed" from="root/center/options/buttons/Quit" to="." method="quit"]

@@ -23,6 +23,8 @@ func process(delta):
 func physics_process(delta):
 	var is_crouch = human.input.get_consume("crouch") or human.input.get_press("crouch")
 	human.full_movement(delta)
+	human.steps_sfx.play_random()
+	
 	if human.input.get_press("attack") and human.can_attack:
 		fsm.change_state($"../Attack")
 	elif human.input.get_press("jump"):

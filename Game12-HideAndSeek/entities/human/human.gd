@@ -6,7 +6,6 @@ signal died(human)
 const NOT_Y_AXIS = Vector3(1,0,1)
 
 export (Color) var color
-export (float, 0.0, 1.0) var mouse_sensitivity = 0.5
 export (bool) var is_player = true
 export (bool) var ignore_rotation_on_movement = false #Move using relative or global rotation
 var can_attack : bool
@@ -17,6 +16,11 @@ var nav
 var brain
 onready var camera = $Camera
 onready var graphics = $Graphics
+onready var audio = $Audio
+onready var steps_sfx = $Audio/Steps
+onready var jump_sfx = $Audio/Jump
+onready var slash_sfx = $Audio/Slash
+onready var hurt_sfx = $Audio/Hurt
 onready var center_pos = $Sensors/CenterPos
 onready var head = $Head
 onready var character_mover = $CharacterMover
@@ -39,8 +43,8 @@ func event_input(event):
 	if not is_player:
 		return
 	if event is InputEventMouseMotion:
-		rotation_degrees.y -= mouse_sensitivity * event.relative.x
-		camera.rotation_degrees.x -= mouse_sensitivity * event.relative.y
+		rotation_degrees.y -= Settings.mouse_sensibility * event.relative.x
+		camera.rotation_degrees.x -= Settings.mouse_sensibility * event.relative.y
 		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90, 90)
 
 func get_input():
@@ -56,6 +60,7 @@ func get_input():
 		move_direction += Vector3.RIGHT * int(input.get_hold("move_right"))
 
 func hurt():
+	hurt_sfx.play_random()
 	emit_signal("died", self)
 
 func oriented(dir: Vector3):

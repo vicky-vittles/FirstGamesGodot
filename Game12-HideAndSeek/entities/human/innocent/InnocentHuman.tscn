@@ -8,11 +8,12 @@
 "innocent_human",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-mouse_sensitivity = 0.5
 is_player = true
 
 [node name="Invisibility" type="Spatial" parent="." index="0"]
 script = ExtResource( 2 )
+time_to_invisible = 10.0
+slowdown_time = 2.0
 human_path = NodePath("..")
 
 [node name="StartTimer" type="Timer" parent="Invisibility" index="0"]
@@ -23,7 +24,7 @@ one_shot = true
 
 [node name="SpeedTween" type="Tween" parent="Invisibility" index="2"]
 
-[node name="CharacterMover" parent="." index="7"]
+[node name="CharacterMover" parent="." index="9"]
 RUN_SPEED = 16.0
 SLOW_SPEED = 4.0
 [connection signal="timeout" from="Invisibility/StartTimer" to="Invisibility" method="_on_StartTimer_timeout"]

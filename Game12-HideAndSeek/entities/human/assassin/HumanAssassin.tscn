@@ -121,7 +121,7 @@ autoplay = "idle"
 anims/attack = SubResource( 2 )
 anims/idle = SubResource( 3 )
 
-[node name="CharacterMover" parent="." index="7"]
+[node name="CharacterMover" parent="." index="9"]
 RUN_SPEED = 22.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="3"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://systems/menus/screens/_BaseScreen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://systems/menus/screens/empty_screen.gd" type="Script" id=2]
+
+[node name="EmptyScreen" instance=ExtResource( 1 )]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="root" parent="." index="0"]
+mouse_filter = 2
