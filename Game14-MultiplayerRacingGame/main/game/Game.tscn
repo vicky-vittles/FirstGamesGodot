@@ -1,0 +1,294 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/m6x11.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://main/game/game.gd" type="Script" id=3]
+[ext_resource path="res://assets/racetrack.png" type="Texture" id=4]
+[ext_resource path="res://main/game/ui.gd" type="Script" id=5]
+[ext_resource path="res://entities/checkpoint/Checkpoint.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "placement_updated"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/control:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 122.294, 66.5706 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 76.9274, 66.5706 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 122.294, 66.5706 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 165.395, 66.5706 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 165.395, 66.5706 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 165.395, 87.2968 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 342.06, 10 )
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
+
+[node name="root" type="MarginContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="control" type="Control" parent="UI/root"]
+margin_right = 960.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PlacementLabel" type="Label" parent="UI/root/control"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 960.0
+margin_bottom = 28.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartGameLabel" type="Label" parent="UI/root"]
+margin_top = 239.0
+margin_right = 960.0
+margin_bottom = 360.0
+text = "Race starts in %s...
+
+
+"
+align = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StartGameTimer" type="Timer" parent="UI"]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+anims/placement_updated = SubResource( 10 )
+
+[node name="Level" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Level"]
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Checkpoints" type="Node2D" parent="Level"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="1" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( 954.531, 549.664 )
+rotation = 1.48816
+scale = Vector2( 1, 1 )
+id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/1"]
+shape = SubResource( 3 )
+
+[node name="2" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( 407.23, 193.282 )
+rotation = 0.14831
+id = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/2"]
+shape = SubResource( 3 )
+
+[node name="3" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( 1016.75, -82.2709 )
+rotation = -1.84002
+id = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/3"]
+shape = SubResource( 4 )
+
+[node name="4" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( 27.0413, -409.718 )
+rotation = 0.538343
+id = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/4"]
+shape = SubResource( 5 )
+
+[node name="5" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( 41.3117, -749.832 )
+rotation = 1.50341
+id = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/5"]
+shape = SubResource( 5 )
+
+[node name="6" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( -1020.65, -712.966 )
+rotation = 1.77528
+id = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/6"]
+shape = SubResource( 6 )
+
+[node name="7" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( -888.648, -111.227 )
+rotation = 1.77528
+id = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/7"]
+shape = SubResource( 7 )
+
+[node name="8" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( -1266.82, 554.729 )
+rotation = 3.13799
+id = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/8"]
+shape = SubResource( 7 )
+
+[node name="9" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( -263.125, 453.646 )
+rotation = 3.13799
+id = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/9"]
+shape = SubResource( 7 )
+
+[node name="10" parent="Level/Checkpoints" instance=ExtResource( 7 )]
+position = Vector2( 751.268, 593.972 )
+rotation = 4.70241
+id = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/10"]
+shape = SubResource( 8 )
+
+[node name="CarSpawn" type="Position2D" parent="Level"]
+position = Vector2( 576, 465 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StaticBody" type="StaticBody2D" parent="Level"]
+visible = false
+collision_layer = 2
+collision_mask = 4
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="1" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -1341.41, -770.211, -1321.25, -760.762, -1299.2, -816.199, -1190.22, -866.595, -1083.76, -868.485, -604.986, -787.85, -330.64, -794.419, -219.181, -821.783, -48.3214, -835.131, 390.841, -805.098, 598.408, -825.12, 838.68, -827.79, 918.77, -835.132, 1058.26, -825.788, 1168.39, -792.417, 1223.11, -763.718, 1255.15, -698.311, 1439.36, -696.976, 1524.79, -1003.99, -1539.03, -1024.01, -1513.67, -776.398 )
+
+[node name="2" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -1317.85, -772.158, -1324.46, -722.133, -1287.18, -640.488, -1209.78, -592.822, -1144.18, -573.473, -1143.71, -535.246, -1256.03, -486.636, -1314.08, -430.004, -1349.94, -335.617, -1348.53, -235.094, -1310.77, -124.661, -1259.33, -69.444, -1185.71, -40.6558, -1109.26, -16.1151, -1109.26, 18.8083, -1206.48, 67.4178, -1286.7, 126.882, -1361.27, 220.325, -1388.17, 305.274, -1395.25, 412.404, -1381.56, 531.332, -1371.18, 653.092, -1345.7, 697.926, -1329.18, 746.063, -1225.35, 796.561, -1084.72, 824.405, -1065.84, 956.075, -1612.34, 981.56, -1677.69, -803.643 )
+
+[node name="3" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -1109.32, 822.864, -1153.04, 1042.34, 1784.21, 1092.79, 1720.3, 790.069, 1238.47, 571.436, 1095.52, 637.026, 958.449, 674.026, 796.156, 695.889, 587.614, 692.526, 299.186, 694.207, 150.347, 637.867, 90, 551, 42, 383, 45, 213, 5, 119, -81, 120, -109, 203, -133, 386, -206.193, 635.344, -306.259, 795.956, -386.144, 836.318, -645.14, 837.159 )
+
+[node name="4" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -1158.66, 372.497, -1172.43, 467.848, -1160.78, 569.557, -1099.33, 633.125, -920.283, 683.979, -673.428, 705.168, -517.687, 688.217, -403.265, 561.081, -377.838, 444.54, -368.302, 320.583, -483.784, 374.616, -653.298, 359.783, -798.444, 297.275, -941.472, 259.134, -1067.55, 268.669, -1129, 306.81 )
+
+[node name="5" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( 1211.7, 586.739, 1349.19, 473.278, 1383.89, 290.405, 1378.55, 233.007, 1302.47, 179.613, 1154.3, 178.278, 1154.3, 139.568, 1239.73, 112.871, 1311.81, 20.7673, 1346.52, -61.9928, 1289.12, -170.115, 1167.65, -191.472, 1168.98, -212.83, 1213.03, -271.563, 1243.74, -483.802, 1258.42, -722.738, 2178.12, -857.557, 2196.81, 941.807 )
+
+[node name="6" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -377, -85, -312, 5, -288, 3, -267, -41, -194, -72, -24, -57, 130, -20, 235, 34, 260, 107, 279, 110, 309, 45, 361, -1, 364, -26, 189, -66, -14, -149, -103, -223, -123, -279, -163, -274, -164, -181, -221, -133, -293, -93 )
+
+[node name="7" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -413.368, -630.814, -423.447, -603.095, -316.354, -541.359, -249.578, -463.244, -179.023, -372.53, -161.384, -245.278, -110.987, -250.317, -129.886, -294.415, -119.806, -378.829, -71.9293, -460.724, 12.4854, -528.76, 239.271, -533.8, 421.96, -475.843, 734.42, -364.97, 939.787, -320.873, 1005.3, -332.212, 1063.26, -392.689, 1094.76, -507.341, 1108.62, -619.474, 1085.94, -654.752, 907.029, -705.149, 818.835, -700.109, 515.194, -663.572, 290.928, -671.131, 112.019, -687.51, -40.4314, -678.691, -139.965, -663.572, -231.939, -637.113 )
+
+[node name="8" type="CollisionShape2D" parent="Level/StaticBody"]
+visible = false
+position = Vector2( -736.489, -667.336 )
+rotation = 0.168184
+shape = SubResource( 9 )
+
+[node name="9" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -1168.62, -579.602, -1172.4, -524.858, -1109.16, -544.679, -913.775, -496.541, -575.868, -408.761, -402.195, -285.114, -385.206, -293.608, -448.445, -344.578, -509.797, -398.379, -568.317, -429.526, -731.607, -477.664, -954.362, -529.577 )
+
+[node name="10" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -1143.78, -24.1559, -1147.35, 35.3044, -1073.62, 10.3311, -1007.02, 18.6555, -871.455, 60.2778, -682.371, 94.7648, -601.505, 134.009, -586.045, 124.495, -609.83, 106.657, -674.047, 79.3051, -888.104, 34.1152, -1011.78, -5.1286 )
+
+[node name="11" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -1005.84, -317.89, -1015.35, -308.376, -983.24, -282.214, -725.182, -220.375, -474.26, -128.806, -338.69, -43.1833, -286.365, -97.8868, -358.907, -87.1839, -398.151, -105.022, -431.448, -134.752, -563.45, -190.645, -715.669, -234.646 )
+
+[node name="12" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( -316.892, -22.027, -313.112, 110.265, -350.91, 275.314, -405.086, 349.65, -372.328, 397.527, -355.949, 334.531, -325.711, 270.275, -294.213, 116.564, -282.874, -33.3663 )
+
+[node name="13" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( 256.363, 73.1885, 283.272, 76.5521, 274.863, 167.369, 298.408, 276.685, 353.907, 345.639, 517.041, 417.956, 720.538, 416.274, 930.762, 404.502, 1090.53, 359.093, 1149.4, 325.457, 1161.17, 349.003, 1078.76, 389.366, 924.035, 429.729, 666.721, 443.183, 511.996, 434.774, 348.862, 370.866, 279.908, 286.776, 251.318, 147.187 )
+
+[node name="14" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( 340.026, -32.3952, 489.857, -26.4019, 609.721, -3.92734, 861.437, 3.56421, 1012.77, 2.06592, 1089.18, -26.4019, 1107.16, -8.42224, 1012.77, 21.5439, 828.474, 23.0422, 627.701, 23.0422, 459.891, -11.4189, 328.039, 11.0558 )
+
+[node name="15" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( 533.308, 201.341, 531.809, 223.815, 627.701, 234.303, 797.01, 241.795, 976.806, 219.32, 1176.08, 175.87, 1180.58, 133.917, 1080.19, 165.381, 960.325, 199.842, 805.999, 216.324, 705.613, 217.822 )
+
+[node name="16" type="CollisionPolygon2D" parent="Level/StaticBody"]
+visible = false
+polygon = PoolVector2Array( 132.561, -360.695, 114.581, -335.224, 213.47, -282.783, 394.765, -209.366, 586.548, -174.905, 764.847, -132.952, 961.125, -141.942, 1125.94, -192.885, 1227.82, -180.898, 1227.82, -264.803, 1164.89, -215.359, 1116.95, -212.363, 956.63, -159.922, 758.853, -161.42, 627.002, -179.4, 577.558, -206.37, 370.792, -234.837, 167.022, -329.231 )
+
+[node name="Players" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+[connection signal="update_placement" from="." to="UI" method="_on_Game_update_placement"]
+[connection signal="timeout" from="UI/StartGameTimer" to="UI" method="_on_StartGameTimer_timeout"]
+[connection signal="timeout" from="UI/StartGameTimer" to="." method="_on_StartGameTimer_timeout"]

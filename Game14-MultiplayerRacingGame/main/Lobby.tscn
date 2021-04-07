@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://main/lobby.gd" type="Script" id=1]
+
+[node name="Lobby" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="."]
+margin_right = 960.0
+margin_bottom = 600.0
+alignment = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hbox" type="HBoxContainer" parent="vbox"]
+margin_top = 273.0
+margin_right = 960.0
+margin_bottom = 327.0
+alignment = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Items" type="VBoxContainer" parent="vbox/hbox"]
+margin_left = 375.0
+margin_right = 585.0
+margin_bottom = 54.0
+alignment = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="host_option" type="HBoxContainer" parent="vbox/hbox/Items"]
+margin_right = 210.0
+margin_bottom = 25.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="name_edit" type="LineEdit" parent="vbox/hbox/Items/host_option"]
+margin_right = 150.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 150, 0 )
+placeholder_text = "Digite seu nome"
+
+[node name="Host" type="Button" parent="vbox/hbox/Items/host_option"]
+margin_left = 160.0
+margin_right = 210.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 50, 25 )
+disabled = true
+text = "Host"
+
+[node name="join_option" type="HBoxContainer" parent="vbox/hbox/Items"]
+margin_top = 29.0
+margin_right = 210.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="ip_address" type="LineEdit" parent="vbox/hbox/Items/join_option"]
+margin_right = 150.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 150, 0 )
+text = "127.0.0.1"
+editable = false
+
+[node name="Join" type="Button" parent="vbox/hbox/Items/join_option"]
+margin_left = 160.0
+margin_right = 210.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 50, 25 )
+disabled = true
+text = "Join"
+[connection signal="text_changed" from="vbox/hbox/Items/host_option/name_edit" to="." method="_on_name_edit_text_changed"]
+[connection signal="pressed" from="vbox/hbox/Items/host_option/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="vbox/hbox/Items/join_option/Join" to="." method="_on_Join_pressed"]

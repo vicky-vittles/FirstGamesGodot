@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/marble-material.tres" type="Material" id=1]
+[ext_resource path="res://entities/ball/ball.gd" type="Script" id=2]
+
+[sub_resource type="SphereMesh" id=2]
+material = ExtResource( 1 )
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SphereShape" id=3]
+radius = 0.5
+
+[node name="Ball" type="RigidBody" groups=[
+"ball",
+]]
+collision_layer = 2147483652
+collision_mask = 10
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 3 )
+
+[node name="FeetRay" type="RayCast" parent="."]
+enabled = true
+collision_mask = 2
