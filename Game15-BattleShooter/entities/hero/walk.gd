@@ -6,14 +6,14 @@ var hero
 func enter():
 	hero = fsm.actor
 
-func exit():
-	hero.graphics.stop_anim()
-
 func process(delta):
 	hero.get_input()
 
 func physics_process(delta):
-	hero.graphics.play_walk()
+	var angle_to_mouse = hero.get_angle_to_mouse()
+	hero.graphics.play_walk(angle_to_mouse)
+	hero.graphics.play_weapon(angle_to_mouse)
 	hero.move(delta)
+	
 	if hero.direction == Vector2.ZERO:
 		fsm.change_state(IDLE)
