@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var animation_player = $AnimationPlayer
+onready var gun = $Hand/Gun
 
 func play_idle(angle: float):
 	var anim_name = "idle" + get_anim_angle(angle)
@@ -12,7 +13,7 @@ func play_walk(angle: float):
 
 func play_weapon(angle: float):
 	var anim_name = "look" + get_anim_angle(angle)
-	#gun.play_look(anim_name)
+	gun.play_look(anim_name)
 
 func get_anim_angle(angle: float):
 	if angle < 0:

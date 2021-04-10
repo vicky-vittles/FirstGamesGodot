@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://entities/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/woman-char.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=4]
 [ext_resource path="res://entities/hero/walk.gd" type="Script" id=5]
 [ext_resource path="res://entities/hero/idle.gd" type="Script" id=6]
+[ext_resource path="res://entities/gun/GunRocket.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle-d-down"
@@ -22,6 +23,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -6 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -40,6 +53,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 8 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, -3 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "idle-down"
@@ -56,6 +81,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 20 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -3 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -74,6 +111,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 16 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, -3 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "idle-up"
@@ -90,6 +139,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 12 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -13 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -108,6 +169,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 4, 7 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -6 ) ]
+}
 
 [sub_resource type="Animation" id=7]
 length = 0.2
@@ -123,6 +196,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 8, 11 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, -3 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -141,6 +226,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 20, 23 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -3 ) ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.2
@@ -157,6 +254,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 16, 19 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, -3 ) ]
+}
 
 [sub_resource type="Animation" id=10]
 length = 0.2
@@ -172,6 +281,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 12, 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -13 ) ]
 }
 
 [sub_resource type="CapsuleShape2D" id=11]
@@ -199,6 +320,11 @@ frame = 12
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Hand" type="Node2D" parent="Graphics"]
+position = Vector2( 0, -13 )
+
+[node name="Gun" parent="Graphics/Hand" instance=ExtResource( 7 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics"]
 anims/idle-d-down = SubResource( 1 )
