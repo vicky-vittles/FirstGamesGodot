@@ -1,9 +1,13 @@
 extends CanvasLayer
 
+signal play_again()
+
 onready var animation_player = $AnimationPlayer
 onready var placement_label = $root/control/PlacementLabel
 onready var start_game_label = $root/StartGameLabel
 onready var start_game_timer = $StartGameTimer
+onready var player_won_label = $root/PlayerWonLabel
+onready var play_again_button = $root/control2/PlayAgain
 
 onready var start_game_text = start_game_label.text
 
@@ -17,6 +21,7 @@ func set_start_game_label():
 
 func _on_StartGameTimer_timeout():
 	start_game_label.hide()
+	animation_player.play("start_game")
 
 func _on_Game_update_placement(cars_ordered):
 	var text = ""
@@ -38,3 +43,13 @@ func get_placement_name(position: int) -> String:
 			return "3rd"
 		_:
 			return str(position)+"th"
+
+func _on_Game_player_won(player):
+	player_won_label.text = player.player_name + " venceu!"
+	animation_player.play("end_game")
+
+func _on_PlayAgain_pressed():
+	player_won_label.text = "Aguardando outro jogador..."
+	play_again_button.disabled = true
+	get_tree().paused = false
+	emit_signal("play_again")

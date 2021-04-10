@@ -29,10 +29,10 @@
 [ext_resource path="res://systems/random_audio_player/RandomAudioPlayer.tscn" type="PackedScene" id=27]
 [ext_resource path="res://entities/human/audio.gd" type="Script" id=30]
 
-[sub_resource type="CylinderShape" id=2]
+[sub_resource type="CylinderShape" id=1]
 radius = 1.07305
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="CylinderShape" id=3]
@@ -460,14 +460,14 @@ collision_mask = 2147483648
 
 [node name="CollisionShape" type="CollisionShape" parent="Sensors/PerceptibleArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Flag" type="CSGSphere" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2592, 0 )
 radius = 2.0
 radial_segments = 6
 rings = 3
-material = SubResource( 1 )
+material = SubResource( 2 )
 script = ExtResource( 12 )
 
 [node name="Head" type="Area" parent="."]
@@ -535,10 +535,10 @@ anims/crouch = SubResource( 8 )
 anims/die = SubResource( 9 )
 anims/idle = SubResource( 10 )
 anims/stand_up = SubResource( 11 )
-[connection signal="died" from="." to="StateMachine/Walk" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Idle" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Run" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Walk" method="_on_Human_died"]
 [connection signal="on_ground" from="CharacterMover" to="StateMachine/Jump" method="_on_CharacterMover_on_ground"]
 [connection signal="timeout" from="StateMachine/Jump/Timer" to="StateMachine/Jump" method="_on_Timer_timeout"]

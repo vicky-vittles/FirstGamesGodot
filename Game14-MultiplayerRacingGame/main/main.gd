@@ -15,3 +15,8 @@ func _on_Lobby_start_game():
 	lobby.queue_free()
 	var new_game = GAME.instance()
 	add_child(new_game)
+	new_game.connect("game_ended", self, "_on_Game_game_ended")
+
+
+func _on_Game_game_ended():
+	get_tree().paused = true

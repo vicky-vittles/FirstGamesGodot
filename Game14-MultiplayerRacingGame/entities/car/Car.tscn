@@ -12,8 +12,12 @@ height = 29.0
 "car",
 ]]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 14
 script = ExtResource( 1 )
+steering_angle = 9.0
+friction = -0.1
+traction_fast = 0.2
+traction_slow = 0.7
 
 [node name="Graphics" type="Node2D" parent="."]
 script = ExtResource( 3 )
@@ -41,10 +45,10 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 1.5, 1.5 )
-limit_left = -1440
-limit_top = -900
-limit_right = 1440
-limit_bottom = 900
+limit_left = -2880
+limit_top = -1800
+limit_right = 2880
+limit_bottom = 1800
 editor_draw_limits = true
 __meta__ = {
 "_edit_lock_": true

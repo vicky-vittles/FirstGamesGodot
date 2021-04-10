@@ -3,18 +3,18 @@ extends KinematicBody2D
 signal update_placement()
 
 var wheel_base : int = 35 # Distance between front/rear wheels
-var steering_angle : float = 18 # Max angle of steering
+export (float) var steering_angle = 9 # Max angle of steering
 
-var engine_power : int = 1100 # Acceleration
-var braking : int = -450 # Braking deceleration
-var max_speed_reverse : int = 700 # Max speed backwards/on reverse
+export (int) var engine_power = 500 # Acceleration
+export (int) var braking = -400 # Braking deceleration
+export (int) var max_speed_reverse = 400 # Max speed backwards/on reverse
 
-var friction : float = -0.9 # Friction to the ground
-var drag : float = -0.0015 # Drag
+export (float) var friction = -0.1 # Friction to the ground
+var drag : float = -0.00015 # Drag
 
-var slip_speed : int = 400 # Speed where traction is reduced
-var traction_fast : float = 0.1 # High-speed traction
-var traction_slow : float = 0.7 # Low-speed traction
+export (int) var slip_speed = 400 # Speed where traction is reduced
+export (float) var traction_fast = 0.2 # High-speed traction
+export (float) var traction_slow = 0.7 # Low-speed traction
 
 var steer_angle : float = 0.0
 var velocity = Vector2()

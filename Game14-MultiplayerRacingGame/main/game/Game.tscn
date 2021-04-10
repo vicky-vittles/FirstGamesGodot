@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/m6x11.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://main/game/game.gd" type="Script" id=3]
@@ -15,7 +15,47 @@ font_data = ExtResource( 1 )
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
+resource_name = "end_game"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/PlayerWonLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("root/control2/PlayAgain:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("root/control2/PlayAgain:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
 resource_name = "placement_updated"
 length = 0.6
 tracks/0/type = "value"
@@ -31,34 +71,139 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 122.294, 66.5706 )
+[sub_resource type="Animation" id=13]
+resource_name = "prepare_game"
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/control/PlacementLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("root/StartGameLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("root/PlayerWonLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("root/control2/PlayAgain:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "start_game"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("root/control/PlacementLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("root/PlayerWonLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("root/StartGameLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("root/control2/PlayAgain:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 76.9274, 66.5706 )
-
-[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 122.294, 66.5706 )
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 76.9274, 66.5706 )
+
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 165.395, 66.5706 )
+extents = Vector2( 122.294, 66.5706 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 165.395, 66.5706 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 165.395, 87.2968 )
+extents = Vector2( 165.395, 66.5706 )
 
 [sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 165.395, 87.2968 )
+
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 342.06, 10 )
 
 [node name="Game" type="Node2D"]
+pause_mode = 1
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
+pause_mode = 2
 script = ExtResource( 5 )
 
 [node name="root" type="MarginContainer" parent="UI"]
@@ -78,6 +223,7 @@ __meta__ = {
 }
 
 [node name="PlacementLabel" type="Label" parent="UI/root/control"]
+visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 960.0
@@ -90,7 +236,7 @@ __meta__ = {
 margin_top = 239.0
 margin_right = 960.0
 margin_bottom = 360.0
-text = "Race starts in %s...
+text = "A corrida comeca em %s...
 
 
 "
@@ -99,15 +245,45 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="PlayerWonLabel" type="Label" parent="UI/root"]
+margin_top = 286.0
+margin_right = 960.0
+margin_bottom = 314.0
+align = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="control2" type="Control" parent="UI/root"]
+margin_right = 960.0
+margin_bottom = 600.0
+
+[node name="PlayAgain" type="Button" parent="UI/root/control2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -111.0
+margin_top = 47.2172
+margin_right = 111.0
+margin_bottom = 81.2172
+text = "Jogar Novamente"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="StartGameTimer" type="Timer" parent="UI"]
 wait_time = 3.0
 one_shot = true
-autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
-anims/placement_updated = SubResource( 10 )
+anims/end_game = SubResource( 12 )
+anims/placement_updated = SubResource( 3 )
+anims/prepare_game = SubResource( 13 )
+anims/start_game = SubResource( 11 )
 
 [node name="Level" type="Node2D" parent="."]
+scale = Vector2( 2, 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -126,11 +302,10 @@ __meta__ = {
 [node name="1" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 954.531, 549.664 )
 rotation = 1.48816
-scale = Vector2( 1, 1 )
 id = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/1"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="2" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 407.23, 193.282 )
@@ -138,7 +313,7 @@ rotation = 0.14831
 id = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/2"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="3" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 1016.75, -82.2709 )
@@ -146,7 +321,7 @@ rotation = -1.84002
 id = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/3"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="4" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 27.0413, -409.718 )
@@ -154,7 +329,7 @@ rotation = 0.538343
 id = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/4"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="5" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 41.3117, -749.832 )
@@ -162,7 +337,7 @@ rotation = 1.50341
 id = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/5"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="6" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -1020.65, -712.966 )
@@ -170,7 +345,7 @@ rotation = 1.77528
 id = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/6"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="7" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -888.648, -111.227 )
@@ -178,7 +353,7 @@ rotation = 1.77528
 id = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/7"]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="8" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -1266.82, 554.729 )
@@ -186,7 +361,7 @@ rotation = 3.13799
 id = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/8"]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="9" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -263.125, 453.646 )
@@ -194,7 +369,7 @@ rotation = 3.13799
 id = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/9"]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="10" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 751.268, 593.972 )
@@ -202,7 +377,7 @@ rotation = 4.70241
 id = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/10"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="CarSpawn" type="Position2D" parent="Level"]
 position = Vector2( 576, 465 )
@@ -251,7 +426,7 @@ polygon = PoolVector2Array( -413.368, -630.814, -423.447, -603.095, -316.354, -5
 visible = false
 position = Vector2( -736.489, -667.336 )
 rotation = 0.168184
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="9" type="CollisionPolygon2D" parent="Level/StaticBody"]
 visible = false
@@ -289,6 +464,9 @@ polygon = PoolVector2Array( 132.561, -360.695, 114.581, -335.224, 213.47, -282.7
 __meta__ = {
 "_edit_lock_": true
 }
+[connection signal="player_won" from="." to="UI" method="_on_Game_player_won"]
 [connection signal="update_placement" from="." to="UI" method="_on_Game_update_placement"]
+[connection signal="play_again" from="UI" to="." method="_on_UI_play_again"]
+[connection signal="pressed" from="UI/root/control2/PlayAgain" to="UI" method="_on_PlayAgain_pressed"]
 [connection signal="timeout" from="UI/StartGameTimer" to="UI" method="_on_StartGameTimer_timeout"]
 [connection signal="timeout" from="UI/StartGameTimer" to="." method="_on_StartGameTimer_timeout"]

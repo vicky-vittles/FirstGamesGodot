@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://main/game/Game.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/car/Car.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends \"res://main/game/game.gd\"
+
+func _physics_process(delta):
+	for player in players.get_children():
+		player.set_network_master(get_tree().get_network_unique_id())
+"
+
+[node name="Game" instance=ExtResource( 1 )]
+script = SubResource( 1 )
+
+[node name="Car" parent="Players" index="0" instance=ExtResource( 2 )]
+[connection signal="game_started" from="." to="Players/Car" method="_on_Game_game_started"]
