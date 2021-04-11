@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://entities/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/woman-char.png" type="Texture" id=2]
@@ -6,7 +6,9 @@
 [ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=4]
 [ext_resource path="res://entities/hero/walk.gd" type="Script" id=5]
 [ext_resource path="res://entities/hero/idle.gd" type="Script" id=6]
-[ext_resource path="res://entities/gun/GunRocket.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/gun/GunSpazer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/hero/ui/HealthBar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://libs/health/Health.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle-d-down"
@@ -34,7 +36,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -2, -6 ) ]
+"values": [ Vector2( -1, -9 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -92,7 +94,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -3 ) ]
+"values": [ Vector2( 0.25, -5 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -179,7 +181,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -2, -6 ) ]
+"values": [ Vector2( -1, -9 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -207,7 +209,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 2, -3 ) ]
+"values": [ Vector2( 1, -3 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -236,7 +238,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -3 ) ]
+"values": [ Vector2( 0.25, -5 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -299,7 +301,11 @@ tracks/1/keys = {
 radius = 3.14462
 height = 2.64108
 
-[node name="Hero" type="KinematicBody2D"]
+[node name="Hero" type="KinematicBody2D" groups=[
+"hero",
+]]
+collision_layer = 4
+collision_mask = 26
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -316,13 +322,13 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 4
-frame = 12
+frame = 4
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Hand" type="Node2D" parent="Graphics"]
-position = Vector2( 0, -13 )
+position = Vector2( -1, -9 )
 
 [node name="Gun" parent="Graphics/Hand" instance=ExtResource( 7 )]
 
@@ -338,12 +344,23 @@ anims/walk-down = SubResource( 8 )
 anims/walk-side = SubResource( 9 )
 anims/walk-up = SubResource( 10 )
 
+[node name="Indicators" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="HealthBar" parent="Indicators" instance=ExtResource( 8 )]
+position = Vector2( -18, 6 )
+
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Health" parent="." instance=ExtResource( 9 )]
+max_health = 100
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 4 )

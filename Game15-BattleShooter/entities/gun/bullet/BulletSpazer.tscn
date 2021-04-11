@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://entities/gun/bullet/_Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/bullet-spazer.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.99999
+height = 6.00001
+
+[node name="Bullet" instance=ExtResource( 1 )]
+acceleration = 10
+initial_speed = 400
+max_speed = 500
+damage = 20
+
+[node name="CollisionShape2D" parent="." index="0"]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )

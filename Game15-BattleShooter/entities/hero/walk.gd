@@ -15,5 +15,8 @@ func physics_process(delta):
 	hero.graphics.play_weapon(angle_to_mouse)
 	hero.move(delta)
 	
+	if hero.shoot:
+		hero.shoot_gun()
+	
 	if hero.direction == Vector2.ZERO:
 		fsm.change_state(IDLE)
