@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://entities/gun/bullet/bullet.gd" type="Script" id=1]
+
+[node name="Bullet" type="Area2D" groups=[
+"bullet",
+]]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="."]
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
