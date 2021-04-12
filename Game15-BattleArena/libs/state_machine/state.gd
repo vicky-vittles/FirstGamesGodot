@@ -6,7 +6,7 @@ export (NodePath) var fsm_path
 onready var fsm = get_node(fsm_path)
 
 
-func enter():
+func enter(info):
 	pass
 
 

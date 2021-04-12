@@ -18,14 +18,14 @@ func _ready():
 func _on_Actor_ready() -> void:
 	if is_active:
 		current_state = get_child(0)
-		current_state.enter()
+		current_state.enter({})
 
 
-func change_state(new_state) -> void:
+func change_state(new_state, info = {}) -> void:
 	if is_active:
 		current_state.exit()
 		current_state = new_state
-		current_state.enter()
+		current_state.enter(info)
 
 
 func _input(event):
@@ -39,8 +39,7 @@ func _process(delta):
 
 
 func _physics_process(delta):
-#	if not actor.is_player:
-#		print(current_state.name)
+	#print(current_state.name)
 	if is_active and current_state.has_method("physics_process"):
 		current_state.physics_process(delta)
 

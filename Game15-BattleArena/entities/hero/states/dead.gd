@@ -2,7 +2,7 @@ extends State
 
 var hero
 
-func enter():
+func enter(info):
 	hero = fsm.actor
 
 func exit():
