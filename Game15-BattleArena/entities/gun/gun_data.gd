@@ -20,4 +20,4 @@ func load_data(gun_type, gun_variation):
 	fire_rate = data["fire_rate"]
 	max_ammo = data["max_ammo"]
 	
-	BULLET = GunDB.GUN_BULLETS[gun_type]
+	BULLET = GunDB.get_bullet_type(gun_type)

@@ -15,22 +15,22 @@ func _ready():
 
 func shoot(dir: Vector2, exceptions: Array):
 	if fire_rate_timer.is_stopped():
-		var new_bullet = gun_data.BULLET.instance()
-		get_tree().root.add_child(new_bullet)
-		new_bullet.global_position = global_position
-		new_bullet.damage = gun_data.bullet_damage
-		new_bullet.exceptions = exceptions
-		new_bullet.fire(dir)
 		graphics.play_anim(Strings.GUN_SHOOT)
 		
 		var bullet_info = {
-			"pos": global_position,
+			"pos": global_position + 15*Vector2(sign(dir.x), 0),
 			"damage": gun_data.bullet_damage,
 			"exceptions": exceptions,
-			"dir": dir}
+			"dir": dir,
+			"gun_type": gun_type}
 		rpc("spawn_bullet", bullet_info)
 		
 		fire_rate_timer.start()
 
-puppet func spawn_bullet(bullet_info):
-	pass
+remotesync func spawn_bullet(bullet_info):
+	var new_bullet = GunDB.get_bullet_type(bullet_info["gun_type"]).instance()
+	get_tree().root.add_child(new_bullet)
+	new_bullet.global_position = bullet_info["pos"]
+	new_bullet.damage = bullet_info["damage"]
+	new_bullet.exceptions = bullet_info["exceptions"]
+	new_bullet.fire(bullet_info["dir"])

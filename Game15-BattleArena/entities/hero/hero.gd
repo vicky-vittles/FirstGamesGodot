@@ -21,6 +21,7 @@ onready var graphics = $Graphics
 onready var hand = graphics.get_node("Hand")
 onready var gun = hand.get_node("Gun")
 onready var health = $Health
+onready var data = $Data
 
 onready var speed = RUN_SPEED
 onready var gravity = JUMP_GRAVITY
@@ -39,31 +40,7 @@ func setup(_display_name: String):
 func _physics_process(delta):
 	if not is_network_master():
 		return
-	var info = make_info()
-	rpc_unreliable("update_info", info)
-
-func make_info() -> Dictionary:
-	var info = {}
-	info["hero_pos"] = global_position
-	info["hero_health"] = health.current_health
-	
-	info["hero_display_name"] = display.display_name
-	info["hero_sprite"] = graphics.main_sprite.frame
-	info["hero_sprite_pos"] = graphics.main_sprite.global_position
-	info["hero_sprite_dir"] = graphics.scale.x
-	info["hero_has_gun"] = false
-	if gun:
-		info["hero_has_gun"] = true
-		info["gun_pos"] = gun.graphics.main_sprite.global_position
-		info["gun_sprite"] = gun.graphics.main_sprite.frame
-		info["gun_sprite_dir"] = -graphics.scale.x
-	return info
-
-puppet func update_info(info):
-	global_position = info["hero_pos"]
-	health.set_health(info["hero_health"])
-	display.display_name = info["hero_display_name"]
-	graphics.update_info(info)
+	data.sync_data()
 
 func get_input():
 	if not is_network_master():

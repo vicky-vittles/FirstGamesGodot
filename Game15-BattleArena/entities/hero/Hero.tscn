@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/dino-green.png" type="Texture" id=1]
 [ext_resource path="res://entities/hero/hero.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://entities/hero/display/HealthBar.tscn" type="PackedScene" id=14]
 [ext_resource path="res://entities/hero/display.gd" type="Script" id=15]
 [ext_resource path="res://assets/guns.png" type="Texture" id=16]
+[ext_resource path="res://entities/hero/hero_data.gd" type="Script" id=17]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.0
@@ -204,6 +205,9 @@ anims/shoot = SubResource( 6 )
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 8 )
 
+[node name="Data" type="Node" parent="."]
+script = ExtResource( 17 )
+
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 4 )
 actor_path = NodePath("..")
@@ -235,10 +239,11 @@ fsm_path = NodePath("..")
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )
 fsm_path = NodePath("..")
-[connection signal="get_hurt" from="." to="StateMachine/Idle" method="get_hurt"]
 [connection signal="get_hurt" from="." to="StateMachine/Run" method="get_hurt"]
-[connection signal="get_hurt" from="." to="StateMachine/Jump" method="get_hurt"]
+[connection signal="get_hurt" from="." to="StateMachine/Idle" method="get_hurt"]
 [connection signal="get_hurt" from="." to="StateMachine/Fall" method="get_hurt"]
+[connection signal="get_hurt" from="." to="StateMachine/Jump" method="get_hurt"]
 [connection signal="animation_finished" from="Graphics/AnimationPlayer" to="StateMachine/Hurt" method="animation_finished"]
+[connection signal="health_percentage" from="Health" to="Character/HealthBar" method="sync_bar"]
 [connection signal="health_percentage" from="Health" to="Character/HealthBar" method="update_bar"]
 [connection signal="coyote_time" from="StateMachine/Run" to="StateMachine/Fall" method="coyote_time"]

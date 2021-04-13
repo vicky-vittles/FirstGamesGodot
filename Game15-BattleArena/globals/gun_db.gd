@@ -1,5 +1,10 @@
 extends Node
 
+enum BULLET_TYPES {
+	NORMAL_BULLET = 1}
+const BULLETS = {
+	BULLET_TYPES.NORMAL_BULLET: preload("res://entities/bullet/NormalBullet.tscn")}
+
 enum GUN_TYPES {
 	SMG = 0,
 	SHOTGUN = 1,
@@ -33,12 +38,12 @@ const GUN_PLACEMENT = {
 		2: Vector2(0,5),
 		3: Vector2(1,4)}}
 const GUN_BULLETS = {
-	GUN_TYPES.SMG: preload("res://entities/bullet/NormalBullet.tscn"),
-	GUN_TYPES.SHOTGUN: preload("res://entities/bullet/NormalBullet.tscn"),
-	GUN_TYPES.SNIPER: preload("res://entities/bullet/NormalBullet.tscn"),
-	GUN_TYPES.RPG: preload("res://entities/bullet/NormalBullet.tscn"),
-	GUN_TYPES.MACHINE_GUN: preload("res://entities/bullet/NormalBullet.tscn"),
-	GUN_TYPES.RIFLE: preload("res://entities/bullet/NormalBullet.tscn")}
+	GUN_TYPES.SMG: BULLET_TYPES.NORMAL_BULLET,
+	GUN_TYPES.SHOTGUN: BULLET_TYPES.NORMAL_BULLET,
+	GUN_TYPES.SNIPER: BULLET_TYPES.NORMAL_BULLET,
+	GUN_TYPES.RPG: BULLET_TYPES.NORMAL_BULLET,
+	GUN_TYPES.MACHINE_GUN: BULLET_TYPES.NORMAL_BULLET,
+	GUN_TYPES.RIFLE: BULLET_TYPES.NORMAL_BULLET}
 const GUNS = {
 	GUN_TYPES.SMG: {
 		1: {
@@ -217,3 +222,6 @@ func get_placement(gun_type: int, gun_variation: int) -> Vector2:
 
 func get_shoot_intensity(gun_type: int, gun_variation: int) -> int:
 	return GUNS[gun_type][gun_variation]["shoot_anim_intensity"]
+
+func get_bullet_type(gun_type: int):
+	return BULLETS[GUN_BULLETS[gun_type]]

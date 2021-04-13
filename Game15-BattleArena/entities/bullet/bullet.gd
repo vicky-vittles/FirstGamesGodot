@@ -23,3 +23,7 @@ func body_entered(body):
 	if body.is_in_group("hero") and not exceptions.has(body):
 		if body.has_method("hurt"):
 			body.hurt(damage, self)
+			queue_free()
+
+func _on_screen_exited():
+	queue_free()
