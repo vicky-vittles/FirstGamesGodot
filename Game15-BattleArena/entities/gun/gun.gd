@@ -22,5 +22,15 @@ func shoot(dir: Vector2, exceptions: Array):
 		new_bullet.exceptions = exceptions
 		new_bullet.fire(dir)
 		graphics.play_anim(Strings.GUN_SHOOT)
-	
+		
+		var bullet_info = {
+			"pos": global_position,
+			"damage": gun_data.bullet_damage,
+			"exceptions": exceptions,
+			"dir": dir}
+		rpc("spawn_bullet", bullet_info)
+		
 		fire_rate_timer.start()
+
+puppet func spawn_bullet(bullet_info):
+	pass

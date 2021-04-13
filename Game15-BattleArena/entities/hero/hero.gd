@@ -13,12 +13,14 @@ export (float) var JUMP_TIME = 0.4
 onready var JUMP_SPEED = -2*JUMP_HEIGHT/JUMP_TIME
 onready var JUMP_GRAVITY = 2*JUMP_HEIGHT/(JUMP_TIME*JUMP_TIME)
 
-onready var ground_ray = $Character/GroundRay
+onready var character = $Character
+onready var ground_ray = character.get_node("GroundRay")
+onready var display = character.get_node("Display")
+onready var health_bar = character.get_node("HealthBar")
 onready var graphics = $Graphics
-onready var display = $Character/Display
-onready var health = $Health
-onready var hand = $Graphics/Hand
+onready var hand = graphics.get_node("Hand")
 onready var gun = hand.get_node("Gun")
+onready var health = $Health
 
 onready var speed = RUN_SPEED
 onready var gravity = JUMP_GRAVITY
@@ -37,8 +39,15 @@ func setup(_display_name: String):
 func _physics_process(delta):
 	if not is_network_master():
 		return
+	var info = make_info()
+	rpc_unreliable("update_info", info)
+
+func make_info() -> Dictionary:
 	var info = {}
 	info["hero_pos"] = global_position
+	info["hero_health"] = health.current_health
+	
+	info["hero_display_name"] = display.display_name
 	info["hero_sprite"] = graphics.main_sprite.frame
 	info["hero_sprite_pos"] = graphics.main_sprite.global_position
 	info["hero_sprite_dir"] = graphics.scale.x
@@ -48,10 +57,12 @@ func _physics_process(delta):
 		info["gun_pos"] = gun.graphics.main_sprite.global_position
 		info["gun_sprite"] = gun.graphics.main_sprite.frame
 		info["gun_sprite_dir"] = -graphics.scale.x
-	rpc_unreliable("update_info", info)
+	return info
 
 puppet func update_info(info):
 	global_position = info["hero_pos"]
+	health.set_health(info["hero_health"])
+	display.display_name = info["hero_display_name"]
 	graphics.update_info(info)
 
 func get_input():
