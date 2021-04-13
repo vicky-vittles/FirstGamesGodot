@@ -1,6 +1,6 @@
 extends State
 
-const FORCE_DAMP = 0.75
+const FORCE_DAMP = Vector2(0.5, 0.5)
 
 onready var IDLE = $"../Idle"
 onready var FALL = $"../Fall"

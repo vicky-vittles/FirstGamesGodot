@@ -14,7 +14,7 @@ position = Vector2( 80, 96 )
 [node name="2" type="Position2D" parent="SpawnPoints" index="1"]
 position = Vector2( 320, 96 )
 
-[node name="Terrain" type="StaticBody2D" parent="." index="1"]
+[node name="Terrain" type="StaticBody2D" parent="." index="2"]
 collision_layer = 2
 collision_mask = 20
 __meta__ = {

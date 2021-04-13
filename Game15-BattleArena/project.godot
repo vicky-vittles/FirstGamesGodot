@@ -104,7 +104,10 @@ equip={
 
 [layer_names]
 
+2d_render/layer_1="default"
+2d_render/layer_2="terrain"
 2d_physics/layer_2="terrain"
+2d_render/layer_3="entities"
 2d_physics/layer_3="entities"
 2d_physics/layer_4="bullets"
 2d_physics/layer_5="triggers"
@@ -115,5 +118,4 @@ translations=PoolStringArray( "res://main/translation.en.translation", "res://ma
 
 [rendering]
 
-environment/default_clear_color=Color( 0.203922, 0.203922, 0.203922, 1 )
 environment/default_environment="res://default_env.tres"
