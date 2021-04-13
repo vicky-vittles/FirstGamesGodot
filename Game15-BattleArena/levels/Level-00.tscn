@@ -16,7 +16,7 @@ position = Vector2( 320, 96 )
 
 [node name="Terrain" type="StaticBody2D" parent="." index="1"]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 20
 __meta__ = {
 "_edit_lock_": true
 }

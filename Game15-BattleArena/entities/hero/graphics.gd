@@ -1,14 +1,23 @@
 extends Node2D
 
+onready var hero = get_parent()
 onready var main_sprite = $Main
-onready var gun_dummy = $Hand/GunDummy
+onready var hand = $Hand
+onready var gun_dummy = hand.get_node("GunDummy")
 onready var animation_player = $AnimationPlayer
+
+var hero_color : int
+
+func _ready():
+	var hero_id = int(hero.name)
+	hero_color = Network.players.find(hero_id)%HeroDB.HERO_COLOURS.size()
+	main_sprite.texture = HeroDB.HERO_SPRITES[hero_color]
 
 func _physics_process(delta):
 	if not is_network_master():
 		animation_player.stop()
-		var gun = get_node("Hand/Gun")
-		if gun:
+		if hand.has_node("Gun"):
+			var gun = hand.get_node("Gun")
 			gun.visible = false
 
 func update_info(info):

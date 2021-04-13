@@ -19,12 +19,13 @@ onready var display = character.get_node("Display")
 onready var health_bar = character.get_node("HealthBar")
 onready var graphics = $Graphics
 onready var hand = graphics.get_node("Hand")
-onready var gun = hand.get_node("Gun")
+onready var gun = hand.get_node("Gun") if hand.has_node("Gun") else null
 onready var health = $Health
 onready var data = $Data
 
 onready var speed = RUN_SPEED
 onready var gravity = JUMP_GRAVITY
+var equip_press : bool = false
 var jump_press : bool = false
 var jump_released : bool = false
 var shoot_press : bool = false
@@ -53,6 +54,7 @@ func get_input():
 	jump_released = Input.is_action_just_released("jump")
 	shoot_press = Input.is_action_just_pressed("shoot")
 	shoot_hold = Input.is_action_pressed("shoot")
+	equip_press = Input.is_action_just_pressed("equip")
 
 func hurt(damage, source):
 	if source.is_in_group("bullet"):
@@ -60,8 +62,8 @@ func hurt(damage, source):
 		emit_signal("get_hurt", source)
 
 func check_shoot():
-	if shoot_hold:
-		gun.shoot(last_direction, [self])
+	if shoot_hold and gun:
+		gun.shoot(last_direction)
 
 func apply_speed():
 	velocity.x = speed * direction.x
