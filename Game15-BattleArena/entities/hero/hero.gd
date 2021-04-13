@@ -15,6 +15,7 @@ onready var JUMP_GRAVITY = 2*JUMP_HEIGHT/(JUMP_TIME*JUMP_TIME)
 
 onready var ground_ray = $Character/GroundRay
 onready var graphics = $Graphics
+onready var display = $Character/Display
 onready var health = $Health
 onready var hand = $Graphics/Hand
 onready var gun = hand.get_node("Gun")
@@ -30,7 +31,32 @@ var direction : Vector2
 var velocity : Vector2
 
 
+func setup(_display_name: String):
+	display.display_name = _display_name
+
+func _physics_process(delta):
+	if not is_network_master():
+		return
+	var info = {}
+	info["hero_pos"] = global_position
+	info["hero_sprite"] = graphics.main_sprite.frame
+	info["hero_sprite_pos"] = graphics.main_sprite.global_position
+	info["hero_sprite_dir"] = graphics.scale.x
+	info["hero_has_gun"] = false
+	if gun:
+		info["hero_has_gun"] = true
+		info["gun_pos"] = gun.graphics.main_sprite.global_position
+		info["gun_sprite"] = gun.graphics.main_sprite.frame
+		info["gun_sprite_dir"] = -graphics.scale.x
+	rpc_unreliable("update_info", info)
+
+puppet func update_info(info):
+	global_position = info["hero_pos"]
+	graphics.update_info(info)
+
 func get_input():
+	if not is_network_master():
+		return
 	direction = Vector2.ZERO
 	direction.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
 	if direction != Vector2.ZERO:

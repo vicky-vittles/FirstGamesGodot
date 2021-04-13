@@ -15,7 +15,7 @@ font_data = ExtResource( 1 )
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=3]
 resource_name = "end_game"
 length = 0.1
 tracks/0/type = "value"
@@ -55,8 +55,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "placement_updated"
+[sub_resource type="Animation" id=4]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("root/control:rect_scale")
@@ -71,7 +70,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=5]
 resource_name = "prepare_game"
 tracks/0/type = "value"
 tracks/0/path = NodePath("root/control/PlacementLabel:visible")
@@ -122,7 +121,7 @@ tracks/3/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=6]
 resource_name = "start_game"
 length = 0.1
 tracks/0/type = "value"
@@ -174,25 +173,25 @@ tracks/3/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 122.294, 66.5706 )
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 76.9274, 66.5706 )
-
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 122.294, 66.5706 )
-
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 165.395, 66.5706 )
+extents = Vector2( 122.294, 66.5706 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 165.395, 66.5706 )
+extents = Vector2( 76.9274, 66.5706 )
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 165.395, 87.2968 )
+extents = Vector2( 122.294, 66.5706 )
 
 [sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 165.395, 66.5706 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 165.395, 66.5706 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 165.395, 87.2968 )
+
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 342.06, 10 )
 
 [node name="Game" type="Node2D"]
@@ -277,10 +276,10 @@ wait_time = 3.0
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
-anims/end_game = SubResource( 12 )
-anims/placement_updated = SubResource( 3 )
-anims/prepare_game = SubResource( 13 )
-anims/start_game = SubResource( 11 )
+anims/end_game = SubResource( 3 )
+anims/placement_updated = SubResource( 4 )
+anims/prepare_game = SubResource( 5 )
+anims/start_game = SubResource( 6 )
 
 [node name="Level" type="Node2D" parent="."]
 scale = Vector2( 2, 2 )
@@ -305,7 +304,7 @@ rotation = 1.48816
 id = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/1"]
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 
 [node name="2" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 407.23, 193.282 )
@@ -313,7 +312,7 @@ rotation = 0.14831
 id = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/2"]
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 
 [node name="3" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 1016.75, -82.2709 )
@@ -321,7 +320,7 @@ rotation = -1.84002
 id = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/3"]
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 
 [node name="4" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 27.0413, -409.718 )
@@ -329,7 +328,7 @@ rotation = 0.538343
 id = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/4"]
-shape = SubResource( 6 )
+shape = SubResource( 9 )
 
 [node name="5" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 41.3117, -749.832 )
@@ -337,7 +336,7 @@ rotation = 1.50341
 id = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/5"]
-shape = SubResource( 6 )
+shape = SubResource( 9 )
 
 [node name="6" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -1020.65, -712.966 )
@@ -345,7 +344,7 @@ rotation = 1.77528
 id = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/6"]
-shape = SubResource( 7 )
+shape = SubResource( 10 )
 
 [node name="7" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -888.648, -111.227 )
@@ -353,7 +352,7 @@ rotation = 1.77528
 id = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/7"]
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="8" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -1266.82, 554.729 )
@@ -361,7 +360,7 @@ rotation = 3.13799
 id = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/8"]
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="9" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( -263.125, 453.646 )
@@ -369,7 +368,7 @@ rotation = 3.13799
 id = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/9"]
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="10" parent="Level/Checkpoints" instance=ExtResource( 7 )]
 position = Vector2( 751.268, 593.972 )
@@ -377,7 +376,7 @@ rotation = 4.70241
 id = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Checkpoints/10"]
-shape = SubResource( 9 )
+shape = SubResource( 12 )
 
 [node name="CarSpawn" type="Position2D" parent="Level"]
 position = Vector2( 576, 465 )
@@ -426,7 +425,7 @@ polygon = PoolVector2Array( -413.368, -630.814, -423.447, -603.095, -316.354, -5
 visible = false
 position = Vector2( -736.489, -667.336 )
 rotation = 0.168184
-shape = SubResource( 10 )
+shape = SubResource( 13 )
 
 [node name="9" type="CollisionPolygon2D" parent="Level/StaticBody"]
 visible = false

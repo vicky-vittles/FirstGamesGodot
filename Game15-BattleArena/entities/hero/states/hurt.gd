@@ -14,7 +14,7 @@ func enter(info):
 	hero.graphics.play_anim(Strings.HERO_HURT)
 	bullet = info["bullet"]
 	bullet_direction = bullet.global_position.direction_to(hero.global_position)
-	bullet_direction *= Vector2(-1,1)
+	#bullet_direction *= Vector2(-1,1)
 	is_on_iframes = true
 	hero.apply_impulse(bullet_direction * bullet.velocity.length() * FORCE_DAMP)
 

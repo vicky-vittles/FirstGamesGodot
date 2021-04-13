@@ -29,18 +29,18 @@ func change_state(new_state, info = {}) -> void:
 
 
 func _input(event):
-	if is_active and current_state.has_method("input"):
+	if is_active and current_state.has_method("input") and is_network_master():
 		current_state.input(event)
 
 
 func _process(delta):
-	if is_active and current_state.has_method("process"):
+	if is_active and current_state.has_method("process") and is_network_master():
 		current_state.process(delta)
 
 
 func _physics_process(delta):
 	#print(current_state.name)
-	if is_active and current_state.has_method("physics_process"):
+	if is_active and current_state.has_method("physics_process") and is_network_master():
 		current_state.physics_process(delta)
 
 
