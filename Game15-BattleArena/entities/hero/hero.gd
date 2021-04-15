@@ -1,6 +1,9 @@
 extends KinematicBody2D
 
 signal get_hurt(source)
+signal died(player)
+signal respawned(player)
+signal eliminated(player)
 
 const ONE_FRAME = 1.0/60.0
 const FLOOR_NORMAL = Vector2.UP
@@ -13,6 +16,11 @@ export (float) var JUMP_TIME = 0.4
 onready var JUMP_SPEED = -2*JUMP_HEIGHT/JUMP_TIME
 onready var JUMP_GRAVITY = 2*JUMP_HEIGHT/(JUMP_TIME*JUMP_TIME)
 
+export (int) var max_lives = 5
+onready var current_lives = max_lives
+var respawn_time : float
+
+onready var collision_shape = $CollisionShape
 onready var character = $Character
 onready var ground_ray = character.get_node("GroundRay")
 onready var display = character.get_node("Display")
@@ -35,8 +43,16 @@ var direction : Vector2
 var velocity : Vector2
 
 
-func setup(_display_name: String):
+func reset():
+	speed = RUN_SPEED
+	gravity = JUMP_GRAVITY
+	last_direction = Vector2(1,0)
+	velocity = Vector2.ZERO
+	direction = Vector2.ZERO
+
+func setup(_display_name: String, _respawn_time):
 	display.display_name = _display_name
+	respawn_time = _respawn_time
 
 func _physics_process(delta):
 	if not is_network_master():
@@ -60,6 +76,16 @@ func hurt(damage, source):
 	if source.is_in_group("bullet"):
 		health.hurt(damage)
 		emit_signal("get_hurt", source)
+
+func die():
+	emit_signal("died", self)
+
+func respawn():
+	health.reset_health()
+	emit_signal("respawned", self)
+
+func eliminated():
+	emit_signal("eliminated", self)
 
 func check_shoot():
 	if shoot_hold and gun:

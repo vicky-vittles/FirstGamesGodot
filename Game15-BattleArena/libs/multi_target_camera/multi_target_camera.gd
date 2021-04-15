@@ -10,22 +10,30 @@ export (NodePath) var players_path
 onready var players = get_node(players_path)
 onready var screen_size = get_viewport_rect().size
 
+var draw_p = Vector2()
+var draw_r = Rect2()
+
+func _draw():
+	draw_circle(draw_p-position, 5.0, Color.green)
+	draw_rect(Rect2(draw_r.position-position, draw_r.size), Color.red, false, 5.0)
+
 func _process(delta):
-	var targets = players.get_children()
+	var targets = players.players_on_screen
 	if not targets:
 		return
 	
 	# Move camera
 	var p = Vector2.ZERO
 	for target in targets:
-		p += target.position
+		p += target.global_position
 	p /= targets.size()
-	position = lerp(position, p, move_speed)
+	global_position = lerp(global_position, p, move_speed)
+	draw_p = p
 	
 	# Zoom
-	var r = Rect2(position, Vector2.ONE)
+	var r = Rect2(global_position, Vector2.ONE)
 	for target in targets:
-		r = r.expand(target.position)
+		r = r.expand(target.global_position)
 	r = r.grow_individual(margin.x, margin.y, margin.x, margin.y)
 	var d = max(r.size.x, r.size.y)
 	var z
@@ -34,3 +42,6 @@ func _process(delta):
 	else:
 		z = clamp(r.size.y / screen_size.y, min_zoom, max_zoom)
 	zoom = lerp(zoom, Vector2.ONE * z, zoom_speed)
+	draw_r = r
+	
+	update()

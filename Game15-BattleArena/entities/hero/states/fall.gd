@@ -4,6 +4,7 @@ onready var IDLE = $"../Idle"
 onready var RUN = $"../Run"
 onready var JUMP = $"../Jump"
 onready var HURT = $"../Hurt"
+onready var DEAD = $"../Dead"
 onready var coyote_timer = $CoyoteTimer
 var hero
 
@@ -33,6 +34,7 @@ func physics_process(delta):
 		else:
 			fsm.change_state(IDLE)
 
+
 func coyote_time():
 	coyote_timer.start()
 
@@ -42,3 +44,6 @@ func get_hurt(source):
 		var info = {"bullet": source}
 		fsm.change_state(HURT, info)
 
+func die(_player):
+	if fsm.current_state == self:
+		fsm.change_state(DEAD)

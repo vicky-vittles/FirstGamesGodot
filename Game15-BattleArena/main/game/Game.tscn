@@ -19,9 +19,9 @@ limit_top = -150
 limit_right = 600
 limit_bottom = 300
 editor_draw_limits = true
-min_zoom = 0.5
+zoom_speed = 0.5
 max_zoom = 1.5
-margin = Vector2( 100, 400 )
+margin = Vector2( 230, 100 )
 players_path = NodePath("../Players")
 
 [node name="Collectables" type="Node2D" parent="."]

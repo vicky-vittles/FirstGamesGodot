@@ -3,6 +3,7 @@ extends State
 onready var RUN = $"../Run"
 onready var JUMP = $"../Jump"
 onready var HURT = $"../Hurt"
+onready var DEAD = $"../Dead"
 var hero
 
 func enter(info):
@@ -29,3 +30,7 @@ func get_hurt(source):
 	if fsm.current_state == self:
 		var info = {"bullet": source}
 		fsm.change_state(HURT, info)
+
+func die(_player):
+	if fsm.current_state == self:
+		fsm.change_state(DEAD)

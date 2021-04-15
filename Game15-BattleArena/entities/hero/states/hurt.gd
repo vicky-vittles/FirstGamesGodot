@@ -4,6 +4,7 @@ const FORCE_DAMP = Vector2(0.5, 0.5)
 
 onready var IDLE = $"../Idle"
 onready var FALL = $"../Fall"
+onready var DEAD = $"../Dead"
 var is_on_iframes : bool = true
 var bullet
 var bullet_direction : Vector2
@@ -27,6 +28,11 @@ func physics_process(delta):
 		if hero.is_on_floor():
 			fsm.change_state(IDLE)
 
+
 func animation_finished(anim_name):
 	if fsm.current_state == self and anim_name == Strings.HERO_HURT:
 		is_on_iframes = false
+
+func die(_player):
+	if fsm.current_state == self:
+		fsm.change_state(DEAD)

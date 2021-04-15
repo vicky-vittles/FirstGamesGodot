@@ -9,6 +9,9 @@ signal died()
 export (int) var max_health = 100
 onready var current_health : int = max_health
 
+func reset_health():
+	heal(max_health)
+
 func get_health_percent() -> float:
 	return float(current_health)/float(max_health)
 

@@ -111,6 +111,7 @@ equip={
 2d_physics/layer_3="entities"
 2d_physics/layer_4="bullets"
 2d_physics/layer_5="triggers"
+2d_physics/layer_6="collectable"
 
 [locale]
 
@@ -118,4 +119,5 @@ translations=PoolStringArray( "res://main/translation.en.translation", "res://ma
 
 [rendering]
 
+environment/default_clear_color=Color( 0.137255, 0.137255, 0.137255, 1 )
 environment/default_environment="res://default_env.tres"

@@ -6,6 +6,7 @@ onready var IDLE = $"../Idle"
 onready var JUMP = $"../Jump"
 onready var FALL = $"../Fall"
 onready var HURT = $"../Hurt"
+onready var DEAD = $"../Dead"
 var hero
 
 func enter(info):
@@ -37,3 +38,6 @@ func get_hurt(source):
 		var info = {"bullet": source}
 		fsm.change_state(HURT, info)
 
+func die(_player):
+	if fsm.current_state == self:
+		fsm.change_state(DEAD)
