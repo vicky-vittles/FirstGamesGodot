@@ -1,7 +1,7 @@
 extends Node
 
 const NUMBER_OF_CHECKPOINTS = 10
-const MAX_LAPS = 1
+const MAX_LAPS = 5
 
 static func sort_by_winner(a, b):
 	if a.current_lap > b.current_lap:

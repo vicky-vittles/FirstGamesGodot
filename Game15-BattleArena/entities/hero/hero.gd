@@ -97,11 +97,11 @@ func apply_speed():
 func apply_gravity(delta):
 	velocity.y += gravity * delta
 
-func apply_impulse(impulse):
-	velocity = impulse
-
 func move(delta):
 	velocity = move_and_slide(velocity, FLOOR_NORMAL)
 
 func is_on_ground() -> bool:
 	return ground_ray.is_colliding() or is_on_floor()
+
+func apply_impulse(impulse):
+	velocity = impulse

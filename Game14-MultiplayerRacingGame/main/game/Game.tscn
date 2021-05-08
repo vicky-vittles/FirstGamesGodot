@@ -467,5 +467,5 @@ __meta__ = {
 [connection signal="update_placement" from="." to="UI" method="_on_Game_update_placement"]
 [connection signal="play_again" from="UI" to="." method="_on_UI_play_again"]
 [connection signal="pressed" from="UI/root/control2/PlayAgain" to="UI" method="_on_PlayAgain_pressed"]
-[connection signal="timeout" from="UI/StartGameTimer" to="UI" method="_on_StartGameTimer_timeout"]
 [connection signal="timeout" from="UI/StartGameTimer" to="." method="_on_StartGameTimer_timeout"]
+[connection signal="timeout" from="UI/StartGameTimer" to="UI" method="_on_StartGameTimer_timeout"]

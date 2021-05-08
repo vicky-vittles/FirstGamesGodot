@@ -535,10 +535,10 @@ anims/crouch = SubResource( 8 )
 anims/die = SubResource( 9 )
 anims/idle = SubResource( 10 )
 anims/stand_up = SubResource( 11 )
-[connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
-[connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Idle" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Run" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Jump" method="_on_Human_died"]
+[connection signal="died" from="." to="StateMachine/Crouch" method="_on_Human_died"]
 [connection signal="died" from="." to="StateMachine/Walk" method="_on_Human_died"]
 [connection signal="on_ground" from="CharacterMover" to="StateMachine/Jump" method="_on_CharacterMover_on_ground"]
 [connection signal="timeout" from="StateMachine/Jump/Timer" to="StateMachine/Jump" method="_on_Timer_timeout"]

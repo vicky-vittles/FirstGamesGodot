@@ -18,7 +18,6 @@ extents = Vector2( 1792, 465 )
 [node name="Level" instance=ExtResource( 1 )]
 
 [node name="Background" type="TileMap" parent="." index="0"]
-visible = false
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
 format = 1

@@ -44,4 +44,4 @@ func _process(delta):
 	zoom = lerp(zoom, Vector2.ONE * z, zoom_speed)
 	draw_r = r
 	
-	update()
+	#update()
