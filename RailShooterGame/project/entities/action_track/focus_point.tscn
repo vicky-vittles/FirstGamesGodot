@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://libs/editor_only.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+albedo_color = Color( 1, 0.513726, 0, 0.67451 )
+
+[sub_resource type="SphereMesh" id=2]
+material = SubResource( 1 )
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 5
+
+[node name="FocusPoint" type="Spatial"]
+
+[node name="Editor" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = null
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}

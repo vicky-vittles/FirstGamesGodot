@@ -1,0 +1,52 @@
+// Game: RailShooterGame
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "textures/pixel_textures/Bricks"
+// brush 0
+{
+( -400 -464 -32 ) ( -400 -456.75 -32 ) ( -400 -464 -31 ) pixel_textures/Bricks/CLAYBRICKS 0 0 0 2 2
+( -400 -464 -32 ) ( -400 -464 -31 ) ( -393.75 -464 -32 ) pixel_textures/Bricks/CLAYBRICKS 0 0 0 2 2
+( -400 -464 -32 ) ( -393.75 -464 -32 ) ( -400 -456.75 -32 ) pixel_textures/Bricks/CLAYBRICKS 0 0 0 2 2
+( 400 464 0 ) ( 400 471.2500000000001 0 ) ( 406.25000000000006 464 0 ) pixel_textures/Bricks/CLAYBRICKS 0 0 0 2 2
+( 400 464 0 ) ( 406.25000000000006 464 0 ) ( 400 464 1 ) pixel_textures/Bricks/CLAYBRICKS 0 0 0 2 2
+( 400 464 0 ) ( 400 464 1 ) ( 400 471.2500000000001 0 ) pixel_textures/Bricks/CLAYBRICKS 0 0 0 2 2
+}
+// brush 1
+{
+( -208 176 0 ) ( -192 -160 224 ) ( -192 -160 0 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 128 160 0 ) ( -192 -160 0 ) ( 112 -112 0 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 128 160 224 ) ( -192 -160 224 ) ( -208 176 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 128 160 224 ) ( -208 176 0 ) ( 128 160 0 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 112 -112 224 ) ( -192 -160 0 ) ( -192 -160 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( -80 -142.3157894736842 0 ) ( -80 -142.3157894736842 128 ) ( -80 -14.315789473684191 128 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+}
+// brush 2
+{
+( 0 -129.68421052631578 0 ) ( 0 -1.6842105263157805 144 ) ( 0 -129.68421052631578 144 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 128 160 0 ) ( -192 -160 0 ) ( 112 -112 0 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 128 160 224 ) ( -192 -160 224 ) ( -208 176 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 128 160 224 ) ( -208 176 0 ) ( 128 160 0 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 112 -112 224 ) ( -192 -160 0 ) ( -192 -160 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 128 160 224 ) ( 112 -112 0 ) ( 112 -112 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+}
+// brush 3
+{
+( -80 -142.31578947371236 224 ) ( -80 -142.31578947370497 0 ) ( -80 169.9047619047633 0 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( -80 169.9047619047633 224 ) ( -40 168 224 ) ( -40 -136 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( -40 168 136 ) ( -40 168 224 ) ( -80 169.9047619047633 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( -40 -136 136 ) ( -80 -142.31578947370497 0 ) ( -80 -142.31578947371236 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( -40 -136 136 ) ( -40 168 136 ) ( -80 169.9047619047633 0 ) pixel_textures/Bricks/DUNGEONBRICKS -30.897247 -14.8972435 0 1 1
+( -40 -136 224 ) ( -40 168 224 ) ( -40 168 136 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+}
+// brush 4
+{
+( -40 168 224 ) ( -40 -136 224 ) ( -40 -136 136 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 0 -129.68421052633568 0 ) ( 0 166.09523809523807 0 ) ( -40 168 136 ) pixel_textures/Bricks/DUNGEONBRICKS -17.102757 -17.102757 0 1 1
+( -40 168 224 ) ( 0 166.09523809523807 224 ) ( 0 -129.6842105263357 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 0 166.09523809523807 0 ) ( 0 166.09523809523807 224 ) ( -40 168 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( -40 -136 136 ) ( -40 -136 224 ) ( 0 -129.6842105263357 224 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+( 0 -129.6842105263357 224 ) ( 0 166.09523809523807 224 ) ( 0 166.09523809523807 0 ) pixel_textures/Bricks/DUNGEONBRICKS 0 0 0 1 1
+}
+}
