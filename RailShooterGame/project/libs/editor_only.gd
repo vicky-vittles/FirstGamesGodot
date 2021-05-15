@@ -1,4 +1,6 @@
+tool
 extends MeshInstance
 
 func _ready():
-	hide()
+	if not Engine.editor_hint:
+		hide()

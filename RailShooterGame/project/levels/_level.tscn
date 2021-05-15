@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/qodot/src/nodes/qodot_map.gd" type="Script" id=1]
 [ext_resource path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" type="Resource" id=2]
-[ext_resource path="res://levels/level.gd" type="Script" id=3]
-[ext_resource path="res://levels/dolly_paths.gd" type="Script" id=4]
+[ext_resource path="res://levels/_level.gd" type="Script" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -36,7 +35,6 @@ __meta__ = {
 
 [node name="DollyPaths" type="Spatial" parent="ActionTrack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00152731, -0.0058316, 0.00279546 )
-script = ExtResource( 4 )
 
 [node name="FocusPoints" type="Spatial" parent="ActionTrack"]
 

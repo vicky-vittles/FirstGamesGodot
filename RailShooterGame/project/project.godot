@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "ActionTrackCommand",
+"language": "GDScript",
+"path": "res://entities/action_track/trigger/command.gd"
+}, {
+"base": "ActionTrackCommand",
+"class": "GetToFocusATCommand",
+"language": "GDScript",
+"path": "res://levels/rail00/command_get_to_focus.gd"
+}, {
+"base": "ActionTrackCommand",
+"class": "GetToPathATCommand",
+"language": "GDScript",
+"path": "res://entities/action_track/trigger/command_get_to_path.gd"
+}, {
 "base": "LiquidLayer",
 "class": "LavaLayer",
 "language": "GDScript",
@@ -89,6 +104,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/qodot/src/nodes/qodot_spatial.gd"
 }, {
+"base": "QodotFGDPointClass",
+"class": "QodotTarget",
+"language": "GDScript",
+"path": "res://addons/qodot/entities/target/qodot_target.gd"
+}, {
 "base": "Reference",
 "class": "QodotTextureLoader",
 "language": "GDScript",
@@ -139,6 +159,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/qodot/game_definitions/worldspawn_layers/liquid/slime.gd"
 }, {
+"base": "Spatial",
+"class": "Target",
+"language": "GDScript",
+"path": "res://entities/target/target.gd"
+}, {
 "base": "Resource",
 "class": "TrenchBroomFaceAttrib",
 "language": "GDScript",
@@ -165,6 +190,9 @@ _global_script_classes=[ {
 "path": "res://addons/qodot/game_definitions/worldspawn_layers/liquid/water.gd"
 } ]
 _global_script_class_icons={
+"ActionTrackCommand": "",
+"GetToFocusATCommand": "",
+"GetToPathATCommand": "",
 "LavaLayer": "",
 "LiquidLayer": "",
 "PhysicsBall": "",
@@ -181,6 +209,7 @@ _global_script_class_icons={
 "QodotPlugin": "",
 "QodotRotateEntity": "",
 "QodotSpatial": "res://addons/qodot/icons/icon_qodot_spatial.svg",
+"QodotTarget": "",
 "QodotTextureLoader": "",
 "QodotUtil": "",
 "QodotWorldspawnLayer": "",
@@ -191,6 +220,7 @@ _global_script_class_icons={
 "QuakeWadFile": "",
 "QuakeWadImportPlugin": "",
 "SlimeLayer": "",
+"Target": "",
 "TrenchBroomFaceAttrib": "",
 "TrenchBroomGameConfigFile": "",
 "TrenchBroomGameConfigFolder": "",
@@ -203,6 +233,10 @@ _global_script_class_icons={
 config/name="RailShooterGame"
 run/main_scene="res://main/main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://globals/globals.gd"
 
 [debug]
 
@@ -227,6 +261,11 @@ enabled=PoolStringArray( "qodot" )
 exit={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"unicode":0,"echo":false,"script":null)
+ ]
+}
+reload={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
  ]
 }
 
