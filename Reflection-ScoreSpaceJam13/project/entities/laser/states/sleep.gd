@@ -1,0 +1,3 @@
+extends State
+
+var laser

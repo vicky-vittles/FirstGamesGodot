@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://entities/laser/laser.gd" type="Script" id=1]
+[ext_resource path="res://entities/laser/laser_raycast.gd" type="Script" id=2]
+[ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=3]
+[ext_resource path="res://entities/laser/states/fade.gd" type="Script" id=4]
+[ext_resource path="res://entities/laser/states/active.gd" type="Script" id=5]
+[ext_resource path="res://entities/laser/states/spawn.gd" type="Script" id=6]
+[ext_resource path="res://entities/laser/states/anticipate.gd" type="Script" id=7]
+
+[node name="Laser" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Raycast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 0 )
+collision_mask = 6
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tween" type="Tween" parent="Raycast"]
+
+[node name="Body" type="Line2D" parent="Raycast"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
+actor_path = NodePath("..")
+
+[node name="Spawn" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+fsm_path = NodePath("..")
+
+[node name="Anticipate" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
+fsm_path = NodePath("..")
+
+[node name="Timer" type="Timer" parent="StateMachine/Anticipate"]
+one_shot = true
+
+[node name="Active" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+fsm_path = NodePath("..")
+
+[node name="Timer" type="Timer" parent="StateMachine/Active"]
+one_shot = true
+
+[node name="Fade" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+fsm_path = NodePath("..")
+
+[node name="Timer" type="Timer" parent="StateMachine/Fade"]
+wait_time = 0.15
+one_shot = true
+[connection signal="initialized" from="." to="StateMachine/Spawn" method="_on_Laser_initialized"]
+[connection signal="timeout" from="StateMachine/Anticipate/Timer" to="StateMachine/Anticipate" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Active/Timer" to="StateMachine/Active" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Fade/Timer" to="StateMachine/Fade" method="_on_Timer_timeout"]

@@ -1,11 +1,9 @@
 extends KinematicBody2D
 
-var input
+signal die()
 
-func _process(_delta):
-	input = get_node("InputController").get_input()
+onready var input_controller = $InputController
+onready var character_mover = $CharacterMover
 
-func _physics_process(delta):
-	var direction = input["move_direction"] if input else Vector2.ZERO
-	get_node("CharacterMover").set_direction(direction)
-	get_node("CharacterMover").move(delta)
+func die():
+	emit_signal("die")

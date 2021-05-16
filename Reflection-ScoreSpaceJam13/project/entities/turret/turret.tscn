@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/triangle.svg" type="Texture" id=1]
+[ext_resource path="res://assets/diamond.svg" type="Texture" id=2]
+[ext_resource path="res://entities/turret/turret.gd" type="Script" id=3]
+[ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=4]
+[ext_resource path="res://entities/turret/states/destroyed.gd" type="Script" id=5]
+[ext_resource path="res://entities/turret/states/aiming.gd" type="Script" id=6]
+[ext_resource path="res://entities/turret/states/shooting.gd" type="Script" id=7]
+[ext_resource path="res://entities/turret/states/preparing.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 75, 90 )
+
+[node name="Turret" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 2.5, 0 )
+scale = Vector2( 0.4, 0.4 )
+shape = SubResource( 1 )
+
+[node name="Graphics" type="Node2D" parent="."]
+rotation = 1.5708
+scale = Vector2( 0.4, 0.4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Body" type="Sprite" parent="Graphics"]
+modulate = Color( 0.0392157, 0.713726, 0.972549, 1 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Head" type="Sprite" parent="Graphics"]
+modulate = Color( 0.486275, 0.447059, 0.65098, 1 )
+position = Vector2( -2.18677, -40 )
+scale = Vector2( 0.292993, 0.5 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LaserSpawn" type="Position2D" parent="."]
+position = Vector2( 40, 0 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 4 )
+actor_path = NodePath("..")
+
+[node name="Aiming" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+fsm_path = NodePath("..")
+
+[node name="Preparing" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+fsm_path = NodePath("..")
+
+[node name="Shooting" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
+fsm_path = NodePath("..")
+
+[node name="Destroyed" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+fsm_path = NodePath("..")
+[connection signal="spawn_laser" from="StateMachine/Preparing" to="." method="_on_Preparing_spawn_laser"]
