@@ -4,7 +4,7 @@ var player
 var dash_direction = Vector2()
 onready var IDLE = $"../Idle"
 onready var MOVE = $"../Move"
-onready var SLEEP = $"../Sleep"
+onready var DIE = $"../Die"
 
 onready var timer = $Timer
 
@@ -34,4 +34,4 @@ func _on_Timer_timeout():
 
 func _on_Player_die():
 	if fsm.current_state == self:
-		fsm.change_state(SLEEP)
+		fsm.change_state(DIE)

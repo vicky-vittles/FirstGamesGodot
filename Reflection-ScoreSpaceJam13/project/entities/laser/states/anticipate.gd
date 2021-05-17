@@ -9,10 +9,10 @@ var laser_alpha : float
 
 func enter(_info):
 	laser = fsm.actor
-	laser.raycast.tween.interpolate_property(self, "laser_alpha", 0.0, 0.5, laser.ANTICIPATION_TIME)
+	laser.raycast.tween.interpolate_property(self, "laser_alpha", 0.0, 0.35, get_node("Timer").wait_time)
 	laser.raycast.tween.start()
-	timer.wait_time = laser.ANTICIPATION_TIME
 	timer.start()
+	laser.raycast.set_laser_color(laser.FADED_RED)
 	laser.raycast.shoot_at(laser.direction)
 
 func process(delta):

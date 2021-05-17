@@ -6,6 +6,9 @@ onready var tween = $Tween
 onready var body = $Body
 
 
+func set_laser_color(color: Color):
+	body.default_color = color
+
 func set_laser_transparency(alpha: float):
 	body.default_color.a = alpha
 

@@ -1,21 +1,30 @@
 extends Node2D
 
 signal initialized()
+signal immediate_activation()
 signal spawn_copy(point, dir)
 
-var ANTICIPATION_TIME : float
-var ACTIVE_TIME : float
+const FADED_RED = Color("c2003a")
+const STRONG_RED = Color("ff004d")
+
 var direction : Vector2
+var laser_level : int
 
 onready var raycast = $Raycast
+onready var animation_player = $AnimationPlayer
 
 
-func init(dir: Vector2, ant_time: float = 1.5, act_time: float = 0.25):
+func init(dir: Vector2, _level: int, is_immediate: bool):
 	direction = dir
-	ANTICIPATION_TIME = ant_time
-	ACTIVE_TIME = act_time
-	emit_signal("initialized")
+	laser_level = _level
+	if is_immediate:
+		emit_signal("immediate_activation")
+	else:
+		emit_signal("initialized")
+	#raycast.body.default_color = LASER_COLORS[laser_level]
 
 
-func spawn_copy(point: Vector2, dir: Vector2):
-	emit_signal("spawn_copy", point, dir)
+func spawn_copy(point: Vector2, dir: Vector2, _level: int, is_immediate: bool):
+	var new_level = _level-1
+	if new_level > 0:
+		emit_signal("spawn_copy", point, dir, new_level, is_immediate)

@@ -13,9 +13,9 @@ func _ready():
 #	get_node("Laser6").init(Vector2(1,0).rotated(deg2rad(randf()*360)))
 
 
-func spawn_copy(point: Vector2, dir: Vector2):
+func spawn_copy(point: Vector2, dir: Vector2, laser_level: int, is_immediate: bool):
 	var new_laser = LASER.instance()
 	add_child(new_laser)
 	new_laser.connect("spawn_copy", self, "spawn_copy")
 	new_laser.global_position = point
-	new_laser.init(dir)
+	new_laser.init(dir, laser_level, is_immediate)

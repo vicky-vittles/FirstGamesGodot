@@ -1,12 +1,46 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://entities/laser/laser.gd" type="Script" id=1]
 [ext_resource path="res://entities/laser/laser_raycast.gd" type="Script" id=2]
 [ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=3]
 [ext_resource path="res://entities/laser/states/fade.gd" type="Script" id=4]
 [ext_resource path="res://entities/laser/states/active.gd" type="Script" id=5]
-[ext_resource path="res://entities/laser/states/spawn.gd" type="Script" id=6]
-[ext_resource path="res://entities/laser/states/anticipate.gd" type="Script" id=7]
+[ext_resource path="res://entities/laser/states/init.gd" type="Script" id=6]
+[ext_resource path="res://entities/laser/immediate.gd" type="Script" id=7]
+[ext_resource path="res://entities/laser/states/anticipate.gd" type="Script" id=8]
+
+[sub_resource type="Animation" id=2]
+resource_name = "default"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Raycast/Body:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 10.0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "shoot"
+length = 0.5
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Raycast/Body:width")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 10.0, 14.0, 6.0, 14.0, 10.0 ]
+}
 
 [node name="Laser" type="Node2D"]
 script = ExtResource( 1 )
@@ -23,6 +57,7 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="Raycast"]
 
 [node name="Body" type="Line2D" parent="Raycast"]
+default_color = Color( 1, 0, 0.301961, 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -31,15 +66,20 @@ __meta__ = {
 script = ExtResource( 3 )
 actor_path = NodePath("..")
 
-[node name="Spawn" type="Node" parent="StateMachine"]
+[node name="Init" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
 fsm_path = NodePath("..")
 
-[node name="Anticipate" type="Node" parent="StateMachine"]
+[node name="Immediate" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )
 fsm_path = NodePath("..")
 
+[node name="Anticipate" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+fsm_path = NodePath("..")
+
 [node name="Timer" type="Timer" parent="StateMachine/Anticipate"]
+wait_time = 0.7
 one_shot = true
 
 [node name="Active" type="Node" parent="StateMachine"]
@@ -47,6 +87,7 @@ script = ExtResource( 5 )
 fsm_path = NodePath("..")
 
 [node name="Timer" type="Timer" parent="StateMachine/Active"]
+wait_time = 0.5
 one_shot = true
 
 [node name="Fade" type="Node" parent="StateMachine"]
@@ -54,9 +95,15 @@ script = ExtResource( 4 )
 fsm_path = NodePath("..")
 
 [node name="Timer" type="Timer" parent="StateMachine/Fade"]
-wait_time = 0.15
+wait_time = 0.05
 one_shot = true
-[connection signal="initialized" from="." to="StateMachine/Spawn" method="_on_Laser_initialized"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 2 )
+anims/shoot = SubResource( 1 )
+[connection signal="immediate_activation" from="." to="StateMachine/Init" method="_on_Laser_immediate_activation"]
+[connection signal="initialized" from="." to="StateMachine/Init" method="_on_Laser_initialized"]
 [connection signal="timeout" from="StateMachine/Anticipate/Timer" to="StateMachine/Anticipate" method="_on_Timer_timeout"]
 [connection signal="timeout" from="StateMachine/Active/Timer" to="StateMachine/Active" method="_on_Timer_timeout"]
 [connection signal="timeout" from="StateMachine/Fade/Timer" to="StateMachine/Fade" method="_on_Timer_timeout"]

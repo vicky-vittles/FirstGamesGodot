@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
+onready var aim = $Aim
 onready var laser_spawn_pos = $LaserSpawn
+onready var animation_player = $AnimationPlayer
 
-func _on_Preparing_spawn_laser(pos, dir):
-	get_parent().spawn_laser(pos, dir)
+func spawn_laser(pos, dir, laser_level, is_immediate):
+	get_parent().spawn_laser(pos, dir, laser_level, is_immediate)

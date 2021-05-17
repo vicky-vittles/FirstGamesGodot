@@ -3,7 +3,7 @@ extends State
 var player
 onready var IDLE = $"../Idle"
 onready var DASH = $"../Dash"
-onready var SLEEP = $"../Sleep"
+onready var DIE = $"../Die"
 
 func enter(_info):
 	player = fsm.actor
@@ -27,4 +27,4 @@ func physics_process(delta):
 
 func _on_Player_die():
 	if fsm.current_state == self:
-		fsm.change_state(SLEEP)
+		fsm.change_state(DIE)

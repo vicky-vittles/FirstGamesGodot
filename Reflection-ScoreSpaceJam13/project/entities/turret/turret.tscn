@@ -1,16 +1,47 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/triangle.svg" type="Texture" id=1]
-[ext_resource path="res://assets/diamond.svg" type="Texture" id=2]
 [ext_resource path="res://entities/turret/turret.gd" type="Script" id=3]
 [ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=4]
 [ext_resource path="res://entities/turret/states/destroyed.gd" type="Script" id=5]
 [ext_resource path="res://entities/turret/states/aiming.gd" type="Script" id=6]
 [ext_resource path="res://entities/turret/states/shooting.gd" type="Script" id=7]
-[ext_resource path="res://entities/turret/states/preparing.gd" type="Script" id=8]
+[ext_resource path="res://entities/turret/aim.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 75, 90 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "default"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 0.8 ), Vector2( 0.8, 1.25 ), Vector2( 1.25, 0.8 ), Vector2( 1, 1 ) ]
+}
 
 [node name="Turret" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -21,32 +52,37 @@ position = Vector2( 2.5, 0 )
 scale = Vector2( 0.4, 0.4 )
 shape = SubResource( 1 )
 
+[node name="Aim" type="Node2D" parent="."]
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Line2D" type="Line2D" parent="Aim"]
+position = Vector2( 20, 0 )
+points = PoolVector2Array( 0, 0, 2000, 0 )
+width = 6.0
+default_color = Color( 0.760784, 0.764706, 0.780392, 1 )
+
 [node name="Graphics" type="Node2D" parent="."]
-rotation = 1.5708
-scale = Vector2( 0.4, 0.4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
-[node name="Body" type="Sprite" parent="Graphics"]
-modulate = Color( 0.0392157, 0.713726, 0.972549, 1 )
+[node name="graphics" type="Node2D" parent="Graphics"]
+rotation = 1.5708
+scale = Vector2( 0.2, 0.2 )
+
+[node name="Body" type="Sprite" parent="Graphics/graphics"]
+modulate = Color( 1, 0, 0.301961, 1 )
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Head" type="Sprite" parent="Graphics"]
-modulate = Color( 0.486275, 0.447059, 0.65098, 1 )
-position = Vector2( -2.18677, -40 )
-scale = Vector2( 0.292993, 0.5 )
-texture = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="LaserSpawn" type="Position2D" parent="."]
-position = Vector2( 40, 0 )
+position = Vector2( 20, 0 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -56,15 +92,28 @@ actor_path = NodePath("..")
 script = ExtResource( 6 )
 fsm_path = NodePath("..")
 
-[node name="Preparing" type="Node" parent="StateMachine"]
-script = ExtResource( 8 )
-fsm_path = NodePath("..")
+[node name="Timer" type="Timer" parent="StateMachine/Aiming"]
+wait_time = 1.5
+one_shot = true
+
+[node name="Tween" type="Tween" parent="StateMachine/Aiming"]
 
 [node name="Shooting" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )
 fsm_path = NodePath("..")
 
+[node name="Timer" type="Timer" parent="StateMachine/Shooting"]
+wait_time = 0.5
+one_shot = true
+
 [node name="Destroyed" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
 fsm_path = NodePath("..")
-[connection signal="spawn_laser" from="StateMachine/Preparing" to="." method="_on_Preparing_spawn_laser"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 3 )
+anims/shoot = SubResource( 2 )
+[connection signal="timeout" from="StateMachine/Aiming/Timer" to="StateMachine/Aiming" method="_on_Timer_timeout"]
+[connection signal="spawn_laser" from="StateMachine/Shooting" to="." method="spawn_laser"]
+[connection signal="timeout" from="StateMachine/Shooting/Timer" to="StateMachine/Shooting" method="_on_Timer_timeout"]
