@@ -13,7 +13,7 @@ func enter(_info):
 	laser.raycast.tween.interpolate_property(self, "laser_alpha", 0.7, 1.0, get_node("Timer").wait_time)
 	laser.raycast.tween.start()
 	timer.start()
-	laser.raycast.set_laser_color(laser.STRONG_RED)
+	laser.raycast.set_laser_color(laser.STRONG_COLOR)
 	laser.raycast.shoot_at(laser.direction)
 	laser.animation_player.play("shoot")
 	has_spawned_copy = false

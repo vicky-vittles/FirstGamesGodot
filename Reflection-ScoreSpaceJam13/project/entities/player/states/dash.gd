@@ -10,9 +10,14 @@ onready var timer = $Timer
 
 func enter(info):
 	player = fsm.actor
+	player.hitbox.disabled = false
 	dash_direction = info["dash_direction"]
 	timer.wait_time = player.character_mover.DASH_TIME
 	timer.start()
+	player.dash_cooldown.start()
+
+func exit():
+	player.hitbox.disabled = true
 
 func process(delta):
 	player.input_controller.clear_input()

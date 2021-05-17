@@ -12,7 +12,7 @@ func enter(_info):
 	laser.raycast.tween.interpolate_property(self, "laser_alpha", 0.0, 0.35, get_node("Timer").wait_time)
 	laser.raycast.tween.start()
 	timer.start()
-	laser.raycast.set_laser_color(laser.FADED_RED)
+	laser.raycast.set_laser_color(laser.FADED_COLOR)
 	laser.raycast.shoot_at(laser.direction)
 
 func process(delta):

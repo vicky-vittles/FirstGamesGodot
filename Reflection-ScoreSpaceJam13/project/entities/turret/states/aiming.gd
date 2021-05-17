@@ -3,6 +3,8 @@ extends State
 var FOCUS_LEVEL : float = 0.08
 var turret
 onready var SHOOTING = $"../Shooting"
+onready var DESTROYED = $"../Destroyed"
+onready var TURN_OFF = $"../TurnOff"
 
 var aim_alpha : float
 var previous_pos = Vector2()
@@ -24,3 +26,13 @@ func physics_process(delta):
 func _on_Timer_timeout():
 	if fsm.current_state == self:
 		fsm.change_state(SHOOTING)
+
+
+func _on_Hurtbox_destroyed():
+	if fsm.current_state == self:
+		fsm.change_state(DESTROYED)
+
+
+func _on_Turret_turn_off():
+	if fsm.current_state == self:
+		fsm.change_state(TURN_OFF)

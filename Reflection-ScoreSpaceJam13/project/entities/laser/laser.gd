@@ -4,8 +4,11 @@ signal initialized()
 signal immediate_activation()
 signal spawn_copy(point, dir)
 
-const FADED_RED = Color("c2003a")
-const STRONG_RED = Color("ff004d")
+#const FADED_RED = Color("c2003a")
+#const STRONG_RED = Color("ff004d")
+
+onready var FADED_COLOR = Globals.current_palette[Globals.TURRET_WEAK_COLOR]
+onready var STRONG_COLOR = Globals.current_palette[Globals.TURRET_STRONG_COLOR]
 
 var direction : Vector2
 var laser_level : int

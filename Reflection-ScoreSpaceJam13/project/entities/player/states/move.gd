@@ -16,7 +16,7 @@ func physics_process(delta):
 	
 	var direction = player.input_controller.input["move_direction"]
 	var dash_press = player.input_controller.input["dash_press"]
-	if dash_press:
+	if dash_press and player.dash_cooldown.is_stopped():
 		fsm.change_state(DASH, {"dash_direction": direction})
 	elif direction == Vector2.ZERO:
 		fsm.change_state(IDLE)

@@ -9,7 +9,7 @@
 [ext_resource path="res://entities/laser/immediate.gd" type="Script" id=7]
 [ext_resource path="res://entities/laser/states/anticipate.gd" type="Script" id=8]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "default"
 length = 0.2
 tracks/0/type = "value"
@@ -25,8 +25,7 @@ tracks/0/keys = {
 "values": [ 10.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "shoot"
+[sub_resource type="Animation" id=2]
 length = 0.5
 step = 0.125
 tracks/0/type = "value"
@@ -100,8 +99,8 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
-anims/default = SubResource( 2 )
-anims/shoot = SubResource( 1 )
+anims/default = SubResource( 1 )
+anims/shoot = SubResource( 2 )
 [connection signal="immediate_activation" from="." to="StateMachine/Init" method="_on_Laser_immediate_activation"]
 [connection signal="initialized" from="." to="StateMachine/Init" method="_on_Laser_initialized"]
 [connection signal="timeout" from="StateMachine/Anticipate/Timer" to="StateMachine/Anticipate" method="_on_Timer_timeout"]

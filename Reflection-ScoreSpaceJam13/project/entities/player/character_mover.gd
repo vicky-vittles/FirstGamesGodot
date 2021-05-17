@@ -1,7 +1,7 @@
 extends Node
 
-const MOVE_SPEED : int = 5*Globals.PLAYER_SIZE
-const DASH_DISTANCE : int = 3*Globals.PLAYER_SIZE
+const MOVE_SPEED = 4*Globals.PLAYER_SIZE
+const DASH_DISTANCE : int = 2*Globals.PLAYER_SIZE
 const DASH_TIME : float = 0.15
 onready var DASH_SPEED = DASH_DISTANCE / DASH_TIME
 

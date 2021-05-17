@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://entities/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/circle1_n.png" type="Texture" id=2]
@@ -10,12 +10,15 @@
 [ext_resource path="res://entities/player/states/move.gd" type="Script" id=8]
 [ext_resource path="res://entities/player/states/dash.gd" type="Script" id=9]
 [ext_resource path="res://entities/player/states/die.gd" type="Script" id=10]
+[ext_resource path="res://entities/player/graphics.gd" type="Script" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 19.0263
+
+[sub_resource type="CircleShape2D" id=2]
 radius = 19.0
 
-[sub_resource type="Animation" id=2]
-resource_name = "default"
+[sub_resource type="Animation" id=3]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:scale")
@@ -42,8 +45,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "die"
+[sub_resource type="Animation" id=4]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics:scale")
@@ -84,6 +86,10 @@ script = ExtResource( 3 )
 script = ExtResource( 4 )
 body_path = NodePath("..")
 
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 5 )
 actor_path = NodePath("..")
@@ -113,6 +119,7 @@ script = ExtResource( 6 )
 fsm_path = NodePath("..")
 
 [node name="Graphics" type="Node2D" parent="."]
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -125,18 +132,41 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." groups=[
+"player",
+]]
+collision_layer = 16
+collision_mask = 16
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Hitbox"]
 visible = false
 shape = SubResource( 1 )
+disabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TextSpawnPos" type="Position2D" parent="."]
+position = Vector2( 0, -50 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
-anims/default = SubResource( 2 )
-anims/die = SubResource( 3 )
+anims/default = SubResource( 3 )
+anims/die = SubResource( 4 )
+[connection signal="die" from="." to="StateMachine/Idle" method="_on_Player_die"]
 [connection signal="die" from="." to="StateMachine/Move" method="_on_Player_die"]
 [connection signal="die" from="." to="StateMachine/Dash" method="_on_Player_die"]
-[connection signal="die" from="." to="StateMachine/Idle" method="_on_Player_die"]
 [connection signal="timeout" from="StateMachine/Dash/Timer" to="StateMachine/Dash" method="_on_Timer_timeout"]

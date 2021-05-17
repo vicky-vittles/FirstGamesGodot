@@ -6,6 +6,8 @@ const STARTING_LASER_LEVEL : int = 4
 
 var turret
 onready var AIMING = $"../Aiming"
+onready var DESTROYED = $"../Destroyed"
+onready var TURN_OFF = $"../TurnOff"
 
 func enter(_info):
 	turret = fsm.actor
@@ -19,3 +21,13 @@ func enter(_info):
 func _on_Timer_timeout():
 	if fsm.current_state == self:
 		fsm.change_state(AIMING)
+
+
+func _on_Hurtbox_destroyed():
+	if fsm.current_state == self:
+		fsm.change_state(DESTROYED)
+
+
+func _on_Turret_turn_off():
+	if fsm.current_state == self:
+		fsm.change_state(TURN_OFF)
