@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/diamond.svg-f478391cfcc992b39a4a10192830848d.stex"
+path="res://.import/white-square-64.png-54fd55268e90ee10dc1aa7752345d066.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/diamond.svg"
-dest_files=[ "res://.import/diamond.svg-f478391cfcc992b39a4a10192830848d.stex" ]
+source_file="res://assets/images/white-square-64.png"
+dest_files=[ "res://.import/white-square-64.png-54fd55268e90ee10dc1aa7752345d066.stex" ]
 
 [params]
 

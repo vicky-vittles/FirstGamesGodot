@@ -1,6 +1,6 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://assets/triangle.svg" type="Texture" id=1]
+[ext_resource path="res://assets/images/triangle.svg" type="Texture" id=1]
 [ext_resource path="res://entities/turret/hurtbox.gd" type="Script" id=2]
 [ext_resource path="res://entities/turret/turret.gd" type="Script" id=3]
 [ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=4]
@@ -10,6 +10,7 @@
 [ext_resource path="res://entities/turret/aim.gd" type="Script" id=8]
 [ext_resource path="res://entities/turret/graphics.gd" type="Script" id=9]
 [ext_resource path="res://entities/turret/states/turn_off.gd" type="Script" id=10]
+[ext_resource path="res://assets/audio/turret_shoot.ogg" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 75, 90 )
@@ -197,6 +198,13 @@ tracks/0/keys = {
 [node name="Turret" type="KinematicBody2D"]
 script = ExtResource( 3 )
 
+[node name="SFX" type="Node" parent="."]
+
+[node name="shoot" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 11 )
+volume_db = -6.0
+bus = "Sound"
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 2.5, 0 )
 scale = Vector2( 0.4, 0.4 )
@@ -213,7 +221,7 @@ __meta__ = {
 position = Vector2( 20, 0 )
 points = PoolVector2Array( 0, 0, 2000, 0 )
 width = 6.0
-default_color = Color( 1, 1, 1, 1 )
+default_color = Color( 0.607843, 0.607843, 0.607843, 1 )
 
 [node name="Graphics" type="Node2D" parent="."]
 script = ExtResource( 9 )
@@ -263,7 +271,7 @@ script = ExtResource( 6 )
 fsm_path = NodePath("..")
 
 [node name="Timer" type="Timer" parent="StateMachine/Aiming"]
-wait_time = 1.75
+wait_time = 1.5
 one_shot = true
 
 [node name="Tween" type="Tween" parent="StateMachine/Aiming"]
@@ -289,12 +297,13 @@ autoplay = "default"
 anims/default = SubResource( 3 )
 anims/destroy = SubResource( 4 )
 anims/shoot = SubResource( 5 )
-[connection signal="turn_off" from="." to="StateMachine/Shooting" method="_on_Turret_turn_off"]
 [connection signal="turn_off" from="." to="StateMachine/Aiming" method="_on_Turret_turn_off"]
+[connection signal="turn_off" from="." to="StateMachine/Shooting" method="_on_Turret_turn_off"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
-[connection signal="destroyed" from="Hurtbox" to="StateMachine/Shooting" method="_on_Hurtbox_destroyed"]
 [connection signal="destroyed" from="Hurtbox" to="StateMachine/Aiming" method="_on_Hurtbox_destroyed"]
+[connection signal="destroyed" from="Hurtbox" to="StateMachine/Shooting" method="_on_Hurtbox_destroyed"]
 [connection signal="destroyed" from="Hurtbox" to="." method="destroyed"]
 [connection signal="timeout" from="StateMachine/Aiming/Timer" to="StateMachine/Aiming" method="_on_Timer_timeout"]
 [connection signal="spawn_laser" from="StateMachine/Shooting" to="." method="spawn_laser"]
+[connection signal="state_entered" from="StateMachine/Shooting" to="SFX/shoot" method="play"]
 [connection signal="timeout" from="StateMachine/Shooting/Timer" to="StateMachine/Shooting" method="_on_Timer_timeout"]

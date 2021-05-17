@@ -15,8 +15,12 @@ func enter(_info):
 	get_node("Tween").start()
 	get_node("Timer").start()
 
+func exit():
+	turret.aim.set_aim_transparency(0.0)
+
 func physics_process(delta):
-	turret.aim.set_aim_transparency(aim_alpha)
+	turret.aim.set_aim_color(aim_alpha)
+	turret.aim.set_aim_transparency(clamp(aim_alpha*3, 0.0, 1.0))
 	var target_pos = turret.get_parent().target.global_position
 	var current_pos = lerp(previous_pos, target_pos, FOCUS_LEVEL)
 	turret.look_at(current_pos)

@@ -24,8 +24,10 @@ func _on_Actor_ready() -> void:
 func change_state(new_state, info = {}) -> void:
 	if is_active:
 		current_state.exit()
+		current_state.emit_signal("state_exited")
 		current_state = new_state
 		current_state.enter(info)
+		current_state.emit_signal("state_entered")
 
 
 func _input(event):

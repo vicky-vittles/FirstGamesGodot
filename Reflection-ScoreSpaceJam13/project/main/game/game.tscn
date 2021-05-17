@@ -1,15 +1,17 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://main/game/game.gd" type="Script" id=1]
 [ext_resource path="res://main/game/hud.gd" type="Script" id=2]
-[ext_resource path="res://assets/main-font-48.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/fonts/main-font-48.tres" type="DynamicFont" id=3]
 [ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://main/game/lasers.gd" type="Script" id=5]
 [ext_resource path="res://main/game/turrets.gd" type="Script" id=6]
 [ext_resource path="res://main/game/score_manager.gd" type="Script" id=7]
 [ext_resource path="res://main/game/progression_manager.gd" type="Script" id=8]
+[ext_resource path="res://assets/audio/Music_Light-Puzzles.ogg" type="AudioStream" id=9]
+[ext_resource path="res://assets/audio/score_up.ogg" type="AudioStream" id=10]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 resource_name = "default"
 length = 0.1
 tracks/0/type = "value"
@@ -25,7 +27,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "game_over"
 length = 0.1
 tracks/0/type = "value"
@@ -57,12 +59,43 @@ tracks/0/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Curve2D" id=1]
+[sub_resource type="Curve2D" id=4]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 640, 128, 0, 0, 0, 0, 832, 160, 0, 0, 0, 0, 976, 224, 0, 0, 0, 0, 1072, 336, 0, 0, 0, 0, 1088, 496, 0, 0, 0, 0, 1056, 624, 0, 0, 0, 0, 976, 720, 0, 0, 0, 0, 848, 800, 0, 0, 0, 0, 640, 848, 0, 0, 0, 0, 432, 800, 0, 0, 0, 0, 288, 720, 0, 0, 0, 0, 224, 608, 0, 0, 0, 0, 176, 464, 0, 0, 0, 0, 224, 336, 0, 0, 0, 0, 304, 224, 0, 0, 0, 0, 448, 144, 0, 0, 0, 0, 640, 128 )
 }
 
-[sub_resource type="Environment" id=2]
+[sub_resource type="Animation" id=5]
+resource_name = "default"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Music:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "fade_out_volume"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Music:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -80.0 ]
+}
+
+[sub_resource type="Environment" id=7]
 background_mode = 4
 glow_enabled = true
 glow_intensity = 4.0
@@ -109,8 +142,8 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HUD"]
 autoplay = "default"
-anims/default = SubResource( 5 )
-anims/game_over = SubResource( 4 )
+anims/default = SubResource( 1 )
+anims/game_over = SubResource( 2 )
 anims/game_started = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -189,7 +222,7 @@ __meta__ = {
 position = Vector2( 744.847, 429.626 )
 
 [node name="TurretSpawnArea" type="Path2D" parent="."]
-curve = SubResource( 1 )
+curve = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -201,14 +234,34 @@ rotation = 0.165147
 [node name="TurretSpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="Audio" type="Node" parent="."]
+
+[node name="score_up" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 10 )
+volume_db = -12.0
+bus = "Sound"
+
+[node name="Music" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 9 )
+volume_db = -3.0
+bus = "Music"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Audio"]
+autoplay = "default"
+anims/default = SubResource( 5 )
+anims/fade_out_volume = SubResource( 6 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 2 )
-[connection signal="game_over" from="." to="TurretSpawnTimer" method="stop"]
-[connection signal="game_over" from="." to="Turrets" method="turn_off_turrets"]
+environment = SubResource( 7 )
 [connection signal="game_over" from="." to="ScoreManager" method="game_over"]
+[connection signal="game_over" from="." to="Turrets" method="turn_off_turrets"]
+[connection signal="game_over" from="." to="Audio/AnimationPlayer" method="play" binds= [ "fade_out_volume" ]]
+[connection signal="game_over" from="." to="TurretSpawnTimer" method="stop"]
 [connection signal="game_over" from="." to="HUD/AnimationPlayer" method="play" binds= [ "game_over" ]]
+[connection signal="game_started" from="." to="Audio/Music" method="play"]
 [connection signal="game_started" from="." to="HUD/AnimationPlayer" method="play" binds= [ "game_started" ]]
 [connection signal="update_time" from="." to="HUD" method="_on_Game_update_time"]
+[connection signal="update_score" from="ScoreManager" to="Audio/score_up" method="play"]
 [connection signal="update_score" from="ScoreManager" to="HUD" method="_on_ScoreManager_update_score"]
 [connection signal="spawn_laser" from="Turrets" to="Lasers" method="spawn_copy"]
 [connection signal="turret_destroyed" from="Turrets" to="ScoreManager" method="_on_Turrets_turret_destroyed"]

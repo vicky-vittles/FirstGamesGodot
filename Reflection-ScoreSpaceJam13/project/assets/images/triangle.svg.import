@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/triangle.svg-2246efe0f7e4fdb6705e62b9f62230d2.stex"
+path="res://.import/triangle.svg-420fb578c8871e685bb64efec4e0d59b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/triangle.svg"
-dest_files=[ "res://.import/triangle.svg-2246efe0f7e4fdb6705e62b9f62230d2.stex" ]
+source_file="res://assets/images/triangle.svg"
+dest_files=[ "res://.import/triangle.svg-420fb578c8871e685bb64efec4e0d59b.stex" ]
 
 [params]
 

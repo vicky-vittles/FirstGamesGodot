@@ -30,6 +30,9 @@ const PALETTES = {
 var current_palette
 
 func _ready():
+	choose_random_palette()
+
+func choose_random_palette():
 	randomize()
 	var max_size = PALETTES.size()
 	var index = randi() % max_size
