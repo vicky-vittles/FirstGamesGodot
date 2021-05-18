@@ -185,10 +185,10 @@ __meta__ = {
 autoplay = "default"
 anims/default = SubResource( 3 )
 anims/die = SubResource( 4 )
-[connection signal="die" from="." to="StateMachine/Idle" method="_on_Player_die"]
 [connection signal="die" from="." to="StateMachine/Dash" method="_on_Player_die"]
+[connection signal="die" from="." to="StateMachine/Idle" method="_on_Player_die"]
 [connection signal="die" from="." to="StateMachine/Move" method="_on_Player_die"]
-[connection signal="state_entered" from="StateMachine/Dash" to="SFX/dash2" method="play"]
 [connection signal="state_entered" from="StateMachine/Dash" to="SFX/dash1" method="play"]
+[connection signal="state_entered" from="StateMachine/Dash" to="SFX/dash2" method="play"]
 [connection signal="timeout" from="StateMachine/Dash/Timer" to="StateMachine/Dash" method="_on_Timer_timeout"]
 [connection signal="state_entered" from="StateMachine/Die" to="SFX/death" method="play"]
