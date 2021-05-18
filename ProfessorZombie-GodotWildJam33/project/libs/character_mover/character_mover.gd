@@ -1,4 +1,5 @@
 extends Node
+class_name CharacterMover
 
 const MOVE_SPEED : int = 6*40
 

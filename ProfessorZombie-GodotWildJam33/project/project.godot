@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "CharacterMover",
+"language": "GDScript",
+"path": "res://libs/character_mover/character_mover.gd"
+}, {
+"base": "Node",
 "class": "State",
 "language": "GDScript",
 "path": "res://libs/state_machine/state.gd"
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://libs/state_machine/state_machine.gd"
 } ]
 _global_script_class_icons={
+"CharacterMover": "",
 "State": "",
 "StateMachine": ""
 }
