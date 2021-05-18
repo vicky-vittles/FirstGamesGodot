@@ -253,8 +253,8 @@ anims/fade_out_volume = SubResource( 6 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
-[connection signal="game_over" from="." to="ScoreManager" method="game_over"]
 [connection signal="game_over" from="." to="Turrets" method="turn_off_turrets"]
+[connection signal="game_over" from="." to="ScoreManager" method="game_over"]
 [connection signal="game_over" from="." to="Audio/AnimationPlayer" method="play" binds= [ "fade_out_volume" ]]
 [connection signal="game_over" from="." to="TurretSpawnTimer" method="stop"]
 [connection signal="game_over" from="." to="HUD/AnimationPlayer" method="play" binds= [ "game_over" ]]

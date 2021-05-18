@@ -30,6 +30,10 @@ config/name="Reflection-ScoreSpaceJam13"
 run/main_scene="res://main/main.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+output_latency.web=70
+
 [autoload]
 
 Globals="*res://globals/globals.gd"
