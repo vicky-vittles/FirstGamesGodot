@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://main/game/game.gd" type="Script" id=1]
 [ext_resource path="res://main/game/hud.gd" type="Script" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://main/game/turrets.gd" type="Script" id=6]
 [ext_resource path="res://main/game/score_manager.gd" type="Script" id=7]
 [ext_resource path="res://main/game/progression_manager.gd" type="Script" id=8]
-[ext_resource path="res://assets/audio/Music_Light-Puzzles.ogg" type="AudioStream" id=9]
 [ext_resource path="res://assets/audio/score_up.ogg" type="AudioStream" id=10]
 
 [sub_resource type="Animation" id=1]
@@ -242,7 +241,6 @@ volume_db = -12.0
 bus = "Sound"
 
 [node name="Music" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 9 )
 volume_db = -3.0
 bus = "Music"
 
@@ -253,16 +251,16 @@ anims/fade_out_volume = SubResource( 6 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
-[connection signal="game_over" from="." to="Turrets" method="turn_off_turrets"]
-[connection signal="game_over" from="." to="ScoreManager" method="game_over"]
-[connection signal="game_over" from="." to="Audio/AnimationPlayer" method="play" binds= [ "fade_out_volume" ]]
 [connection signal="game_over" from="." to="TurretSpawnTimer" method="stop"]
+[connection signal="game_over" from="." to="Turrets" method="turn_off_turrets"]
 [connection signal="game_over" from="." to="HUD/AnimationPlayer" method="play" binds= [ "game_over" ]]
+[connection signal="game_over" from="." to="Audio/AnimationPlayer" method="play" binds= [ "fade_out_volume" ]]
+[connection signal="game_over" from="." to="ScoreManager" method="game_over"]
 [connection signal="game_started" from="." to="Audio/Music" method="play"]
 [connection signal="game_started" from="." to="HUD/AnimationPlayer" method="play" binds= [ "game_started" ]]
 [connection signal="update_time" from="." to="HUD" method="_on_Game_update_time"]
-[connection signal="update_score" from="ScoreManager" to="Audio/score_up" method="play"]
 [connection signal="update_score" from="ScoreManager" to="HUD" method="_on_ScoreManager_update_score"]
+[connection signal="update_score" from="ScoreManager" to="Audio/score_up" method="play"]
 [connection signal="spawn_laser" from="Turrets" to="Lasers" method="spawn_copy"]
 [connection signal="turret_destroyed" from="Turrets" to="ScoreManager" method="_on_Turrets_turret_destroyed"]
 [connection signal="die" from="Player" to="." method="player_died"]

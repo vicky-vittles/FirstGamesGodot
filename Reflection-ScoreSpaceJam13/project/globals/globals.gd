@@ -1,5 +1,6 @@
 extends Node
 
+const MUSIC = preload("res://main/music.tscn")
 const PLAYER_SIZE : int = 64
 
 const PLAYER_COLOR : int = 0
@@ -28,9 +29,16 @@ const PALETTES = {
 		Color("F9035E")
 	]}
 var current_palette
+var music_player
 
 func _ready():
 	choose_random_palette()
+	pause_mode = Node.PAUSE_MODE_PROCESS
+	music_player = MUSIC.instance()
+	add_child(music_player)
+
+func play_music():
+	music_player.play()
 
 func choose_random_palette():
 	randomize()

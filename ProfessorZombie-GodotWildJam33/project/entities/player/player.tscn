@@ -10,7 +10,7 @@
 [ext_resource path="res://entities/player/states/move.gd" type="Script" id=8]
 [ext_resource path="res://entities/player/states/infect.gd" type="Script" id=9]
 [ext_resource path="res://entities/player/states/die.gd" type="Script" id=10]
-[ext_resource path="res://entities/player/states/plan.gd" type="Script" id=11]
+[ext_resource path="res://entities/player/scripts/triggers.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
@@ -47,14 +47,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MousePath" type="Line2D" parent="Effects"]
-width = 4.0
-default_color = Color( 1, 0.4, 0.4, 1 )
-
 [node name="Triggers" type="Node2D" parent="."]
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
+body_path = NodePath("..")
 
 [node name="MouseHurtbox" type="Area2D" parent="Triggers"]
 __meta__ = {
@@ -64,6 +62,14 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/MouseHurtbox"]
 visible = false
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="InfectRay" type="RayCast2D" parent="Triggers"]
+enabled = true
+cast_to = Vector2( 64, 0 )
+collision_mask = 6
 __meta__ = {
 "_edit_lock_": true
 }
@@ -83,10 +89,6 @@ actor_path = NodePath("..")
 script = ExtResource( 7 )
 fsm_path = NodePath("..")
 
-[node name="plan" type="Node" parent="StateMachine"]
-script = ExtResource( 11 )
-fsm_path = NodePath("..")
-
 [node name="move" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
 fsm_path = NodePath("..")
@@ -104,4 +106,3 @@ script = ExtResource( 6 )
 fsm_path = NodePath("..")
 [connection signal="mouse_entered" from="Triggers/MouseHurtbox" to="InputController" method="set_is_mouse_colliding" binds= [ true ]]
 [connection signal="mouse_exited" from="Triggers/MouseHurtbox" to="InputController" method="set_is_mouse_colliding" binds= [ false ]]
-[connection signal="clear_points" from="StateMachine/move" to="." method="emit_signal" binds= [ "path_clear_points" ]]

@@ -16,6 +16,8 @@ func start_game():
 	match_is_on = true
 	get_node("TurretSpawnTimer").start()
 	emit_signal("game_started")
+	if not Globals.music_player.playing:
+		Globals.play_music()
 
 func _physics_process(delta):
 	if match_is_on:

@@ -3,6 +3,10 @@ extends Node
 func _ready():
 	get_tree().paused = true
 
+func _process(delta):
+	if Input.is_action_just_pressed("reload"):
+		get_tree().reload_current_scene()
+
 func _on_Play_pressed():
 	get_tree().paused = false
 	get_node("AnimationPlayer").play("start")

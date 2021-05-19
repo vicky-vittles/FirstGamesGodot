@@ -2,7 +2,7 @@ extends CanvasLayer
 
 onready var info_label = $root/InfoLabel
 
-var score_text : String
+var score_text : String = "0"
 var time_text : String
 
 
@@ -20,9 +20,9 @@ func _on_Game_update_time(time: float):
 		time_text = str(seconds).pad_zeros(2)
 	else:
 		time_text = str(minutes) + ":" + str(seconds).pad_zeros(2)
-	info_label.text = time_text
+	info_label.text = score_text
 
 
 func _on_ScoreManager_update_score(score):
 	score_text = str(score)
-	info_label.text = time_text
+	info_label.text = score_text
