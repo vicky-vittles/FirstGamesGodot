@@ -2,9 +2,9 @@ extends State
 
 var player
 
-func enter(_info):
+func enter(info):
 	player = fsm.actor
-	print("sdfdsfds")
+	player.graphics.play_infect(info["infect_collider"])
 
 func process(_delta):
 	pass

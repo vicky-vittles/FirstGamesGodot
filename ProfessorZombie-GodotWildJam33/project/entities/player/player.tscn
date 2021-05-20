@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://entities/player/player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -11,16 +11,97 @@
 [ext_resource path="res://entities/player/states/infect.gd" type="Script" id=9]
 [ext_resource path="res://entities/player/states/die.gd" type="Script" id=10]
 [ext_resource path="res://entities/player/scripts/triggers.gd" type="Script" id=11]
+[ext_resource path="res://entities/player/scripts/graphics.gd" type="Script" id=12]
+[ext_resource path="res://entities/player/scripts/stats.gd" type="Script" id=13]
+
+[sub_resource type="Animation" id=3]
+resource_name = "default"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("main:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("infect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("main:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("infect:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "infect"
+tracks/0/type = "value"
+tracks/0/path = NodePath("main:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("infect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 32 )
+[sub_resource type="CircleShape2D" id=2]
+radius = 32.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 14
 script = ExtResource( 1 )
 
 [node name="InputController" type="Node" parent="."]
@@ -30,7 +111,11 @@ script = ExtResource( 3 )
 script = ExtResource( 4 )
 body_path = NodePath("..")
 
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 13 )
+
 [node name="Graphics" type="Node2D" parent="."]
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -41,6 +126,21 @@ texture = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="infect" type="Sprite" parent="Graphics"]
+visible = false
+rotation = 1.5708
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tween" type="Tween" parent="Graphics"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics"]
+autoplay = "default"
+anims/default = SubResource( 3 )
+anims/infect = SubResource( 4 )
 
 [node name="Effects" type="Node2D" parent="."]
 __meta__ = {

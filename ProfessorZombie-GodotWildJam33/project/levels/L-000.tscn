@@ -4,8 +4,8 @@
 [ext_resource path="res://entities/enemies/_enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 31.9999, 32 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 32.0
 
 [node name="Level" instance=ExtResource( 1 )]
 
@@ -13,13 +13,16 @@ extents = Vector2( 31.9999, 32 )
 position = Vector2( 568.911, 539.241 )
 
 [node name="Enemy" parent="Enemies" index="0" instance=ExtResource( 2 )]
-position = Vector2( 832, 384 )
+position = Vector2( 544.65, 289.713 )
+
+[node name="BehindPosition" parent="Enemies/Enemy" index="1"]
+position = Vector2( -64, 0 )
 
 [node name="main" parent="Enemies/Enemy/Graphics" index="0"]
 modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 3 )
 
-[node name="CollisionShape" parent="Enemies/Enemy" index="2"]
+[node name="CollisionShape" parent="Enemies/Enemy" index="3"]
 visible = false
 shape = SubResource( 1 )
 

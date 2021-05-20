@@ -18,7 +18,7 @@ func physics_process(delta):
 	
 	var inputs = player.input_controller
 	if player.check_infect():
-		fsm.change_state(INFECT)
+		fsm.change_state(INFECT, {"infect_collider": player.infect_collider})
 	elif not inputs.plus_hold:
 		fsm.change_state(IDLE)
 

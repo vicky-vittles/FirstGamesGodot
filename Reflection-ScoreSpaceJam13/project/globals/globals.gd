@@ -45,3 +45,8 @@ func choose_random_palette():
 	var max_size = PALETTES.size()
 	var index = randi() % max_size
 	current_palette = PALETTES[index]
+
+static func sort_by_desc(a, b):
+	if a > b:
+		return true
+	return false
