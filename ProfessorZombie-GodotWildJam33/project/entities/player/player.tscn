@@ -1,20 +1,20 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://entities/player/player.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://entities/player/scripts/input_controller.gd" type="Script" id=3]
 [ext_resource path="res://libs/character_mover/character_mover.gd" type="Script" id=4]
 [ext_resource path="res://libs/state_machine/state_machine.gd" type="Script" id=5]
 [ext_resource path="res://entities/player/states/sleep.gd" type="Script" id=6]
-[ext_resource path="res://entities/player/states/idle.gd" type="Script" id=7]
+[ext_resource path="res://assets/images/player-sheet.png" type="Texture" id=7]
 [ext_resource path="res://entities/player/states/move.gd" type="Script" id=8]
 [ext_resource path="res://entities/player/states/infect.gd" type="Script" id=9]
 [ext_resource path="res://entities/player/states/die.gd" type="Script" id=10]
 [ext_resource path="res://entities/player/scripts/triggers.gd" type="Script" id=11]
 [ext_resource path="res://entities/player/scripts/graphics.gd" type="Script" id=12]
 [ext_resource path="res://entities/player/scripts/stats.gd" type="Script" id=13]
+[ext_resource path="res://entities/player/scripts/infect_pivot.gd" type="Script" id=14]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "default"
 length = 0.2
 tracks/0/type = "value"
@@ -30,7 +30,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("infect:visible")
+tracks/1/path = NodePath("infect_pivot/infect:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -54,7 +54,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("infect:position")
+tracks/3/path = NodePath("infect_pivot/infect:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -66,7 +66,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "infect"
 tracks/0/type = "value"
 tracks/0/path = NodePath("main:visible")
@@ -81,7 +81,49 @@ tracks/0/keys = {
 "values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("infect:visible")
+tracks/1/path = NodePath("infect_pivot/infect:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 17, 33 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("infect_pivot/infect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "walk"
+length = 0.6
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("main:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 10 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("main:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -92,16 +134,28 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("infect_pivot/infect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 40, 40 )
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=5]
 radius = 32.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 14
+collision_mask = 10
 script = ExtResource( 1 )
 
 [node name="InputController" type="Node" parent="."]
@@ -121,26 +175,41 @@ __meta__ = {
 }
 
 [node name="main" type="Sprite" parent="Graphics"]
-rotation = 1.5708
-texture = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="infect" type="Sprite" parent="Graphics"]
 visible = false
 rotation = 1.5708
-texture = ExtResource( 2 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 7 )
+vframes = 2
+hframes = 17
+frame = 10
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Tween" type="Tween" parent="Graphics"]
+[node name="infect_pivot" type="Node2D" parent="Graphics"]
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="infect" type="Sprite" parent="Graphics/infect_pivot"]
+rotation = 1.5708
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 7 )
+vframes = 2
+hframes = 17
+frame = 17
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tween" type="Tween" parent="Graphics/infect_pivot"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics"]
 autoplay = "default"
-anims/default = SubResource( 3 )
-anims/infect = SubResource( 4 )
+anims/default = SubResource( 1 )
+anims/infect = SubResource( 2 )
+anims/walk = SubResource( 3 )
 
 [node name="Effects" type="Node2D" parent="."]
 __meta__ = {
@@ -161,7 +230,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/MouseHurtbox"]
 visible = false
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -176,7 +245,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -184,10 +253,6 @@ __meta__ = {
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 5 )
 actor_path = NodePath("..")
-
-[node name="idle" type="Node" parent="StateMachine"]
-script = ExtResource( 7 )
-fsm_path = NodePath("..")
 
 [node name="move" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
@@ -204,5 +269,7 @@ fsm_path = NodePath("..")
 [node name="sleep" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
 fsm_path = NodePath("..")
+[connection signal="infect_animation_finished" from="Graphics/infect_pivot" to="StateMachine/infect" method="_on_infect_animation_finished"]
+[connection signal="animation_finished" from="Graphics/AnimationPlayer" to="Graphics/infect_pivot" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="mouse_entered" from="Triggers/MouseHurtbox" to="InputController" method="set_is_mouse_colliding" binds= [ true ]]
 [connection signal="mouse_exited" from="Triggers/MouseHurtbox" to="InputController" method="set_is_mouse_colliding" binds= [ false ]]

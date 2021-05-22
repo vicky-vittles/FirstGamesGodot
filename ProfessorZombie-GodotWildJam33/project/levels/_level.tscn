@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://levels/enemies.gd" type="Script" id=1]
 [ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/allies.gd" type="Script" id=3]
 
 [node name="Level" type="Node2D"]
 
@@ -11,7 +13,14 @@ __meta__ = {
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
+[node name="Allies" type="Node2D" parent="."]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="Enemies" type="Node2D" parent="."]
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -20,3 +29,4 @@ __meta__ = {
 __meta__ = {
 "_edit_lock_": true
 }
+[connection signal="spawn_ally" from="Enemies" to="Allies" method="_on_Enemies_spawn_ally"]

@@ -3,11 +3,14 @@ extends State
 const MOUSE_MIN_DIST_THRESHOLD = 32
 
 var player
-onready var IDLE = $"../idle"
 onready var INFECT = $"../infect"
+
+var target_dir : Vector2
+var last_target_dir : Vector2
 
 func enter(_info):
 	player = fsm.actor
+	player.graphics.play_anim("walk")
 
 func process(_delta):
 	player.input_controller.clear_input()
@@ -19,14 +22,18 @@ func physics_process(delta):
 	var inputs = player.input_controller
 	if player.check_infect():
 		fsm.change_state(INFECT, {"infect_collider": player.infect_collider})
-	elif not inputs.plus_hold:
-		fsm.change_state(IDLE)
 
 func check_move(delta):
 	var mouse_pos = player.get_global_mouse_position()
+	var mouse_dir = player.global_position.direction_to(mouse_pos)
+	
+	target_dir = lerp(target_dir, mouse_dir , player.stats.MOVE_MANEUVERABILITY)
+	
 	var dist = player.global_position.distance_to(mouse_pos)
-	var dir = player.global_position.direction_to(mouse_pos)
-	if dist > MOUSE_MIN_DIST_THRESHOLD:
-		player.look_at(mouse_pos)
-		player.character_mover.set_direction(dir)
-		player.character_mover.move(delta)
+	if dist < MOUSE_MIN_DIST_THRESHOLD:
+		target_dir = last_target_dir
+	else:
+		last_target_dir = target_dir
+	player.look_at(player.global_position + target_dir)
+	player.character_mover.set_direction(target_dir)
+	player.character_mover.move(delta)
