@@ -6,10 +6,16 @@
 
 [node name="Level" type="Node2D"]
 
-[node name="Terrain" type="Node2D" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="Background" type="Sprite" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="navigation" type="Navigation2D" parent="Terrain"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
